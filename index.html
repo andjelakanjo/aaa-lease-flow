@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAA Lease — Process Map</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3d;
+  --accent:#4f8ef7; --accent2:#f7914f; --accent3:#4ff7a8;
+  --text:#e8eaf0; --text-muted:#8890a4;
+  --ops:#f7914f; --acc:#4f8ef7; --sales:#b44ff7; --mgmt:#4ff7a8;
+  --gold:#f7c84f; --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;gap:12px;flex-wrap:wrap;}
+header h1{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:.02em;white-space:nowrap;}
+header h1 span{color:var(--accent);}
+.header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.nav-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.nav-tab{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8rem;transition:all 0.2s;white-space:nowrap;}
+.nav-tab.active,.nav-tab:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.nav-tab.gold{border-color:var(--gold);color:var(--gold);}
+.nav-tab.gold.active,.nav-tab.gold:hover{background:var(--gold);color:#000;border-color:var(--gold);}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.lang-btn{padding:6px 14px;border:none;background:var(--surface2);color:var(--text-muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;transition:all 0.2s;}
+.lang-btn.active{background:var(--accent);color:#fff;}
+.legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-muted);}
+.legend-dot{width:9px;height:9px;border-radius:50%;}
+.view{display:none;padding:28px;}
+.view.active{display:block;}
+/* CARDS */
+.dept-section{margin-bottom:36px;}
+.dept-label{font-family:'DM Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.dept-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;}
+.person-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.person-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px;}
+.person-card.ops::before{background:var(--ops);}
+.person-card.acc::before{background:var(--acc);}
+.person-card.sales::before{background:var(--sales);}
+.person-card.mgmt::before{background:var(--mgmt);}
+.person-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow);}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.card-name{font-size:.95rem;font-weight:600;line-height:1.3;}
+.card-title{font-size:.75rem;color:var(--text-muted);margin-top:2px;}
+.card-location{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);background:var(--surface2);padding:3px 7px;border-radius:4px;white-space:nowrap;}
+.card-docs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.doc-tag{font-size:.68rem;padding:2px 7px;border-radius:4px;background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);}
+/* FLOW */
+.flow-container{display:flex;gap:0;overflow-x:auto;padding-bottom:14px;}
+.flow-stage{min-width:210px;flex-shrink:0;}
+.flow-stage-header{background:var(--surface2);border:1px solid var(--border);border-radius:10px 10px 0 0;padding:10px 14px;text-align:center;}
+.flow-stage-num{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);margin-bottom:3px;}
+.flow-stage-name{font-size:.85rem;font-weight:600;}
+.flow-arrow{display:flex;align-items:center;justify-content:center;width:36px;flex-shrink:0;margin-top:38px;color:var(--text-muted);font-size:1.1rem;}
+.flow-steps{border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;}
+.flow-step{padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+.flow-step:last-child{border-bottom:none;}
+.flow-step:hover{background:var(--surface2);}
+.flow-step-who{font-family:'DM Mono',monospace;font-size:.65rem;margin-bottom:3px;}
+.flow-step-what{font-size:.78rem;color:var(--text-muted);line-height:1.4;}
+/* PANEL */
+.panel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;backdrop-filter:blur(4px);}
+.panel-overlay.open{display:flex;align-items:flex-start;justify-content:flex-end;}
+.detail-panel{width:500px;max-width:95vw;height:100vh;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;animation:slideIn .3s ease;}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.panel-header{padding:22px 26px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:10;}
+.panel-close{position:absolute;top:18px;right:18px;background:var(--surface2);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.panel-close:hover{background:var(--border);}
+.panel-name{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:3px;}
+.panel-role{font-size:.82rem;color:var(--text-muted);margin-bottom:7px;}
+.panel-meta{display:flex;gap:7px;flex-wrap:wrap;}
+.panel-badge{font-family:'DM Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:4px;border:1px solid;}
+.panel-badge.ops{color:var(--ops);border-color:var(--ops);background:rgba(247,145,79,.1);}
+.panel-badge.acc{color:var(--acc);border-color:var(--acc);background:rgba(79,142,247,.1);}
+.panel-badge.sales{color:var(--sales);border-color:var(--sales);background:rgba(180,79,247,.1);}
+.panel-badge.mgmt{color:var(--mgmt);border-color:var(--mgmt);background:rgba(79,247,168,.1);}
+.panel-body{padding:22px 26px;}
+.panel-section{margin-bottom:22px;}
+.panel-section-title{font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.panel-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.process-list{list-style:none;}
+.process-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.82rem;line-height:1.5;}
+.process-item:last-child{border-bottom:none;}
+.process-num{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--accent);min-width:22px;padding-top:2px;}
+.docs-grid{display:flex;flex-wrap:wrap;gap:7px;}
+.doc-chip{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-size:.78rem;display:flex;align-items:center;gap:5px;}
+.doc-chip::before{content:"📄";font-size:.72rem;}
+.pain-list{list-style:none;}
+.pain-item{padding:7px 11px;margin-bottom:5px;background:rgba(247,79,79,.08);border:1px solid rgba(247,79,79,.2);border-radius:6px;font-size:.8rem;line-height:1.4;display:flex;gap:7px;}
+.pain-item::before{content:"⚠";font-size:.78rem;flex-shrink:0;margin-top:1px;}
+.tools-list{display:flex;flex-wrap:wrap;gap:7px;}
+.tool-chip{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 11px;font-size:.75rem;font-family:'DM Mono',monospace;}
+.connects-to{display:flex;flex-wrap:wrap;gap:7px;}
+.connects-chip{padding:4px 11px;border-radius:6px;font-size:.75rem;border:1px solid var(--border);cursor:pointer;transition:all .2s;background:var(--surface2);}
+.connects-chip:hover{border-color:var(--accent);color:var(--accent);}
+/* PROCMAP */
+.procmap-header{text-align:center;padding:12px 18px;border-radius:10px 10px 0 0;font-weight:600;font-size:.9rem;}
+.procmap-header.customer{background:rgba(180,79,247,.15);border:1px solid rgba(180,79,247,.4);color:var(--sales);}
+.procmap-header.aaa{background:rgba(79,142,247,.15);border:1px solid rgba(79,142,247,.4);color:var(--acc);}
+.procmap-stage-label{background:var(--surface2);padding:7px 14px;font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);border-bottom:1px solid var(--border);}
+.procmap-stage-row{display:grid;grid-template-columns:1fr 52px 1fr;border-bottom:1px solid var(--border);min-height:72px;}
+.procmap-stage-row:last-child{border-bottom:none;}
+.procmap-cell{padding:12px 14px;border-right:1px solid var(--border);font-size:.8rem;line-height:1.5;}
+.procmap-cell:last-child{border-right:none;}
+.procmap-cell.customer-cell{background:rgba(180,79,247,.03);}
+.procmap-cell.aaa-cell{background:rgba(79,142,247,.03);}
+.procmap-mid-cell{display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--text-muted);padding:8px;border-right:1px solid var(--border);}
+.procmap-cell-who{font-family:'DM Mono',monospace;font-size:.65rem;margin-bottom:3px;cursor:pointer;}
+.procmap-cell-who:hover{text-decoration:underline;}
+/* DOCS */
+.docs-search{display:flex;gap:10px;margin-bottom:22px;align-items:center;flex-wrap:wrap;}
+.docs-search input{flex:1;min-width:180px;padding:9px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;}
+.docs-search input:focus{border-color:var(--accent);}
+.filter-btn{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+.doc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;cursor:pointer;transition:all .2s;}
+.doc-card:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.doc-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px;}
+.doc-card-title{font-size:.95rem;font-weight:600;margin-bottom:2px;}
+.doc-card-subtitle{font-size:.75rem;color:var(--text-muted);}
+.doc-card-badges{display:flex;gap:5px;}
+.doc-freq{font-family:'DM Mono',monospace;font-size:.65rem;padding:3px 7px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);}
+.doc-freq.daily{border-color:var(--ops);color:var(--ops);background:rgba(247,145,79,.1);}
+.doc-freq.weekly{border-color:var(--accent3);color:var(--accent3);background:rgba(79,247,168,.1);}
+.doc-freq.monthly{border-color:var(--acc);color:var(--acc);background:rgba(79,142,247,.1);}
+.doc-freq.ongoing{border-color:var(--sales);color:var(--sales);background:rgba(180,79,247,.1);}
+.doc-card-desc{font-size:.82rem;color:var(--text-muted);line-height:1.6;margin-bottom:10px;}
+.doc-card-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.76rem;color:var(--text-muted);padding-top:10px;border-top:1px solid var(--border);}
+.doc-meta-label{font-family:'DM Mono',monospace;font-size:.66rem;text-transform:uppercase;}
+.doc-owners{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.doc-owner-chip{padding:3px 9px;border-radius:4px;font-size:.73rem;border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .2s;}
+.doc-owner-chip:hover{border-color:var(--accent);color:var(--accent);}
+.doc-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.doc-detail.open{display:block;}
+.doc-status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:7px;margin-top:7px;}
+.status-item{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;}
+.status-name{font-size:.78rem;font-weight:600;margin-bottom:2px;}
+.status-desc{font-size:.7rem;color:var(--text-muted);line-height:1.4;}
+.doc-link-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:.76rem;border:1px dashed var(--border);color:var(--text-muted);background:transparent;cursor:not-allowed;margin-top:8px;}
+/* REQS */
+.reqs-hero{background:linear-gradient(135deg,rgba(247,200,79,.12),rgba(247,145,79,.08));border:1px solid rgba(247,200,79,.3);border-radius:14px;padding:24px 28px;margin-bottom:28px;}
+.reqs-hero h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:5px;}
+.reqs-hero p{color:var(--text-muted);font-size:.86rem;line-height:1.6;max-width:680px;}
+.reqs-stats{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;}
+.reqs-stat-num{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--gold);}
+.reqs-stat-label{font-size:.7rem;color:var(--text-muted);font-family:'DM Mono',monospace;text-transform:uppercase;}
+.reqs-filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;align-items:center;}
+.reqs-search{flex:1;min-width:180px;padding:8px 13px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;}
+.reqs-search:focus{border-color:var(--gold);}
+.reqs-filter-btn{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.reqs-filter-btn.active,.reqs-filter-btn:hover{border-color:var(--gold);color:var(--gold);}
+.reqs-module{margin-bottom:32px;}
+.reqs-module-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.reqs-module-icon{font-size:1.3rem;}
+.reqs-module-name{font-family:'DM Serif Display',serif;font-size:1.1rem;}
+.reqs-module-count{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);background:var(--surface2);padding:3px 7px;border-radius:4px;}
+.req-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:9px;display:grid;grid-template-columns:1fr auto;gap:10px;cursor:pointer;transition:all .2s;}
+.req-card:hover{border-color:rgba(247,200,79,.4);}
+.req-card.expanded{border-color:rgba(247,200,79,.5);background:rgba(247,200,79,.03);}
+.req-title{font-size:.9rem;font-weight:600;margin-bottom:3px;}
+.req-short{font-size:.8rem;color:var(--text-muted);line-height:1.4;}
+.req-badges{display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start;}
+.badge-must{font-family:'DM Mono',monospace;font-size:.63rem;padding:3px 7px;border-radius:4px;border:1px solid var(--gold);color:var(--gold);background:rgba(247,200,79,.1);white-space:nowrap;}
+.badge-nice{font-family:'DM Mono',monospace;font-size:.63rem;padding:3px 7px;border-radius:4px;border:1px solid var(--border);color:var(--text-muted);background:var(--surface2);white-space:nowrap;}
+.req-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);grid-column:1/-1;}
+.req-detail.open{display:block;}
+.req-detail-desc{font-size:.83rem;line-height:1.6;color:var(--text-muted);margin-bottom:10px;}
+.req-pain{background:rgba(247,79,79,.07);border:1px solid rgba(247,79,79,.2);border-radius:6px;padding:9px 13px;font-size:.8rem;line-height:1.5;display:flex;gap:7px;}
+.req-pain::before{content:"⚠";flex-shrink:0;}
+.req-who{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.req-who-label{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--text-muted);text-transform:uppercase;}
+/* GLOSSARY */
+#glossary-view .gloss-hero{background:linear-gradient(135deg,rgba(79,247,168,.1),rgba(79,142,247,.06));border:1px solid rgba(79,247,168,.25);border-radius:14px;padding:22px 26px;margin-bottom:26px;}
+#glossary-view .gloss-hero h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--accent3);margin-bottom:5px;}
+#glossary-view .gloss-hero p{color:var(--text-muted);font-size:.85rem;line-height:1.6;}
+.gloss-filters{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+.gloss-search{flex:1;min-width:180px;padding:8px 13px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;}
+.gloss-search:focus{border-color:var(--accent3);}
+.gloss-cat-btn{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.gloss-cat-btn.active,.gloss-cat-btn:hover{border-color:var(--accent3);color:var(--accent3);}
+.gloss-section{margin-bottom:28px;}
+.gloss-section-title{font-family:'DM Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;display:flex;align-items:center;gap:10px;color:var(--text-muted);}
+.gloss-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;}
+.gloss-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;transition:all .2s;}
+.gloss-card:hover{border-color:var(--accent3);}
+.gloss-card.expanded{border-color:rgba(79,247,168,.4);background:rgba(79,247,168,.03);}
+.gloss-term{font-size:.95rem;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:8px;}
+.gloss-term-en{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);}
+.gloss-short{font-size:.8rem;color:var(--text-muted);line-height:1.4;}
+.gloss-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+.gloss-detail.open{display:block;}
+.gloss-detail-text{font-size:.83rem;line-height:1.6;color:var(--text-muted);margin-bottom:8px;}
+.gloss-example{background:var(--surface2);border-left:3px solid var(--accent3);padding:8px 12px;border-radius:0 6px 6px 0;font-size:.8rem;line-height:1.5;font-style:italic;color:var(--text-muted);}
+.gloss-cat-badge{font-family:'DM Mono',monospace;font-size:.62rem;padding:2px 7px;border-radius:4px;}
+.gloss-cat-badge.lease{background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.3);color:var(--acc);}
+.gloss-cat-badge.acc{background:rgba(79,247,168,.1);border:1px solid rgba(79,247,168,.25);color:var(--accent3);}
+.gloss-cat-badge.ops{background:rgba(247,145,79,.1);border:1px solid rgba(247,145,79,.25);color:var(--ops);}
+/* QUIZ */
+#quiz-view{max-width:740px;margin:0 auto;}
+.quiz-intro{text-align:center;padding:36px 0;}
+.quiz-intro h2{font-family:'DM Serif Display',serif;font-size:1.9rem;margin-bottom:10px;}
+.quiz-intro p{color:var(--text-muted);margin-bottom:26px;}
+.quiz-type-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+.quiz-type-btn{padding:9px 22px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.86rem;transition:all .2s;}
+.quiz-type-btn:hover,.quiz-type-btn.selected{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary{padding:11px 28px;border-radius:8px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;transition:all .2s;}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px);}
+.btn-secondary{padding:11px 22px;border-radius:8px;background:transparent;color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.88rem;transition:all .2s;}
+.btn-secondary:hover{border-color:var(--text-muted);color:var(--text);}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;margin-bottom:22px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;}
+.question-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;margin-bottom:18px;}
+.question-meta{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);margin-bottom:9px;}
+.question-text{font-size:1rem;font-weight:500;margin-bottom:18px;line-height:1.5;}
+.answer-options{display:flex;flex-direction:column;gap:9px;}
+.answer-option{padding:11px 15px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:.86rem;transition:all .2s;text-align:left;color:var(--text);font-family:'DM Sans',sans-serif;}
+.answer-option:hover{border-color:var(--accent);}
+.answer-option.correct{border-color:var(--accent3);background:rgba(79,247,168,.1);color:var(--accent3);}
+.answer-option.wrong{border-color:#f74f4f;background:rgba(247,79,79,.1);color:#f74f4f;}
+.answer-option.reveal{border-color:var(--accent3);background:rgba(79,247,168,.05);}
+.quiz-feedback{padding:10px 14px;border-radius:8px;margin-top:10px;font-size:.83rem;line-height:1.5;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.correct{background:rgba(79,247,168,.1);border:1px solid rgba(79,247,168,.3);color:var(--accent3);}
+.quiz-feedback.wrong{background:rgba(247,79,79,.1);border:1px solid rgba(247,79,79,.3);color:#f74f4f;}
+.quiz-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:18px;}
+.quiz-progress{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--text-muted);}
+.score-card{text-align:center;padding:36px 0;}
+.score-big{font-family:'DM Serif Display',serif;font-size:3.8rem;color:var(--accent);margin-bottom:7px;}
+.score-label{font-size:1.05rem;color:var(--text-muted);margin-bottom:22px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>AAA <span>Lease</span></h1>
+  <nav class="nav-tabs" id="main-nav">
+    <button class="nav-tab active" onclick="switchView('map')"><span data-t="nav_map">Team Map</span></button>
+    <button class="nav-tab" onclick="switchView('flow')"><span data-t="nav_flow">Process Flow</span></button>
+    <button class="nav-tab" onclick="switchView('procmap')"><span data-t="nav_procmap">Process Map</span></button>
+    <button class="nav-tab" onclick="switchView('docs')"><span data-t="nav_docs">Key Documents</span></button>
+    <button class="nav-tab gold" onclick="switchView('reqs')"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
+    <button class="nav-tab" onclick="switchView('glossary')"><span data-t="nav_glossary">📖 Glossary</span></button>
+    <button class="nav-tab" onclick="switchView('quiz')"><span data-t="nav_quiz">Quiz</span></button>
+  </nav>
+  <div class="header-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-sr" onclick="setLang('sr')">SR</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--ops)"></div><span data-t="leg_ops">Operations</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--acc)"></div><span data-t="leg_acc">Accounting</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sales)"></div>Sales/Legal</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--mgmt)"></div><span data-t="leg_mgmt">Management</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- TEAM MAP -->
+<div id="map-view" class="view active">
+  <div class="dept-section">
+    <div class="dept-label" style="color:var(--mgmt)" data-t="dept_mgmt">Management</div>
+    <div class="cards-grid">
+      <div class="person-card mgmt" onclick="openPanel('alex')">
+        <div class="card-top"><div><div class="card-name">Alex Petrusevski</div><div class="card-title" data-person-role="alex"></div></div><span class="card-location">Chicago</span></div>
+        <div class="card-docs"><span class="doc-tag" data-t-txt="All approvals">All approvals</span><span class="doc-tag" data-t-txt="P&L oversight">P&L oversight</span><span class="doc-tag" data-t-txt="Recovery decisions">Recovery decisions</span></div>
+      </div>
+      <div class="person-card mgmt" onclick="openPanel('milica_r')">
+        <div class="card-top"><div><div class="card-name">Milica Rajković</div><div class="card-title" data-person-role="milica_r"></div></div><span class="card-location">US</span></div>
+        <div class="card-docs"><span class="doc-tag">Monthly AR review</span><span class="doc-tag">Financial oversight</span><span class="doc-tag">Bank coordination</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="dept-section">
+    <div class="dept-label" style="color:var(--ops)" data-t="dept_ops">Operations</div>
+    <div class="cards-grid">
+      <div class="person-card ops" onclick="openPanel('radu')"><div class="card-top"><div><div class="card-name">Radu Motica</div><div class="card-title" data-person-role="radu"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Billing list</span><span class="doc-tag">Asset assignment</span><span class="doc-tag">P&L dept</span></div></div>
+      <div class="person-card ops" onclick="openPanel('fabrizio')"><div class="card-top"><div><div class="card-name">Fabrizio</div><div class="card-title" data-person-role="fabrizio"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Check-in/out</span><span class="doc-tag">Inspection report</span></div></div>
+      <div class="person-card ops" onclick="openPanel('israel')"><div class="card-top"><div><div class="card-name">Israel</div><div class="card-title" data-person-role="israel"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Registrations</span><span class="doc-tag">PM / DOT</span><span class="doc-tag">Mileage</span></div></div>
+      <div class="person-card ops" onclick="openPanel('gustavo')"><div class="card-top"><div><div class="card-name">Gustavo</div><div class="card-title" data-person-role="gustavo"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Daily log</span><span class="doc-tag">Inspections</span></div></div>
+    </div>
+  </div>
+  <div class="dept-section">
+    <div class="dept-label" style="color:var(--acc)" data-t="dept_acc">Accounting — Kragujevac</div>
+    <div class="cards-grid">
+      <div class="person-card acc" onclick="openPanel('andjela_t')"><div class="card-top"><div><div class="card-name">Andjela Trifunovic</div><div class="card-title" data-person-role="andjela_t"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Active Units List</span><span class="doc-tag">DocuSign</span><span class="doc-tag">Cross-collateral</span></div></div>
+      <div class="person-card acc" onclick="openPanel('valentina')"><div class="card-top"><div><div class="card-name">Valentina Lelovic</div><div class="card-title" data-person-role="valentina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Contracts</span><span class="doc-tag">Amendments</span><span class="doc-tag">GPS check</span></div></div>
+      <div class="person-card acc" onclick="openPanel('tina')"><div class="card-top"><div><div class="card-name">Tina Srdic</div><div class="card-title" data-person-role="tina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Confirmed Payments</span><span class="doc-tag">Weekly/Monthly inv.</span></div></div>
+      <div class="person-card acc" onclick="openPanel('hanna')"><div class="card-top"><div><div class="card-name">Hanna Bencks</div><div class="card-title" data-person-role="hanna"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Tolls billing</span><span class="doc-tag">Daily billing list</span><span class="doc-tag">Bank recon</span></div></div>
+      <div class="person-card acc" onclick="openPanel('milica')"><div class="card-top"><div><div class="card-name">Milica Doson</div><div class="card-title" data-person-role="milica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">AR Aging</span><span class="doc-tag">Buyout notices</span><span class="doc-tag">Recovery</span></div></div>
+      <div class="person-card acc" onclick="openPanel('aleksandra')"><div class="card-top"><div><div class="card-name">Aleksandra Djokic</div><div class="card-title" data-person-role="aleksandra"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Fixed assets</span><span class="doc-tag">Loan list</span><span class="doc-tag">Claims</span></div></div>
+      <div class="person-card acc" onclick="openPanel('brankica')"><div class="card-top"><div><div class="card-name">Brankica</div><div class="card-title" data-person-role="brankica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Credit bureau CSV</span><span class="doc-tag">GPS list</span><span class="doc-tag">Mileage billing</span></div></div>
+    </div>
+  </div>
+  <div class="dept-section">
+    <div class="dept-label" style="color:var(--sales)" data-t="dept_sales">Sales / Legal / US</div>
+    <div class="cards-grid">
+      <div class="person-card sales" onclick="openPanel('roman')"><div class="card-top"><div><div class="card-name">Roman</div><div class="card-title" data-person-role="roman"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Bank financing</span><span class="doc-tag">Bill of sale</span></div></div>
+      <div class="person-card sales" onclick="openPanel('emily')"><div class="card-top"><div><div class="card-name">Emily</div><div class="card-title" data-person-role="emily"></div></div><span class="card-location">Chicago</span></div><div class="card-docs"><span class="doc-tag">Title transfers</span><span class="doc-tag">IFTA/HHUT</span><span class="doc-tag">Registrations</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS FLOW -->
+<div id="flow-view" class="view">
+  <div style="margin-bottom:22px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="flow_title">End-to-End Process Flow</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="flow_sub">From new client to collection.</p></div>
+  <div class="flow-container">
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Lead &amp; Approval</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" id="fs-b1">Credit score &amp; bank balance check</div></div>
+        <div class="flow-step" onclick="openPanel('alex')"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what" id="fs-a1">Final approval / rejection</div></div>
+        <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" id="fs-r1">Bank financing coordination</div></div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)">Contract &amp; Onboarding</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('andjela_t')"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what" id="fs-at1">Prepare &amp; send contract via DocuSign</div></div>
+        <div class="flow-step" onclick="openPanel('andjela_t')"><div class="flow-step-who" style="color:var(--acc)">Andjela T.</div><div class="flow-step-what" id="fs-at2">Collect COI, down payment</div></div>
+        <div class="flow-step" onclick="openPanel('valentina')"><div class="flow-step-who" style="color:var(--acc)">Valentina</div><div class="flow-step-what" id="fs-v1">GPS check before release</div></div>
+        <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" id="fs-rd1">Unit assignment</div></div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--ops)">Unit Operations</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" id="fs-f1">Check-out inspection + report</div></div>
+        <div class="flow-step" onclick="openPanel('israel')"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what" id="fs-i1">Weekly mileage/hour update</div></div>
+        <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" id="fs-f2">Check-in + damage/usage charges</div></div>
+        <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" id="fs-rd2">Monday billing (250+ rows)</div></div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)">Billing</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('tina')"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what" id="fs-t1">Weekly &amp; monthly lease/rent invoices</div></div>
+        <div class="flow-step" onclick="openPanel('hanna')"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" id="fs-h1">Tolls, repairs, final charges</div></div>
+        <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" id="fs-b2">Mileage overage billing</div></div>
+        <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica</div><div class="flow-step-what" id="fs-m1">Bank templates + payment pull (JPM)</div></div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--acc)">Collections &amp; AR</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('hanna')"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" id="fs-h2">Invoice closing (rent→tolls→lease)</div></div>
+        <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica</div><div class="flow-step-what" id="fs-m2">Daily: rejected payments, calls</div></div>
+        <div class="flow-step" onclick="openPanel('milica_r')"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what" id="fs-mr1">Monthly AR review (~10th)</div></div>
+        <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" id="fs-b3">Monthly credit bureau CSV (Hutchins)</div></div>
+      </div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-stage">
+      <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Lease End / Recovery</div></div>
+      <div class="flow-steps">
+        <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica</div><div class="flow-step-what" id="fs-m3">Buyout notice + amendment calculation</div></div>
+        <div class="flow-step" onclick="openPanel('aleksandra')"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what" id="fs-al1">Bill of sale + fixed asset deactivation</div></div>
+        <div class="flow-step" onclick="openPanel('emily')"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what" id="fs-e1">Title transfer to customer</div></div>
+        <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica</div><div class="flow-step-what" id="fs-m4">Recovery: GPS disable → Teo → lawyer</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS MAP -->
+<div id="procmap-view" class="view">
+  <div style="margin-bottom:22px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="procmap_title">Process Map</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="procmap_sub">Customer ↔ AAA Lease</p></div>
+  <div style="max-width:980px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:0;">
+      <div class="procmap-header customer">👤 <span id="pm-customer">CUSTOMER / KLIJENT</span></div>
+      <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
+      <div class="procmap-header aaa">🏢 AAA LEASE</div>
+    </div>
+    <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
+      <div class="procmap-stage-label" id="pm-s1">① Inquiry &amp; Approval</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c1a">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div></div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('brankica')">Brankica</div><div id="pm-a1a">Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c1b">Waits for decision. If rejected — end. If approved — continues with documentation.</div></div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" onclick="openPanel('alex')">Alex</div><div id="pm-a1b">Final approval or rejection. Defines contract terms.</div></div></div>
+      <div class="procmap-stage-label" id="pm-s2">② Contract &amp; Documentation</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c2a">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div></div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('andjela_t')">Andjela T. / Valentina</div><div id="pm-a2a">Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QBs.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c2b" style="color:var(--text-muted);font-style:italic;">— waits for GPS confirmation and release form —</div></div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('valentina')">Valentina / Brankica</div><div id="pm-a2b">Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</div></div></div>
+      <div class="procmap-stage-label" id="pm-s3">③ Unit Pickup</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c3a">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div></div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio</div><div id="pm-a3a">Performs checkout inspection, photographs unit condition, sends report to client and accounting.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c3b" style="color:var(--text-muted);font-style:italic;">— —</div></div><div class="procmap-mid-cell"></div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('andjela_t')">Andjela T.</div><div id="pm-a3b">Changes unit status to Active in Active Units List. Updates HubSpot. Creates Drive folder.</div></div></div>
+      <div class="procmap-stage-label" id="pm-s4">④ Active Contract</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c4a">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div></div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('tina')">Tina</div><div id="pm-a4a">Sends invoices every Monday (rent weekly) and 1st/15th (lease). One by one through QBs Memorized list.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c4b">Receives additional invoices: tolls, repairs, registration, mileage overage.</div></div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('hanna')">Hanna / Brankica</div><div id="pm-a4b">Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (lease, 130k/yr free).</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c4c">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div></div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica Doson</div><div id="pm-a4c">Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease.</div></div></div>
+      <div class="procmap-stage-label" id="pm-s5">⑤ Issues (optional)</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c5a">Reports accident. Submits claim form and adjuster info from their insurance.</div></div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('aleksandra')">Aleksandra / Brankica</div><div id="pm-a5a">Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c5b">Late on payments. Receives warning. GPS starter gets disabled if no payment.</div></div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica + Alex</div><div id="pm-a5b">Recovery: warning → GPS disable → Teo picks up unit ($2,500 fee) → demand letter → lawyer. "Lawyer" status = all billing stops.</div></div></div>
+      <div class="procmap-stage-label" id="pm-s6">⑥ End of Contract</div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c6a"><strong>Buyout:</strong> pays remaining amount + buyout. Receives title. Registers in their name (IL/IN — Secretary of State; others — via title copy).</div></div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica → Aleksandra → Emily</div><div id="pm-a6a">Milica sends buyout notice + amendment. Aleksandra creates bill of sale, requests bank payoff. Emily coordinates title transfer.</div></div></div>
+      <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><div id="pm-c6b"><strong>Return:</strong> brings unit back. Signs check-in inspection. Receives final billing for mileage overage and damage.</div></div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio → Andjela T. → Tina</div><div id="pm-a6b">Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY DOCUMENTS -->
+<div id="docs-view" class="view">
+  <div style="margin-bottom:18px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="docs_title">Key Documents</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="docs_sub">All documents referenced in processes.</p></div>
+  <div class="docs-search">
+    <input type="text" id="docs-search-input" data-placeholder-t="docs_search" placeholder="Search document..." oninput="filterDocs()">
+    <button class="filter-btn active" onclick="filterByFreq('all',this)" data-t="f_all">All</button>
+    <button class="filter-btn" onclick="filterByFreq('daily',this)" data-t="f_daily">Daily</button>
+    <button class="filter-btn" onclick="filterByFreq('weekly',this)" data-t="f_weekly">Weekly</button>
+    <button class="filter-btn" onclick="filterByFreq('monthly',this)" data-t="f_monthly">Monthly</button>
+    <button class="filter-btn" onclick="filterByFreq('ongoing',this)" data-t="f_ongoing">Ongoing</button>
+  </div>
+  <div id="docs-list"></div>
+</div>
+
+<!-- SOFTWARE REQUIREMENTS -->
+<div id="reqs-view" class="view">
+  <div class="reqs-hero">
+    <h2 data-t="reqs_title">⚡ Software Requirements</h2>
+    <p data-t="reqs_sub">What we need from the software to automate manual processes.</p>
+    <div class="reqs-stats">
+      <div class="reqs-stat"><div class="reqs-stat-num" id="stat-must">0</div><div class="reqs-stat-label" data-t="reqs_must">Must Have</div></div>
+      <div class="reqs-stat"><div class="reqs-stat-num" id="stat-nice">0</div><div class="reqs-stat-label" data-t="reqs_nice">Nice to Have</div></div>
+      <div class="reqs-stat"><div class="reqs-stat-num" id="stat-total">0</div><div class="reqs-stat-label" data-t="reqs_total">Total</div></div>
+    </div>
+  </div>
+  <div class="reqs-filters">
+    <input type="text" class="reqs-search" id="reqs-search" data-placeholder-t="reqs_search" placeholder="Search requirements..." oninput="renderReqs()">
+    <button class="reqs-filter-btn active" onclick="setReqsFilter('all',this)" data-t="f_all">All</button>
+    <button class="reqs-filter-btn" onclick="setReqsFilter('must',this)" data-t="reqs_must">Must Have</button>
+    <button class="reqs-filter-btn" onclick="setReqsFilter('nice',this)" data-t="reqs_nice">Nice to Have</button>
+  </div>
+  <div id="reqs-list"></div>
+</div>
+
+<!-- GLOSSARY -->
+<div id="glossary-view" class="view">
+  <div class="gloss-hero">
+    <h2 data-t="gloss_title">📖 Glossary</h2>
+    <p data-t="gloss_sub">Definitions of lease and accounting terms used daily at AAA Lease.</p>
+  </div>
+  <div class="gloss-filters">
+    <input type="text" class="gloss-search" id="gloss-search" data-placeholder-t="gloss_search" placeholder="Search term..." oninput="renderGlossary()">
+    <button class="gloss-cat-btn active" onclick="setGlossFilter('all',this)" data-t="gloss_cat_all">All</button>
+    <button class="gloss-cat-btn" onclick="setGlossFilter('lease',this)" data-t="gloss_cat_lease">Lease</button>
+    <button class="gloss-cat-btn" onclick="setGlossFilter('acc',this)" data-t="gloss_cat_acc">Accounting</button>
+    <button class="gloss-cat-btn" onclick="setGlossFilter('ops',this)" data-t="gloss_cat_ops">Operations</button>
+  </div>
+  <div id="gloss-list"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz-view" class="view">
+  <div id="quiz-intro-screen" class="quiz-intro">
+    <h2 data-t="quiz_title">Knowledge Check</h2>
+    <p data-t="quiz_sub">Test your understanding of AAA Lease processes.</p>
+    <div class="quiz-type-btns">
+      <button class="quiz-type-btn selected" id="btn-by-role" onclick="selectQuizType('role')" data-t="quiz_by_pos">By Position</button>
+      <button class="quiz-type-btn" id="btn-by-process" onclick="selectQuizType('process')" data-t="quiz_by_proc">By Process</button>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()" data-t="quiz_start">Start Quiz →</button>
+  </div>
+  <div id="quiz-game-screen" style="display:none;">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="question-container"></div>
+    <div class="quiz-nav">
+      <span class="quiz-progress" id="quiz-progress-text"></span>
+      <button class="btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none;" data-t="quiz_next">Next →</button>
+    </div>
+  </div>
+  <div id="quiz-result-screen" style="display:none;" class="score-card">
+    <div class="score-big" id="final-score"></div>
+    <div class="score-label" id="final-label"></div>
+    <div style="margin-top:22px;display:flex;gap:10px;justify-content:center;">
+      <button class="btn-primary" onclick="restartQuiz()" data-t="quiz_again">Try Again</button>
+      <button class="btn-secondary" onclick="switchView('map')" data-t="quiz_back">Back to Map</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div class="panel-overlay" id="panel-overlay" onclick="closePanel(event)">
+  <div class="detail-panel" id="detail-panel">
+    <div class="panel-header">
+      <button class="panel-close" onclick="closePanel()">✕</button>
+      <div class="panel-name" id="panel-name"></div>
+      <div class="panel-role" id="panel-role"></div>
+      <div class="panel-meta" id="panel-meta"></div>
+    </div>
+    <div class="panel-body" id="panel-body"></div>
+  </div>
+</div>
+
+<script>
+// ===================== TRANSLATIONS =====================
+const T = {
+  sr: {
+    nav_map:"Team Mapa", nav_flow:"Process Flow", nav_procmap:"Process Mapa",
+    nav_docs:"Ključna Dokumenta", nav_reqs:"⚡ Software Reqs", nav_glossary:"📖 Glosar", nav_quiz:"Kviz",
+    leg_ops:"Operacije", leg_acc:"Računovodstvo", leg_mgmt:"Menadžment",
+    dept_mgmt:"Menadžment", dept_ops:"Operacije — Rental Division",
+    dept_acc:"Računovodstvo — Kragujevac", dept_sales:"Prodaja / Legal / SAD",
+    flow_title:"End-to-End Tok Procesa",
+    flow_sub:"Od novog klijenta do naplate. Klikni na korak da vidiš odgovornu osobu.",
+    procmap_title:"Process Mapa — Klijent ↔ AAA Lease",
+    procmap_sub:"Šta klijent radi, šta AAA Lease radi, i kako se to preseca. Klikni na ime da vidiš profil.",
+    docs_title:"Ključna Dokumenta",
+    docs_sub:"Sva dokumenta koja se pominju u procesima. Klikni na vlasnika da vidiš profil.",
+    docs_search:"Pretraži dokument...",
+    f_all:"Svi", f_daily:"Dnevni", f_weekly:"Nedeljni", f_monthly:"Mesečni", f_ongoing:"Tekući",
+    freq_daily:"Dnevno", freq_weekly:"Nedeljno", freq_monthly:"Mesečno", freq_ongoing:"Tekući",
+    doc_tool:"Alat", doc_owners:"Vlasnik(ci)",
+    doc_link_none:"Link još nije dodat",
+    doc_statuses:"Statusi",
+    reqs_title:"Software Requirements",
+    reqs_sub:"Šta nam je potrebno od softvera da automatizuje ručne procese — od leadova do naplate.",
+    reqs_must:"Must Have", reqs_nice:"Nice to Have", reqs_total:"Ukupno",
+    reqs_search:"Pretraži requirements...",
+    gloss_title:"Glosar Termina",
+    gloss_sub:"Tumačenje lease i accounting termina koji se koriste svakodnevno u AAA Lease.",
+    gloss_search:"Pretraži termin...",
+    gloss_cat_all:"Svi", gloss_cat_lease:"Lease", gloss_cat_acc:"Accounting", gloss_cat_ops:"Operacije",
+    gloss_example:"Primer iz prakse",
+    panel_overview:"Pregled", panel_processes:"Ključni Procesi",
+    panel_docs:"Dokumenta i Liste", panel_tools:"Alati", panel_pains:"Pain Pointovi",
+    panel_connects:"Sarađuje sa",
+    quiz_title:"Provera Znanja",
+    quiz_sub:"Testiraj razumevanje AAA Lease procesa i accounting procedura.",
+    quiz_by_pos:"Po Poziciji", quiz_by_proc:"Po Procesu",
+    quiz_start:"Počni Kviz →",
+    quiz_correct:"✓ Tačno! ", quiz_wrong:"✗ Netačno. ",
+    quiz_next:"Sledeće →",
+    quiz_score_labels:["Treba još učiti 📚","Dobar napredak 👍","Odlično! 🎉","Ekspert! 🏆"],
+    quiz_again:"Pokušaj ponovo", quiz_back:"Nazad na Mapu",
+  },
+  en: {
+    nav_map:"Team Map", nav_flow:"Process Flow", nav_procmap:"Process Map",
+    nav_docs:"Key Documents", nav_reqs:"⚡ Software Reqs", nav_glossary:"📖 Glossary", nav_quiz:"Quiz",
+    leg_ops:"Operations", leg_acc:"Accounting", leg_mgmt:"Management",
+    dept_mgmt:"Management", dept_ops:"Operations — Rental Division",
+    dept_acc:"Accounting — Kragujevac", dept_sales:"Sales / Legal / US",
+    flow_title:"End-to-End Process Flow",
+    flow_sub:"From new client to collection. Click any step to see the responsible person.",
+    procmap_title:"Process Map — Customer ↔ AAA Lease",
+    procmap_sub:"What the customer does, what AAA Lease does, and how they intersect. Click a name to see the profile.",
+    docs_title:"Key Documents",
+    docs_sub:"All documents referenced in processes. Click an owner to see their profile.",
+    docs_search:"Search document...",
+    f_all:"All", f_daily:"Daily", f_weekly:"Weekly", f_monthly:"Monthly", f_ongoing:"Ongoing",
+    freq_daily:"Daily", freq_weekly:"Weekly", freq_monthly:"Monthly", freq_ongoing:"Ongoing",
+    doc_tool:"Tool", doc_owners:"Owner(s)",
+    doc_link_none:"Link not yet added",
+    doc_statuses:"Statuses",
+    reqs_title:"Software Requirements",
+    reqs_sub:"What we need from the software to automate manual processes — from leads to billing.",
+    reqs_must:"Must Have", reqs_nice:"Nice to Have", reqs_total:"Total",
+    reqs_search:"Search requirements...",
+    gloss_title:"Glossary of Terms",
+    gloss_sub:"Definitions of lease and accounting terms used daily at AAA Lease.",
+    gloss_search:"Search term...",
+    gloss_cat_all:"All", gloss_cat_lease:"Lease", gloss_cat_acc:"Accounting", gloss_cat_ops:"Operations",
+    gloss_example:"Real-world example",
+    panel_overview:"Overview", panel_processes:"Key Processes",
+    panel_docs:"Documents & Sheets", panel_tools:"Tools Used", panel_pains:"Pain Points",
+    panel_connects:"Works With",
+    quiz_title:"Knowledge Check",
+    quiz_sub:"Test your understanding of AAA Lease operations and accounting processes.",
+    quiz_by_pos:"By Position", quiz_by_proc:"By Process",
+    quiz_start:"Start Quiz →",
+    quiz_correct:"✓ Correct! ", quiz_wrong:"✗ Incorrect. ",
+    quiz_next:"Next →",
+    quiz_score_labels:["Keep studying 📚","Good progress 👍","Excellent! 🎉","Expert! 🏆"],
+    quiz_again:"Try Again", quiz_back:"Back to Map",
+  }
+};
+
+// ===================== PEOPLE DATA =====================
+const PEOPLE = {
+  milica_r: {
+    name:"Milica Rajković", role:{sr:"Finansijski Direktor",en:"Financial Director"},
+    dept:"mgmt", location:"US", email:"",
+    summary:{
+      sr:"Milica Rajković je finansijski direktor koji nadgleda celokupno finansijsko poslovanje AAA Lease. Koordiniše sve accounting funkcije, vodi mesečne AR review sastanke, i donosi ključne finansijske odluke zajedno sa Aleksom.",
+      en:"Milica Rajković is the Financial Director overseeing all of AAA Lease's financial operations. She coordinates the accounting team, leads monthly AR review meetings, and makes key financial decisions alongside Alex."
+    },
+    processes:{
+      sr:["Nadgleda rad celog accounting tima u Kragujevcu","Mesečni AR review sastanak (~10-og u mesecu): sa Milicom Doson, Andjelom Trifunovic i Hanom — prolaze kroz AR aging izveštaj i odlučuju akciju za svakog problematičnog klijenta (payment plan, recovery, lawyer)","Odobrava izuzetke u billing pravilima i payment planove","Koordiniše sa bankom (JPM) za veće finansijske operacije","Finalna odluka o recovery akcijama zajedno sa Aleksom","Pregleda mesečne finansijske izveštaje i usklađuje sa QuickBooks-om"],
+      en:["Oversees the entire accounting team in Kragujevac","Monthly AR review meeting (~10th of month): with Milica Doson, Andjela Trifunovic, and Hana — reviews AR aging report and decides action per problematic client (payment plan, recovery, lawyer)","Approves billing rule exceptions and payment plans","Coordinates with bank (JPM) for major financial operations","Final decision on recovery actions together with Alex","Reviews monthly financial reports and reconciles with QuickBooks"]
+    },
+    docs:{sr:["AR Aging izveštaj (mesečni review)","Finansijski izveštaji","QuickBooks mesečni izveštaji"],en:["AR Aging Report (monthly review)","Financial reports","QuickBooks monthly reports"]},
+    tools:["QuickBooks","Google Sheets","JPM Bank","Email"],
+    connects:["milica","hanna","andjela_t","aleksandra","brankica","tina","alex"],
+    pains:{sr:["AR review je manuelan — izveštaj se izvlači iz QuickBooks-a i prolazi ručno po klijentu","Nema jednog mesta gde vidi sve otvorene stavke po klijentu + buduće obaveze","Teško je brzo videti P&L po unitu bez ručnog izvlačenja iz više sistema"],en:["AR review is manual — report extracted from QuickBooks and reviewed line by line","No single place to see all open items per client + future obligations","Hard to quickly see P&L per unit without manually pulling from multiple systems"]}
+  },
+  alex: {
+    name:"Alex Petrusevski", role:{sr:"CEO / Finalni Approver",en:"CEO / Final Approver"},
+    dept:"mgmt", location:"Chicago", email:"",
+    summary:{sr:"Alex je finalni decision maker za sve lease approvals, recovery akcije, izuzetke u billing pravilima, i sve važne finansijske odluke.",en:"Alex is the final decision maker for all lease approvals, recovery actions, billing rule exceptions, and major financial decisions."},
+    processes:{
+      sr:["Pregleda i odobrava ili odbija lease aplikacije od Brankice","Definiše billing pravila (npr. redosled zatvaranja: rent → tolovi → lease)","Odobrava recovery akcije (GPS disable, repossesion)","Odobrava amendmane, buyout uslove i payment planove","Odlučuje koji uniti idu u rental pool a koji na leasing"],
+      en:["Reviews and approves or rejects lease applications from Brankica","Sets billing rules (e.g. invoice closing order: rent → tolls → lease)","Approves recovery actions (GPS disable, repossession)","Approves amendments, buyout terms and payment plans","Decides which units go to rental pool vs leasing"]
+    },
+    docs:{sr:["Lease approvals","Recovery odluke","Amendment odobrenja"],en:["Lease approvals","Recovery decisions","Amendment approvals"]},
+    tools:["Email","HubSpot"],
+    connects:["milica_r","brankica","milica","andjela_t","radu"],
+    pains:{sr:[],en:[]}
+  },
+  radu: {
+    name:"Radu Motica", role:{sr:"Rental Menadžer",en:"Rental Manager"},
+    dept:"ops", location:"US", email:"",
+    summary:{sr:"Radu upravlja celim Rental Division-om svakodnevno. Svaki ponedeljak ručno radi billing za sve rent jedinice, upravlja raspodelom asseta i P&L-om.",en:"Radu manages the entire Rental Division day-to-day. Every Monday he manually calculates billing for all rental units, manages asset allocation and P&L."},
+    processes:{
+      sr:["Svaki ponedeljak: prima spreadsheet od accountinga (250 redova), ručno računa nedeljni billing (fiksni + mileage po unitu)","Dodeljuje unite klijentima u Google Sheets kada je deal potvrđen","Unosi nedeljne miljaže za svaki kamion (mileage in/out kolone)","Vodi sve rent prodaje i odnose sa klijentima","Upravlja P&L odeljenja i zaposlenima","Odlučuje o kreditima i odbitcima za damage"],
+      en:["Every Monday: receives 250-row spreadsheet from accounting, manually calculates weekly billing (fixed + mileage per unit)","Assigns units to clients in Google Sheets when deal is confirmed","Inputs weekly mileage for each truck (mileage in/out columns)","Manages all rental sales and client relationships","Handles department P&L and employee management","Decides credits and damage deductions for clients"]
+    },
+    docs:{sr:["Rent billing spreadsheet (250 redova nedeljno)","Asset assignment sheet","Rental Pool Assets sheet"],en:["Rental billing spreadsheet (250 rows weekly)","Asset assignment sheet","Rental Pool Assets sheet"]},
+    tools:["Google Sheets","FleetMate","Email"],
+    connects:["fabrizio","israel","hanna","tina","alex","milica_r"],
+    pains:{sr:["Provodi 1.5+ sat svaki ponedeljak računajući billing ručno","Nema automatskog zaustavljanja billing-a kada se unit vrati","Miljaže se unose ručno nedeljno po unitu","Nedeljno ukrštanje podataka sa accountingom"],en:["Spends 1.5+ hours every Monday calculating billing manually","No automatic billing stop when a unit is returned","Mileage must be entered manually each week per unit","Weekly cross-verification with accounting"]}
+  },
+  fabrizio: {
+    name:"Fabrizio", role:{sr:"Rental Ops Rep",en:"Rental Ops Rep"},
+    dept:"ops", location:"US", email:"",
+    summary:{sr:"Fabrizio radi fizički check-in i check-out unita, vrši inspekcije i računa usage charges u roku od 48h od povratka.",en:"Fabrizio handles physical check-in and check-out of units, performs inspections, and calculates usage charges within 48 hours of return."},
+    processes:{
+      sr:["Checkout inspekcija kada klijent preuzme unit — izveštaj emailom klijentu i accountingu","Check-in inspekcija kada klijent vrati unit","Računa tire i brake usage charges u roku od 48h od povratka","Šalje komunikaciju klijentima (DOT, breakdown, inspekcioni izveštaji)","Ažurira Google Sheets sa statusom unita","Ažurira GPS instalaciju i spreadsheet unose","Vodi parking lot inventar"],
+      en:["Check-out inspection when client picks up unit — report emailed to client and accounting","Check-in inspection when client returns unit","Calculates tire & brake usage charges within 48 hours of return","Sends customer communications (DOT, breakdown info, inspection reports)","Updates Google Sheets with unit status","Updates GPS install and spreadsheet entries","Manages parking lot inventory"]
+    },
+    docs:{sr:["Inspekcioni izveštaji (check-in/check-out)","Usage charge kalkulacije","Google Sheets ažuriranja"],en:["Inspection reports (check-in/check-out)","Usage charge calculations","Google Sheets updates"]},
+    tools:["FleetMate","Google Sheets","Email"],
+    connects:["radu","hanna","israel"],
+    pains:{sr:["Ako check-in datum nije unet na vreme, billing nastavlja greškom","Sva ažuriranja su manuelna — više sistema treba posebno ažurirati"],en:["If check-in date not entered on time, billing continues incorrectly","All updates manual — multiple systems need to be updated separately"]}
+  },
+  israel: {
+    name:"Israel", role:{sr:"Compliance / Maintenance",en:"Compliance / Maintenance"},
+    dept:"ops", location:"US", email:"",
+    summary:{sr:"Israel prati registracije, preventivne preglede, DOT compliance, GPS narudžbine i nedeljne upDATe miljaža za sve kamione.",en:"Israel manages registrations, preventive maintenance schedules, DOT compliance, GPS ordering, and weekly mileage/hour updates."},
+    processes:{
+      sr:["Prati sve registracije, PM-ove i DOT papire","Naručuje nove tablice, dodeljuje ih unitima","GPS narudžbine i zadaci dodele","Nedeljni update miljaža i sati za kamione i prikolice","Koordiniše sa vendorima i klijentima za PM rasporede","Ažurira sve work performed papire u softveru i spreadsheet-ovima"],
+      en:["Tracks all registrations, PMs, and DOT paperwork","Orders new plates, assigns them to units","GPS ordering and assignment tasks","Weekly mileage and hour updates for trucks and trailers","Coordinates with vendors and customers for PM scheduling","Updates all work performed paperwork in software and spreadsheets"]
+    },
+    docs:{sr:["Maintenance intervals sheet","Registracije tracking","Work performed papiri"],en:["Maintenance intervals sheet","Registration tracking","Work performed paperwork"]},
+    tools:["FleetMate","Google Sheets"],
+    connects:["radu","fabrizio","gustavo"],
+    pains:{sr:["Sve se prati manuelno u više spreadsheet-ova","Nema automatskih alerta za maintenance intervale"],en:["Everything tracked manually in multiple spreadsheets","No automated maintenance interval alerts"]}
+  },
+  gustavo: {
+    name:"Gustavo", role:{sr:"Vozač",en:"Driver"},
+    dept:"ops", location:"US", email:"",
+    summary:{sr:"Gustavo transportuje opremu, prati vendore za status gotovosti, vodi dnevne logove i vrši vizuelne inspekcije.",en:"Gustavo transports equipment, follows up with vendors on readiness, maintains daily logs, and performs visual inspections."},
+    processes:{
+      sr:["Vozi opremu do klijenata ili između lokacija","Zove vendore za status gotovosti opreme","Vodi dnevni log opreme","Vrši vizuelne inspekcije unita"],
+      en:["Drives equipment to clients or between locations","Calls vendors for updates on equipment readiness","Maintains daily equipment drive log","Performs visual inspections on units"]
+    },
+    docs:{sr:["Dnevni log","Vizuelne inspekcije"],en:["Daily log","Visual inspection records"]},
+    tools:["FleetMate"],
+    connects:["radu","israel"],
+    pains:{sr:[],en:[]}
+  },
+  andjela_t: {
+    name:"Andjela Trifunovic", role:{sr:"Ugovori i Dokumentacija",en:"Contracts & Documentation"},
+    dept:"acc", location:"Kragujevac", email:"angela.t@aaalease.net",
+    summary:{
+      sr:"Centralna tačka između salesmen-a, klijenata i accountinga. Priprema i šalje ugovore, prikuplja dokumentaciju, vodi Active Units listu kao master record i koordiniše registracije.",
+      en:"Central connector between salespeople, clients, and accounting. Prepares and sends contracts, collects documentation, manages the Active Units List as the master record, and coordinates registrations."
+    },
+    processes:{
+      sr:["Prati HubSpot za nove dealove od salemana","Proverava informacije deala: osiguranje, vrednost vozila, status down payment-a","Priprema ugovor (rental ili lease) i šalje via DocuSign: salesman → klijent → Alex → accounting","Kači potpisan ugovor + inspekcione izveštaje na Google Drive po klijentu","Kreira down payment invoice u QuickBooks-u, šalje Milici za banku","Vodi Active Units listu — master record (nikad ne briši, samo dodaj)","Ažurira statuse unita: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void itd.","Kada Paid Off: deaktivira unit u HubSpot-u, QuickBooks-u i svim listama","Vodi cross-collateral i loan dokumentaciju po ugovoru","Koordiniše process registracija: proverava vlasništvo nad titleom","Nedeljno prati osiguranje — šalje listu missing COI Milici i Aleksandri"],
+      en:["Monitors HubSpot for new deals from salespeople","Verifies deal info: insurance, vehicle value, down payment status","Prepares contract (rental or lease) and sends via DocuSign: salesman → client → Alex → accounting","Files signed contract + inspection reports on Google Drive per client","Creates down payment invoice in QuickBooks, sends to Milica for bank","Maintains Active Units List — master record (never delete, only add)","Updates unit statuses: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void, etc.","When Paid Off: deactivates unit in HubSpot, QuickBooks, and all lists","Manages cross-collateral and loan documentation per contract","Coordinates registration process: checks title ownership","Weekly insurance tracking — sends list of missing COIs to Milica and Aleksandra"]
+    },
+    docs:{sr:["Active Units Lista","Google Drive folderi po klijentu","Insurance Tracker (nedeljno)","Cross-Collateral lista","Loan lista","Registrations lista"],en:["Active Units List","Google Drive folders per client","Insurance Tracker (weekly)","Cross-Collateral list","Loan list","Registrations list"]},
+    tools:["HubSpot","DocuSign","QuickBooks","Google Sheets","Google Drive"],
+    connects:["valentina","milica","milica_r","brankica","radu","alex"],
+    pains:{sr:["Promena statusa zahteva ručno ažuriranje HubSpot-a, QuickBooks-a i svih lista posebno","Unit ima različite identifikatore u različitim sistemima","Mora proveravati 3 liste da utvrdi status registracije za jedan unit","Priprema ugovora je ručna — nema auto-popunjavanja iz HubSpot-a"],en:["Status change requires manual update in HubSpot, QuickBooks, and multiple sheets separately","Unit has different identifiers in different systems","Must check 3 lists to determine registration status for one unit","Contract preparation is manual — no auto-fill from HubSpot data"]}
+  },
+  valentina: {
+    name:"Valentina Lelovic", role:{sr:"Ugovori i Dokumentacija",en:"Contracts & Documentation"},
+    dept:"acc", location:"Kragujevac", email:"valentina.l@aaalease.net",
+    summary:{sr:"Valentina uči sve procese od Andjele Trifunovic i radi paralelno sa njom. Fokus na ugovorima, amendmanima, GPS proveri i dokumentaciji.",en:"Valentina is learning all processes from Andjela Trifunovic and works in parallel with her. Focus on contracts, amendments, GPS verification, and documentation."},
+    processes:{
+      sr:["Priprema i šalje ugovore via DocuSign (isti flow kao Andjela T.)","Priprema amendmane i promissory notes uz template (Alex mora odobriti pre slanja)","Proverava Cross-Collateral listu pre svakog ugovora","Proverava Loan listu za dodatne bankarske dokumente","Izdaje release forme za kraj lease-a","Ažurira Active Units listu: statusi, check-in/out datumi","Menja HubSpot status na 'inactive rent' kada se unit vrati","Kreira down payment invoicee u QuickBooks-u","Proverava GPS aktivnost u Routemate i FleetLocate pre puštanja unita","Prati osiguranje (policy number, level, datum, physical damages)"],
+      en:["Prepares and sends contracts via DocuSign (same flow as Andjela T.)","Prepares amendments and promissory notes using templates (Alex must approve before sending)","Checks Cross-Collateral list before each contract","Checks Loan list to determine if additional bank document needed","Issues release forms for lease completions","Updates Active Units List: statuses, check-in/check-out dates","Changes HubSpot status to 'inactive rent' when unit is returned","Creates down payment invoices in QuickBooks","Verifies GPS activity in Routemate and FleetLocate before unit release","Tracks insurance (policy number, level, date, physical damages)"]
+    },
+    docs:{sr:["Ugovori (DocuSign)","Amendmani / Promissory notes","Release forme","Parking Agreements","Drive folderi po klijentu"],en:["Contracts (DocuSign)","Amendments / Promissory notes","Release forms","Parking Agreements","Drive folders per client"]},
+    tools:["HubSpot","DocuSign","QuickBooks","Google Sheets","Google Drive","Routemate","FleetLocate"],
+    connects:["andjela_t","milica","milica_r","brankica","alex"],
+    pains:{sr:["Mora proveriti 3 liste pre svakog ugovora","Status mora biti ažuriran na 2 mesta istovremeno","Ako check-in datum nije unet na vreme, billing nastavlja greškom","GPS mora biti proveren ručno u 2 sistema"],en:["Must check 3 lists before every contract","Status must be updated in 2 places simultaneously","If unit return date not entered on time, billing continues incorrectly","GPS must be verified manually in 2 systems"]}
+  },
+  tina: {
+    name:"Tina Srdic", role:{sr:"Billing — Lease i Rent",en:"Billing — Lease & Rent"},
+    dept:"acc", location:"Kragujevac", email:"",
+    summary:{sr:"Tina radi billing za sve lease i rent ugovore — weekly i monthly. Otvara svaki invoice posebno u QuickBooks-u i šalje ga. Vodi i Confirmed Payments listu i parking billing.",en:"Tina handles all weekly and monthly billing for lease and rent. She opens every invoice individually in QuickBooks and sends it. Also manages the Confirmed Payments tracker and parking billing."},
+    processes:{
+      sr:["Svaki ponedeljak: prima rent weekly listu, unosi mileage in/out, izračunava charge (fiksni + mileage stopa), šalje invoice via QuickBooks","Mesečno: procesira rent monthly i lease monthly liste — menja datum, šalje invoicee jedan po jedan via Memorized Transaction List","Vodi Confirmed Payments listu: zeleno=plaćeno, crveno=odbijeno (+$35), plavo=delimično, sivo=unit vraćen","Kada unit vraćen: credit memo ili proration u QuickBooks-u","Parking billing: vodi Easy Storage program, prati mesečne uplate","Šalje dnevnu billing listu Milici"],
+      en:["Every Monday: receives rent weekly list, enters mileage in/out, calculates charge (fixed + mileage rate), sends invoice via QuickBooks","Monthly: processes rent monthly and lease monthly lists — changes date, sends invoices one by one via Memorized Transaction List","Maintains Confirmed Payments list: green=paid, red=rejected (+$35), blue=partial, grey=unit returned","When unit returned: credit memo or proration in QuickBooks","Parking billing: manages Easy Storage program, tracks monthly payments","Sends daily billing list to Milica"]
+    },
+    docs:{sr:["Confirmed Payments lista (tabovi po tipu billing-a)","Dnevna billing lista","Parking tabela po iznosima (mesečno)"],en:["Confirmed Payments list (tabs per billing type)","Daily billing list","Parking table by amounts (monthly)"]},
+    tools:["QuickBooks (Memorized Transaction List)","Google Sheets","Easy Storage"],
+    connects:["hanna","milica","radu","andjela_t","milica_r"],
+    pains:{sr:["Svaki invoice mora biti otvoren i poslat posebno — nema batch send","Miljaža se ručno računa za svaki kamion svake nedelje","Pravilo zatvaranja invoicea (rent → tolovi → lease) je kompleksno","Odbijene uplate stižu 2-3 dana kasno — mora ići nazad i ispravljati","~300-350 parking invoicea se šalje ručno mesečno"],en:["Every invoice must be opened and sent individually — no batch send","Mileage must be manually calculated for each truck every week","Invoice closing rule (rent → tolls → lease) is complex","Rejected payments arrive 2-3 days late — must go back and reverse","~300-350 parking invoices sent manually each month"]}
+  },
+  hanna: {
+    name:"Hanna Bencks", role:{sr:"AR / Dodatni Troškovi",en:"AR / Additional Charges"},
+    dept:"acc", location:"Kragujevac", email:"hanna.b@aaalease.net",
+    summary:{sr:"Hana pokriva sve billing van redovnih lease/rent: tolovi, popravke, final charges, registracije, depoziti. Radi i mesečnu bank reconciliation i vodi dnevnu billing listu za Milicu.",en:"Hana handles all billing beyond regular lease/rent: tolls, repairs, final charges, registrations, deposits. Also does monthly bank reconciliation and manages the daily billing list for Milica."},
+    processes:{
+      sr:["Tolovi: prima invoice od vendora → pronalazi koji klijent je imao unit → kreira QBs invoice → šalje klijentu → dodaje na dnevnu billing listu","Popravke/Final Charges: prima email → kreira invoice u QBs → prilaže originalni shop invoice → šalje klijentu","Registracije: prima listu → izračunava prorated iznos → kreira invoice → šalje Milici","Depoziti: prima ugovor od Andjele T. → kreira deposit invoice → šalje Milici","Zatvaranje invoicea (Aleksova pravila): rent → tolovi/registracije/final → lease","Odbijeni paymenti: ručno pronalazi i briše u QBs kada banka vrati","Mesečna bank reconciliation: unosi početni/krajnji saldo → proverava sve uplate → mora doći na nulu → zaključava mesec"],
+      en:["Tolls: receives invoice from vendor → finds which client had the unit → creates QBs invoice → sends to client → adds to daily billing list","Repairs/Final Charges: receives email → creates invoice in QBs → attaches original shop invoice → sends to client","Registrations: receives list → calculates prorated amount → creates invoice → sends to Milica","Deposits: receives contract from Andjela T. → creates deposit invoice → sends to Milica","Invoice closing (Alex's rules): rent → tolls/registrations/final → lease","Rejected payments: manually finds and deletes in QBs when bank returns","Monthly bank reconciliation: enters beginning/ending balance → checks all payments → must reach zero → locks the month"]
+    },
+    docs:{sr:["Active lista (za pronalaženje klijenta po unitu i datumu)","Bank confirm lista (po danu)","Toll lista (po godini)","Repair lista","Final charge lista","Dnevna billing lista"],en:["Active list (for finding client per unit per date)","Bank confirm list (by day)","Toll list (by year)","Repair list","Final charge list","Daily billing list"]},
+    tools:["QuickBooks","Google Sheets","Email"],
+    connects:["tina","milica","milica_r","andjela_t","aleksandra"],
+    pains:{sr:["Zatvaranje invoicea traje ~4h za mesečne liste — sve manuelno","Mora otvoriti svaki invoice posebno — nema batch","Odbijeni paymenti stižu 2-3 dana kasno i moraju se ručno brisati iz QBs","Repair invoicei: mora skinuti sa Drive-a, priložiti ručno, 2MB limit u QBs"],en:["Invoice closing takes ~4h for monthly lists — all manual","Must open each invoice separately — no batch","Rejected payments arrive 2-3 days late and must be manually deleted from QBs","Repair invoices: must download from Drive, attach manually, 2MB limit in QBs"]}
+  },
+  milica: {
+    name:"Milica Doson", role:{sr:"Collections i Recovery",en:"Collections & Recovery"},
+    dept:"acc", location:"Kragujevac", email:"mili.d@aaalease.net",
+    summary:{sr:"Milica počinje svaki dan pregledom odbijenih plaćanja, zove klijente, vodi bank template-e u JPM-u, računa late fees, vodi ceo recovery process i prati buyout obaveštenja.",en:"Milica starts each day reviewing rejected payments, calls clients, manages bank templates in JPM, calculates late fees, handles the entire recovery process, and tracks buyout notices."},
+    processes:{
+      sr:["Dnevno: loguje se u banku, pregleda uplate i odbijene od prethodnog dana","Zove klijente sa odbijenim uplatama, zakazuje ponovne povlačenja","Vodi bank template-e u JPM (weekly/monthly rent/lease rasporedi)","Mesečni AR aging report: identifikuje klijente 30/60/90/180+ dana kasno","Kalkulacija late fee: 10% na open balance, samo za klijente bez payment plana","Recovery process: upozorenje → GPS starter disable → Teo po unit → demand email → advokat","Buyout notice sheet: prati sve dealove koji se bliže kraju","Kalkuliše uslove amandmana za produžetak buyouta, šalje Aleksu na odobrenje"],
+      en:["Daily: logs into bank, reviews previous day deposits and rejected payments","Calls clients with rejected payments, reschedules payment pulls","Manages bank templates in JPM (weekly/monthly rent/lease schedules)","Monthly AR aging report: identifies clients 30/60/90/180+ days late","Late fee calculation: 10% on open balance, only for clients without payment plan","Recovery process: warning → GPS starter disable → Teo goes for unit → demand email → lawyer","Buyout notice sheet: tracks all deals approaching end of term","Calculates amendment terms for buyout extensions, sends to Alex for approval"]
+    },
+    docs:{sr:["AR Aging report (mesečno)","Buyout notice sheet (master)","Bank template-i (JPM)","Recovery lista","Late fee lista"],en:["AR Aging report (monthly)","Buyout notice sheet (master)","Bank templates (JPM)","Recovery list","Late fee list"]},
+    tools:["JPM Bank","Google Sheets","HubSpot","SmartSheet"],
+    connects:["milica_r","hanna","tina","brankica","aleksandra","alex","andjela_t"],
+    pains:{sr:["Nema automatske kalkulacije late fee — ručno mesečno za svakog klijenta","Nema real-time pregleda preostalog balansa po unitu","Nema automatskog buyout notification-a","Billing lista se popunjava ručno"],en:["No automated late fee calculation — manual monthly for every client","No real-time remaining balance view per unit","No automated buyout notification — must check sheet manually","Billing list auto-population is manual"]}
+  },
+  aleksandra: {
+    name:"Aleksandra Djokic", role:{sr:"Payable / Fixed Assets",en:"Payable / Fixed Assets"},
+    dept:"acc", location:"Kragujevac", email:"",
+    summary:{sr:"Aleksandra vodi payable stranu QuickBooks-a. Jedina (sa Nadijom) ima payable pristup. Vodi amortizaciju fixed assets-a, loan listu, claims, bill of sale, vendor plaćanja i credit bureau podatke.",en:"Aleksandra manages the payable side of QuickBooks. She is the only one (with Nadija) with payable access. Handles fixed asset amortization, loan list, claims, bill of sale, vendor payments, and credit bureau data."},
+    processes:{
+      sr:["Mesečno: ažurira fixed asset listu (novi kupljeni ulaze, prodati/istekli izlaze)","Mesečno: radi amortizaciju za sve kompanijske asete","Vodi loan listu: svi uniti pod bankarskim kreditom","Kada klijent isplati: proverava da li je unit pod kreditom → traži payoff od banke → koordiniše title transfer sa Emily","Claims: prima obaveštenja → šalje claim formu → prati adjuster info → beleži primanje čeka od osiguranja","Mesečna total loss lista → šalje Aleksandri za zatvaranje fixed assets-a","Bill of sale: mesečni sheet svih prodaja i buyouta → šalje Aleksandri","Vodi vendor payment liste sa Nadijom i Leonom"],
+      en:["Monthly: updates fixed asset list (new purchases in, sold/expired out)","Monthly: runs amortization for all company-owned assets","Maintains loan list: all units under bank credit","When client pays off: checks if unit is under loan → requests payoff from bank → coordinates title transfer with Emily","Claims: receives notifications → sends claim form → tracks adjuster info → records insurance check receipt","Monthly total loss list → sends to Aleksandra for fixed asset closure","Bill of sale: monthly sheet of all sales and buyouts → sends to Aleksandra","Manages vendor payment lists with Nadija and Leona"]
+    },
+    docs:{sr:["Fixed asset lista","Loan lista","Claims lista (od 2022, kumulativna)","Bill of Sale lista (mesečno)","Vendor lista","Purchase lista"],en:["Fixed asset list","Loan list","Claims list (from 2022, cumulative)","Bill of Sale list (monthly)","Vendor list","Purchase list"]},
+    tools:["QuickBooks (payable)","Google Sheets","SmartSheet","FleetLocate","Routemate"],
+    connects:["brankica","andjela_t","milica","milica_r","emily","alex"],
+    pains:{sr:["Current balance za credit bureau mora ručno računati za svakog klijenta (uključuje buduće rate)","Unit se prati različito u različitim sistemima — teška usklađenost","Miljaže iz 2 sistema (FleetLocate + Routemate) spajaju se ručno po VIN-u","Kada se unit proda: mora ručno ažurirati 4-5 mesta","Amortizacija depozita potpuno ručna u Excelu mesečno"],en:["Current balance for credit bureau must be manually calculated for every client (includes future payments)","Unit tracked differently in different systems — hard to reconcile","Mileage from 2 systems (FleetLocate + Routemate) manually merged by VIN","When unit sold: must manually update 4-5 different places","Deposit amortization fully manual in Excel monthly"]}
+  },
+  brankica: {
+    name:"Brankica", role:{sr:"Lease Approvals / Credit Bureau / GPS",en:"Lease Approvals / Credit Bureau / GPS"},
+    dept:"acc", location:"Kragujevac", email:"",
+    summary:{sr:"Brankica radi kreditne provere za lease, priprema mesečni credit bureau submission, upravlja GPS sistemima, vodi mileage billing za lease i claims management.",en:"Brankica handles lease credit checks, prepares the monthly credit bureau submission, manages GPS systems, tracks mileage billing for lease, and handles claims management."},
+    processes:{
+      sr:["Lease approval: prima email za novi deal, proverava credit score + bank balance, FMCSA status, DOT broj, True Funding status → šalje Aleksu na finalno odobrenje","GPS management: proverava GPS aktivnost u FleetLocate/Routemate pre puštanja unita, koordiniše GPS instalaciju sa fleet managerom","Mesečni mileage billing: spaja FleetLocate + Routemate izveštaje po VIN-u, conditional format označava unite koji su prešli 130k milja → kreira invoice → resetuje milažu","Claims management: prima obaveštenje o eksidenatu → šalje claim formu → prati adjuster → beleži ček od osiguranja → mesečna total loss lista Aleksandri","Credit bureau (mesečno): priprema CSV za Hutchins portal sa: actual payment, current balance (open invoicei + buduće rate do kraja), highest credit amount, past due >30 dana","Submittuje CSV na Hutchins, ispravlja odbijanja (min 60 dana od otvaranja ugovora)"],
+      en:["Lease approval: receives email for new deal, checks credit score + bank balance, FMCSA status, DOT number, True Funding status → sends to Alex for final approval","GPS management: verifies GPS activity in FleetLocate/Routemate before unit release, coordinates GPS installation with fleet manager","Monthly mileage billing: merges FleetLocate + Routemate reports by VIN, conditional format flags units over 130k miles → creates invoice → resets mileage","Claims management: receives accident notification → sends claim form → tracks adjuster → records insurance check → monthly total loss list to Aleksandra","Credit bureau (monthly): prepares CSV for Hutchins portal with: actual payment, current balance (open invoices + future rates to end), highest credit amount, past due >30 days","Submits CSV to Hutchins, corrects rejections (min 60 days from contract opening required)"]
+    },
+    docs:{sr:["Lease Approvals folder (Drive)","GPS lista","Mileage billing lista","Claims lista","Credit Bureau CSV (mesečno)","Bill of Sale lista (mesečno)"],en:["Lease Approvals folder (Drive)","GPS list","Mileage billing list","Claims list","Credit Bureau CSV (monthly)","Bill of Sale list (monthly)"]},
+    tools:["QuickBooks","Google Sheets","FleetLocate","Routemate","Hutchins portal"],
+    connects:["andjela_t","valentina","aleksandra","milica","milica_r","alex","emily"],
+    pains:{sr:["Credit bureau CSV izuzetno zahtevan: ručno računa current balance (uključujući buduće rate) za 500+ klijenata","Mora razlikovati open balance <30 dana i >30 dana za svakog klijenta","Spajanje milaža iz 2 GPS sistema ručno po VIN-u","Conditional format za milaže mora se ručno podešavati po unitu","Submission se često odbija — mora ispravljati i ponovo submittovati"],en:["Credit bureau CSV extremely time-consuming: manually calculates current balance (including future payments) for 500+ clients","Must distinguish open balance <30 days vs >30 days for every client","Mileage merge from 2 GPS systems manually by VIN number","Conditional format for mileage must be set manually per unit","Submission often rejected — must correct and resubmit"]}
+  },
+  roman: {
+    name:"Roman", role:{sr:"Prodaja / Finansiranje",en:"Sales / Financing"},
+    dept:"sales", location:"US", email:"",
+    summary:{sr:"Roman vodi cash prodaju vozila i koordiniše bankarske finansiranje za klijente. Obaveštava Aleksandru kada je buyout plaćen.",en:"Roman handles vehicle cash sales and coordinates bank financing for clients. Notifies Aleksandra when a buyout payment is received."},
+    processes:{
+      sr:["Prodaje vozila za cash (direktna prodaja)","Koordiniše sa bankama za klijentsko finansiranje","Obaveštava Aleksandru kada je buyout/sale plaćen","Dodaje nove unite na Bill of Sale listu","Zarađuje documentation fee po prodaji"],
+      en:["Sells vehicles for cash (direct sales)","Coordinates with banks for client financing","Notifies Aleksandra when buyout/sale payment is received","Adds new units to Bill of Sale list","Earns documentation fee per sale"]
+    },
+    docs:{sr:["Bill of Sale lista"],en:["Bill of Sale list"]},
+    tools:["Email","Financing platform"],
+    connects:["aleksandra","alex","brankica"],
+    pains:{sr:[],en:[]}
+  },
+  emily: {
+    name:"Emily", role:{sr:"Title i Registracije (SAD)",en:"Title & Registration (US)"},
+    dept:"sales", location:"Chicago", email:"",
+    summary:{sr:"Emily vodi title transfere u SAD, koordiniše IFTA/HHUT godišnje izveštaje i vrši godišnje registracije vozila. Detaljan mapping još nije završen.",en:"Emily handles title transfers in the US, coordinates IFTA/HHUT annual reports, and files annual vehicle registrations. Full process mapping is still pending."},
+    processes:{
+      sr:["Šalje title transfer dokumentaciju Secretary of State-u za IL i IN","Koordiniše IFTA / Heavy Highway Use Tax (HHUT) reporting","Vrši godišnje registracije vozila","Obaveštava Brankicu/Aleksandru kada su title transferi završeni","Šalje HHUT iznose Maji za klijentske invoicee"],
+      en:["Sends title transfer documentation to Secretary of State for IL and IN","Coordinates IFTA / Heavy Highway Use Tax (HHUT) reporting","Files annual vehicle registrations","Notifies Brankica/Aleksandra when title transfers are complete","Sends HHUT amounts to Maja for client invoicing"]
+    },
+    docs:{sr:["Title transfer dokumentacija","IFTA izveštaji po kvartalu","Registracioni dokumenti"],en:["Title transfer documentation","IFTA reports by quarter","Registration filings"]},
+    tools:["Secretary of State portal","Email","Google Drive"],
+    connects:["aleksandra","brankica","andjela_t"],
+    pains:{sr:["Kompletan process mapping još nije završen — potreban poseban sastanak"],en:["Full process mapping not yet completed — dedicated session needed"]}
+  }
+};
+
+console.log("Data loaded");
+
+const GLOSSARY = [
+  // LEASE TERMS
+  {id:"buyout",cat:"lease",
+   term:{sr:"Buyout",en:"Buyout"},
+   termEn:"Buyout",
+   short:{sr:"Iznos koji klijent plaća da otkupi vozilo na kraju lease ugovora.",en:"The amount a client pays to purchase the vehicle at the end of a lease agreement."},
+   detail:{sr:"Buyout je unapred definisan iznos u ugovoru koji klijent mora da plati da bi preuzeo vlasništvo nad vozilom. Ako klijent ne želi buyout, vraća vozilo AAA Lease-u. Ako želi buyout ali ga ne može platiti odjednom, radi se amendment kojim se buyout razlaže na rate.",en:"The buyout is a predefined amount in the contract that the client must pay to take ownership of the vehicle. If the client does not want the buyout, they return the vehicle to AAA Lease. If they want the buyout but cannot pay it at once, an amendment is created to spread it into installments."},
+   example:{sr:"Klijent je uzeo kamion na 48 mesečnih rata od $2,000. Na kraju ugovora ima buyout od $15,000. Plati $15,000 → kamion je zvanično njegov.",en:"A client leased a truck with 48 monthly payments of $2,000. At the end of the contract, the buyout is $15,000. They pay $15,000 → the truck is officially theirs."}
+  },
+  {id:"amendment",cat:"lease",
+   term:{sr:"Amendment (Aneks)",en:"Amendment"},
+   termEn:"Amendment",
+   short:{sr:"Izmena postojećeg ugovora — promena iznosa, datuma, broja rata ili buyout uslova.",en:"A modification to an existing contract — changing amounts, dates, number of installments, or buyout terms."},
+   detail:{sr:"Amendment se radi kada treba promeniti uslove tekućeg ugovora bez raskidanja starog i potpisivanja novog. Najčešće se radi za: odlaganje plaćanja, produžetak lease-a, financiranje buyouta na rate, promenu iznosa. Priprema ga Andjela ili Valentina, a Alex mora odobriti pre slanja.",en:"An amendment is made when terms of an existing contract need to change without terminating the old one and signing a new one. Most common for: payment deferral, lease extension, financing buyout in installments, or changing payment amounts. Prepared by Andjela or Valentina, Alex must approve before sending."},
+   example:{sr:"Klijent nije mogao da plati buyout od $20,000 odjednom. Napravljen je amendment koji buyout razlaže na 10 mesečnih rata po $2,000.",en:"A client couldn't pay a $20,000 buyout at once. An amendment was created splitting the buyout into 10 monthly installments of $2,000."}
+  },
+  {id:"promissory_note",cat:"lease",
+   term:{sr:"Promissory Note (Menica / Ugovor o zajmu)",en:"Promissory Note"},
+   termEn:"Promissory Note",
+   short:{sr:"Dokument kojim AAA Lease daje zajam klijentu za down payment kada ga klijent ne može odmah platiti.",en:"A document by which AAA Lease lends a client the down payment amount when they cannot pay it upfront."},
+   detail:{sr:"Kada klijent nema dovoljno za down payment, AAA Lease (obično kroz True Funding) finansira taj iznos. Klijent potpisuje promissory note — ugovor o zajmu sa kamatom i rokom vraćanja. Down payment se zatvara u QBs kroz general journal, a zajam se biluje posebno svaki mesec.",en:"When a client doesn't have enough for the down payment, AAA Lease (usually through True Funding) finances that amount. The client signs a promissory note — a loan agreement with interest and repayment terms. The down payment is closed in QBs through a general journal entry, and the loan is billed separately each month."},
+   example:{sr:"Klijent ima $5,000 a down payment je $20,000. AAA/True Funding daje $15,000 zajam, klijent potpisuje promissory note i vraća $1,500/mesečno tokom 12 meseci sa kamatom.",en:"A client has $5,000 but the down payment is $20,000. AAA/True Funding lends $15,000, client signs a promissory note and repays $1,500/month over 12 months with interest."}
+  },
+  {id:"cross_collateral",cat:"lease",
+   term:{sr:"Cross-Collateral",en:"Cross-Collateral"},
+   termEn:"Cross-Collateral",
+   short:{sr:"Dokument koji vezuje AAA Lease, True Funding i zajedničkog klijenta — garantuje da True Funding plaća AAA Lease.",en:"A document linking AAA Lease, True Funding, and a shared client — guaranteeing that True Funding pays AAA Lease."},
+   detail:{sr:"Kada je klijent i AAA Lease i True Funding klijent, mora da postoji cross-collateral dokument uz regularni ugovor. True Funding povlači pare od klijenta i prosleđuje AAA Lease. Ako klijent ne plaća ni jednom ni drugom — problem za obe strane. Andjela T. proverava listu pre svakog ugovora.",en:"When a client belongs to both AAA Lease and True Funding, a cross-collateral document must accompany the regular contract. True Funding pulls payments from the client and forwards them to AAA Lease. If the client doesn't pay either — problem for both parties. Andjela T. checks the list before every contract."},
+   example:{sr:"Firma ABC je True Funding klijent. Uzima kamion na lease od AAA Lease. Uz regularni ugovor šalje se cross-collateral koji potpisuju sva tri: ABC, True Funding i AAA Lease.",en:"Company ABC is a True Funding client. They lease a truck from AAA Lease. A cross-collateral is sent alongside the regular contract, signed by all three: ABC, True Funding, and AAA Lease."}
+  },
+  {id:"title",cat:"lease",
+   term:{sr:"Title (Vlasnički list)",en:"Title / Certificate of Title"},
+   termEn:"Title",
+   short:{sr:"Zvanični dokument koji dokazuje vlasništvo nad vozilom. AAA Lease ga drži dok klijent ne isplati sve obaveze.",en:"Official document proving vehicle ownership. AAA Lease holds it until the client fulfills all financial obligations."},
+   detail:{sr:"Title ima dve strane: vlasnik (AAA Lease) i korisnik (klijent koji lizuje). Klijent dobija kopiju titlea da može da ide na put, ali ne i original. Original se prenosi na klijenta tek kada isplati sve rate + buyout. Za unite pod bankarskim kreditom, banka je na titlu kao lienholder.",en:"The title has two sides: owner (AAA Lease) and operator (client leasing). The client receives a copy to drive legally, but not the original. The original is transferred to the client only when they pay all installments + buyout. For units under bank credit, the bank appears on the title as lienholder."},
+   example:{sr:"Klijent isplati sve rate i buyout. Emily koordiniše title transfer na Secretary of State (za IL/IN direktno, za ostale države — klijent dobija original i registruje sam).",en:"Client pays all installments and buyout. Emily coordinates title transfer with Secretary of State (for IL/IN directly, for other states — client receives original and registers themselves."}
+  },
+  {id:"coi",cat:"lease",
+   term:{sr:"COI (Certificate of Insurance)",en:"COI — Certificate of Insurance"},
+   termEn:"COI",
+   short:{sr:"Potvrda aktivnog osiguranja vozila — obavezan dokument pre nego što klijent preuzme unit.",en:"Proof of active vehicle insurance — mandatory document before a client can pick up a unit."},
+   detail:{sr:"COI mora biti na fajlu kod AAA Lease pre checkout-a. Proveravaju ga Andjela T. i Valentina. Pored COI, prati se i: policy number, coverage level, datum isteka, physical damages. Nedeljno se proveravaju svi klijenti i šalje se lista onih kojima je isteklo ili fali osiguranje.",en:"COI must be on file with AAA Lease before checkout. Checked by Andjela T. and Valentina. In addition to COI, they track: policy number, coverage level, expiration date, physical damage coverage. Weekly check of all clients — a list of those with expired or missing insurance is sent."},
+   example:{sr:"Klijent je potpisao ugovor i platio down payment, ali nije poslao COI. Unit ne može da se pusti dok COI ne stigne.",en:"Client signed the contract and paid the down payment, but hasn't sent the COI. The unit cannot be released until the COI arrives."}
+  },
+  {id:"too",cat:"lease",
+   term:{sr:"TOO — Transfer of Ownership",en:"TOO — Transfer of Ownership"},
+   termEn:"Transfer of Ownership",
+   short:{sr:"Prenos vlasništva ugovora sa jednog klijenta na drugog — stari deal se gasi, novi počinje iz početka.",en:"Transfer of contract ownership from one client to another — old deal closes, new one starts from scratch."},
+   detail:{sr:"Dešava se kada klijent ne može/neće nastaviti sa plaćanjem i pronalazi novu firmu koja preuzima ugovor. Stari deal dobija status TOO i gasi se. Za novog klijenta se kreira potpuno novi deal sa novim ugovorom. Dug starog klijenta može (ali ne mora) da preuzme novi kao down payment.",en:"Happens when a client cannot/will not continue paying and finds another company to take over the contract. The old deal receives TOO status and is closed. A completely new deal with a new contract is created for the new client. The old client's debt may (but doesn't have to) be assumed by the new client as a down payment."},
+   example:{sr:"Firma A ima dug $8,000 i ne može da plaća. Firma B preuzima ugovor. Firma B plaća $8,000 kao down payment, čime se zatvara Firma A dug, i nastavlja sa regularnim plaćanjima.",en:"Company A has $8,000 debt and can't pay. Company B takes over the contract. Company B pays $8,000 as down payment, closing Company A's debt, and continues with regular payments."}
+  },
+  {id:"recovery",cat:"lease",
+   term:{sr:"Recovery (Repossession)",en:"Recovery / Repossession"},
+   termEn:"Recovery",
+   short:{sr:"Prisilno oduzimanje vozila od klijenta koji ne plaća i ne sarađuje.",en:"Forced repossession of a vehicle from a non-paying, non-cooperative client."},
+   detail:{sr:"Recovery se pokreće kada klijent ne plaća i ne reaguje na upozorenja. Koraci: upozorenje → GPS starter disable → Teo ide po unit (naplaćuje se $2,500 recovery fee) → demand letter → advokat (status Lawyer = billing staje). Kada je unit vraćen na yardu, mora se deaktivirati u svim sistemima.",en:"Recovery is initiated when a client doesn't pay and doesn't respond to warnings. Steps: warning → GPS starter disable → Teo goes for unit ($2,500 recovery fee charged) → demand letter → lawyer (Lawyer status = billing stops). When unit is back at the yard, it must be deactivated in all systems."},
+   example:{sr:"Klijent nije platio 3 meseca i ne javlja se. Milica šalje upozorenje → GPS se disabluje → Teo ide po kamion → klijent dobija demand letter → slučaj ide advokatu.",en:"Client hasn't paid in 3 months and doesn't respond. Milica sends warning → GPS disabled → Teo retrieves the truck → client receives demand letter → case goes to lawyer."}
+  },
+  {id:"mileage_billing",cat:"lease",
+   term:{sr:"Mileage Billing (Naplata prekoračene milaže)",en:"Mileage Overage Billing"},
+   termEn:"Mileage Overage Billing",
+   short:{sr:"Naplata za svaku milju prekoračenu iznad godišnjeg limita ugovorom (standardno 130,000 milja).",en:"Billing for every mile exceeding the annual limit defined in the contract (standard 130,000 miles)."},
+   detail:{sr:"Svaki lease ugovor definiše godišnji limit milja (obično 130k, ponekad 160k ili 220k). Brankica mesečno spaja GPS podatke iz FleetLocate i Routemate, unosi miljaže u listu. Čim unit pređe godišnji limit — crven signal u conditional formatu → kreira se invoice po ceni iz ugovora. Mileage se resetuje i nova godina počinje.",en:"Each lease contract defines an annual mileage limit (usually 130k, sometimes 160k or 220k). Brankica monthly merges GPS data from FleetLocate and Routemate, enters mileages into the list. Once a unit exceeds its annual limit — red flag in conditional format → invoice created at the rate defined in the contract. Mileage is reset and a new year begins."},
+   example:{sr:"Klijent ima limit od 130,000 milja godišnje. U septembru je dostigao 134,000. Brankica kreira invoice za 4,000 milja × $0.04 = $160 i resetuje brojač.",en:"A client has a 130,000-mile annual limit. In September they reached 134,000 miles. Brankica creates an invoice for 4,000 miles × $0.04 = $160 and resets the counter."}
+  },
+  {id:"ifta",cat:"ops",
+   term:{sr:"IFTA / HHUT (Heavy Highway Use Tax)",en:"IFTA / HHUT"},
+   termEn:"IFTA / Heavy Highway Use Tax",
+   short:{sr:"Godišnji federalni porez za kamione koji voze interstate — plaća se po milji, po statu.",en:"Annual federal tax for trucks driving interstate — paid per mile, per state."},
+   detail:{sr:"IFTA (International Fuel Tax Agreement) i HHUT su federalni/državni porezi koje AAA Lease mora da prijavi za vozila registrovana na njihovo ime. Emily koordiniše proces: skuplja miljaže po unitu po statu za svaki kvartal, šalje dokumentaciju. AAA naplaćuje HHUT klijentima posebnim invoiceima (Maja šalje po Emilinom izveštaju).",en:"IFTA and HHUT are federal/state taxes that AAA Lease must file for vehicles registered in their name. Emily coordinates the process: collects mileage per unit per state for each quarter, files documentation. AAA charges HHUT to clients via separate invoices (Maja sends them based on Emily's report)."},
+   example:{sr:"Kamion T-101 je u toku Q3 prešao 12,000 milja u Ohaju, 8,000 u Pensilvaniji i 5,000 u Indijani. Emily sastavlja kvartal izveštaj, šalje Secretary of State-u. Klijentu se šalje HHUT invoice.",en:"Truck T-101 drove 12,000 miles in Ohio, 8,000 in Pennsylvania, and 5,000 in Indiana during Q3. Emily compiles the quarterly report, files with Secretary of State. A HHUT invoice is sent to the client."}
+  },
+  // ACCOUNTING TERMS
+  {id:"ar_aging",cat:"acc",
+   term:{sr:"AR Aging Report (Izveštaj starosti potraživanja)",en:"AR Aging Report"},
+   termEn:"AR Aging Report",
+   short:{sr:"Pregled svih neplaćenih iznosa grupisanih po tome koliko dugo su dospeli za naplatu: 0-30, 31-60, 61-90, 91-180, 180+ dana.",en:"Overview of all unpaid amounts grouped by how long they have been outstanding: 0-30, 31-60, 61-90, 91-180, 180+ days."},
+   detail:{sr:"AR Aging je ključni alat za praćenje naplate. Milica Doson ga pravi mesečno (~10-og). Milica Rajković ga koristi za mesečni AR review sastanak gde tim prolazi kroz svakog klijenta koji kasni i odlučuje akciju. Što stariji balans — teže naplatiti.",en:"AR Aging is a key collections management tool. Milica Doson produces it monthly (~10th). Milica Rajković uses it for the monthly AR review meeting where the team goes through every late client and decides action. The older the balance — the harder to collect."},
+   example:{sr:"Klijent ABC ima open invoicee: $500 iz prošlog meseca (31-60 dana), $500 iz pre 2 meseca (61-90 dana). Na AR aging reportu stoji under 60 i 90 dana. Na review sastanku tim odlučuje: zvati klijenta direktno.",en:"Client ABC has open invoices: $500 from last month (31-60 days), $500 from 2 months ago (61-90 days). On AR aging report they appear under 60 and 90 days. At review meeting team decides: call client directly."}
+  },
+  {id:"bank_reconciliation",cat:"acc",
+   term:{sr:"Bank Reconciliation (Usklađivanje bankovnih izvoda)",en:"Bank Reconciliation"},
+   termEn:"Bank Reconciliation",
+   short:{sr:"Mesečni proces usklađivanja stanja u QuickBooks-u sa stvarnim stanjem na bankovnom računu.",en:"Monthly process of matching QuickBooks records with actual bank account statements."},
+   detail:{sr:"Hana radi bank reconciliation na kraju svakog meseca. Unosi početni i krajnji saldo sa bankovnog izvoda, proverava sve transakcije i mora doći na nulu (nema razlike između QBs i banke). Tek kada je reconciliacija gotova, mesec se zaključava u QBs i ne može se više menjati.",en:"Hana performs bank reconciliation at the end of each month. She enters the opening and closing balance from the bank statement, checks all transactions, and must reach zero difference between QBs and the bank. Only after reconciliation is complete is the month locked in QBs and no further changes are allowed."},
+   example:{sr:"Kraj januara: banka kaže $245,300 na računu. QBs kaže $245,300. Sve se poklapa — Hana zaključava januar. Ako ima razlika (npr. $200), mora se pronaći i ispraviti pre zaključavanja.",en:"End of January: bank shows $245,300 in account. QBs shows $245,300. Everything matches — Hana locks January. If there's a discrepancy (e.g. $200), it must be found and corrected before locking."}
+  },
+  {id:"general_journal",cat:"acc",
+   term:{sr:"General Journal Entry (Ručno knjiženje)",en:"General Journal Entry"},
+   termEn:"General Journal Entry",
+   short:{sr:"Ručni unos u QuickBooks koji direktno menja stanje na računima — za složenije transakcije koje standardni payment ne može.",en:"Manual entry in QuickBooks that directly adjusts account balances — for complex transactions that a standard payment cannot handle."},
+   detail:{sr:"Koristi se za: zatvaranje down payment-a koji je pokriven promissory note-om, knjiženje kredit transakcija, transfere između računa, ispravke grešaka. Za razliku od standardnog payment-a koji uvek mora da bude 'full amount', general journal može da pokrije parcijalnu vrednost na kompleksan način. Samo Aleksandra i Nadija imaju pristup.",en:"Used for: closing down payments covered by a promissory note, recording credit transactions, transfers between accounts, error corrections. Unlike a standard payment which must always be 'full amount', a general journal can cover partial values in complex ways. Only Aleksandra and Nadija have access."},
+   example:{sr:"Klijent je dobio promissory note za $10,000 down payment. Umesto da se unese kao regularni payment, Aleksandra kreira general journal entry koji zatvara down payment invoice i kreira liability (dug) na strani promissory note-a.",en:"A client received a promissory note for a $10,000 down payment. Instead of entering it as a regular payment, Aleksandra creates a general journal entry that closes the down payment invoice and creates a liability on the promissory note side."}
+  },
+  {id:"credit_memo",cat:"acc",
+   term:{sr:"Credit Memo (Dobropis)",en:"Credit Memo"},
+   termEn:"Credit Memo",
+   short:{sr:"Dokument koji smanjuje iznos koji klijent duguje — koristi se kada je klijent preplatio ili kada treba vratiti deo naplačenog.",en:"A document that reduces the amount a client owes — used when a client has overpaid or when a portion of a charge needs to be reversed."},
+   detail:{sr:"Tina kreira credit memo kada klijent vrati unit i a već je platio invoice koji pokriva period posle povratka. Credit memo se u QBs 'aplicira' na open invoice i smanjuje dug. Ako klijent nema više open invoicea, credit memo ostaje kao kredit koji se primenjuje na sledeći invoice, ili se vraća klijentu (refund).",en:"Tina creates a credit memo when a client returns a unit and has already paid an invoice covering the period after return. The credit memo is 'applied' to an open invoice in QBs and reduces the balance. If the client has no more open invoices, the credit memo stays as a credit applied to the next invoice, or is returned to the client (refund)."},
+   example:{sr:"Klijent platio $2,000 za ceo januar, ali je vratio kamion 15. januara. Tina kreira credit memo za $1,000 (polovina januara) i aplicira ga na sledeći open invoice.",en:"Client paid $2,000 for all of January but returned the truck on January 15. Tina creates a $1,000 credit memo (half of January) and applies it to the next open invoice."}
+  },
+  {id:"memorized_transaction",cat:"acc",
+   term:{sr:"Memorized Transaction (QBs šablon transakcija)",en:"Memorized Transaction"},
+   termEn:"Memorized Transaction (QuickBooks)",
+   short:{sr:"Unapred podešena transakcija u QuickBooks-u koja se ponavlja — Tina je otvara, menja datum i šalje.",en:"A pre-configured recurring transaction in QuickBooks — Tina opens it, changes the date, and sends."},
+   detail:{sr:"Za svakog klijenta i svaki unit, u QBs postoji Memorized Transaction sa svim podacima: iznos, klijent, unit, billing tip. Tina ne kreira invoice od nule — otvara memorized, menja datum, i šalje. Problem: nema batch send — mora jedan po jedan. Za 400+ lease weekly klijenata to je 1.5-2h posla svaki ponedeljak.",en:"For every client and every unit, QBs has a Memorized Transaction with all details: amount, client, unit, billing type. Tina doesn't create invoices from scratch — she opens the memorized transaction, changes the date, and sends. Problem: no batch send — must do one by one. For 400+ lease weekly clients that's 1.5-2h of work every Monday."},
+   example:{sr:"Unit T-205, klijent Smith Transport, weekly lease $1,800. U Memorized Transactions stoji ta transakcija. Tina svaki ponedeljak: otvori → promeni datum na ovu nedelju → pošalji.",en:"Unit T-205, client Smith Transport, weekly lease $1,800. That transaction sits in Memorized Transactions. Tina every Monday: opens it → changes date to this week → sends."}
+  },
+  {id:"ar",cat:"acc",
+   term:{sr:"AR — Accounts Receivable (Potraživanja)",en:"AR — Accounts Receivable"},
+   termEn:"Accounts Receivable (AR)",
+   short:{sr:"Svi iznosi koje klijenti duguju AAA Lease-u — od otvorenih invoicea do zakašnjelih plaćanja.",en:"All amounts that clients owe AAA Lease — from open invoices to overdue payments."},
+   detail:{sr:"AR je ukupan iznos koji AAA Lease treba da naplati od svih klijenata. Prati ga Milica Doson dnevno i Milica Rajković mesečno kroz AR aging report. Kada se uplata primi i zatvori invoice — AR se smanjuje. Cilj je minimizovati AR stariji od 30 dana.",en:"AR is the total amount AAA Lease needs to collect from all clients. Milica Doson tracks it daily, Milica Rajković monthly through the AR aging report. When a payment is received and invoice is closed — AR decreases. The goal is to minimize AR older than 30 days."},
+   example:{sr:"AAA Lease ima ukupno $450,000 AR. Od toga: $200,000 je current (0-30 dana), $150,000 je 31-60 dana, $100,000 je 60+ dana.",en:"AAA Lease has $450,000 total AR. Of that: $200,000 is current (0-30 days), $150,000 is 31-60 days, $100,000 is 60+ days."}
+  },
+  {id:"ap",cat:"acc",
+   term:{sr:"AP — Accounts Payable (Obaveze prema dobavljačima)",en:"AP — Accounts Payable"},
+   termEn:"Accounts Payable (AP)",
+   short:{sr:"Svi iznosi koje AAA Lease duguje vendorima i bankama — upravljano isključivo od Aleksandre i Nadije.",en:"All amounts AAA Lease owes to vendors and banks — managed exclusively by Aleksandra and Nadija."},
+   detail:{sr:"AP uključuje: mesečne rate prema bankama za unite pod kreditom, plaćanja vendorima (Skyline, Premier i dr.) za unite koje rentamo/lizujemo od njih, kao i sve ostale poslovne troškove. Samo Aleksandra i Nadija imaju QBs pristup payable strani.",en:"AP includes: monthly payments to banks for units under credit, payments to vendors (Skyline, Premier, etc.) for units we rent/lease from them, and all other business expenses. Only Aleksandra and Nadija have QBs access to the payable side."},
+   example:{sr:"AAA Lease lizuje 5 kamiona od Skyline-a. Svaki mesec Aleksandra u QBs upisuje 5 invoicea od Skyline-a i odobrava plaćanje. To je AP transakcija.",en:"AAA Lease leases 5 trucks from Skyline. Each month Aleksandra enters 5 Skyline invoices in QBs and approves payment. That is an AP transaction."}
+  },
+  {id:"fixed_assets",cat:"acc",
+   term:{sr:"Fixed Assets (Osnovna sredstva)",en:"Fixed Assets"},
+   termEn:"Fixed Assets",
+   short:{sr:"Vozila i oprema u vlasništvu AAA Lease-a — praćeni u posebnoj listi i QBs sa mesečnom amortizacijom.",en:"Vehicles and equipment owned by AAA Lease — tracked in a dedicated list and QBs with monthly depreciation."},
+   detail:{sr:"Aleksandra mesečno ažurira fixed asset listu: novi kupljeni uniti se dodaju, prodate/total loss vozila se uklanjaju. Za svaki asset se računa mesečna amortizacija (smanjenje vrednosti). Stanje u fixed asset listi mora se poklapati sa QBs na kraju svakog meseca.",en:"Aleksandra monthly updates the fixed asset list: newly purchased units are added, sold/total loss vehicles are removed. Monthly depreciation (value reduction) is calculated for each asset. The fixed asset list balance must match QBs at the end of each month."},
+   example:{sr:"AAA kupi novi kamion za $120,000. Aleksandra ga dodaje na fixed asset listu. Amortizacioni period: 60 meseci → mesečna amortizacija $2,000. Svaki mesec vrednost kamiona u knjigama se smanjuje za $2,000.",en:"AAA buys a new truck for $120,000. Aleksandra adds it to the fixed asset list. Depreciation period: 60 months → monthly depreciation $2,000. Each month the truck's book value decreases by $2,000."}
+  },
+  {id:"prorated",cat:"acc",
+   term:{sr:"Proration (Srazmerna naplata)",en:"Proration / Prorated Amount"},
+   termEn:"Proration",
+   short:{sr:"Naplata srazmernog dela billing perioda — kada klijent uzme ili vrati unit usred nedelje/meseca.",en:"Billing for a proportional portion of the billing period — when a client picks up or returns a unit mid-week or mid-month."},
+   detail:{sr:"Ako klijent uzme kamion 15-og u mesecu a billing je mesečni, ne naplaćuje mu se ceo mesec već samo od 15-og do kraja meseca. Tina/Maja ručno računaju proration. Isto važi za povratak: ako vrati 20-og, naplaćuje mu se samo od 1-og do 20-og.",en:"If a client picks up a truck on the 15th and billing is monthly, they are not charged for the full month but only from the 15th to the end of the month. Tina/Maja manually calculate proration. Same applies to returns: if returned on the 20th, only 1st to 20th is charged."},
+   example:{sr:"Mesečni iznos $3,000. Klijent uzeo kamion 20-og. Mesec ima 30 dana, ostalo je 10 dana. Proration = (10/30) × $3,000 = $1,000.",en:"Monthly amount $3,000. Client picked up truck on the 20th. Month has 30 days, 10 days remain. Proration = (10/30) × $3,000 = $1,000."}
+  },
+  {id:"late_fee",cat:"acc",
+   term:{sr:"Late Fee (Kamata/Naknada za kašnjenje)",en:"Late Fee"},
+   termEn:"Late Fee",
+   short:{sr:"10% naknada koja se dodaje na open balance klijenata koji nemaju payment plan a kasne sa plaćanjem.",en:"A 10% charge added to the open balance of clients without a payment plan who are late with payments."},
+   detail:{sr:"Late fee se primenjuje jednom mesečno, na definisan datum. Izračunava Milica Doson ručno za svakog klijenta posebno. Klijenti koji imaju aktivan payment plan su izuzeti od late fee-a jer su formalno u dogovoru o plaćanju.",en:"Late fee is applied once monthly, on a defined date. Calculated manually by Milica Doson for every client separately. Clients with an active payment plan are exempt from late fees as they are formally in a payment agreement."},
+   example:{sr:"Klijent duguje $5,000 i nema payment plan. Na datum obračuna late fee: $5,000 × 10% = $500 late fee se dodaje na dug. Ukupan dug postaje $5,500.",en:"Client owes $5,000 and has no payment plan. On late fee calculation date: $5,000 × 10% = $500 late fee is added to the balance. Total balance becomes $5,500."}
+  },
+  {id:"hutchins",cat:"acc",
+   term:{sr:"Hutchins (Credit Bureau Agent)",en:"Hutchins Credit Bureau"},
+   termEn:"Hutchins",
+   short:{sr:"Agencija koja prima mesečni CSV izveštaj od AAA Lease i ažurira kreditne skorove klijenata.",en:"Agency that receives the monthly CSV report from AAA Lease and updates client credit scores."},
+   detail:{sr:"Brankica svaki mesec priprema CSV fajl i uploaduje ga na Hutchins portal. Hutchins procesira podatke i ažurira kreditne profile klijenata u sistemu. Ako klijent redovno plaća — skor raste. Ako kasni — pada. Submission zahteva min 60 dana od otvaranja ugovora; ako se otkloni greška, mora se ponovo submitovati.",en:"Brankica prepares a CSV file every month and uploads it to the Hutchins portal. Hutchins processes the data and updates client credit profiles in the system. If a client pays on time — score increases. If late — it drops. Submission requires a minimum 60 days from contract opening; if rejected, must be corrected and resubmitted."},
+   example:{sr:"Brankica uploaduje CSV za februar 15. marta. Hutchins odbija 3 zapisa jer im je datum otvaranja ugovora pre manje od 60 dana. Brankica uklanja ta 3 i resubmittuje.",en:"Brankica uploads the February CSV on March 15th. Hutchins rejects 3 records because their contract opening date was less than 60 days ago. Brankica removes those 3 and resubmits."}
+  },
+  {id:"payoff",cat:"lease",
+   term:{sr:"Loan Payoff (Isplata kredita)",en:"Loan Payoff"},
+   termEn:"Loan Payoff",
+   short:{sr:"Iznos koji AAA Lease mora da plati banci da bi potpuno otplatila kredit za određeno vozilo i preuzela title.",en:"The amount AAA Lease must pay to the bank to fully settle the credit for a specific vehicle and obtain the title."},
+   detail:{sr:"Kada klijent isplati lease i želi buyout, AAA Lease mora da traži payoff od banke (ako je vozilo pod kreditom). Tek kada AAA Lease plati banci payoff iznos, banka oslobađa title. Aleksandra prati Loan listu i koordiniše ovaj proces sa Emily. Bez payoffa — title ne može da se prenese na klijenta.",en:"When a client pays off their lease and wants the buyout, AAA Lease must request the loan payoff from the bank (if the vehicle is under credit). Only after AAA Lease pays the bank the payoff amount does the bank release the title. Aleksandra tracks the Loan list and coordinates this with Emily. Without payoff — title cannot be transferred to the client."},
+   example:{sr:"Klijent je isplatio $60,000 lease. Vozilo je pod kreditom banke — AAA Lease duguje banci još $18,000 (payoff). Aleksandra traži payoff od banke, AAA Lease plaća $18,000, banka oslobađa title, Emily koordiniše transfer na klijenta.",en:"Client paid off a $60,000 lease. Vehicle is under bank credit — AAA Lease still owes $18,000 to bank (payoff). Aleksandra requests payoff from bank, AAA Lease pays $18,000, bank releases title, Emily coordinates transfer to client."}
+  },
+  {id:"ach",cat:"acc",
+   term:{sr:"ACH (Automatsko povlačenje sa bankovnog računa)",en:"ACH — Automated Clearing House"},
+   termEn:"ACH",
+   short:{sr:"Elektronski sistem koji automatski povlači uplate od klijenata na definisan datum.",en:"Electronic system that automatically pulls payments from clients on a defined date."},
+   detail:{sr:"AAA Lease koristi JPM (JPMorgan Chase) za ACH povlačenja. Milica Doson podešava template-e za svakog klijenta (iznos, datum povlačenja, banking info). Sistem automatski povlači na taj datum. Problem: odbijene uplate (NSF — Not Sufficient Funds) stižu 2-3 dana kasno i zahtevaju ručnu korekciju.",en:"AAA Lease uses JPM (JPMorgan Chase) for ACH pulls. Milica Doson sets up templates for every client (amount, pull date, banking info). The system automatically pulls on that date. Problem: rejected payments (NSF — Not Sufficient Funds) arrive 2-3 days late and require manual correction."},
+   example:{sr:"Klijent ima mesečni lease od $4,500, povlačenje 1-og u mesecu. Milica podešava ACH template u JPM-u: $4,500 / 1-og / klijentov account. 1-og, sistem automatski povlači.",en:"Client has $4,500 monthly lease, pull on the 1st of month. Milica sets up ACH template in JPM: $4,500 / 1st / client's account. On the 1st, system automatically pulls."}
+  },
+];
+console.log("Glossary loaded:", GLOSSARY.length, "terms");
+
+// ===================== STATE =====================
+let LANG = 'sr';
+let currentFreqFilter = 'all';
+let currentReqsFilter = 'all';
+let currentGlossFilter = 'all';
+let currentQuizType = 'role';
+let currentQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+// ===================== LANG =====================
+function setLang(lang) {
+  LANG = lang;
+  document.getElementById('btn-sr').classList.toggle('active', lang === 'sr');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  applyTranslations();
+  // Re-render dynamic views
+  const active = document.querySelector('.view.active');
+  if (active) {
+    const id = active.id;
+    if (id === 'docs-view') renderDocs();
+    else if (id === 'reqs-view') renderReqs();
+    else if (id === 'glossary-view') renderGlossary();
+  }
+  // Update person role labels on cards
+  document.querySelectorAll('[data-person-role]').forEach(el => {
+    const pid = el.dataset.personRole;
+    if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
+  });
+}
+
+function t(key) { return T[LANG][key] || T['en'][key] || key; }
+
+function applyTranslations() {
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.dataset.t;
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-placeholder-t]').forEach(el => {
+    el.placeholder = t(el.dataset.placeholderT);
+  });
+}
+
+// ===================== VIEW =====================
+function switchView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(v + '-view').classList.add('active');
+  const idx = ['map','flow','procmap','docs','reqs','glossary','quiz'].indexOf(v);
+  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  if (v === 'docs') renderDocs();
+  if (v === 'reqs') renderReqs();
+  if (v === 'glossary') renderGlossary();
+  // Update role labels on cards when switching to map
+  if (v === 'map') {
+    document.querySelectorAll('[data-person-role]').forEach(el => {
+      const pid = el.dataset.personRole;
+      if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
+    });
+  }
+}
+
+// ===================== PANEL =====================
+function openPanel(id) {
+  const p = PEOPLE[id];
+  if (!p) return;
+  document.getElementById('panel-name').textContent = p.name;
+  document.getElementById('panel-role').textContent = p.role[LANG] + (p.email ? ' · ' + p.email : '');
+  document.getElementById('panel-meta').innerHTML = `
+    <span class="panel-badge ${p.dept}">${p.dept.toUpperCase()}</span>
+    <span class="panel-badge ${p.dept}">${p.location}</span>
+  `;
+  const procs = p.processes[LANG] || p.processes['en'];
+  const docs = p.docs[LANG] || p.docs['en'];
+  const pains = p.pains[LANG] || p.pains['en'];
+  const summary = p.summary[LANG] || p.summary['en'];
+  let html = `
+    <div class="panel-section">
+      <div class="panel-section-title" data-t="panel_overview">${t('panel_overview')}</div>
+      <p style="font-size:.85rem;line-height:1.6;color:var(--text-muted)">${summary}</p>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">${t('panel_processes')}</div>
+      <ul class="process-list">
+        ${procs.map((pr,i)=>`<li class="process-item"><span class="process-num">0${i+1}</span><span>${pr}</span></li>`).join('')}
+      </ul>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">${t('panel_docs')}</div>
+      <div class="docs-grid">
+        ${docs.map(d=>`<div class="doc-chip">${d}</div>`).join('')}
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-title">${t('panel_tools')}</div>
+      <div class="tools-list">
+        ${p.tools.map(tl=>`<span class="tool-chip">${tl}</span>`).join('')}
+      </div>
+    </div>
+  `;
+  if (pains.length > 0) {
+    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_pains')}</div><ul class="pain-list">${pains.map(pain=>`<li class="pain-item">${pain}</li>`).join('')}</ul></div>`;
+  }
+  if (p.connects.length > 0) {
+    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_connects')}</div><div class="connects-to">${p.connects.map(c=>`<span class="connects-chip" onclick="openPanel('${c}')">${PEOPLE[c]?.name||c}</span>`).join('')}</div></div>`;
+  }
+  document.getElementById('panel-body').innerHTML = html;
+  document.getElementById('panel-overlay').classList.add('open');
+}
+
+function closePanel(e) {
+  if (!e || e.target===document.getElementById('panel-overlay') || e.currentTarget.tagName==='BUTTON') {
+    document.getElementById('panel-overlay').classList.remove('open');
+  }
+}
+
+// ===================== DOCS =====================
+const DOCUMENTS = [
+  {id:'active-units-lease',freq:'ongoing',owners:['andjela_t','valentina'],tool:'Google Sheets',link:null,
+   title:{sr:'Active Units Lista — Lease',en:'Active Units List — Lease'},
+   subtitle:{sr:'Master record svih lease dealova',en:'Master record of all lease deals'},
+   desc:{sr:'Centralni dokument celog lease accountinga. Nikada se ne briše — samo se dodaje. Svaki deal koji uđe u sistem ostaje zauvek radi istorije, izveštaja i provere klijenata koji se vraćaju.',en:'Central document of all lease accounting. Never deleted — only added to. Every deal that enters the system stays permanently for history, reporting, and checking returning clients.'},
+   detail:{sr:'Sadrži: unit broj, klijent, datum početka, iznos, status, datum check-in/out, napomene. Ima 17+ statusa od kojih svaki definiše šta se radi sa billing-om i inventarom.',en:'Contains: unit number, client, start date, amount, status, check-in/out date, notes. Has 17+ statuses each defining what happens with billing and inventory.'},
+   statuses:[
+     {name:'Active',desc:{sr:'Sve OK — billing ide normalno.',en:'All good — billing runs normally.'}},
+     {name:'Active Claim',desc:{sr:'Unit u eksidenatu — čeka potvrda od osiguranja. Maja mora pitati Radua/Aleksa pre billing-a.',en:'Unit in accident — waiting for insurance confirmation. Maja must ask Radu/Alex before billing.'}},
+     {name:'Active Docs Missing',desc:{sr:'Nov deal, fali dokumentacija (osiguranje, potpis, down payment).',en:'New deal, missing documentation (insurance, signature, down payment).'}},
+     {name:'Early Paid Off',desc:{sr:'Klijent isplatio lease pre roka. Samo za naše unite.',en:'Client paid off lease early. Only for company-owned units.'}},
+     {name:'Finished / Inactive',desc:{sr:'Legacy status — mali broj specijalnih klijenata. Dug otvoren ali ne biluje se.',en:'Legacy status — small number of special clients. Debt open but not billed.'}},
+     {name:'Lawyer',desc:{sr:'Slučaj kod advokata — billing MORA odmah da stane. Ni jedan invoice ne sme da izađe.',en:'Case with lawyer — billing MUST stop immediately. No invoice may be sent.'}},
+     {name:'Lease Finished, Day of Us Money',desc:{sr:'Lease gotov, ostao dug. Billing staje, ide payment plan.',en:'Lease ended, debt remains. Billing stops, payment plan begins.'}},
+     {name:'Paid Off',desc:{sr:'Sve isplaćeno. Unit se gasi u SVIM sistemima.',en:'Fully paid off. Unit deactivated in ALL systems.'}},
+     {name:'Purchase Back',desc:{sr:'AAA otkupila unit nazad. Stari deal = Purchase Back, novi se kreira.',en:'AAA bought back the unit. Old deal = Purchase Back, new one is created.'}},
+     {name:'Recovery',desc:{sr:'Unit oduzet. Billing staje. $2,500 recovery fee ako je AAA išla po unit.',en:'Unit repossessed. Billing stops. $2,500 recovery fee if AAA retrieved unit.'}},
+     {name:'Returned',desc:{sr:'Unit vraćen dobrovoljno.',en:'Unit voluntarily returned.'}},
+     {name:'Sold on Auction',desc:{sr:'Unit prodat na aukciji. Gasi se svuda.',en:'Unit sold at auction. Deactivated everywhere.'}},
+     {name:'Title on Pending',desc:{sr:'Sve isplaćeno ali title transfer još nije završen. Brankica vodi.',en:'Fully paid but title transfer not yet complete. Brankica manages this.'}},
+     {name:'TOO (Transfer of Ownership)',desc:{sr:'Vlasništvo prebačeno na novog klijenta. Stari deal → TOO, novi se kreira.',en:'Ownership transferred to new client. Old deal → TOO, new one created.'}},
+     {name:'Total Loss',desc:{sr:'Totalna šteta, primljen ček od osiguranja. Gasi se svuda.',en:'Total loss, insurance check received. Deactivated everywhere.'}},
+     {name:'Void',desc:{sr:'Otkazan deal. Void-uje se down payment invoice u QBs.',en:'Cancelled deal. Down payment invoice voided in QBs.'}},
+     {name:'Waiting on Buyout',desc:{sr:'Lease završen, čeka se buyout. Često amendment vraća status u Active.',en:'Lease ended, waiting for buyout. Amendment often returns status to Active.'}},
+   ]
+  },
+  {id:'active-units-rent',freq:'ongoing',owners:['radu'],tool:'Google Sheets',link:null,
+   title:{sr:'Active Units Lista — Rent (Radu lista)',en:'Active Units List — Rent (Radu\'s list)'},
+   subtitle:{sr:'Operativna lista za rental division',en:'Operational list for rental division'},
+   desc:{sr:'Paralelna lista Active Units samo za rental. Vodi Radu i Maja. Sadrži sve aktivne rent dealove sa mileage in/out kolonama. Osnova za nedeljni billing svaki ponedeljak.',en:'Parallel Active Units list for rental only. Managed by Radu and Maja. Contains all active rent deals with mileage in/out columns. Basis for weekly billing every Monday.'},
+   detail:{sr:'Radu svaki ponedeljak upisuje mileage in i out za svaki kamion. Accounting računa invoice na osnovu razlike × rate po milji. Lista ima 250+ redova.',en:'Radu enters mileage in and out for every truck each Monday. Accounting calculates invoice based on difference × rate per mile. List has 250+ rows.'},
+   statuses:[]
+  },
+  {id:'confirmed-payments',freq:'weekly',owners:['tina'],tool:'Google Sheets',link:null,
+   title:{sr:'Confirmed Payments Lista',en:'Confirmed Payments List'},
+   subtitle:{sr:'Interni tracker svih uplata po tipu billing-a',en:'Internal tracker of all payments by billing type'},
+   desc:{sr:'Tinina interna lista koja odražava stanje uplata u QuickBooks-u. Tabovi za svaki tip: Lease Weekly, Lease Monthly 1., Lease Monthly 15., Rent Weekly, Rent Monthly, Depoziti, Down Payment.',en:"Tina's internal list reflecting payment status in QuickBooks. Tabs for each type: Lease Weekly, Lease Monthly 1st, Lease Monthly 15th, Rent Weekly, Rent Monthly, Deposits, Down Payment."},
+   detail:{sr:'Boje: zeleno=plaćeno, crveno=odbijeno (+$35 fee), plavo=delimično, narandžasto=plaćeno sa fee-om, sivo=unit vraćen.',en:'Colors: green=paid, red=rejected (+$35 fee), blue=partial, orange=paid with fee, grey=unit returned.'},
+   statuses:[]
+  },
+  {id:'billing-list-weekly',freq:'weekly',owners:['radu','tina'],tool:'Google Sheets',link:null,
+   title:{sr:'Billing Lista — Rent Weekly',en:'Billing List — Rent Weekly'},
+   subtitle:{sr:'Nedeljni billing za sve aktivne rent unite',en:'Weekly billing for all active rental units'},
+   desc:{sr:'Lista koju Maja priprema i šalje Tini svaki ponedeljak. Tina za svaki unit otvara memorized invoice, unosi mileage in/out, izračunava charge i šalje.',en:'List prepared by Maja and sent to Tina every Monday. Tina opens the memorized invoice for each unit, enters mileage in/out, calculates charge, and sends.'},
+   detail:{sr:'Kamioni: fiksni iznos + mileage komponenta. Prikolice: samo fiksni iznos. Novi klijenti dobijaju prorated invoice za dane od preuzimanja.',en:'Trucks: fixed amount + mileage component. Trailers: fixed amount only. New clients receive a prorated invoice for days since pickup.'},
+   statuses:[]
+  },
+  {id:'daily-billing-list',freq:'daily',owners:['hanna'],tool:'Google Sheets',link:null,
+   title:{sr:'Daily Billing Lista',en:'Daily Billing List'},
+   subtitle:{sr:'Dnevna lista svega što je naplaćeno',en:'Daily list of all charges sent'},
+   desc:{sr:'Hana svaki dan šalje Milici Doson listu svega što je naplaćeno tog dana — parking, lease, rent, tolovi. Milica na osnovu toga zna šta da pošalje u banku.',en:'Hana sends Milica Doson a daily list of everything billed that day — parking, lease, rent, tolls. Milica uses it to know what to send to the bank.'},
+   detail:{sr:'Format: klijent, tip charge-a, iznos, invoice broj. Sadrži i odbijene uplate.',en:'Format: client, charge type, amount, invoice number. Also includes rejected payments.'},
+   statuses:[]
+  },
+  {id:'ar-aging',freq:'monthly',owners:['milica','milica_r'],tool:'QuickBooks → Google Sheets',link:null,
+   title:{sr:'AR Aging Report',en:'AR Aging Report'},
+   subtitle:{sr:'Mesečni pregled kašnjenja po klijentima',en:'Monthly overview of payment delays by client'},
+   desc:{sr:'Izvlači se iz QuickBooks-a ~10-og u mesecu. Prikazuje sve klijente koji kasne: 0-30, 31-60, 61-90, 91-180, 180+ dana. Osnova za mesečni AR review sastanak koji vodi Milica Rajković.',en:'Extracted from QuickBooks ~10th of month. Shows all late clients: 0-30, 31-60, 61-90, 91-180, 180+ days. Basis for monthly AR review meeting led by Milica Rajković.'},
+   detail:{sr:'Na review sastanku (Milica Rajković, Milica Doson, Andjela T., Hana) tim za svakog problematičnog klijenta odlučuje akciju: payment plan, recovery, eskalacija advokatu.',en:'At review meeting (Milica Rajković, Milica Doson, Andjela T., Hana) team decides action for each problematic client: payment plan, recovery, escalation to lawyer.'},
+   statuses:[]
+  },
+  {id:'credit-bureau-csv',freq:'monthly',owners:['brankica'],tool:'Google Sheets → Hutchins portal',link:null,
+   title:{sr:'Credit Bureau CSV',en:'Credit Bureau CSV'},
+   subtitle:{sr:'Mesečni submission na Hutchins portal',en:'Monthly submission to Hutchins portal'},
+   desc:{sr:'Brankica priprema CSV fajl i uploaduje na Hutchins. Prijavljuju se svi aktivni klijenti i svi sa open balance. Cilj: ažuriranje kreditnih skorova klijenata.',en:'Brankica prepares a CSV file and uploads it to Hutchins. All active clients and all with open balance are reported. Goal: updating client credit scores.'},
+   detail:{sr:'Polja: actual payment, current balance (open invoicei + buduće rate do kraja), highest credit amount (vrednost vozila − down payment − buyout), past due >30 dana, datum poslednjeg plaćanja. Min 60 dana od otvaranja ugovora — inače se odbija.',en:'Fields: actual payment, current balance (open invoices + future rates to end), highest credit amount (vehicle value − down payment − buyout), past due >30 days, last payment date. Minimum 60 days from contract opening — otherwise rejected.'},
+   statuses:[]
+  },
+  {id:'gps-list',freq:'monthly',owners:['brankica'],tool:'Google Sheets + FleetLocate + Routemate',link:null,
+   title:{sr:'GPS Lista / Mileage Tracking',en:'GPS List / Mileage Tracking'},
+   subtitle:{sr:'Svi uniti sa GPS uređajima i miljaže',en:'All units with GPS devices and mileage tracking'},
+   desc:{sr:'Lista svih unita koji imaju GPS. Brankica mesečno dobija izveštaje iz FleetLocate i Routemate, spaja ih po VIN-u i unosi milažu. Conditional formatting označava crveno kada unit pređe godišnji limit.',en:'List of all units with GPS. Brankica monthly receives reports from FleetLocate and Routemate, merges them by VIN, and enters mileage. Conditional formatting flags red when unit exceeds annual limit.'},
+   detail:{sr:'Standard: 130,000 milja/god. Neki ugovori: 160k ili 220k. Čim pređe → invoice. Mileage se resetuje i nova godina počinje. Milica Kamić i Milica Rajković imaju pristup.',en:'Standard: 130,000 miles/year. Some contracts: 160k or 220k. Once exceeded → invoice. Mileage resets and new year begins. Milica Kamić and Milica Rajković have access.'},
+   statuses:[]
+  },
+  {id:'fixed-asset-list',freq:'monthly',owners:['aleksandra'],tool:'QuickBooks + Google Sheets',link:null,
+   title:{sr:'Fixed Asset Lista',en:'Fixed Asset List'},
+   subtitle:{sr:'Svi kompanijski uniti — amortizacija',en:'All company-owned units — depreciation'},
+   desc:{sr:'Lista svih unita koje AAA Lease poseduje. Mesečno se ažurira: novi kupljeni ulaze, prodati/otpisani izlaze. Osnova za mesečnu amortizaciju. Mora biti usklađena sa QBs na kraju meseca.',en:'List of all units AAA Lease owns. Updated monthly: new purchases added, sold/written off removed. Basis for monthly depreciation. Must match QBs at end of month.'},
+   detail:{sr:'Alex, Roman, Scott, Ilija obaveštavaju Aleksandru o novim kupovinama. Statusi: Active (na lease/rent), Rental Pool, Ended Lease, Sold.',en:'Alex, Roman, Scott, Ilija notify Aleksandra of new purchases. Statuses: Active (on lease/rent), Rental Pool, Ended Lease, Sold.'},
+   statuses:[]
+  },
+  {id:'claims-list',freq:'ongoing',owners:['aleksandra','brankica'],tool:'Google Sheets',link:null,
+   title:{sr:'Claims Lista',en:'Claims List'},
+   subtitle:{sr:'Evidencija svih insurance claims od 2022.',en:'Record of all insurance claims since 2022'},
+   desc:{sr:'Lista koja se samo dopunjuje od 2022. Svaki eksidenat/claim dobija red. Billing se NE zaustavlja dok ne stigne ček od osiguranja.',en:'List only added to since 2022. Every accident/claim gets a row. Billing does NOT stop until insurance check arrives.'},
+   detail:{sr:'Polja: broj claim-a, ime adjustera, tip (daily repair ili total loss), datum primanja čeka. Mesečno se šalje Aleksandri lista total loss slučajeva za zatvaranje u fixed asset listi.',en:'Fields: claim number, adjuster name, type (daily repair or total loss), date check received. Monthly total loss list sent to Aleksandra for closure in fixed asset list.'},
+   statuses:[]
+  },
+  {id:'bill-of-sale',freq:'monthly',owners:['aleksandra','brankica','roman'],tool:'Google Sheets',link:null,
+   title:{sr:'Bill of Sale Lista',en:'Bill of Sale List'},
+   subtitle:{sr:'Mesečna evidencija prodaja i buyouta',en:'Monthly record of sales and buyouts'},
+   desc:{sr:'Na kraju meseca Brankica i Roman dodaju sve prodaje za cash i buyoute. Lista se šalje Aleksandri da zatvori unite u fixed asset listi.',en:'At end of month Brankica and Roman add all cash sales and buyouts. List sent to Aleksandra to close units in fixed asset list.'},
+   detail:{sr:'Prodaje: Roman i salesmani. Buyouti: Brankica. Razlika — Salesman prodaje: unit nije bio na lease. Buyout: klijent završio lease i otkupio unit.',en:'Sales: Roman and salespeople. Buyouts: Brankica. Difference — Sales: unit was not on lease. Buyout: client finished lease and purchased unit.'},
+   statuses:[]
+  },
+  {id:'docusign-contract',freq:'ongoing',owners:['andjela_t','valentina'],tool:'DocuSign + Google Drive',link:null,
+   title:{sr:'DocuSign Ugovor (Lease / Rental)',en:'DocuSign Contract (Lease / Rental)'},
+   subtitle:{sr:'Digitalni potpis ugovora',en:'Digital contract signing'},
+   desc:{sr:'Svaki novi deal dobija ugovor pripremljen u DocuSign-u. Redosled: salesman → klijent → Alex → Andjela (kopija). Potpisani ugovor ide na Drive u folder klijenta.',en:'Every new deal gets a contract prepared in DocuSign. Order: salesman → client → Alex → Andjela (copy). Signed contract filed in Drive folder per client.'},
+   detail:{sr:'Uz regularni ugovor mogu ići: cross-collateral (za True Funding klijente), bankarski mini-ugovor, promissory note. Sve liste se proveravaju pre slanja.',en:'Alongside the regular contract may come: cross-collateral (for True Funding clients), bank mini-contract, promissory note. All lists are checked before sending.'},
+   statuses:[]
+  },
+  {id:'buyout-notice',freq:'ongoing',owners:['milica'],tool:'Google Sheets',link:null,
+   title:{sr:'Buyout Notice Sheet',en:'Buyout Notice Sheet'},
+   subtitle:{sr:'Praćenje dealova koji se bliže kraju',en:'Tracking deals approaching end of term'},
+   desc:{sr:'Milica Doson prati sve dealove koji se bliže kraju ugovora. Šalje buyout notice klijentima. Računa amendment uslove za produženje. Alex odobrava pre slanja.',en:'Milica Doson tracks all deals approaching end of contract. Sends buyout notice to clients. Calculates amendment terms for extension. Alex approves before sending.'},
+   detail:{sr:'Ako klijent hoće buyout → Milica računa preostali iznos + buyout fee → Alex odobrava → pravi se amendment. Ako klijent neće → unit se vraća.',en:'If client wants buyout → Milica calculates remaining amount + buyout fee → Alex approves → amendment is created. If client declines → unit is returned.'},
+   statuses:[]
+  },
+];
+
+function renderDocs() {
+  const search = (document.getElementById('docs-search-input')?.value||'').toLowerCase();
+  const filtered = DOCUMENTS.filter(d => {
+    const matchFreq = currentFreqFilter==='all'||d.freq===currentFreqFilter;
+    const title = d.title[LANG]||d.title.en;
+    const desc = d.desc[LANG]||d.desc.en;
+    const matchSearch = !search||title.toLowerCase().includes(search)||desc.toLowerCase().includes(search);
+    return matchFreq && matchSearch;
+  });
+  const freqLabel = {daily:t('freq_daily'),weekly:t('freq_weekly'),monthly:t('freq_monthly'),ongoing:t('freq_ongoing')};
+  const container = document.getElementById('docs-list');
+  if (!container) return;
+  container.innerHTML = filtered.map(d => {
+    const title = d.title[LANG]||d.title.en;
+    const subtitle = d.subtitle[LANG]||d.subtitle.en;
+    const desc = d.desc[LANG]||d.desc.en;
+    const detail = d.detail[LANG]||d.detail.en;
+    const statusesHTML = d.statuses && d.statuses.length > 0 ? `
+      <div style="font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;color:var(--text-muted);margin-bottom:7px;">${t('doc_statuses')}</div>
+      <div class="doc-status-grid">
+        ${d.statuses.map(s=>`<div class="status-item"><div class="status-name">${s.name}</div><div class="status-desc">${s.desc[LANG]||s.desc.en}</div></div>`).join('')}
+      </div>` : '';
+    return `<div class="doc-card" onclick="toggleDocDetail('${d.id}')">
+      <div class="doc-card-top"><div><div class="doc-card-title">${title}</div><div class="doc-card-subtitle">${subtitle}</div></div>
+      <div class="doc-card-badges"><span class="doc-freq ${d.freq}">${freqLabel[d.freq]}</span></div></div>
+      <div class="doc-card-desc">${desc}</div>
+      <div class="doc-detail" id="doc-detail-${d.id}">
+        ${detail ? `<div class="doc-card-desc" style="color:var(--text);margin-bottom:10px;">${detail}</div>` : ''}
+        ${statusesHTML}
+      </div>
+      <div class="doc-card-meta">
+        <div><span class="doc-meta-label">${t('doc_tool')}:</span> ${d.tool}</div>
+        <div><span class="doc-meta-label">${t('doc_owners')}:</span>
+          <div class="doc-owners">${d.owners.map(o=>`<span class="doc-owner-chip" onclick="event.stopPropagation();openPanel('${o}')">${PEOPLE[o]?.name||o}</span>`).join('')}</div>
+        </div>
+        ${d.link?`<a href="${d.link}" target="_blank" style="color:var(--accent);font-size:.76rem;">🔗</a>`:`<span class="doc-link-btn">🔗 ${t('doc_link_none')}</span>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDocDetail(id) {
+  const el = document.getElementById('doc-detail-'+id);
+  if (el) el.classList.toggle('open');
+}
+function filterDocs(){renderDocs();}
+function filterByFreq(f,btn){
+  currentFreqFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDocs();
+}
+
+// ===================== REQUIREMENTS =====================
+const REQUIREMENTS = [
+  {module:'contracts',icon:'📄',moduleName:{sr:'Ugovori i Onboarding',en:'Contracts & Onboarding'},items:[
+    {id:'r1',priority:'must',title:{sr:'Automatsko kreiranje ugovora iz deal podataka',en:'Auto-generate contracts from deal data'},short:{sr:'Ugovor se generiše automatski — bez ručnog kucanja.',en:'Contract auto-generated from system data — no manual typing.'},desc:{sr:'Sistem treba da automatski popuni template ugovora podacima klijenta, unita, iznosa, datuma i uslova. Andjela i Valentina trenutno ručno menjaju svaki template.',en:'System should automatically populate the contract template with client, unit, amount, date, and terms data. Andjela and Valentina currently manually edit every template.'},pain:{sr:'Andjela/Valentina ručno menjaju template za svaki deal. Moguće greške, oduzima vreme.',en:'Andjela/Valentina manually edit templates for every deal. Risk of errors, time-consuming.'},who:['andjela_t','valentina']},
+
+    {id:'r3',priority:'must',title:{sr:'Checklist pre checkout-a (COI + down payment + potpis)',en:'Pre-checkout checklist (COI + down payment + signature)'},short:{sr:'Sistem blokira checkout dok nisu ispunjena sva 3 uslova.',en:'System blocks checkout until all 3 conditions are met.'},desc:{sr:'Hard lock: unit ne može biti označen kao released dok sistem ne potvrdi: potpisan ugovor, COI na fajlu, down payment plaćen. Svaki uslov vidljiv sa statusom ✓/✗ na deal kartici.',en:'Hard lock: unit cannot be marked as released until system confirms: signed contract, COI on file, down payment received. Each condition visible with ✓/✗ status on deal card.'},pain:{sr:'Provera je ručna i zavisi od pamćenja. Klijent može otići bez kompletne dokumentacije.',en:'Check is manual and memory-dependent. Client may leave without complete documentation.'},who:['andjela_t','valentina','radu']},
+    {id:'r4',priority:'must',title:{sr:'Automatsko ažuriranje statusa u svim sistemima',en:'Automatic status update across all systems'},short:{sr:'Promena statusa na jednom mestu → propagira se svuda.',en:'Status change in one place → propagates everywhere.'},desc:{sr:'Kada se deal označi kao Paid Off/Returned/Lawyer itd., sistem automatski: uklanja unit sa billing liste, menja status u inventaru, ažurira HubSpot, onemogućava slanje invoicea.',en:'When deal is marked Paid Off/Returned/Lawyer etc., system automatically: removes unit from billing list, changes inventory status, updates HubSpot, prevents invoice sending.'},pain:{sr:'Andjela mora ručno ažurirati HubSpot, QBs i sve liste posebno. 4-5 mesta po promeni.',en:'Andjela must manually update HubSpot, QBs, and every list separately. 4-5 places per change.'},who:['andjela_t','valentina','tina']},
+    {id:'r5',priority:'must',title:{sr:'17+ statusa ugovora sa definisanom procedurom',en:'17+ contract statuses with defined procedures'},short:{sr:'Svaki status ima definisanu akciju: billing, inventar, dokumenti.',en:'Each status has a defined action: billing, inventory, documents.'},desc:{sr:'Sistem mora podržati: Active, Active Claim, Active Docs Missing, Early Paid Off, Finished/Inactive, Payment Stopped, Lawyer, Lease Finished Day of Us Money, Paid Off, Purchase Back, Recovery, Returned, Sold on Auction, Title on Pending, TOO, Total Loss, Void, Waiting on Buyout.',en:'System must support: Active, Active Claim, Active Docs Missing, Early Paid Off, Finished/Inactive, Payment Stopped, Lawyer, Lease Finished Day of Us Money, Paid Off, Purchase Back, Recovery, Returned, Sold on Auction, Title on Pending, TOO, Total Loss, Void, Waiting on Buyout.'},pain:{sr:'Statusi postoje samo u Google Sheets. Nema nikakve automatske akcije vezane za status.',en:'Statuses exist only in Google Sheets. No automatic action tied to status changes.'},who:['andjela_t','valentina','milica']},
+    {id:'r6',priority:'nice',title:{sr:'Cross-collateral i promissory note tracking',en:'Cross-collateral and promissory note tracking'},short:{sr:'Sistem prepoznaje True Funding klijente i automatski traži cross-collateral dokument.',en:'System recognizes True Funding clients and automatically requires cross-collateral document.'},desc:{sr:'Lista True Funding klijenata u sistemu. Kada se deal kreira za klijenta sa te liste, sistem automatski zahteva cross-collateral. Promissory note se posebno vodi i biluje.',en:'True Funding client list in system. When a deal is created for a client on that list, system automatically requires cross-collateral. Promissory note is tracked and billed separately.'},pain:{sr:'Andjela ručno proverava cross-collateral listu pre svakog ugovora.',en:'Andjela manually checks cross-collateral list before every contract.'},who:['andjela_t','valentina']},
+  ]},
+  {module:'billing',icon:'💰',moduleName:{sr:'Billing — Lease i Rent',en:'Billing — Lease & Rent'},items:[
+    {id:'r7',priority:'must',title:{sr:'Automatsko generisanje invoicea (weekly + monthly)',en:'Auto-generate invoices (weekly + monthly)'},short:{sr:'Sistem generiše invoicee na definisan dan — bez ručnog otvaranja svakog u QBs.',en:'System auto-generates invoices on defined date — no manually opening each in QBs.'},desc:{sr:'Rent weekly: svaki ponedeljak. Rent monthly: 1-og. Lease weekly: svaki ponedeljak. Lease monthly: 1-og i 15-og. Iznosi se povlače iz ugovora. Za rent weekly: fiksni + mileage automatski.',en:'Rent weekly: every Monday. Rent monthly: 1st. Lease weekly: every Monday. Lease monthly: 1st and 15th. Amounts pulled from contract. For rent weekly: fixed + mileage automatically.'},pain:{sr:'Tina otvara svaki invoice posebno u QBs Memorized listi. 400+ lease weekly = 1.5-2h svaki ponedeljak.',en:'Tina opens every invoice individually in QBs Memorized list. 400+ lease weekly = 1.5-2h every Monday.'},who:['tina','radu']},
+    {id:'r8',priority:'must',title:{sr:'Batch slanje invoicea',en:'Batch invoice sending'},short:{sr:'Svi invoicei za jedan ciklus šalju se odjednom.',en:'All invoices for one billing cycle sent at once.'},desc:{sr:'Sistem generiše sve invoicee i šalje ih emailom klijentima u jednoj operaciji. Mogućnost pregleda pre slanja. Opcija za podsetnik za neplaćene.',en:'System generates all invoices and emails them to clients in one operation. Preview before sending. Option for reminders on unpaid invoices.'},pain:{sr:'Ni QBs ni DocuSign nemaju batch send. Tina šalje jedan po jedan. Mesečno zatvaranje ~4h.',en:'Neither QBs nor DocuSign has batch send. Tina sends one by one. Monthly closing ~4h.'},who:['tina','hanna']},
+    {id:'r9',priority:'must',title:{sr:'Automatski stop billing-a kada se unit vrati',en:'Automatic billing stop when unit is returned'},short:{sr:'Čim se unit označi kao vraćen (check-in), billing automatski staje.',en:'As soon as unit is marked returned (check-in), billing automatically stops.'},desc:{sr:'Sistem detektuje check-in datum i automatski: zaustavlja recurring invoice, generiše prorated invoice za period do vraćanja, kreira credit memo ako je klijent preplatio.',en:'System detects check-in date and automatically: stops recurring invoice, generates prorated invoice for period until return, creates credit memo if client overpaid.'},pain:{sr:'Ako Fabrizio/Radu ne unesu check-in datum na vreme, billing nastavlja greškom.',en:'If Fabrizio/Radu don\'t enter check-in date on time, billing continues incorrectly.'},who:['tina','radu','fabrizio']},
+    {id:'r10',priority:'must',title:{sr:'Prorated billing za nove i vraćene unite',en:'Prorated billing for new and returned units'},short:{sr:'Sistem automatski računa proration od datuma preuzimanja/vraćanja.',en:'System automatically calculates proration from pickup/return date.'},desc:{sr:'Kada klijent uzme unit usred meseca/nedelje, sistem automatski izračunava i kreira prorated invoice. Isto za povratak.',en:'When client picks up unit mid-month/week, system automatically calculates and creates prorated invoice. Same for returns.'},pain:{sr:'Maja/Tina ručno računaju proration za svaki novi klijent ili povratak.',en:'Maja/Tina manually calculate proration for every new client or return.'},who:['tina','radu']},
+    {id:'r11',priority:'must',title:{sr:'Redosled zatvaranja invoicea (Rent → Tolovi → Lease)',en:'Invoice closing order (Rent → Tolls → Lease)'},short:{sr:'Uplata se automatski alocira: rent → tolovi/registracije → lease.',en:'Payment automatically allocated: rent → tolls/registrations → lease.'},desc:{sr:'Konfigurabilan redosled zatvaranja po tipu invoicea. Vidljivo koji invoicei su zatvoreni iz koje uplate.',en:'Configurable closing order by invoice type. Visible which invoices were closed by which payment.'},pain:{sr:'Hana ručno zatvara svaki invoice po Aleksovom pravilu. Kompleksno za klijente sa i rent i lease. ~4h mesečno.',en:"Hana manually closes every invoice per Alex's rule. Complex for clients with both rent and lease. ~4h monthly."},who:['hanna','tina','milica']},
+    {id:'r12',priority:'must',title:{sr:'QuickBooks integracija — dvosmeran sync',en:'QuickBooks integration — bidirectional sync'},short:{sr:'Sve transakcije automatski sinhronizovane sa QBs u realnom vremenu.',en:'All transactions automatically synced with QBs in real time.'},desc:{sr:'Bidirekciona integracija: invoicei kreirani u softveru → automatski u QBs. Uplate u banci → automatski zatvaraju odgovarajuće invoicee.',en:'Bidirectional integration: invoices created in software → auto-appear in QBs. Bank payments → automatically close matching invoices.'},pain:{sr:'Sve se unosi ručno u QBs. Nema automatskog zatvaranja između sistema.',en:'Everything entered manually in QBs. No automatic closing between systems.'},who:['tina','hanna','milica','aleksandra']},
+    {id:'r13',priority:'must',title:{sr:'Automatski reversal odbijenih uplata',en:'Automatic reversal of rejected payments'},short:{sr:'Sistem automatski detektuje odbijene ACH uplate i reversuje zatvorene invoicee.',en:'System automatically detects rejected ACH payments and reverses closed invoices.'},desc:{sr:'Kada banka odbije uplatu: označi invoicee kao neplaćene, dodaje $35 rejected fee, obaveštava Milicu. Ne čeka 2-3 dana.',en:'When bank rejects payment: marks invoices as unpaid, adds $35 rejected fee, notifies Milica. Does not wait 2-3 days.'},pain:{sr:'Odbijene uplate stižu 2-3 dana posle. Tina/Hana moraju ručno pronaći i reversovati zatvorene invoicee.',en:'Rejected payments arrive 2-3 days later. Tina/Hana must manually find and reverse closed invoices.'},who:['tina','hanna','milica']},
+    {id:'r14',priority:'nice',title:{sr:'Klijentski portal — pregled stanja i plaćanje',en:'Client portal — balance view and payment'},short:{sr:'Klijent vidi sve invoicee, plati direktno, preuzima dokumente.',en:'Client views all invoices, pays directly, downloads documents.'},desc:{sr:'Portal: pregled invoicea (plaćenih i otvorenih), direktno ACH plaćanje, preuzimanje ugovora i registracija, pregled preostalog iznosa i buyout-a.',en:'Portal: invoice overview (paid and open), direct ACH payment, contract and registration downloads, remaining balance and buyout view.'},pain:{sr:'Klijenti stalno zovu/pišu za informacije o stanju. Milica odgovara na iste upite.',en:'Clients constantly call/email for balance info. Milica answers the same queries repeatedly.'},who:['milica','milica_r']},
+  ]},
+  {module:'ar',icon:'🏦',moduleName:{sr:'Collections i AR',en:'Collections & AR'},items:[
+    {id:'r15',priority:'must',title:{sr:'Automatski AR aging report',en:'Automatic AR aging report'},short:{sr:'Real-time AR aging — bez ručnog izvlačenja iz QBs.',en:'Real-time AR aging — no manual extraction from QBs.'},desc:{sr:'AR aging po klijentu u realnom vremenu: 0-30, 31-60, 61-90, 91-180, 180+ dana. Dostupan u svakom trenutku.',en:'Real-time AR aging per client: 0-30, 31-60, 61-90, 91-180, 180+ days. Available at any time.'},pain:{sr:'AR aging se izvlači iz QBs jednom mesečno (~10-og). Između toga nema ažurnog pregleda.',en:'AR aging extracted from QBs once monthly (~10th). No current view in between.'},who:['milica','milica_r']},
+    {id:'r16',priority:'must',title:{sr:'Automatski late fee na definisan datum',en:'Automatic late fee on defined date'},short:{sr:'10% late fee automatski dodat klijentima bez payment plana.',en:'10% late fee automatically added to clients without payment plan.'},desc:{sr:'Sistem automatski dodaje late fee (10% na open balance) na definisan datum za sve klijente bez aktivnog payment plana.',en:'System automatically adds late fee (10% on open balance) on defined date for all clients without active payment plan.'},pain:{sr:'Milica ručno izračunava late fee za svakog klijenta posebno, svaki mesec.',en:'Milica manually calculates late fee for every client separately, every month.'},who:['milica']},
+    {id:'r17',priority:'must',title:{sr:'Recovery workflow sa statusima',en:'Recovery workflow with statuses'},short:{sr:'Definisan recovery flow: upozorenje → GPS disable → repossession → lawyer.',en:'Defined recovery flow: warning → GPS disable → repossession → lawyer.'},desc:{sr:'Sistem prati recovery korake: (1) upozorenje, (2) GPS starter disable, (3) Teo dispatched ($2,500 fee automatski), (4) demand letter, (5) advokat. Status "Lawyer" blokira sve buduće invoicee.',en:'System tracks recovery steps: (1) warning, (2) GPS starter disable, (3) Teo dispatched ($2,500 fee auto-added), (4) demand letter, (5) lawyer. "Lawyer" status blocks all future invoices.'},pain:{sr:'Svaki korak recovery-a je ručan. Nema centralnog mesta gde se vidi status svakog recovery slučaja.',en:'Every recovery step is manual. No central place to see status of each recovery case.'},who:['milica','alex']},
+    {id:'r18',priority:'must',title:{sr:'Pregled preostalog iznosa (remaining balance)',en:'Remaining balance view'},short:{sr:'Za svakog klijenta i unit: koliko rata ostalo, preostali iznos, buyout.',en:'For every client and unit: installments remaining, remaining amount, buyout.'},desc:{sr:'Real-time prikaz: broj preostalih rata, ukupan preostali iznos, buyout iznos, datum završetka ugovora.',en:'Real-time view: number of remaining installments, total remaining amount, buyout amount, contract end date.'},pain:{sr:'Brankica ručno računa remaining balance za svakog klijenta za credit bureau. Nema jednog mesta gde se vidi.',en:'Brankica manually calculates remaining balance for every client for credit bureau. No single place to see this.'},who:['milica','brankica','milica_r']},
+    {id:'r19',priority:'nice',title:{sr:'Automatski buyout notice',en:'Automatic buyout notice'},short:{sr:'Sistem automatski šalje buyout notice klijentu X dana pre isteka ugovora.',en:'System automatically sends buyout notice to client X days before contract expiry.'},desc:{sr:'Konfigurabilan broj dana (npr. 90, 60, 30). Sistem generiše email klijentu sa preostalim iznosom i opcijama.',en:'Configurable number of days (e.g. 90, 60, 30). System generates email to client with remaining amount and options.'},pain:{sr:'Milica ručno prati spreadsheet sa datumima isteka i šalje notice manuelno.',en:'Milica manually monitors spreadsheet with expiry dates and sends notices manually.'},who:['milica']},
+    {id:'r20',priority:'nice',title:{sr:'Automatski payment reminders',en:'Automatic payment reminders'},short:{sr:'Sistem šalje podsetnik klijentima X dana pre i posle dospeća.',en:'System sends reminder to clients X days before and after due date.'},desc:{sr:'Konfigurabilan: 3 dana pre, na dan dospeća, 3/7/14 dana posle. Email ili SMS.',en:'Configurable: 3 days before, on due date, 3/7/14 days after. Email or SMS.'},pain:{sr:'Milica svaki dan ručno zove klijente sa neplaćenim invoiceima.',en:'Milica calls clients with unpaid invoices manually every day.'},who:['milica']},
+  ]},
+  {module:'gps',icon:'📡',moduleName:{sr:'GPS i Milaža',en:'GPS & Mileage'},items:[
+    {id:'r21',priority:'must',title:{sr:'GPS integracija — FleetLocate + Routemate',en:'GPS integration — FleetLocate + Routemate'},short:{sr:'Direktna konekcija na oba GPS sistema — automatski uvoz miljaža.',en:'Direct connection to both GPS systems — automatic mileage import.'},desc:{sr:'Automatski mesečni import miljaža iz FleetLocate i Routemate po VIN broju. Nema ručnog spajanja dva fajla.',en:'Automatic monthly mileage import from FleetLocate and Routemate by VIN number. No manual merging of two files.'},pain:{sr:'Brankica mesečno ručno preuzima izveštaje iz oba sistema i spaja po VIN-u u Excelu.',en:'Brankica manually downloads reports from both systems and merges by VIN in Excel every month.'},who:['brankica','valentina']},
+    {id:'r22',priority:'must',title:{sr:'Automatski mileage billing za lease',en:'Automatic mileage overage billing for lease'},short:{sr:'Čim unit pređe godišnji limit, sistem automatski kreira invoice za overage.',en:'Once unit exceeds annual limit, system automatically creates overage invoice.'},desc:{sr:'Konfigurabilan limit po ugovoru (130k, 160k, 220k milja/god). Čim pređe → automatski invoice. Mileage se resetuje.',en:'Configurable limit per contract (130k, 160k, 220k miles/year). Once exceeded → automatic invoice. Mileage resets.'},pain:{sr:'Brankica mesečno gleda conditional formatting, ručno kreira invoice za svaki unit koji je prešao limit.',en:'Brankica monthly checks conditional formatting, manually creates invoice for every unit that exceeded limit.'},who:['brankica']},
+    {id:'r23',priority:'must',title:{sr:'GPS status provera pre checkout-a',en:'GPS status check before checkout'},short:{sr:'Sistem proverava da li GPS radi pre nego što se unit može označiti kao released.',en:'System checks whether GPS is active before unit can be marked as released.'},desc:{sr:'Pre checkout-a sistem automatski pinga GPS i prikazuje status (aktivan/neaktivan). Ako GPS ne radi — upozorenje. Fleet manager dobija notifikaciju.',en:'Before checkout, system automatically pings GPS and shows status (active/inactive). If GPS not working — warning. Fleet manager notified.'},pain:{sr:'Valentina/Brankica ručno proveravaju u FleetLocate i Routemate posebno pre svakog checkout-a.',en:'Valentina/Brankica manually check in FleetLocate and Routemate separately before every checkout.'},who:['valentina','brankica']},
+    {id:'r24',priority:'nice',title:{sr:'Real-time GPS mapa za recovery',en:'Real-time GPS map for recovery'},short:{sr:'Prikaz svih aktivnih unita na mapi za potrebe recovery-a.',en:'Map view of all active units for recovery purposes.'},desc:{sr:'Karta sa svim aktivnim unitima. Filtriranje po statusu. Direktan link na GPS poziciju iz deal kartice.',en:'Map with all active units. Filter by status. Direct link to GPS position from deal card.'},pain:{sr:'Za recovery mora se posebno ulaziti u FleetLocate/Routemate da se nađe pozicija.',en:'For recovery must separately enter FleetLocate/Routemate to find position.'},who:['milica','brankica']},
+  ]},
+  {module:'additional',icon:'🧾',moduleName:{sr:'Dodatni Troškovi (Tolovi, Popravke, Parking)',en:'Additional Charges (Tolls, Repairs, Parking)'},items:[
+    {id:'r25',priority:'must',title:{sr:'Additional charges billing — tolovi, popravke, final charges',en:'Additional charges billing — tolls, repairs, final charges'},short:{sr:'Brzo kreiranje ad-hoc invoicea za tolove i popravke vezano za konkretan unit i klijenta.',en:'Quick creation of ad-hoc invoices for tolls and repairs tied to specific unit and client.'},desc:{sr:'Hana prima toll invoice → traži koji klijent je imao unit na taj datum → kreira invoice → šalje. Mora biti: brzo pretraživanje klijent/unit/datum, attachment originalnog invoicea, automatsko dodavanje na billing listu.',en:"Hana receives toll invoice → finds which client had unit on that date → creates invoice → sends. Must have: quick client/unit/date search, original invoice attachment, automatic addition to billing list."},pain:{sr:'Hana ručno pretražuje ko je imao koji unit na koji datum. 2MB limit u QBs za attachment-e.',en:'Hana manually searches who had which unit on which date. 2MB limit in QBs for attachments.'},who:['hanna']},
+    {id:'r26',priority:'must',title:{sr:'Deposit management',en:'Deposit management'},short:{sr:'Sistem prati depozite — naplata, čuvanje i povraćaj pri kraju ugovora.',en:'System tracks deposits — collection, holding, and refund at contract end.'},desc:{sr:'Kada se ugovor potpiše, deposit invoice se automatski kreira. Deposit se čuva kao liability. Pri završetku: sistem izračunava da li se vraća ili alocira na outstanding balance.',en:'When contract is signed, deposit invoice automatically created. Deposit held as liability. At end: system calculates whether to refund or allocate against outstanding balance.'},pain:{sr:'Deposit analiza se radi ručno u Excelu mesečno. Jedina koja to radila je Aleksandra (na porodiljskom).',en:'Deposit analysis done manually in Excel monthly. Only Aleksandra was doing this (now on maternity leave).'},who:['hanna','aleksandra']},
+    {id:'r27',priority:'must',title:{sr:'Parking billing — Easy Storage ili zamena',en:'Parking billing — Easy Storage or replacement'},short:{sr:'Sistem podržava billing za storage/parking klijente — mesečno automatski.',en:'System supports billing for storage/parking clients — automatically monthly.'},desc:{sr:'Automatski mesečni pull za parking klijente. Prati: approved, NSF, late fee, lockout fee. Sinhronizacija sa QBs za knjiženje.',en:'Automatic monthly pull for parking clients. Tracks: approved, NSF, late fee, lockout fee. Sync with QBs for bookkeeping.'},pain:{sr:'Tina ručno šalje ~300 parking invoicea mesečno. Easy Storage je poseban sistem bez QBs integracije.',en:'Tina manually sends ~300 parking invoices monthly. Easy Storage is a separate system with no QBs integration.'},who:['tina']},
+    {id:'r28',priority:'nice',title:{sr:'P&L po unitu',en:'P&L per unit'},short:{sr:'Real-time profit & loss za svaki pojedinačni unit.',en:'Real-time profit & loss for each individual unit.'},desc:{sr:'Za svaki unit: ukupni prihod, troškovi (popravke, registracije, tolovi, GPS, kamata banke), neto profit.',en:'For each unit: total revenue, costs (repairs, registrations, tolls, GPS, bank interest), net profit.'},pain:{sr:'QBs nema P&L po unitu za rent. Mora se ručno računati iz više izvora.',en:'QBs has no P&L per unit for rent. Must be manually calculated from multiple sources.'},who:['radu','milica_r','alex']},
+  ]},
+  {module:'creditbureau',icon:'📊',moduleName:{sr:'Credit Bureau i Izveštaji',en:'Credit Bureau & Reporting'},items:[
+    {id:'r29',priority:'must',title:{sr:'Automatski credit bureau CSV export',en:'Automatic credit bureau CSV export'},short:{sr:'Sistem automatski generiše Hutchins-kompatibilan CSV sa svim potrebnim poljima.',en:'System automatically generates Hutchins-compatible CSV with all required fields.'},desc:{sr:'Mesečno generisanje CSV sa: actual payment, current balance (open + buduće rate do kraja), highest credit amount, past due >30 dana, last payment date. Automatska validacija (min 60 dana od otvaranja).',en:'Monthly CSV generation with: actual payment, current balance (open + future rates to end), highest credit amount, past due >30 days, last payment date. Automatic validation (min 60 days from opening).'},pain:{sr:'Brankica ručno računa current balance (uključujući buduće rate) za 500+ klijenata. Najzahtevniji ručni posao u firmi.',en:'Brankica manually calculates current balance (including future payments) for 500+ clients. Most demanding manual task in the company.'},who:['brankica']},
+    {id:'r30',priority:'must',title:{sr:'Future payments projection po klijentu',en:'Future payments projection per client'},short:{sr:'Sistem prikazuje sve buduće rate — ne samo otvorene invoicee.',en:'System shows all future installments — not just open invoices.'},desc:{sr:'Razlika između otvorenih invoicea i budućih rata mora biti jasna. Ključno za credit bureau i za Milicu.',en:'Difference between open invoices and future installments must be clear. Key for credit bureau and for Milica.'},pain:{sr:'QBs prikazuje samo otvorene invoicee. Brankica mora ručno računati za svakog klijenta koliko mu je ostalo.',en:'QBs shows only open invoices. Brankica must manually calculate remaining amount for every client.'},who:['brankica','milica']},
+    {id:'r31',priority:'nice',title:{sr:'IFTA / HHUT reporting',en:'IFTA / HHUT reporting'},short:{sr:'Sistem prati miljaže po statu i kvartalu — osnova za godišnji IFTA izveštaj.',en:'System tracks mileage per state and quarter — basis for annual IFTA report.'},desc:{sr:'Automatsko praćenje milja po unitu po statu. Kvartalni izveštaj za Secretary of State. Emily sada skuplja podatke ručno.',en:'Automatic tracking of miles per unit per state. Quarterly report for Secretary of State. Emily currently collects data manually.'},pain:{sr:'IFTA je opisan kao "rudarski posao". Skupljanje mileage podataka od klijenata po kvartalu je izuzetno zahtevano.',en:'IFTA described as an "incredibly laborious task." Collecting quarterly mileage data from clients is extremely demanding.'},who:['emily','brankica']},
+  ]},
+  {module:'access',icon:'🔐',moduleName:{sr:'Pristup, Uloge i Integracije',en:'Access, Roles & Integrations'},items:[
+    {id:'r32',priority:'must',title:{sr:'Role-based pristup (5 nivoa)',en:'Role-based access (5 levels)'},short:{sr:'Svaki zaposleni vidi i menja samo ono što mu odgovara ulozi.',en:'Each employee sees and modifies only what matches their role.'},desc:{sr:'Minimum 5 uloga: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, klijenti; (3) Contracts — ugovori, dokumenti; (4) Finance — payable, izveštaji; (5) Admin — sve.',en:'Minimum 5 roles: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, clients; (3) Contracts — contracts, documents; (4) Finance — payable, reports; (5) Admin — everything.'},pain:{sr:'QBs payable pristup samo Aleksandra i Nadija, ali nema granularnih uloga za ostale sisteme.',en:'QBs payable access only Aleksandra and Nadija, but no granular roles for other systems.'},who:['milica_r','alex','andjela_t']},
+    {id:'r33',priority:'must',title:{sr:'15-20 korisnika odmah, brzo skaliranje',en:'15-20 users immediately, fast scaling'},short:{sr:'Minimum 15-20 seatova odmah. Bez dugih procurement procesa za dodavanje.',en:'Minimum 15-20 seats immediately. No lengthy procurement process for adding users.'},desc:{sr:'AAA Lease ima ~20 US zaposlenih + tim u Kragujevcu. Softver mora podržati sve odmah.',en:'AAA Lease has ~20 US employees + Kragujevac team. Software must support everyone immediately.'},pain:{sr:'Različiti alati imaju različita ograničenja seatova i cene po korisniku.',en:'Different tools have different seat limits and per-user pricing.'},who:['milica_r','alex']},
+    {id:'r34',priority:'must',title:{sr:'Leave coverage — uvid u kolegu',en:'Leave coverage — colleague visibility'},short:{sr:'Manager/kolega može privremeno preuzeti zadatke odsutnog zaposlenog.',en:'Manager/colleague can temporarily take over tasks of absent employee.'},desc:{sr:'Kada je neko odsutan, manager dobija privremeni pristup njihovom radnom prostoru. Sve otvorene stavke su vidljive.',en:'When someone is absent, manager gets temporary access to their workspace. All open items are visible.'},pain:{sr:'Kada neko nije dostupan, niko ne zna gde su mu stvari ni šta je pending.',en:"When someone is unavailable, no one knows where their items are or what's pending."},who:['milica_r','andjela_t']},
+    {id:'r35',priority:'must',title:{sr:'HubSpot integracija ili zamena CRM-a',en:'HubSpot integration or CRM replacement'},short:{sr:'Deal podaci iz CRM-a se automatski povlače u softver.',en:'Deal data from CRM automatically pulled into software.'},desc:{sr:'Bidirekciona sinhronizacija: novi deal u HubSpot → automatski u softveru. Status promena → ažurira HubSpot. Ili: softver ima ugrađen CRM.',en:'Bidirectional sync: new deal in HubSpot → auto-appears in software. Status change → updates HubSpot. Or: software has built-in CRM.'},pain:{sr:'Andjela prati HubSpot i ručno prenosi podatke u Active Units listu i QBs. Dupli unos.',en:'Andjela monitors HubSpot and manually transfers data to Active Units List and QBs. Duplicate entry.'},who:['andjela_t','valentina','brankica']},
+    {id:'r36',priority:'nice',title:{sr:'Automatski obaveštajni sistem Ops ↔ Accounting',en:'Automatic Ops ↔ Accounting notification system'},short:{sr:'Kada Fabrizio uradi check-in → Tina automatski dobija notifikaciju da zaustavi billing.',en:'When Fabrizio does check-in → Tina automatically gets notified to stop billing.'},desc:{sr:'Sistem šalje notifikacije: (1) Check-in → Tina/Maja: stop billing; (2) GPS aktivan → Valentina: OK za release; (3) Paid Off → Aleksandra: zatvori u fixed assets; (4) Recovery → Milica: pokreni proceduru.',en:'System sends notifications: (1) Check-in → Tina/Maja: stop billing; (2) GPS active → Valentina: OK for release; (3) Paid Off → Aleksandra: close in fixed assets; (4) Recovery → Milica: start procedure.'},pain:{sr:'Sva komunikacija između ops i accountinga ide emailom ili verbalno. Često se kasni ili zaboravi.',en:'All communication between ops and accounting goes via email or verbally. Often delayed or forgotten.'},who:['fabrizio','tina','andjela_t','milica']},
+  ]},
+];
+
+function renderReqs() {
+  const search = (document.getElementById('reqs-search')?.value||'').toLowerCase();
+  const container = document.getElementById('reqs-list');
+  if (!container) return;
+  let mustCount=0, niceCount=0, html='';
+  REQUIREMENTS.forEach(mod => {
+    const filtered = mod.items.filter(r => {
+      const matchP = currentReqsFilter==='all'||r.priority===currentReqsFilter;
+      const title = r.title[LANG]||r.title.en;
+      const short = r.short[LANG]||r.short.en;
+      const matchS = !search||title.toLowerCase().includes(search)||short.toLowerCase().includes(search);
+      return matchP && matchS;
+    });
+    if (!filtered.length) return;
+    mustCount += filtered.filter(r=>r.priority==='must').length;
+    niceCount += filtered.filter(r=>r.priority==='nice').length;
+    const modName = mod.moduleName[LANG]||mod.moduleName.en;
+    html += `<div class="reqs-module"><div class="reqs-module-header"><span class="reqs-module-icon">${mod.icon}</span><span class="reqs-module-name">${modName}</span><span class="reqs-module-count">${filtered.length}</span></div>`;
+    filtered.forEach(r => {
+      const title = r.title[LANG]||r.title.en;
+      const short = r.short[LANG]||r.short.en;
+      const desc = r.desc[LANG]||r.desc.en;
+      const pain = r.pain[LANG]||r.pain.en;
+      html += `<div class="req-card" id="card-${r.id}" onclick="toggleReq('${r.id}')">
+        <div><div class="req-title">${title}</div><div class="req-short">${short}</div>
+        <div class="req-detail" id="detail-${r.id}">
+          <div class="req-detail-desc">${desc}</div>
+          <div class="req-pain">${pain}</div>
+          <div class="req-who"><span class="req-who-label" style="font-family:'DM Mono',monospace;font-size:.66rem;color:var(--text-muted);text-transform:uppercase;">${LANG==='sr'?'Tiče se':'Affects'}: </span>${r.who.map(w=>`<span class="doc-owner-chip" onclick="event.stopPropagation();openPanel('${w}')">${PEOPLE[w]?.name||w}</span>`).join('')}</div>
+        </div></div>
+        <div class="req-badges"><span class="${r.priority==='must'?'badge-must':'badge-nice'}">${r.priority==='must'?'★ MUST HAVE':'◇ NICE TO HAVE'}</span></div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html || `<p style="color:var(--text-muted);text-align:center;padding:32px;">${LANG==='sr'?'Nema rezultata.':'No results.'}</p>`;
+  const sm=document.getElementById('stat-must'),sn=document.getElementById('stat-nice'),st=document.getElementById('stat-total');
+  if(sm)sm.textContent=mustCount; if(sn)sn.textContent=niceCount; if(st)st.textContent=mustCount+niceCount;
+}
+function toggleReq(id){
+  const d=document.getElementById('detail-'+id),c=document.getElementById('card-'+id);
+  if(!d)return; const o=d.classList.contains('open');
+  d.classList.toggle('open',!o); c.classList.toggle('expanded',!o);
+}
+function setReqsFilter(f,btn){
+  currentReqsFilter=f;
+  document.querySelectorAll('.reqs-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); renderReqs();
+}
+
+// ===================== GLOSSARY =====================
+function renderGlossary() {
+  const search = (document.getElementById('gloss-search')?.value||'').toLowerCase();
+  const container = document.getElementById('gloss-list');
+  if (!container) return;
+  const cats = {
+    lease:{sr:'Lease Termini',en:'Lease Terms'},
+    acc:{sr:'Accounting Termini',en:'Accounting Terms'},
+    ops:{sr:'Operativni Termini',en:'Operations Terms'}
+  };
+  const catOrder = ['lease','acc','ops'];
+  let html = '';
+  catOrder.forEach(cat => {
+    if (currentGlossFilter !== 'all' && currentGlossFilter !== cat) return;
+    const items = GLOSSARY.filter(g => {
+      if (g.cat !== cat) return false;
+      const term = g.term[LANG]||g.term.en;
+      const short = g.short[LANG]||g.short.en;
+      return !search || term.toLowerCase().includes(search) || short.toLowerCase().includes(search) || (g.termEn||'').toLowerCase().includes(search);
+    });
+    if (!items.length) return;
+    const catName = cats[cat][LANG]||cats[cat].en;
+    html += `<div class="gloss-section"><div class="gloss-section-title">${catName}</div><div class="gloss-grid">`;
+    items.forEach(g => {
+      const term = g.term[LANG]||g.term.en;
+      const short = g.short[LANG]||g.short.en;
+      const detail = g.detail[LANG]||g.detail.en;
+      const example = g.example[LANG]||g.example.en;
+      html += `<div class="gloss-card" id="gcard-${g.id}" onclick="toggleGloss('${g.id}')">
+        <div class="gloss-term">${term}${g.termEn && g.termEn!==term?`<span class="gloss-term-en">${g.termEn}</span>`:''}<span class="gloss-cat-badge ${g.cat}">${g.cat}</span></div>
+        <div class="gloss-short">${short}</div>
+        <div class="gloss-detail" id="gdetail-${g.id}">
+          <div class="gloss-detail-text">${detail}</div>
+          ${example?`<div style="font-family:'DM Mono',monospace;font-size:.66rem;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">${t('gloss_example')}</div><div class="gloss-example">${example}</div>`:''}
+        </div>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html || `<p style="color:var(--text-muted);text-align:center;padding:32px;">${LANG==='sr'?'Nema rezultata.':'No results.'}</p>`;
+}
+function toggleGloss(id){
+  const d=document.getElementById('gdetail-'+id),c=document.getElementById('gcard-'+id);
+  if(!d)return; const o=d.classList.contains('open');
+  d.classList.toggle('open',!o); c.classList.toggle('expanded',!o);
+}
+function setGlossFilter(f,btn){
+  currentGlossFilter=f;
+  document.querySelectorAll('.gloss-cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); renderGlossary();
+}
+
+// ===================== QUIZ =====================
+const QUIZ_QUESTIONS = {
+  role: [
+    {q:{sr:"Ko prima novi lease deal PRVI pre nego što ide na ugovor?",en:"Who receives a new lease deal FIRST before it proceeds to contract?"},options:{sr:["Andjela Trifunovic","Brankica","Milica Doson","Valentina"],en:["Andjela Trifunovic","Brankica","Milica Doson","Valentina"]},correct:1,explain:{sr:"Brankica proverava credit score i bank balance svakog novog lease klijenta pre nego što deal ide na odobrenje kod Aleksa.",en:"Brankica checks the credit score and bank balance of every new lease client before the deal goes to Alex for approval."}},
+    {q:{sr:"Ko svaki ponedeljak ručno računa billing za rent weekly?",en:"Who manually calculates rent weekly billing every Monday?"},options:{sr:["Tina Srdic","Hana Bencks","Radu Motica","Milica"],en:["Tina Srdic","Hana Bencks","Radu Motica","Milica"]},correct:2,explain:{sr:"Radu provodi 1.5+ sat svaki ponedeljak računajući billing — mileage in/out po unitu, fiksni iznos.",en:"Radu spends 1.5+ hours every Monday calculating billing — mileage in/out per unit, fixed amount."}},
+    {q:{sr:"Ko jedini ima pristup payable strani QuickBooks-a?",en:"Who exclusively has access to the payable side of QuickBooks?"},options:{sr:["Milica i Tina","Aleksandra i Nadija","Hana i Maja","Brankica i Valentina"],en:["Milica and Tina","Aleksandra and Nadija","Hana and Maja","Brankica and Valentina"]},correct:1,explain:{sr:"Aleksandra i Nadija su jedine sa pristupom payable strani QBs. Niko drugi ne sme da ulazi.",en:"Aleksandra and Nadija are the only ones with access to the payable side of QBs. No one else may enter."}},
+    {q:{sr:"Ko pravi Confirmed Payments listu i šta boje označavaju?",en:"Who maintains the Confirmed Payments list and what do colors mean?"},options:{sr:["Hana — uplate iz banke","Tina — status uplata po boji (zeleno=plaćeno, crveno=odbijeno)","Milica — AR aging","Aleksandra — fixed assets"],en:["Hana — bank payments","Tina — payment status by color (green=paid, red=rejected)","Milica — AR aging","Aleksandra — fixed assets"]},correct:1,explain:{sr:"Tina vodi Confirmed Payments listu: zeleno=plaćeno, crveno=odbijeno (+$35), plavo=delimično, sivo=unit vraćen.",en:"Tina maintains the Confirmed Payments list: green=paid, red=rejected (+$35), blue=partial, grey=unit returned."}},
+    {q:{sr:"Ko šalje mesečni credit bureau CSV na Hutchins portal?",en:"Who submits the monthly credit bureau CSV to the Hutchins portal?"},options:{sr:["Milica","Aleksandra","Brankica","Andjela Trifunovic"],en:["Milica","Aleksandra","Brankica","Andjela Trifunovic"]},correct:2,explain:{sr:"Brankica priprema i uploaduje CSV na Hutchins svaki mesec za 500+ klijenata.",en:"Brankica prepares and uploads the CSV to Hutchins every month for 500+ clients."}},
+    {q:{sr:"Šta znači status 'Lawyer' na Active Units listi?",en:"What does 'Lawyer' status mean on the Active Units List?"},options:{sr:["Unit je prodat advokatu","Pravni tim preuzima — billing MORA odmah da stane","Klijent ima advokata za pregovore","Unit u sudskom sporu"],en:["Unit sold to a lawyer","Legal team takes over — billing MUST stop immediately","Client has a lawyer for negotiations","Unit in legal dispute"]},correct:1,explain:{sr:"Kada je deal u statusu Lawyer, sav billing staje odmah. Ni jedan invoice ne sme da izađe.",en:"When a deal is in Lawyer status, all billing stops immediately. No invoice may be sent."}},
+    {q:{sr:"Ko radi check-in i check-out inspekcije i šalje izveštaj?",en:"Who performs check-in and check-out inspections and sends reports?"},options:{sr:["Radu Motica","Israel","Fabrizio","Gustavo"],en:["Radu Motica","Israel","Fabrizio","Gustavo"]},correct:2,explain:{sr:"Fabrizio radi fizičke inspekcije pri preuzimanju i vraćanju unita, računa usage charges u 48h.",en:"Fabrizio performs physical inspections at pickup and return, calculates usage charges within 48h."}},
+    {q:{sr:"Ko vodi mesečni AR review sastanak i ko prisustvuje?",en:"Who leads the monthly AR review meeting and who attends?"},options:{sr:["Alex sa svim zaposlenima","Milica Rajković sa Milicom Doson, Andjelom T. i Hanom (~10-og)","Brankica sa Aleksom","Aleksandra sa celim timom"],en:["Alex with all employees","Milica Rajković with Milica Doson, Andjela T. and Hana (~10th)","Brankica with Alex","Aleksandra with the whole team"]},correct:1,explain:{sr:"Milica Rajković (Financial Director) vodi mesečni AR review ~10-og. Prisustvuju Milica Doson, Andjela T. i Hana.",en:"Milica Rajković (Financial Director) leads the monthly AR review ~10th. Milica Doson, Andjela T., and Hana attend."}},
+  ],
+  process: [
+    {q:{sr:"Koji je minimalan uslov da klijent može da preuzme unit?",en:"What is the minimum requirement for a client to pick up a unit?"},options:{sr:["Samo potpisan ugovor","Potpisan ugovor + COI + down payment plaćen","Samo down payment","Odobrenje od Aleksa"],en:["Only signed contract","Signed contract + COI + down payment paid","Only down payment","Alex's approval"]},correct:1,explain:{sr:"Sva 3 uslova su obavezna pre checkout-a: potpisan ugovor, COI na fajlu, down payment plaćen.",en:"All 3 conditions are mandatory before checkout: signed contract, COI on file, down payment paid."}},
+    {q:{sr:"Šta se dešava sa billing-om kada je unit u eksidenatu (total loss) i nema čeka od osiguranja?",en:"What happens to billing when a unit is in an accident (total loss) and there's no insurance check?"},options:{sr:["Billing odmah staje","Billing nastavlja normalno dok ne stigne ček","Billing se prepolovi","Billing staje samo za tu nedelju"],en:["Billing stops immediately","Billing continues normally until insurance check arrives","Billing is halved","Billing stops for that week only"]},correct:1,explain:{sr:"Billing se nastavlja dok ne stigne ček od osiguranja. Klijent mora plaćati jer AAA Lease čeka da se isplati puna vrednost vozila.",en:"Billing continues until the insurance check arrives. The client must keep paying because AAA Lease is waiting to collect the full vehicle value."}},
+    {q:{sr:"Šta je 'highest credit amount' u credit bureau izveštaju?",en:"What is 'highest credit amount' in the credit bureau report?"},options:{sr:["Maksimalni kredit od banke","Vrednost vozila minus down payment minus buyout","Ukupan dug klijenta","Mesečna rata"],en:["Maximum credit from bank","Vehicle value minus down payment minus buyout","Total client debt","Monthly installment"]},correct:1,explain:{sr:"Highest credit amount = vrednost vozila − down payment − buyout. To je stvarna vrednost ugovora koji klijent otplaćuje.",en:"Highest credit amount = vehicle value − down payment − buyout. That is the actual contract value the client is paying off."}},
+    {q:{sr:"Koji je redosled zatvaranja invoicea po Aleksovim pravilima?",en:"What is the invoice closing order per Alex's rules?"},options:{sr:["Lease → Rent → Tolovi","Rent → Tolovi/Registracije/Final → Lease","Tolovi → Rent → Lease","Po datumu"],en:["Lease → Rent → Tolls","Rent → Tolls/Registrations/Final → Lease","Tolls → Rent → Lease","By date"]},correct:1,explain:{sr:"Aleksovo pravilo: prvo se zatvara najstariji rent invoice, pa tolovi/registracije/final charges, pa tek onda lease.",en:"Alex's rule: oldest rent invoice is closed first, then tolls/registrations/final charges, then lease."}},
+    {q:{sr:"Koliko milja godišnje klijent ima besplatno uključeno u standardni lease?",en:"How many miles per year does a client get free in a standard lease?"},options:{sr:["100,000 milja","130,000 milja (standardno)","160,000 milja","Nema limite"],en:["100,000 miles","130,000 miles (standard)","160,000 miles","No limit"]},correct:1,explain:{sr:"Standardno je 130,000 milja godišnje. Neki ugovori imaju 160k ili 220k. Sve preko se naplaćuje po ceni iz ugovora.",en:"Standard is 130,000 miles per year. Some contracts have 160k or 220k. Everything over is billed at the rate in the contract."}},
+    {q:{sr:"Šta se mora desiti pre nego što AAA Lease može da izda title klijentu?",en:"What must happen before AAA Lease can issue a title to a client?"},options:{sr:["Samo da klijent isplati sve rate","Klijent isplati sve rate + buyout, AAA Lease dobije loan payoff od banke","Samo odobrenje od Aleksa","Samo Emily koordiniše prenos"],en:["Client only pays all installments","Client pays all installments + buyout, AAA Lease gets loan payoff from bank","Only Alex's approval","Only Emily coordinates transfer"]},correct:1,explain:{sr:"Za unite pod bankarskim kreditom, AAA mora da traži i plati loan payoff banci. Tek tada banka oslobađa title.",en:"For units under bank credit, AAA must request and pay the loan payoff to the bank. Only then does the bank release the title."}},
+    {q:{sr:"Šta je promissory note i kada se koristi?",en:"What is a promissory note and when is it used?"},options:{sr:["Penalni dokument za kašnjenje","Mini kredit koji AAA daje klijentu za down payment","Bankarski dokument za registraciju","Potvrda o inspekciji vozila"],en:["Penalty document for late payment","Loan AAA gives client for down payment","Bank document for registration","Vehicle inspection confirmation"]},correct:1,explain:{sr:"Promissory note je ugovor o zajmu kojim AAA finansira down payment klijentu (obično kroz True Funding). Klijent vraća sa kamatom, posebno od regularnog lease-a.",en:"A promissory note is a loan agreement by which AAA finances the client's down payment (usually through True Funding). Client repays with interest, separately from the regular lease."}},
+    {q:{sr:"Ko i kada šalje mesečni AR aging izveštaj?",en:"Who creates the monthly AR aging report and when?"},options:{sr:["Hana, 1-og u mesecu","Milica Doson, ~10-og za prethodni mesec","Aleksandra, na kraju meseca","Brankica, na kraju meseca"],en:["Hana, 1st of month","Milica Doson, ~10th for previous month","Aleksandra, end of month","Brankica, end of month"]},correct:1,explain:{sr:"Milica Doson pravi AR aging ~10-og u mesecu za prethodni mesec. Prikazuje 30/60/90/180+ dana kašnjenja po klijentu.",en:"Milica Doson creates AR aging ~10th of month for the previous month. Shows 30/60/90/180+ days late per client."}},
+  ]
+};
+
+function selectQuizType(type) {
+  currentQuizType = type;
+  document.querySelectorAll('.quiz-type-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('btn-by-'+type).classList.add('selected');
+}
+function startQuiz() {
+  const pool = [...QUIZ_QUESTIONS[currentQuizType]];
+  for (let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+  currentQuestions = pool.slice(0,6);
+  currentIndex=0; score=0;
+  document.getElementById('quiz-intro-screen').style.display='none';
+  document.getElementById('quiz-result-screen').style.display='none';
+  document.getElementById('quiz-game-screen').style.display='block';
+  renderQuestion();
+}
+function renderQuestion() {
+  answered=false;
+  const q=currentQuestions[currentIndex];
+  document.getElementById('progress-fill').style.width=((currentIndex/currentQuestions.length)*100)+'%';
+  document.getElementById('quiz-progress-text').textContent=`${currentIndex+1} / ${currentQuestions.length}`;
+  document.getElementById('next-btn').style.display='none';
+  const qText = q.q[LANG]||q.q.en;
+  const opts = q.options[LANG]||q.options.en;
+  const meta = LANG==='sr'?(currentQuizType==='role'?'PO POZICIJI':'PO PROCESU'):(currentQuizType==='role'?'BY POSITION':'BY PROCESS');
+  document.getElementById('question-container').innerHTML=`
+    <div class="question-card">
+      <div class="question-meta">${meta} · Q${currentIndex+1}</div>
+      <div class="question-text">${qText}</div>
+      <div class="answer-options">
+        ${opts.map((opt,i)=>`<button class="answer-option" onclick="checkAnswer(${i})">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>`;
+}
+function checkAnswer(i) {
+  if(answered)return; answered=true;
+  const q=currentQuestions[currentIndex];
+  const btns=document.querySelectorAll('.answer-option');
+  const fb=document.getElementById('quiz-feedback');
+  btns.forEach((b,idx)=>{
+    if(idx===q.correct)b.classList.add('correct');
+    else if(idx===i&&i!==q.correct)b.classList.add('wrong');
+    else b.classList.add('reveal');
+    b.style.cursor='default';
+  });
+  const explain = q.explain[LANG]||q.explain.en;
+  if(i===q.correct){score++;fb.className='quiz-feedback show correct';fb.textContent=t('quiz_correct')+explain;}
+  else{fb.className='quiz-feedback show wrong';fb.textContent=t('quiz_wrong')+explain;}
+  document.getElementById('next-btn').style.display='block';
+}
+function nextQuestion() {
+  currentIndex++;
+  if(currentIndex>=currentQuestions.length)showResult();
+  else renderQuestion();
+}
+function showResult() {
+  document.getElementById('quiz-game-screen').style.display='none';
+  document.getElementById('quiz-result-screen').style.display='block';
+  const pct=Math.round((score/currentQuestions.length)*100);
+  document.getElementById('final-score').textContent=`${score}/${currentQuestions.length}`;
+  const labels=t('quiz_score_labels');
+  const li=pct<40?0:pct<60?1:pct<90?2:3;
+  document.getElementById('final-label').textContent=labels[li]+` (${pct}%)`;
+}
+function restartQuiz() {
+  document.getElementById('quiz-result-screen').style.display='none';
+  document.getElementById('quiz-game-screen').style.display='none';
+  document.getElementById('quiz-intro-screen').style.display='block';
+  // Update quiz button labels for current lang
+  document.getElementById('btn-by-role').textContent=t('quiz_by_pos');
+  document.getElementById('btn-by-process').textContent=t('quiz_by_proc');
+}
+
+// ===================== INIT =====================
+window.addEventListener('DOMContentLoaded', () => {
+  applyTranslations();
+  // Set initial role labels on cards
+  document.querySelectorAll('[data-person-role]').forEach(el => {
+    const pid = el.dataset.personRole;
+    if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
+  });
+});
+
+</script>
+</body>
+</html>
