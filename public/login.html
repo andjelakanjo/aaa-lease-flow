@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAA Lease — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3d;
+  --accent:#4f8ef7; --text:#e8eaf0; --text-muted:#8890a4;
+  --error:#f74f4f; --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:40px 36px;
+  width:100%;
+  max-width:400px;
+  box-shadow:var(--shadow);
+}
+.logo{
+  text-align:center;
+  margin-bottom:32px;
+}
+.logo h1{
+  font-family:'DM Serif Display',serif;
+  font-size:1.7rem;
+  letter-spacing:.02em;
+}
+.logo h1 span{color:var(--accent);}
+.logo p{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-top:4px;
+}
+.field{margin-bottom:16px;}
+label{
+  display:block;
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--text-muted);
+  margin-bottom:7px;
+}
+input{
+  width:100%;
+  padding:11px 14px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  outline:none;
+  transition:border-color .2s;
+}
+input:focus{border-color:var(--accent);}
+.btn{
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.92rem;
+  font-weight:500;
+  cursor:pointer;
+  margin-top:8px;
+  transition:opacity .2s, transform .15s;
+}
+.btn:hover{opacity:.9;transform:translateY(-1px);}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.error-msg{
+  background:rgba(247,79,79,.1);
+  border:1px solid rgba(247,79,79,.3);
+  color:var(--error);
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:.82rem;
+  margin-bottom:16px;
+  display:none;
+}
+.error-msg.show{display:block;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>AAA <span>Lease</span></h1>
+    <p>Process Map — Internal Tool</p>
+  </div>
+  <div class="error-msg" id="err"></div>
+  <form id="login-form">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@aaalease.net">
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="••••••••">
+    </div>
+    <button class="btn" type="submit" id="submit-btn">Sign in →</button>
+  </form>
+</div>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const err = document.getElementById('err');
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  err.classList.remove('show');
+
+  try {
+    const res = await fetch('/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      window.location.href = '/';
+    } else {
+      err.textContent = data.error || 'Login failed. Please try again.';
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Sign in →';
+    }
+  } catch {
+    err.textContent = 'Network error — please try again.';
+    err.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Sign in →';
+  }
+});
+</script>
+</body>
+</html>
