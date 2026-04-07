@@ -8,6 +8,7 @@ const { apiLimiter, authLimiter } = require('./middleware/rateLimiter');
 const requireAuth = require('./middleware/requireAuth');
 const authRoutes = require('./routes/auth');
 const appRoutes = require('./routes/app');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -35,21 +36,21 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// ── Public routes (no auth required) ────────────────────────────────────────
+// ── Public routes ─────────────────────────────────────────────────────────────
 
-// Auth endpoints — stricter rate limit
 app.use('/auth', authLimiter, authRoutes);
 
-// Login page — redirect to app if already authenticated
 app.get('/login', (req, res) => {
-  if (req.cookies?.sb_token) return res.redirect('/');
+  // If either session cookie is present, let the protected route handle the redirect
+  if (req.cookies?.sb_token || req.cookies?.ac_session) return res.redirect('/');
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// ── Protected routes ─────────────────────────────────────────────────────────
+// ── Protected routes ──────────────────────────────────────────────────────────
 
 app.use(apiLimiter);
 app.use(requireAuth);
+app.use('/admin', adminRoutes);
 app.use('/', appRoutes);
 
 // 404 fallback

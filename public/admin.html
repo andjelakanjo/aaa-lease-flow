@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAA Lease — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --surface3:#252a38;
+  --border:#2a2f3d; --accent:#4f8ef7; --text:#e8eaf0; --text-muted:#8890a4;
+  --error:#f74f4f; --success:#52b788; --warn:#f4a261;
+  --shadow:0 8px 32px rgba(0,0,0,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* ── Header ── */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:60px;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.header-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;}
+.header-logo span{color:var(--accent);}
+.header-right{display:flex;align-items:center;gap:14px;}
+.header-user{font-size:.85rem;color:var(--text-muted);}
+#user-name{color:var(--text);font-weight:500;}
+
+/* ── Role badge ── */
+.badge{
+  display:inline-block;padding:2px 9px;border-radius:20px;
+  font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;
+  letter-spacing:.07em;font-weight:500;
+}
+.badge-super_admin{background:rgba(244,162,97,.15);color:var(--warn);}
+.badge-admin{background:rgba(79,142,247,.15);color:var(--accent);}
+.badge-employee{background:rgba(136,144,164,.15);color:var(--text-muted);}
+
+/* ── Logout button ── */
+.btn-logout{
+  padding:6px 14px;border-radius:6px;border:1px solid var(--border);
+  background:none;color:var(--text-muted);font-family:'DM Sans',sans-serif;
+  font-size:.8rem;cursor:pointer;transition:border-color .15s,color .15s;
+}
+.btn-logout:hover{border-color:var(--error);color:var(--error);}
+
+/* ── Main layout ── */
+main{max-width:1100px;margin:0 auto;padding:32px 24px;}
+
+/* ── Tab nav ── */
+.tab-nav{display:flex;gap:4px;margin-bottom:28px;}
+.tab-btn{
+  padding:8px 20px;border-radius:8px;border:none;
+  background:var(--surface2);color:var(--text-muted);
+  font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;
+  cursor:pointer;transition:background .15s,color .15s;
+}
+.tab-btn.active{background:var(--accent);color:#fff;}
+
+/* ── Panel ── */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ── Panel header ── */
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;flex-wrap:wrap;gap:12px;
+}
+.panel-header h2{font-size:1.1rem;font-weight:600;}
+.panel-actions{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* ── Buttons ── */
+.btn-primary{
+  padding:8px 18px;background:var(--accent);color:#fff;border:none;
+  border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;
+  font-weight:500;cursor:pointer;transition:opacity .15s;
+}
+.btn-primary:hover{opacity:.85;}
+.btn-secondary{
+  padding:8px 18px;background:var(--surface2);color:var(--text);
+  border:1px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;
+  cursor:pointer;transition:background .15s;
+}
+.btn-secondary:hover{background:var(--surface3);}
+.btn-sm{
+  padding:4px 10px;border-radius:5px;border:1px solid var(--border);
+  background:none;color:var(--text-muted);font-family:'DM Sans',sans-serif;
+  font-size:.75rem;cursor:pointer;transition:background .15s,color .15s;
+}
+.btn-sm:hover{background:var(--surface3);color:var(--text);}
+.btn-sm-danger{
+  padding:4px 10px;border-radius:5px;border:1px solid rgba(247,79,79,.3);
+  background:none;color:var(--error);font-family:'DM Sans',sans-serif;
+  font-size:.75rem;cursor:pointer;transition:background .15s;
+}
+.btn-sm-danger:hover{background:rgba(247,79,79,.1);}
+
+/* ── Table ── */
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+thead th{
+  padding:11px 16px;text-align:left;
+  font-family:'DM Mono',monospace;font-size:.67rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--text-muted);
+  background:var(--surface2);border-bottom:1px solid var(--border);
+}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+td{padding:11px 16px;vertical-align:middle;}
+.td-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.status-active{color:var(--success);font-size:.8rem;}
+.status-revoked{color:var(--error);font-size:.8rem;}
+.status-expired{color:var(--warn);font-size:.8rem;}
+.empty-row td{text-align:center;color:var(--text-muted);padding:40px;}
+
+/* ── Modals ── */
+.modal-backdrop{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:200;align-items:center;justify-content:center;padding:24px;
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:32px;width:100%;max-width:440px;
+  box-shadow:var(--shadow);max-height:90vh;overflow-y:auto;
+}
+.modal h3{font-size:1rem;font-weight:600;margin-bottom:20px;}
+.field{margin-bottom:16px;}
+label{
+  display:block;font-family:'DM Mono',monospace;font-size:.67rem;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);
+  margin-bottom:6px;
+}
+input,select{
+  width:100%;padding:10px 13px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:7px;color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;
+  transition:border-color .2s;
+}
+input:focus,select:focus{border-color:var(--accent);}
+select option{background:var(--surface2);}
+.modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.btn-modal-cancel{
+  padding:9px 18px;background:none;border:1px solid var(--border);
+  border-radius:7px;color:var(--text-muted);font-family:'DM Sans',sans-serif;
+  font-size:.85rem;cursor:pointer;
+}
+.btn-modal-cancel:hover{border-color:var(--text-muted);}
+.btn-modal-submit{
+  padding:9px 18px;background:var(--accent);color:#fff;border:none;
+  border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.85rem;
+  font-weight:500;cursor:pointer;
+}
+.btn-modal-submit:hover{opacity:.85;}
+.btn-modal-submit:disabled{opacity:.5;cursor:not-allowed;}
+.modal-error{
+  background:rgba(247,79,79,.1);border:1px solid rgba(247,79,79,.3);
+  color:var(--error);border-radius:7px;padding:9px 13px;font-size:.82rem;
+  margin-bottom:14px;display:none;
+}
+.modal-error.show{display:block;}
+
+/* ── Access code display ── */
+.code-display{
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:24px;text-align:center;margin:16px 0;
+}
+.code-display p{font-size:.75rem;color:var(--text-muted);margin-bottom:10px;}
+.code-value{
+  font-family:'DM Mono',monospace;font-size:1.4rem;letter-spacing:.12em;
+  color:var(--accent);font-weight:500;
+}
+.btn-copy{
+  margin-top:14px;padding:7px 18px;background:var(--surface3);
+  border:1px solid var(--border);border-radius:7px;
+  color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;
+  cursor:pointer;transition:background .15s;
+}
+.btn-copy:hover{background:var(--surface2);}
+.copy-success{color:var(--success);font-size:.78rem;margin-top:6px;}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;padding:11px 18px;
+  border-radius:8px;font-size:.84rem;z-index:9999;
+  animation:slideUp .2s ease;pointer-events:none;
+}
+.toast-success{background:#1a3d2b;border:1px solid var(--success);color:var(--success);}
+.toast-error{background:#3d1a1a;border:1px solid var(--error);color:var(--error);}
+@keyframes slideUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* ── Loading ── */
+.loading{text-align:center;padding:48px;color:var(--text-muted);font-size:.9rem;}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-logo">AAA <span>Lease</span> Admin</div>
+  <div class="header-right">
+    <div class="header-user">
+      <span id="user-name">…</span>
+    </div>
+    <span id="user-role-badge" class="badge"></span>
+    <form action="/auth/logout" method="POST" style="margin:0">
+      <button type="submit" class="btn-logout">Logout</button>
+    </form>
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <!-- Tab nav -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('users', this)">Users</button>
+    <button class="tab-btn" id="tab-companies" onclick="switchTab('companies', this)" style="display:none">Companies</button>
+  </div>
+
+  <!-- Users panel -->
+  <div class="panel active" id="panel-users">
+    <div class="panel-header">
+      <h2 id="users-heading">Users</h2>
+      <div class="panel-actions">
+        <button class="btn-secondary" id="btn-create-admin" onclick="openModal('modal-admin')" style="display:none">+ Create Admin</button>
+        <button class="btn-primary" onclick="openModal('modal-employee')">+ Create Employee</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Company</th>
+            <th>Expires</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody">
+          <tr class="empty-row"><td colspan="6">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Companies panel (super_admin only) -->
+  <div class="panel" id="panel-companies">
+    <div class="panel-header">
+      <h2>Companies</h2>
+      <button class="btn-primary" onclick="openModal('modal-company')">+ Create Company</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Company Name</th><th>Created</th></tr>
+        </thead>
+        <tbody id="companies-tbody">
+          <tr class="empty-row"><td colspan="2">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- ── Modals ── -->
+
+<!-- Create Company -->
+<div class="modal-backdrop" id="modal-company">
+  <div class="modal">
+    <h3>Create Company</h3>
+    <div class="modal-error" id="err-company"></div>
+    <div class="field">
+      <label for="company-name">Company Name</label>
+      <input type="text" id="company-name" placeholder="e.g. AAA Lease">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-company')">Cancel</button>
+      <button class="btn-modal-submit" id="submit-company" onclick="submitCompany()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Admin -->
+<div class="modal-backdrop" id="modal-admin">
+  <div class="modal">
+    <h3>Create Admin</h3>
+    <div class="modal-error" id="err-admin"></div>
+    <div class="field">
+      <label for="admin-first">First Name</label>
+      <input type="text" id="admin-first" placeholder="First name">
+    </div>
+    <div class="field">
+      <label for="admin-last">Last Name</label>
+      <input type="text" id="admin-last" placeholder="Last name">
+    </div>
+    <div class="field">
+      <label for="admin-email">Email</label>
+      <input type="email" id="admin-email" placeholder="admin@company.com">
+    </div>
+    <div class="field">
+      <label for="admin-company">Company</label>
+      <select id="admin-company">
+        <option value="">— select company —</option>
+      </select>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:16px;">
+      An invite email will be sent to set their password.
+    </p>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-admin')">Cancel</button>
+      <button class="btn-modal-submit" id="submit-admin" onclick="submitAdmin()">Send Invite</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Employee -->
+<div class="modal-backdrop" id="modal-employee">
+  <div class="modal">
+    <h3>Create Employee</h3>
+    <div class="modal-error" id="err-employee"></div>
+    <div class="field">
+      <label for="emp-first">First Name</label>
+      <input type="text" id="emp-first" placeholder="First name">
+    </div>
+    <div class="field">
+      <label for="emp-last">Last Name</label>
+      <input type="text" id="emp-last" placeholder="Last name">
+    </div>
+    <div class="field" id="emp-company-field">
+      <label for="emp-company">Company</label>
+      <select id="emp-company">
+        <option value="">— select company —</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="emp-expiry">Access Duration</label>
+      <select id="emp-expiry">
+        <option value="7days">7 days</option>
+        <option value="30days" selected>30 days</option>
+        <option value="unlimited">Unlimited</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-employee')">Cancel</button>
+      <button class="btn-modal-submit" id="submit-employee" onclick="submitEmployee()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Access Code Display (shown after employee creation) -->
+<div class="modal-backdrop" id="modal-access-code">
+  <div class="modal" style="text-align:center;">
+    <h3>Employee Created</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:4px;">
+      Share this access code with the employee. It will not be shown again.
+    </p>
+    <div class="code-display">
+      <p>Access Code</p>
+      <div class="code-value" id="code-value">AAA-XXXX-XXXX</div>
+    </div>
+    <button class="btn-copy" onclick="copyCode()">Copy Code</button>
+    <div class="copy-success" id="copy-success" style="display:none">Copied!</div>
+    <div class="modal-actions" style="justify-content:center;margin-top:24px;">
+      <button class="btn-modal-submit" onclick="closeModal('modal-access-code')">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Extend Access -->
+<div class="modal-backdrop" id="modal-extend">
+  <div class="modal">
+    <h3>Extend Access</h3>
+    <div class="modal-error" id="err-extend"></div>
+    <div class="field">
+      <label for="extend-expiry">New Duration (from today)</label>
+      <select id="extend-expiry">
+        <option value="7days">7 days</option>
+        <option value="30days" selected>30 days</option>
+        <option value="unlimited">Unlimited</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-extend')">Cancel</button>
+      <button class="btn-modal-submit" onclick="submitExtend()">Extend</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+let currentUser = null;
+let companies = [];
+let selectedUserId = null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const res = await fetch('/admin/api/me', { headers: { Accept: 'application/json' } });
+    if (!res.ok) { window.location.href = '/login'; return; }
+    currentUser = await res.json();
+  } catch {
+    window.location.href = '/login';
+    return;
+  }
+
+  // Header
+  const name = [currentUser.firstName, currentUser.lastName].filter(Boolean).join(' ')
+             || currentUser.email || 'Admin';
+  document.getElementById('user-name').textContent = name;
+  const badge = document.getElementById('user-role-badge');
+  badge.textContent = currentUser.role.replace('_', ' ');
+  badge.className = `badge badge-${currentUser.role}`;
+
+  // Super-admin-only elements
+  if (currentUser.role === 'super_admin') {
+    document.getElementById('tab-companies').style.display = '';
+    document.getElementById('btn-create-admin').style.display = '';
+  } else {
+    document.getElementById('users-heading').textContent = 'Employees';
+    document.getElementById('emp-company-field').style.display = 'none';
+  }
+
+  // Load data
+  await Promise.all([
+    loadUsers(),
+    loadCompanies()
+  ]);
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+async function loadUsers() {
+  const res = await fetch('/admin/api/users', { headers: { Accept: 'application/json' } });
+  if (!res.ok) { showToast('Failed to load users.', 'error'); return; }
+  const users = await res.json();
+  renderUsers(users);
+}
+
+async function loadCompanies() {
+  const res = await fetch('/admin/api/companies', { headers: { Accept: 'application/json' } });
+  if (!res.ok) return;
+  companies = await res.json();
+  renderCompanies(companies);
+  populateCompanySelects(companies);
+}
+
+// ── Render helpers ────────────────────────────────────────────────────────────
+function renderUsers(users) {
+  const tbody = document.getElementById('users-tbody');
+  if (!users.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No users yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = users.map(u => {
+    const name = [u.first_name, u.last_name].filter(Boolean).join(' ') || '—';
+    const company = u.companies?.name || '—';
+    const expiry = formatExpiry(u.expires_at);
+    const status = u.is_active
+      ? `<span class="status-active">Active</span>`
+      : `<span class="status-revoked">Revoked</span>`;
+
+    // Actions: never show for super_admin rows (protect self-lock), show for others
+    let actions = '';
+    if (u.role !== 'super_admin') {
+      actions = `
+        <button class="btn-sm" onclick="openExtend('${u.id}')">Extend</button>
+        ${u.is_active
+          ? `<button class="btn-sm-danger" onclick="revokeUser('${u.id}')">Revoke</button>`
+          : ''}
+      `;
+    }
+
+    return `<tr>
+      <td>${esc(name)}</td>
+      <td><span class="badge badge-${u.role}">${u.role.replace('_',' ')}</span></td>
+      <td>${esc(company)}</td>
+      <td>${expiry}</td>
+      <td>${status}</td>
+      <td><div class="td-actions">${actions}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderCompanies(list) {
+  const tbody = document.getElementById('companies-tbody');
+  if (!list.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="2">No companies yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td>${esc(c.name)}</td>
+      <td style="color:var(--text-muted);font-size:.82rem">${fmtDate(c.created_at)}</td>
+    </tr>
+  `).join('');
+}
+
+function populateCompanySelects(list) {
+  const opts = ['<option value="">— select company —</option>',
+    ...list.map(c => `<option value="${c.id}">${esc(c.name)}</option>`)
+  ].join('');
+  document.getElementById('admin-company').innerHTML = opts;
+  document.getElementById('emp-company').innerHTML = opts;
+}
+
+function formatExpiry(ts) {
+  if (!ts) return '<span style="color:var(--text-muted)">Unlimited</span>';
+  const d = new Date(ts);
+  if (d < new Date()) return `<span class="status-expired">Expired ${fmtDate(ts)}</span>`;
+  return fmtDate(ts);
+}
+
+function fmtDate(ts) {
+  return new Date(ts).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function esc(str) {
+  return String(str).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────────────────
+function openModal(id) {
+  // Clear errors and inputs when opening
+  const modal = document.getElementById(id);
+  modal.querySelectorAll('.modal-error').forEach(e => { e.textContent=''; e.classList.remove('show'); });
+  modal.querySelectorAll('input').forEach(i => i.value = '');
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// Close on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+  backdrop.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+function setModalError(errId, msg) {
+  const el = document.getElementById(errId);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function setSubmitLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (btn) btn.disabled = loading;
+}
+
+// ── Create Company ────────────────────────────────────────────────────────────
+async function submitCompany() {
+  const name = document.getElementById('company-name').value.trim();
+  if (!name) { setModalError('err-company', 'Company name is required.'); return; }
+
+  setSubmitLoading('submit-company', true);
+  const res = await fetch('/admin/api/companies', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ name })
+  });
+  const data = await res.json();
+  setSubmitLoading('submit-company', false);
+
+  if (!res.ok) { setModalError('err-company', data.error || 'Failed to create company.'); return; }
+  closeModal('modal-company');
+  showToast('Company created.');
+  await loadCompanies();
+}
+
+// ── Create Admin ──────────────────────────────────────────────────────────────
+async function submitAdmin() {
+  const first_name = document.getElementById('admin-first').value.trim();
+  const last_name = document.getElementById('admin-last').value.trim();
+  const email = document.getElementById('admin-email').value.trim();
+  const company_id = document.getElementById('admin-company').value;
+
+  if (!first_name || !last_name || !email || !company_id) {
+    setModalError('err-admin', 'All fields are required.'); return;
+  }
+
+  setSubmitLoading('submit-admin', true);
+  const res = await fetch('/admin/api/users/admin', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ first_name, last_name, email, company_id })
+  });
+  const data = await res.json();
+  setSubmitLoading('submit-admin', false);
+
+  if (!res.ok) { setModalError('err-admin', data.error || 'Failed to create admin.'); return; }
+  closeModal('modal-admin');
+  showToast('Admin invited — invite email sent.');
+  await loadUsers();
+}
+
+// ── Create Employee ───────────────────────────────────────────────────────────
+async function submitEmployee() {
+  const first_name = document.getElementById('emp-first').value.trim();
+  const last_name = document.getElementById('emp-last').value.trim();
+  const expiry = document.getElementById('emp-expiry').value;
+  const company_id = currentUser.role === 'super_admin'
+    ? document.getElementById('emp-company').value
+    : currentUser.companyId;
+
+  if (!first_name || !last_name) {
+    setModalError('err-employee', 'First name and last name are required.'); return;
+  }
+  if (currentUser.role === 'super_admin' && !company_id) {
+    setModalError('err-employee', 'Please select a company.'); return;
+  }
+
+  setSubmitLoading('submit-employee', true);
+  const res = await fetch('/admin/api/users/employee', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ first_name, last_name, expiry, company_id })
+  });
+  const data = await res.json();
+  setSubmitLoading('submit-employee', false);
+
+  if (!res.ok) { setModalError('err-employee', data.error || 'Failed to create employee.'); return; }
+  closeModal('modal-employee');
+  await loadUsers();
+
+  // Show access code
+  document.getElementById('code-value').textContent = data.access_code;
+  document.getElementById('copy-success').style.display = 'none';
+  openModal('modal-access-code');
+}
+
+// ── Copy access code ──────────────────────────────────────────────────────────
+function copyCode() {
+  const code = document.getElementById('code-value').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('copy-success').style.display = 'block';
+  });
+}
+
+// ── Extend Access ─────────────────────────────────────────────────────────────
+function openExtend(userId) {
+  selectedUserId = userId;
+  document.getElementById('extend-expiry').value = '30days';
+  document.getElementById('err-extend').classList.remove('show');
+  document.getElementById('modal-extend').classList.add('open');
+}
+
+async function submitExtend() {
+  if (!selectedUserId) return;
+  const expiry = document.getElementById('extend-expiry').value;
+
+  const res = await fetch(`/admin/api/users/${selectedUserId}/extend`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ expiry })
+  });
+  const data = await res.json();
+
+  if (!res.ok) { setModalError('err-extend', data.error || 'Failed to extend access.'); return; }
+  closeModal('modal-extend');
+  showToast('Access extended.');
+  selectedUserId = null;
+  await loadUsers();
+}
+
+// ── Revoke ────────────────────────────────────────────────────────────────────
+async function revokeUser(userId) {
+  if (!confirm('Revoke access for this user? They will be signed out immediately.')) return;
+
+  const res = await fetch(`/admin/api/users/${userId}/revoke`, {
+    method: 'PATCH',
+    headers: { Accept: 'application/json' }
+  });
+  const data = await res.json();
+
+  if (!res.ok) { showToast(data.error || 'Failed to revoke.', 'error'); return; }
+  showToast('Access revoked.');
+  await loadUsers();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+function showToast(msg, type = 'success') {
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+// ── Start ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

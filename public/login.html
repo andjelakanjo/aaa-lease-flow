@@ -33,7 +33,7 @@ body{
 }
 .logo{
   text-align:center;
-  margin-bottom:32px;
+  margin-bottom:28px;
 }
 .logo h1{
   font-family:'DM Serif Display',serif;
@@ -49,6 +49,36 @@ body{
   letter-spacing:.12em;
   margin-top:4px;
 }
+/* Tabs */
+.tabs{
+  display:flex;
+  gap:4px;
+  background:var(--surface2);
+  border-radius:10px;
+  padding:4px;
+  margin-bottom:24px;
+}
+.tab{
+  flex:1;
+  padding:8px 12px;
+  background:none;
+  border:none;
+  border-radius:7px;
+  color:var(--text-muted);
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;
+  font-weight:500;
+  cursor:pointer;
+  transition:background .15s, color .15s;
+}
+.tab.active{
+  background:var(--surface);
+  color:var(--text);
+  box-shadow:0 1px 4px rgba(0,0,0,.4);
+}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+/* Form elements */
 .field{margin-bottom:16px;}
 label{
   display:block;
@@ -72,6 +102,19 @@ input{
   transition:border-color .2s;
 }
 input:focus{border-color:var(--accent);}
+.code-input{
+  font-family:'DM Mono',monospace;
+  font-size:1rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+}
+.code-hint{
+  font-size:.75rem;
+  color:var(--text-muted);
+  text-align:center;
+  margin-top:6px;
+}
 .btn{
   width:100%;
   padding:12px;
@@ -107,52 +150,123 @@ input:focus{border-color:var(--accent);}
     <h1>AAA <span>Lease</span></h1>
     <p>Process Map — Internal Tool</p>
   </div>
-  <div class="error-msg" id="err"></div>
-  <form id="login-form">
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@aaalease.net">
-    </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="••••••••">
-    </div>
-    <button class="btn" type="submit" id="submit-btn">Sign in →</button>
-  </form>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-email" onclick="switchTab('email')">Email / Password</button>
+    <button class="tab" id="tab-code" onclick="switchTab('code')">Access Code</button>
+  </div>
+
+  <!-- Email/Password tab -->
+  <div class="tab-panel active" id="panel-email">
+    <div class="error-msg" id="err-email"></div>
+    <form id="form-email">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@aaalease.net">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <button class="btn" type="submit" id="btn-email">Sign in →</button>
+    </form>
+  </div>
+
+  <!-- Access Code tab -->
+  <div class="tab-panel" id="panel-code">
+    <div class="error-msg" id="err-code"></div>
+    <form id="form-code">
+      <div class="field">
+        <label for="access-code">Access Code</label>
+        <input class="code-input" type="text" id="access-code" name="access_code"
+               autocomplete="off" required placeholder="AAA-XXXX-XXXX" maxlength="13">
+        <p class="code-hint">Enter the code shared with you by your admin.</p>
+      </div>
+      <button class="btn" type="submit" id="btn-code">Enter →</button>
+    </form>
+  </div>
 </div>
 
 <script>
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const err = document.getElementById('err');
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+}
 
+// Auto-format access code input as user types
+document.getElementById('access-code').addEventListener('input', function() {
+  let v = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (v.length > 3) v = v.slice(0, 3) + '-' + v.slice(3);
+  if (v.length > 8) v = v.slice(0, 8) + '-' + v.slice(8);
+  this.value = v.slice(0, 13);
+});
+
+// Email/password login
+document.getElementById('form-email').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-email');
+  const err = document.getElementById('err-email');
+  err.classList.remove('show');
   btn.disabled = true;
   btn.textContent = 'Signing in…';
-  err.classList.remove('show');
 
   try {
     const res = await fetch('/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({
+        email: document.getElementById('email').value.trim(),
+        password: document.getElementById('password').value
+      })
     });
     const data = await res.json();
     if (res.ok && data.ok) {
-      window.location.href = '/';
+      window.location.href = data.redirect || '/app';
     } else {
       err.textContent = data.error || 'Login failed. Please try again.';
       err.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Sign in →';
     }
   } catch {
     err.textContent = 'Network error — please try again.';
     err.classList.add('show');
+  } finally {
     btn.disabled = false;
     btn.textContent = 'Sign in →';
+  }
+});
+
+// Access code login
+document.getElementById('form-code').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-code');
+  const err = document.getElementById('err-code');
+  err.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Verifying…';
+
+  try {
+    const res = await fetch('/auth/login-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_code: document.getElementById('access-code').value.trim()
+      })
+    });
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      window.location.href = data.redirect || '/app';
+    } else {
+      err.textContent = data.error || 'Invalid code. Please try again.';
+      err.classList.add('show');
+    }
+  } catch {
+    err.textContent = 'Network error — please try again.';
+    err.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enter →';
   }
 });
 </script>
