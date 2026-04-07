@@ -80,6 +80,38 @@ router.post('/login-code', async (req, res) => {
   res.json({ ok: true, redirect: '/app' });
 });
 
+// GET /auth/confirm — serve the set-password page for invite/recovery links
+router.get('/confirm', (req, res) => {
+  res.sendFile(require('path').join(__dirname, '..', 'public', 'confirm.html'));
+});
+
+// POST /auth/confirm — set password using the access_token from the invite hash
+router.post('/confirm', async (req, res) => {
+  const { access_token, password } = req.body;
+
+  if (!access_token || !password) {
+    return res.status(400).json({ error: 'access_token and password are required.' });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters.' });
+  }
+
+  // Verify the token and get the user
+  const { data: { user }, error: userError } = await supabase.auth.getUser(access_token);
+  if (userError || !user) {
+    return res.status(401).json({ error: 'Invalid or expired invite link.' });
+  }
+
+  // Update the password via admin client
+  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(user.id, { password });
+  if (updateError) {
+    console.error('[auth/confirm] updateUserById failed:', updateError.message);
+    return res.status(500).json({ error: 'Failed to set password. Please try again.' });
+  }
+
+  res.json({ ok: true });
+});
+
 // POST /auth/logout
 router.post('/logout', (req, res) => {
   const isProd = process.env.NODE_ENV === 'production';

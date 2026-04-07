@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAA Lease — Set Password</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3d;
+  --accent:#4f8ef7; --text:#e8eaf0; --text-muted:#8890a4;
+  --error:#f74f4f; --success:#4fcf8e; --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:40px 36px;
+  width:100%;
+  max-width:400px;
+  box-shadow:var(--shadow);
+}
+.logo{
+  text-align:center;
+  margin-bottom:28px;
+}
+.logo h1{
+  font-family:'DM Serif Display',serif;
+  font-size:1.7rem;
+  letter-spacing:.02em;
+}
+.logo h1 span{color:var(--accent);}
+.logo p{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-top:4px;
+}
+.heading{
+  font-size:1rem;
+  font-weight:600;
+  margin-bottom:6px;
+}
+.subtext{
+  font-size:.82rem;
+  color:var(--text-muted);
+  margin-bottom:24px;
+}
+.field{margin-bottom:16px;}
+label{
+  display:block;
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--text-muted);
+  margin-bottom:7px;
+}
+input{
+  width:100%;
+  padding:11px 14px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  outline:none;
+  transition:border-color .2s;
+}
+input:focus{border-color:var(--accent);}
+.hint{
+  font-size:.75rem;
+  color:var(--text-muted);
+  margin-top:5px;
+}
+.btn{
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.92rem;
+  font-weight:500;
+  cursor:pointer;
+  margin-top:8px;
+  transition:opacity .2s, transform .15s;
+}
+.btn:hover{opacity:.9;transform:translateY(-1px);}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.error-msg{
+  background:rgba(247,79,79,.1);
+  border:1px solid rgba(247,79,79,.3);
+  color:var(--error);
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:.82rem;
+  margin-bottom:16px;
+  display:none;
+}
+.error-msg.show{display:block;}
+.success-msg{
+  background:rgba(79,207,142,.1);
+  border:1px solid rgba(79,207,142,.3);
+  color:var(--success);
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:.82rem;
+  margin-bottom:16px;
+  display:none;
+}
+.success-msg.show{display:block;}
+#invalid-state{display:none;}
+#invalid-state p{color:var(--text-muted);font-size:.88rem;text-align:center;margin-bottom:20px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>AAA <span>Lease</span></h1>
+    <p>Process Map — Internal Tool</p>
+  </div>
+
+  <!-- Shown when token is missing/invalid -->
+  <div id="invalid-state">
+    <p>This invite link is invalid or has already been used.</p>
+    <a href="/login" class="btn" style="display:block;text-align:center;text-decoration:none;">Go to login →</a>
+  </div>
+
+  <!-- Set-password form -->
+  <div id="form-state">
+    <div class="heading">Set your password</div>
+    <div class="subtext">Choose a password to activate your account.</div>
+
+    <div class="error-msg" id="err"></div>
+    <div class="success-msg" id="success">Password set! Redirecting to login…</div>
+
+    <form id="set-password-form">
+      <div class="field">
+        <label for="password">New password</label>
+        <input type="password" id="password" name="password" autocomplete="new-password" required placeholder="••••••••">
+        <p class="hint">Minimum 8 characters.</p>
+      </div>
+      <div class="field">
+        <label for="password-confirm">Confirm password</label>
+        <input type="password" id="password-confirm" name="password_confirm" autocomplete="new-password" required placeholder="••••••••">
+      </div>
+      <button class="btn" type="submit" id="btn-submit">Set password →</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Parse the hash fragment: #access_token=...&refresh_token=...&type=invite
+const hash = window.location.hash.slice(1);
+const params = Object.fromEntries(new URLSearchParams(hash));
+const accessToken = params.access_token;
+
+if (!accessToken) {
+  document.getElementById('form-state').style.display = 'none';
+  document.getElementById('invalid-state').style.display = 'block';
+}
+
+document.getElementById('set-password-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('password-confirm').value;
+  const btn = document.getElementById('btn-submit');
+  const err = document.getElementById('err');
+  const success = document.getElementById('success');
+
+  err.classList.remove('show');
+
+  if (password !== confirm) {
+    err.textContent = 'Passwords do not match.';
+    err.classList.add('show');
+    return;
+  }
+  if (password.length < 8) {
+    err.textContent = 'Password must be at least 8 characters.';
+    err.classList.add('show');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Setting password…';
+
+  try {
+    const res = await fetch('/auth/confirm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_token: accessToken, password })
+    });
+    const data = await res.json();
+
+    if (res.ok && data.ok) {
+      success.classList.add('show');
+      document.getElementById('set-password-form').style.display = 'none';
+      setTimeout(() => { window.location.href = '/login'; }, 2000);
+    } else {
+      err.textContent = data.error || 'Failed to set password. Please try again.';
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Set password →';
+    }
+  } catch {
+    err.textContent = 'Network error — please try again.';
+    err.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Set password →';
+  }
+});
+</script>
+</body>
+</html>
