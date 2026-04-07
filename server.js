@@ -11,6 +11,9 @@ const appRoutes = require('./routes/app');
 
 const app = express();
 
+// Trust Vercel's proxy (fixes X-Forwarded-For ValidationError)
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(
   helmet({

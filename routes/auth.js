@@ -28,7 +28,11 @@ router.post('/login', async (req, res) => {
 
 // POST /auth/logout
 router.post('/logout', (req, res) => {
-  res.clearCookie('sb_token');
+  res.clearCookie('sb_token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  });
   res.redirect('/login');
 });
 
