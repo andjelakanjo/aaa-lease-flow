@@ -15,11 +15,15 @@ module.exports = async function requireAuth(req, res, next) {
   if (sbToken) {
     const { data: { user }, error } = await supabase.auth.getUser(sbToken);
     if (!error && user) {
-      const { data: profile } = await supabase.admin
+      const { data: profile, error: profileError } = await supabase.admin
         .from('profiles')
         .select('id, role, company_id, first_name, last_name, is_active')
         .eq('user_id', user.id)
         .single();
+
+      if (profileError) {
+        console.error('[requireAuth] profile lookup failed:', profileError.message, '| user_id:', user.id);
+      }
 
       // Deny revoked accounts
       if (profile && profile.is_active === false) {

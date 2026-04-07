@@ -17,11 +17,15 @@ router.post('/login', async (req, res) => {
   }
 
   // Look up profile to determine role and redirect destination
-  const { data: profile } = await supabase.admin
+  const { data: profile, error: profileError } = await supabase.admin
     .from('profiles')
     .select('role, is_active')
     .eq('user_id', data.user.id)
     .single();
+
+  if (profileError) {
+    console.error('[auth/login] profile lookup failed:', profileError.message, '| user_id:', data.user.id);
+  }
 
   if (profile && profile.is_active === false) {
     return res.status(403).json({ error: 'Account has been revoked.' });
