@@ -23,6 +23,11 @@ router.post('/login', async (req, res) => {
     .eq('user_id', data.user.id)
     .single();
 
+  // DEBUG — remove after diagnosing redirect issue
+  console.log('[auth/login] user.id:', data.user.id);
+  console.log('[auth/login] profileError:', profileError);
+  console.log('[auth/login] profile:', profile);
+
   if (profileError) {
     console.error('[auth/login] profile lookup failed:', profileError.message, '| user_id:', data.user.id);
   }
