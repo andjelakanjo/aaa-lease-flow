@@ -236,6 +236,7 @@ select option{background:var(--surface2);}
           <tr>
             <th>Name</th>
             <th>Role</th>
+            <th>Email / Access</th>
             <th>Company</th>
             <th>Expires</th>
             <th>Status</th>
@@ -243,7 +244,7 @@ select option{background:var(--surface2);}
           </tr>
         </thead>
         <tbody id="users-tbody">
-          <tr class="empty-row"><td colspan="6">Loading…</td></tr>
+          <tr class="empty-row"><td colspan="7">Loading…</td></tr>
         </tbody>
       </table>
     </div>
@@ -372,6 +373,43 @@ select option{background:var(--surface2);}
   </div>
 </div>
 
+<!-- View Access Code -->
+<div class="modal-backdrop" id="modal-view-code">
+  <div class="modal" style="text-align:center;">
+    <h3>Employee Access Code</h3>
+    <div class="code-display">
+      <p>Access Code</p>
+      <div class="code-value" id="view-code-value">—</div>
+    </div>
+    <button class="btn-copy" onclick="copyViewCode()">Copy Code</button>
+    <div class="copy-success" id="view-copy-success" style="display:none">Copied!</div>
+    <div class="modal-actions" style="justify-content:center;margin-top:24px;">
+      <button class="btn-modal-submit" onclick="closeModal('modal-view-code')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete User -->
+<div class="modal-backdrop" id="modal-delete">
+  <div class="modal">
+    <h3>Delete User</h3>
+    <div class="modal-error" id="err-delete"></div>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:16px;">
+      This will permanently delete <strong id="delete-user-name" style="color:var(--text)"></strong>
+      from the system and revoke their access. This action cannot be undone.
+    </p>
+    <div class="field">
+      <label for="delete-confirm-input">Type <strong style="color:var(--error)">delete</strong> to confirm</label>
+      <input type="text" id="delete-confirm-input" placeholder="delete" autocomplete="off">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="closeModal('modal-delete')">Cancel</button>
+      <button class="btn-modal-submit" id="submit-delete"
+        style="background:var(--error);" onclick="submitDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
 <!-- Extend Access -->
 <div class="modal-backdrop" id="modal-extend">
   <div class="modal">
@@ -397,6 +435,7 @@ select option{background:var(--surface2);}
 let currentUser = null;
 let companies = [];
 let selectedUserId = null;
+let userToDeleteId = null;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
@@ -461,7 +500,7 @@ async function loadCompanies() {
 function renderUsers(users) {
   const tbody = document.getElementById('users-tbody');
   if (!users.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No users yet.</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No users yet.</td></tr>';
     return;
   }
   tbody.innerHTML = users.map(u => {
@@ -472,20 +511,30 @@ function renderUsers(users) {
       ? `<span class="status-active">Active</span>`
       : `<span class="status-revoked">Revoked</span>`;
 
+    const emailCell = u.role === 'employee'
+      ? `<span style="color:var(--text-muted);font-size:.78rem">Access Code</span>`
+      : `<span style="font-size:.82rem">${esc(u.email || '—')}</span>`;
+
     // Actions: never show for super_admin rows (protect self-lock), show for others
     let actions = '';
     if (u.role !== 'super_admin') {
+      const viewCodeBtn = u.role === 'employee' && u.access_code
+        ? `<button class="btn-sm" onclick="openViewCode('${esc(u.access_code)}')">View Code</button>`
+        : '';
       actions = `
+        ${viewCodeBtn}
         <button class="btn-sm" onclick="openExtend('${u.id}')">Extend</button>
         ${u.is_active
           ? `<button class="btn-sm-danger" onclick="revokeUser('${u.id}')">Revoke</button>`
           : ''}
+        <button class="btn-sm-danger" onclick="openDeleteUser('${u.id}', '${esc(name)}')">Delete</button>
       `;
     }
 
     return `<tr>
       <td>${esc(name)}</td>
       <td><span class="badge badge-${u.role}">${u.role.replace('_',' ')}</span></td>
+      <td>${emailCell}</td>
       <td>${esc(company)}</td>
       <td>${expiry}</td>
       <td>${status}</td>
@@ -690,6 +739,54 @@ async function revokeUser(userId) {
 
   if (!res.ok) { showToast(data.error || 'Failed to revoke.', 'error'); return; }
   showToast('Access revoked.');
+  await loadUsers();
+}
+
+// ── View Access Code ──────────────────────────────────────────────────────────
+function openViewCode(code) {
+  document.getElementById('view-code-value').textContent = code;
+  document.getElementById('view-copy-success').style.display = 'none';
+  document.getElementById('modal-view-code').classList.add('open');
+}
+
+function copyViewCode() {
+  const code = document.getElementById('view-code-value').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('view-copy-success').style.display = 'block';
+  });
+}
+
+// ── Delete User ───────────────────────────────────────────────────────────────
+function openDeleteUser(userId, name) {
+  userToDeleteId = userId;
+  document.getElementById('delete-user-name').textContent = name;
+  document.getElementById('delete-confirm-input').value = '';
+  const errEl = document.getElementById('err-delete');
+  errEl.textContent = '';
+  errEl.classList.remove('show');
+  document.getElementById('modal-delete').classList.add('open');
+}
+
+async function submitDelete() {
+  if (!userToDeleteId) return;
+  const input = document.getElementById('delete-confirm-input').value.trim();
+  if (input !== 'delete') {
+    setModalError('err-delete', 'Type "delete" to confirm.');
+    return;
+  }
+
+  setSubmitLoading('submit-delete', true);
+  const res = await fetch(`/admin/api/users/${userToDeleteId}`, {
+    method: 'DELETE',
+    headers: { Accept: 'application/json' }
+  });
+  const data = await res.json();
+  setSubmitLoading('submit-delete', false);
+
+  if (!res.ok) { setModalError('err-delete', data.error || 'Failed to delete user.'); return; }
+  closeModal('modal-delete');
+  showToast('User deleted.');
+  userToDeleteId = null;
   await loadUsers();
 }
 

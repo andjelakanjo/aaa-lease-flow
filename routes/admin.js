@@ -100,7 +100,7 @@ router.post('/api/companies', requireSuperAdmin, async (req, res) => {
 router.get('/api/users', async (req, res) => {
   let query = supabase.admin
     .from('profiles')
-    .select('id, first_name, last_name, email, role, company_id, expires_at, is_active, created_at, companies(name)')
+    .select('id, first_name, last_name, email, role, company_id, access_code, expires_at, is_active, created_at, companies(name)')
     .order('created_at', { ascending: false });
 
   // Admins see only their own company's employees

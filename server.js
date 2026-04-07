@@ -9,6 +9,7 @@ const requireAuth = require('./middleware/requireAuth');
 const authRoutes = require('./routes/auth');
 const appRoutes = require('./routes/app');
 const adminRoutes = require('./routes/admin');
+const usersRoutes = require('./routes/users');
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.get('/login', (req, res) => {
 app.use(apiLimiter);
 app.use(requireAuth);
 app.use('/admin', adminRoutes);
+app.use('/admin/api/users', usersRoutes);
 app.use('/', appRoutes);
 
 // 404 fallback
