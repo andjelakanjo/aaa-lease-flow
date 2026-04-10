@@ -79,24 +79,39 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .card-location{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:10px;white-space:nowrap;border:1px solid rgba(255,255,255,0.08);}
 .card-docs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
 .doc-tag{font-size:.68rem;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid rgba(255,255,255,0.08);}
-/* FLOW */
+/* FLOW — stream color tokens */
+#stream-lease{--sc:#4f8ef7;--sc-bg:rgba(79,142,247,0.10);--sc-border:rgba(79,142,247,0.28);}
+#stream-rental{--sc:#f7914f;--sc-bg:rgba(247,145,79,0.10);--sc-border:rgba(247,145,79,0.28);}
+#stream-cash{--sc:#4ff7a8;--sc-bg:rgba(79,247,168,0.10);--sc-border:rgba(79,247,168,0.28);}
+#stream-parking{--sc:rgba(200,205,220,0.7);--sc-bg:rgba(255,255,255,0.05);--sc-border:rgba(255,255,255,0.18);}
 .flow-container{display:flex;gap:0;overflow-x:auto;padding-bottom:14px;}
-.flow-stage{min-width:210px;flex-shrink:0;}
-.flow-stage-header{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.10);border-radius:10px 10px 0 0;padding:10px 14px;text-align:center;}
-.flow-stage-num{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-muted);margin-bottom:3px;}
-.flow-stage-name{font-size:.85rem;font-weight:600;}
-.flow-arrow{display:flex;align-items:center;justify-content:center;width:36px;flex-shrink:0;margin-top:38px;color:var(--text-muted);font-size:1.1rem;}
+.flow-stage{min-width:220px;flex-shrink:0;}
+.flow-stage-header{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.10);border-top:2px solid var(--sc,rgba(255,255,255,0.15));border-radius:10px 10px 0 0;padding:14px 14px 11px;text-align:center;}
+.flow-stage-num{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;color:var(--sc,var(--text-muted));background:var(--sc-bg,rgba(255,255,255,0.06));display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;border:1px solid var(--sc-border,rgba(255,255,255,0.15));margin-bottom:7px;}
+.flow-stage-name{font-size:.9rem;font-weight:700;line-height:1.3;}
+.flow-arrow{display:flex;align-items:center;justify-content:center;width:40px;flex-shrink:0;margin-top:40px;color:var(--sc,var(--text-muted));font-size:1.4rem;opacity:.6;}
 .flow-steps{border:1px solid rgba(255,255,255,0.10);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;background:rgba(255,255,255,0.02);}
-.flow-step{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:background 0.2s ease;}
+.flow-step{padding:12px 14px 12px 16px;border-bottom:1px solid rgba(255,255,255,0.07);border-left:3px solid transparent;cursor:pointer;transition:all 0.2s ease;}
 .flow-step:last-child{border-bottom:none;}
-.flow-step:hover{background:rgba(255,255,255,0.07);}
-.flow-step-who{font-family:'DM Mono',monospace;font-size:.65rem;margin-bottom:3px;}
-.flow-step-what{font-size:.78rem;color:var(--text-muted);line-height:1.4;}
-/* FLOW STREAM TABS */
-.stream-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
-.stream-tab{padding:6px 18px;border-radius:20px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:.82rem;font-weight:600;cursor:pointer;transition:all 0.18s ease;}
-.stream-tab:hover{background:rgba(255,255,255,0.09);color:var(--text);}
-.stream-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.flow-step:hover{background:rgba(255,255,255,0.07);border-left-color:var(--sc,rgba(255,255,255,0.3));}
+.flow-step-who{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:600;margin-bottom:4px;}
+.flow-step-what{font-size:.79rem;color:var(--text-muted);line-height:1.45;}
+/* FLOW STREAM SELECTOR */
+.stream-selector{margin-bottom:22px;}
+.stream-selector-label{font-size:.7rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:10px;}
+.stream-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.stream-tab{padding:10px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text-muted);font-size:.86rem;font-weight:600;cursor:pointer;transition:all 0.2s ease;display:flex;align-items:center;gap:8px;}
+.stream-tab:hover{background:rgba(255,255,255,0.09);color:var(--text);transform:translateY(-1px);}
+.stream-tab.tab-lease.active{background:rgba(79,142,247,0.18);border-color:#4f8ef7;color:#4f8ef7;box-shadow:0 2px 18px rgba(79,142,247,0.2);}
+.stream-tab.tab-rental.active{background:rgba(247,145,79,0.18);border-color:#f7914f;color:#f7914f;box-shadow:0 2px 18px rgba(247,145,79,0.2);}
+.stream-tab.tab-cash.active{background:rgba(79,247,168,0.18);border-color:#4ff7a8;color:#4ff7a8;box-shadow:0 2px 18px rgba(79,247,168,0.2);}
+.stream-tab.tab-parking.active{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.35);color:var(--text);box-shadow:0 2px 16px rgba(255,255,255,0.05);}
+.stream-selector-sub{font-size:.78rem;color:var(--text-muted);font-style:italic;}
+/* STREAM BANNER */
+.stream-banner{border-radius:10px;padding:14px 20px;margin-bottom:22px;display:flex;align-items:center;gap:14px;border:1px solid var(--sc-border,rgba(255,255,255,0.12));background:var(--sc-bg,rgba(255,255,255,0.04));}
+.stream-banner-icon{font-size:1.5rem;flex-shrink:0;line-height:1;}
+.stream-banner-name{font-family:'DM Mono',monospace;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sc,var(--text));margin-bottom:3px;}
+.stream-banner-desc{font-size:.79rem;color:var(--text-muted);line-height:1.4;}
 .stream-note{font-size:.76rem;color:var(--text-muted);margin-bottom:18px;font-style:italic;}
 .stream-panel{display:none;}
 .stream-panel.active{display:block;}
@@ -380,17 +395,24 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 
 <!-- PROCESS FLOW -->
 <div id="flow-view" class="view">
-  <div style="margin-bottom:14px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="flow_title">Process Flow</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="flow_sub">Select a revenue stream to explore its end-to-end process.</p></div>
-  <div class="stream-tabs">
-    <button class="stream-tab active" onclick="switchStream('lease',this)">Lease</button>
-    <button class="stream-tab" onclick="switchStream('rental',this)">Rental</button>
-    <button class="stream-tab" onclick="switchStream('cash',this)">Cash Sales</button>
-    <button class="stream-tab" onclick="switchStream('parking',this)">Parking</button>
+  <div style="margin-bottom:20px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="flow_title">Process Flow</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="flow_sub">Select a revenue stream to explore its end-to-end process.</p></div>
+  <div class="stream-selector">
+    <div class="stream-selector-label" data-t="flow_stream_label">Select Revenue Stream:</div>
+    <div class="stream-tabs">
+      <button class="stream-tab tab-lease active" onclick="switchStream('lease',this)">📋 Lease</button>
+      <button class="stream-tab tab-rental" onclick="switchStream('rental',this)">🚛 Rental</button>
+      <button class="stream-tab tab-cash" onclick="switchStream('cash',this)">💰 Cash Sales</button>
+      <button class="stream-tab tab-parking" onclick="switchStream('parking',this)">🅿️ Parking</button>
+    </div>
+    <div class="stream-selector-sub" data-t="flow_stream_sub">Each revenue stream has its own end-to-end process</div>
   </div>
-  <p class="stream-note">Parking se vodi kroz Easy Storage sistem i van je scope-a implementacije novog softvera.</p>
 
   <!-- LEASE STREAM -->
   <div id="stream-lease" class="stream-panel active">
+    <div class="stream-banner">
+      <div class="stream-banner-icon">📋</div>
+      <div><div class="stream-banner-name">LEASE</div><div class="stream-banner-desc">Finance lease sa buyout opcijom — od aplikacije i odobrenja do zatvaranja ugovora i title transfera</div></div>
+    </div>
     <div class="flow-container">
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Lead &amp; Approval</div></div>
@@ -473,6 +495,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 
   <!-- RENTAL STREAM -->
   <div id="stream-rental" class="stream-panel">
+    <div class="stream-banner">
+      <div class="stream-banner-icon">🚛</div>
+      <div><div class="stream-banner-name">RENTAL</div><div class="stream-banner-desc">Kratkoročni i dugoročni najam trailers & trucks — od inquiry i setup-a do weekly billing i check-in-a</div></div>
+    </div>
     <div class="flow-container">
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Inquiry &amp; Lead</div></div>
@@ -535,6 +561,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 
   <!-- CASH SALES STREAM -->
   <div id="stream-cash" class="stream-panel">
+    <div class="stream-banner">
+      <div class="stream-banner-icon">💰</div>
+      <div><div class="stream-banner-name">CASH SALES</div><div class="stream-banner-desc">Prodaja jedinica iz inventara — od deal identification i pricing-a do title transfera i commission kalkulacije</div></div>
+    </div>
     <div class="flow-container">
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Deal Identification</div></div>
@@ -595,6 +625,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 
   <!-- PARKING STREAM -->
   <div id="stream-parking" class="stream-panel">
+    <div class="stream-banner">
+      <div class="stream-banner-icon">🅿️</div>
+      <div><div class="stream-banner-name">PARKING</div><div class="stream-banner-desc">Parking spaces — vodi se kroz Easy Storage sistem, van je scope-a implementacije novog softvera</div></div>
+    </div>
     <div class="parking-badge">Parking — Easy Storage (van scope novog softvera)</div>
     <p class="parking-intro">AAA Lease rents parking spaces at the Chicago yard through Easy Storage — a separate platform that handles parking independently from lease/rental operations.</p>
     <div class="parking-grid">
@@ -876,6 +910,8 @@ const T = {
     dept_acc:"Računovodstvo — Kragujevac", dept_sales:"Prodaja / Legal / SAD",
     flow_title:"End-to-End Tok Procesa",
     flow_sub:"Od novog klijenta do naplate. Klikni na korak da vidiš odgovornu osobu.",
+    flow_stream_label:"Izaberi Revenue Stream:",
+    flow_stream_sub:"Svaki revenue stream ima sopstveni end-to-end proces",
     procmap_title:"Process Mapa — Klijent ↔ AAA Lease",
     procmap_sub:"Šta klijent radi, šta AAA Lease radi, i kako se to preseca. Klikni na ime da vidiš profil.",
     docs_title:"Ključna Dokumenta",
@@ -915,6 +951,8 @@ const T = {
     dept_acc:"Accounting — Kragujevac", dept_sales:"Sales / Legal / US",
     flow_title:"End-to-End Process Flow",
     flow_sub:"From new client to collection. Click any step to see the responsible person.",
+    flow_stream_label:"Select Revenue Stream:",
+    flow_stream_sub:"Each revenue stream has its own end-to-end process",
     procmap_title:"Process Map — Customer ↔ AAA Lease",
     procmap_sub:"What the customer does, what AAA Lease does, and how they intersect. Click a name to see the profile.",
     docs_title:"Key Documents",
@@ -1657,18 +1695,18 @@ const REQUIREMENTS = [
     {id:'r11',priority:'must',title:{sr:'Redosled zatvaranja invoicea (Rent → Tolovi → Lease)',en:'Invoice closing order (Rent → Tolls → Lease)'},short:{sr:'Uplata se automatski alocira: rent → tolovi/registracije → lease.',en:'Payment automatically allocated: rent → tolls/registrations → lease.'},desc:{sr:'Konfigurabilan redosled zatvaranja po tipu invoicea. Vidljivo koji invoicei su zatvoreni iz koje uplate.',en:'Configurable closing order by invoice type. Visible which invoices were closed by which payment.'},pain:{sr:'Hana ručno zatvara svaki invoice po Aleksovom pravilu. Kompleksno za klijente sa i rent i lease. ~4h mesečno.',en:"Hana manually closes every invoice per Alex's rule. Complex for clients with both rent and lease. ~4h monthly."},who:['hanna','tina','milica']},
     {id:'r12',priority:'must',title:{sr:'QuickBooks integracija — dvosmeran sync i batch invoicing',en:'QuickBooks integration — bidirectional sync and batch invoicing'},short:{sr:'Sve transakcije automatski sinhronizovane sa QBs; batch slanje i konsolidovani izvodi po klijentu.',en:'All transactions automatically synced with QBs; batch sending and consolidated statements per client.'},desc:{sr:'Bidirekciona integracija: (1) invoicei kreirani u softveru → automatski u QBs, (2) uplate u banci → automatski zatvaraju odgovarajuće invoicee, (3) batch invoicing — svi invoicei za jedan ciklus šalju se odjednom bez otvaranja svakog posebno, (4) konsolidovani izvod — mogućnost grupisanja više invoicea po klijentu u jedan objedinjen statement (npr. Rent + Lease + Tolovi za jednog klijenta = jedan PDF).',en:'Bidirectional integration: (1) invoices created in software → auto-appear in QBs, (2) bank payments → automatically close matching invoices, (3) batch invoicing — all invoices for one billing cycle sent at once without opening each individually, (4) consolidated statements — ability to group multiple invoices per client into one combined statement (e.g. Rent + Lease + Tolls for one client = one PDF).'},pain:{sr:'Sve se unosi ručno u QBs. Nema batch slanja — Tina otvara svaki invoice posebno. Nema konsolidovanog izvoda po klijentu.',en:'Everything entered manually in QBs. No batch sending — Tina opens each invoice individually. No consolidated statement per client.'},who:['tina','hanna','milica','aleksandra']},
     {id:'r13',priority:'must',title:{sr:'Automatski reversal odbijenih uplata',en:'Automatic reversal of rejected payments'},short:{sr:'Sistem automatski detektuje odbijene ACH uplate i reversuje zatvorene invoicee.',en:'System automatically detects rejected ACH payments and reverses closed invoices.'},desc:{sr:'Kada banka odbije uplatu: označi invoicee kao neplaćene, dodaje $35 rejected fee, obaveštava Milicu. Ne čeka 2-3 dana.',en:'When bank rejects payment: marks invoices as unpaid, adds $35 rejected fee, notifies Milica. Does not wait 2-3 days.'},pain:{sr:'Odbijene uplate stižu 2-3 dana posle. Tina/Hana moraju ručno pronaći i reversovati zatvorene invoicee.',en:'Rejected payments arrive 2-3 days later. Tina/Hana must manually find and reverse closed invoices.'},who:['tina','hanna','milica']},
-    {id:'r14',priority:'nice',title:{sr:'Klijentski portal — pregled stanja i plaćanje',en:'Client portal — balance view and payment'},short:{sr:'Klijent vidi sve invoicee, plati direktno, preuzima dokumente.',en:'Client views all invoices, pays directly, downloads documents.'},desc:{sr:'Portal: pregled invoicea (plaćenih i otvorenih), direktno ACH plaćanje, preuzimanje ugovora i registracija, pregled preostalog iznosa i buyout-a.',en:'Portal: invoice overview (paid and open), direct ACH payment, contract and registration downloads, remaining balance and buyout view.'},pain:{sr:'Klijenti stalno zovu/pišu za informacije o stanju. Milica odgovara na iste upite.',en:'Clients constantly call/email for balance info. Milica answers the same queries repeatedly.'},who:['milica','milica_r']},
+    {id:'r14',priority:'must',title:{sr:'Klijentski portal — pregled stanja i plaćanje',en:'Client portal — balance view and payment'},short:{sr:'Klijent vidi sve invoicee, plati direktno, preuzima dokumente.',en:'Client views all invoices, pays directly, downloads documents.'},desc:{sr:'Portal: pregled invoicea (plaćenih i otvorenih), direktno ACH plaćanje, preuzimanje ugovora i registracija, pregled preostalog iznosa i buyout-a.',en:'Portal: invoice overview (paid and open), direct ACH payment, contract and registration downloads, remaining balance and buyout view.'},pain:{sr:'Klijenti stalno zovu/pišu za informacije o stanju. Milica odgovara na iste upite.',en:'Clients constantly call/email for balance info. Milica answers the same queries repeatedly.'},who:['milica','milica_r']},
   ]},
   {module:'ar',icon:'🏦',moduleName:{sr:'Collections i AR',en:'Collections & AR'},items:[
     {id:'r15',priority:'must',title:{sr:'Automatski AR aging report',en:'Automatic AR aging report'},short:{sr:'Real-time AR aging — bez ručnog izvlačenja iz QBs.',en:'Real-time AR aging — no manual extraction from QBs.'},desc:{sr:'AR aging po klijentu u realnom vremenu: 0-30, 31-60, 61-90, 91-180, 180+ dana. Dostupan u svakom trenutku.',en:'Real-time AR aging per client: 0-30, 31-60, 61-90, 91-180, 180+ days. Available at any time.'},pain:{sr:'AR aging se izvlači iz QBs jednom mesečno (~10-og). Između toga nema ažurnog pregleda.',en:'AR aging extracted from QBs once monthly (~10th). No current view in between.'},who:['milica','milica_r']},
     {id:'r16',priority:'must',title:{sr:'Automatski late fee na definisan datum',en:'Automatic late fee on defined date'},short:{sr:'10% late fee automatski dodat klijentima bez payment plana.',en:'10% late fee automatically added to clients without payment plan.'},desc:{sr:'Sistem automatski dodaje late fee (10% na open balance) na definisan datum za sve klijente bez aktivnog payment plana.',en:'System automatically adds late fee (10% on open balance) on defined date for all clients without active payment plan.'},pain:{sr:'Milica ručno izračunava late fee za svakog klijenta posebno, svaki mesec.',en:'Milica manually calculates late fee for every client separately, every month.'},who:['milica']},
     {id:'r17',priority:'must',title:{sr:'Recovery workflow sa statusima',en:'Recovery workflow with statuses'},short:{sr:'Definisan recovery flow: upozorenje → GPS disable → repossession → lawyer.',en:'Defined recovery flow: warning → GPS disable → repossession → lawyer.'},desc:{sr:'Sistem prati recovery korake: (1) upozorenje, (2) GPS starter disable, (3) Teo dispatched ($2,500 fee automatski), (4) demand letter, (5) advokat. Status "Lawyer" blokira sve buduće invoicee.',en:'System tracks recovery steps: (1) warning, (2) GPS starter disable, (3) Teo dispatched ($2,500 fee auto-added), (4) demand letter, (5) lawyer. "Lawyer" status blocks all future invoices.'},pain:{sr:'Svaki korak recovery-a je ručan. Nema centralnog mesta gde se vidi status svakog recovery slučaja.',en:'Every recovery step is manual. No central place to see status of each recovery case.'},who:['milica','alex']},
     {id:'r18',priority:'must',title:{sr:'Pregled preostalog iznosa (remaining balance)',en:'Remaining balance view'},short:{sr:'Za svakog klijenta i unit: koliko rata ostalo, preostali iznos, buyout.',en:'For every client and unit: installments remaining, remaining amount, buyout.'},desc:{sr:'Real-time prikaz: broj preostalih rata, ukupan preostali iznos, buyout iznos, datum završetka ugovora.',en:'Real-time view: number of remaining installments, total remaining amount, buyout amount, contract end date.'},pain:{sr:'Brankica ručno računa remaining balance za svakog klijenta za credit bureau. Nema jednog mesta gde se vidi.',en:'Brankica manually calculates remaining balance for every client for credit bureau. No single place to see this.'},who:['milica','brankica','milica_r']},
-    {id:'r19',priority:'nice',title:{sr:'Automatski buyout notice',en:'Automatic buyout notice'},short:{sr:'Sistem automatski šalje buyout notice klijentu X dana pre isteka ugovora.',en:'System automatically sends buyout notice to client X days before contract expiry.'},desc:{sr:'Konfigurabilan broj dana (npr. 90, 60, 30). Sistem generiše email klijentu sa preostalim iznosom i opcijama.',en:'Configurable number of days (e.g. 90, 60, 30). System generates email to client with remaining amount and options.'},pain:{sr:'Milica ručno prati spreadsheet sa datumima isteka i šalje notice manuelno.',en:'Milica manually monitors spreadsheet with expiry dates and sends notices manually.'},who:['milica']},
+    {id:'r19',priority:'must',title:{sr:'Automatski buyout notice',en:'Automatic buyout notice'},short:{sr:'Sistem automatski šalje buyout notice klijentu X dana pre isteka ugovora.',en:'System automatically sends buyout notice to client X days before contract expiry.'},desc:{sr:'Konfigurabilan broj dana (npr. 90, 60, 30). Sistem generiše email klijentu sa preostalim iznosom i opcijama.',en:'Configurable number of days (e.g. 90, 60, 30). System generates email to client with remaining amount and options.'},pain:{sr:'Milica ručno prati spreadsheet sa datumima isteka i šalje notice manuelno.',en:'Milica manually monitors spreadsheet with expiry dates and sends notices manually.'},who:['milica']},
     {id:'r20',priority:'nice',title:{sr:'Automatski payment reminders',en:'Automatic payment reminders'},short:{sr:'Sistem šalje podsetnik klijentima X dana pre i posle dospeća.',en:'System sends reminder to clients X days before and after due date.'},desc:{sr:'Konfigurabilan: 3 dana pre, na dan dospeća, 3/7/14 dana posle. Email ili SMS.',en:'Configurable: 3 days before, on due date, 3/7/14 days after. Email or SMS.'},pain:{sr:'Milica svaki dan ručno zove klijente sa neplaćenim invoiceima.',en:'Milica calls clients with unpaid invoices manually every day.'},who:['milica']},
   ]},
   {module:'gps',icon:'📡',moduleName:{sr:'GPS i Milaža',en:'GPS & Mileage'},items:[
-    {id:'r21',priority:'must',title:{sr:'GPS integracija — FleetLocate + Routemate',en:'GPS integration — FleetLocate + Routemate'},short:{sr:'Direktna konekcija na oba GPS sistema — automatski uvoz miljaža.',en:'Direct connection to both GPS systems — automatic mileage import.'},desc:{sr:'Automatski mesečni import miljaža iz FleetLocate i Routemate po VIN broju. Nema ručnog spajanja dva fajla.',en:'Automatic monthly mileage import from FleetLocate and Routemate by VIN number. No manual merging of two files.'},pain:{sr:'Brankica mesečno ručno preuzima izveštaje iz oba sistema i spaja po VIN-u u Excelu.',en:'Brankica manually downloads reports from both systems and merges by VIN in Excel every month.'},who:['brankica','valentina']},
+    {id:'r21',priority:'nice',title:{sr:'GPS integracija — FleetLocate + Routemate',en:'GPS integration — FleetLocate + Routemate'},short:{sr:'Direktna konekcija na oba GPS sistema — automatski uvoz miljaža.',en:'Direct connection to both GPS systems — automatic mileage import.'},desc:{sr:'Automatski mesečni import miljaža iz FleetLocate i Routemate po VIN broju. Nema ručnog spajanja dva fajla.',en:'Automatic monthly mileage import from FleetLocate and Routemate by VIN number. No manual merging of two files.'},pain:{sr:'Brankica mesečno ručno preuzima izveštaje iz oba sistema i spaja po VIN-u u Excelu.',en:'Brankica manually downloads reports from both systems and merges by VIN in Excel every month.'},who:['brankica','valentina']},
     {id:'r22',priority:'must',title:{sr:'Automatski mileage billing za lease',en:'Automatic mileage overage billing for lease'},short:{sr:'Čim unit pređe godišnji limit, sistem automatski kreira invoice za overage.',en:'Once unit exceeds annual limit, system automatically creates overage invoice.'},desc:{sr:'Konfigurabilan limit po ugovoru (130k, 160k, 220k milja/god). Čim pređe → automatski invoice. Mileage se resetuje.',en:'Configurable limit per contract (130k, 160k, 220k miles/year). Once exceeded → automatic invoice. Mileage resets.'},pain:{sr:'Brankica mesečno gleda conditional formatting, ručno kreira invoice za svaki unit koji je prešao limit.',en:'Brankica monthly checks conditional formatting, manually creates invoice for every unit that exceeded limit.'},who:['brankica']},
     {id:'r23',priority:'must',title:{sr:'GPS status provera pre checkout-a',en:'GPS status check before checkout'},short:{sr:'Sistem proverava da li GPS radi pre nego što se unit može označiti kao released.',en:'System checks whether GPS is active before unit can be marked as released.'},desc:{sr:'Pre checkout-a sistem automatski pinga GPS i prikazuje status (aktivan/neaktivan). Ako GPS ne radi — upozorenje. Fleet manager dobija notifikaciju.',en:'Before checkout, system automatically pings GPS and shows status (active/inactive). If GPS not working — warning. Fleet manager notified.'},pain:{sr:'Valentina/Brankica ručno proveravaju u FleetLocate i Routemate posebno pre svakog checkout-a.',en:'Valentina/Brankica manually check in FleetLocate and Routemate separately before every checkout.'},who:['valentina','brankica']},
     {id:'r24',priority:'nice',title:{sr:'Real-time GPS mapa za recovery',en:'Real-time GPS map for recovery'},short:{sr:'Prikaz svih aktivnih unita na mapi za potrebe recovery-a.',en:'Map view of all active units for recovery purposes.'},desc:{sr:'Karta sa svim aktivnim unitima. Filtriranje po statusu. Direktan link na GPS poziciju iz deal kartice.',en:'Map with all active units. Filter by status. Direct link to GPS position from deal card.'},pain:{sr:'Za recovery mora se posebno ulaziti u FleetLocate/Routemate da se nađe pozicija.',en:'For recovery must separately enter FleetLocate/Routemate to find position.'},who:['milica','brankica']},
@@ -1684,12 +1722,12 @@ const REQUIREMENTS = [
     {id:'r31',priority:'nice',title:{sr:'IFTA / HHUT reporting',en:'IFTA / HHUT reporting'},short:{sr:'Sistem prati miljaže po statu i kvartalu — osnova za godišnji IFTA izveštaj.',en:'System tracks mileage per state and quarter — basis for annual IFTA report.'},desc:{sr:'Automatsko praćenje milja po unitu po statu. Kvartalni izveštaj za Secretary of State. Emily sada skuplja podatke ručno.',en:'Automatic tracking of miles per unit per state. Quarterly report for Secretary of State. Emily currently collects data manually.'},pain:{sr:'IFTA je opisan kao "rudarski posao". Skupljanje mileage podataka od klijenata po kvartalu je izuzetno zahtevano.',en:'IFTA described as an "incredibly laborious task." Collecting quarterly mileage data from clients is extremely demanding.'},who:['emily','brankica']},
   ]},
   {module:'access',icon:'🔐',moduleName:{sr:'Pristup, Uloge i Integracije',en:'Access, Roles & Integrations'},items:[
-    {id:'r32',priority:'must',title:{sr:'Role-based pristup (5 nivoa)',en:'Role-based access (5 levels)'},short:{sr:'Svaki zaposleni vidi i menja samo ono što mu odgovara ulozi.',en:'Each employee sees and modifies only what matches their role.'},desc:{sr:'Minimum 5 uloga: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, klijenti; (3) Contracts — ugovori, dokumenti; (4) Finance — payable, izveštaji; (5) Admin — sve.',en:'Minimum 5 roles: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, clients; (3) Contracts — contracts, documents; (4) Finance — payable, reports; (5) Admin — everything.'},pain:{sr:'QBs payable pristup samo Aleksandra i Nadija, ali nema granularnih uloga za ostale sisteme.',en:'QBs payable access only Aleksandra and Nadija, but no granular roles for other systems.'},who:['milica_r','alex','andjela_t']},
-    {id:'r33',priority:'must',title:{sr:'15-20 korisnika odmah, brzo skaliranje',en:'15-20 users immediately, fast scaling'},short:{sr:'Minimum 15-20 seatova odmah. Bez dugih procurement procesa za dodavanje.',en:'Minimum 15-20 seats immediately. No lengthy procurement process for adding users.'},desc:{sr:'AAA Lease ima ~20 US zaposlenih + tim u Kragujevcu. Softver mora podržati sve odmah.',en:'AAA Lease has ~20 US employees + Kragujevac team. Software must support everyone immediately.'},pain:{sr:'Različiti alati imaju različita ograničenja seatova i cene po korisniku.',en:'Different tools have different seat limits and per-user pricing.'},who:['milica_r','alex']},
-    {id:'r34',priority:'must',title:{sr:'Leave coverage — uvid u kolegu',en:'Leave coverage — colleague visibility'},short:{sr:'Manager/kolega može privremeno preuzeti zadatke odsutnog zaposlenog.',en:'Manager/colleague can temporarily take over tasks of absent employee.'},desc:{sr:'Kada je neko odsutan, manager dobija privremeni pristup njihovom radnom prostoru. Sve otvorene stavke su vidljive.',en:'When someone is absent, manager gets temporary access to their workspace. All open items are visible.'},pain:{sr:'Kada neko nije dostupan, niko ne zna gde su mu stvari ni šta je pending.',en:"When someone is unavailable, no one knows where their items are or what's pending."},who:['milica_r','andjela_t']},
-    {id:'r35',priority:'must',title:{sr:'HubSpot integracija ili zamena CRM-a',en:'HubSpot integration or CRM replacement'},short:{sr:'Deal podaci iz CRM-a se automatski povlače u softver.',en:'Deal data from CRM automatically pulled into software.'},desc:{sr:'Bidirekciona sinhronizacija: novi deal u HubSpot → automatski u softveru. Status promena → ažurira HubSpot. Ili: softver ima ugrađen CRM.',en:'Bidirectional sync: new deal in HubSpot → auto-appears in software. Status change → updates HubSpot. Or: software has built-in CRM.'},pain:{sr:'Andjela prati HubSpot i ručno prenosi podatke u Active Units listu i QBs. Dupli unos.',en:'Andjela monitors HubSpot and manually transfers data to Active Units List and QBs. Duplicate entry.'},who:['andjela_t','valentina','brankica']},
+    {id:'r32',priority:'nice',title:{sr:'Role-based pristup (5 nivoa)',en:'Role-based access (5 levels)'},short:{sr:'Svaki zaposleni vidi i menja samo ono što mu odgovara ulozi.',en:'Each employee sees and modifies only what matches their role.'},desc:{sr:'Minimum 5 uloga: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, klijenti; (3) Contracts — ugovori, dokumenti; (4) Finance — payable, izveštaji; (5) Admin — sve.',en:'Minimum 5 roles: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, clients; (3) Contracts — contracts, documents; (4) Finance — payable, reports; (5) Admin — everything.'},pain:{sr:'QBs payable pristup samo Aleksandra i Nadija, ali nema granularnih uloga za ostale sisteme.',en:'QBs payable access only Aleksandra and Nadija, but no granular roles for other systems.'},who:['milica_r','alex','andjela_t']},
+    {id:'r33',priority:'nice',title:{sr:'15-20 korisnika odmah, brzo skaliranje',en:'15-20 users immediately, fast scaling'},short:{sr:'Minimum 15-20 seatova odmah. Bez dugih procurement procesa za dodavanje.',en:'Minimum 15-20 seats immediately. No lengthy procurement process for adding users.'},desc:{sr:'AAA Lease ima ~20 US zaposlenih + tim u Kragujevcu. Softver mora podržati sve odmah.',en:'AAA Lease has ~20 US employees + Kragujevac team. Software must support everyone immediately.'},pain:{sr:'Različiti alati imaju različita ograničenja seatova i cene po korisniku.',en:'Different tools have different seat limits and per-user pricing.'},who:['milica_r','alex']},
+    {id:'r34',priority:'nice',title:{sr:'Leave coverage — uvid u kolegu',en:'Leave coverage — colleague visibility'},short:{sr:'Manager/kolega može privremeno preuzeti zadatke odsutnog zaposlenog.',en:'Manager/colleague can temporarily take over tasks of absent employee.'},desc:{sr:'Kada je neko odsutan, manager dobija privremeni pristup njihovom radnom prostoru. Sve otvorene stavke su vidljive.',en:'When someone is absent, manager gets temporary access to their workspace. All open items are visible.'},pain:{sr:'Kada neko nije dostupan, niko ne zna gde su mu stvari ni šta je pending.',en:"When someone is unavailable, no one knows where their items are or what's pending."},who:['milica_r','andjela_t']},
+    {id:'r35',priority:'nice',title:{sr:'HubSpot integracija ili zamena CRM-a',en:'HubSpot integration or CRM replacement'},short:{sr:'Deal podaci iz CRM-a se automatski povlače u softver.',en:'Deal data from CRM automatically pulled into software.'},desc:{sr:'Bidirekciona sinhronizacija: novi deal u HubSpot → automatski u softveru. Status promena → ažurira HubSpot. Ili: softver ima ugrađen CRM.',en:'Bidirectional sync: new deal in HubSpot → auto-appears in software. Status change → updates HubSpot. Or: software has built-in CRM.'},pain:{sr:'Andjela prati HubSpot i ručno prenosi podatke u Active Units listu i QBs. Dupli unos.',en:'Andjela monitors HubSpot and manually transfers data to Active Units List and QBs. Duplicate entry.'},who:['andjela_t','valentina','brankica']},
     {id:'r36',priority:'nice',title:{sr:'Automatski obaveštajni sistem Ops ↔ Accounting',en:'Automatic Ops ↔ Accounting notification system'},short:{sr:'Kada Fabrizio uradi check-in → Tina automatski dobija notifikaciju da zaustavi billing.',en:'When Fabrizio does check-in → Tina automatically gets notified to stop billing.'},desc:{sr:'Sistem šalje notifikacije: (1) Check-in → Tina/Maja: stop billing; (2) GPS aktivan → Valentina: OK za release; (3) Paid Off → Aleksandra: zatvori u fixed assets; (4) Recovery → Milica: pokreni proceduru.',en:'System sends notifications: (1) Check-in → Tina/Maja: stop billing; (2) GPS active → Valentina: OK for release; (3) Paid Off → Aleksandra: close in fixed assets; (4) Recovery → Milica: start procedure.'},pain:{sr:'Sva komunikacija između ops i accountinga ide emailom ili verbalno. Često se kasni ili zaboravi.',en:'All communication between ops and accounting goes via email or verbally. Often delayed or forgotten.'},who:['fabrizio','tina','andjela_t','milica']},
-    {id:'r37',priority:'must',title:{sr:'Approval Workflows — odobrenje managera',en:'Approval Workflows — manager approval'},short:{sr:'Ključne akcije zahtevaju odobrenje managera pre izvršenja.',en:'Key actions require manager approval before execution.'},desc:{sr:'Manager approval obavezan za: (1) oprost troškova / waiving fees — bilo koji fee se ne može otpisati bez odobrenja, (2) mesečno zatvaranje (month-end closing) — zatvaranje ciklusa zahteva odobrenje, (3) druge ključne finansijske akcije definisane od strane adminstracije. Sistem šalje zahtev za odobrenje, manager odobrava ili odbija sa komentarom, audit log svih odobrenja.',en:'Manager approval required for: (1) waiving fees — no fee can be written off without approval, (2) month-end closing — closing the billing cycle requires approval sign-off, (3) other key financial actions defined by administration. System sends approval request, manager approves or rejects with comment, full audit log of all approvals.'},pain:{sr:'Trenutno nema kontrolnog mehanizma — zaposleni mogu menjati iznose i zatvarati stavke bez odobrenja.',en:'Currently no control mechanism — employees can modify amounts and close items without approval.'},who:['milica_r','alex','tina','hanna']},
+    {id:'r37',priority:'nice',title:{sr:'Approval Workflows — odobrenje managera',en:'Approval Workflows — manager approval'},short:{sr:'Ključne akcije zahtevaju odobrenje managera pre izvršenja.',en:'Key actions require manager approval before execution.'},desc:{sr:'Manager approval obavezan za: (1) oprost troškova / waiving fees — bilo koji fee se ne može otpisati bez odobrenja, (2) mesečno zatvaranje (month-end closing) — zatvaranje ciklusa zahteva odobrenje, (3) druge ključne finansijske akcije definisane od strane adminstracije. Sistem šalje zahtev za odobrenje, manager odobrava ili odbija sa komentarom, audit log svih odobrenja.',en:'Manager approval required for: (1) waiving fees — no fee can be written off without approval, (2) month-end closing — closing the billing cycle requires approval sign-off, (3) other key financial actions defined by administration. System sends approval request, manager approves or rejects with comment, full audit log of all approvals.'},pain:{sr:'Trenutno nema kontrolnog mehanizma — zaposleni mogu menjati iznose i zatvarati stavke bez odobrenja.',en:'Currently no control mechanism — employees can modify amounts and close items without approval.'},who:['milica_r','alex','tina','hanna']},
     {id:'r38',priority:'nice',title:{sr:'HubSpot notifikacije — novi deal trigger',en:'HubSpot notifications — new deal trigger'},short:{sr:'Sistem prima notifikaciju kada se u HubSpotu kreira novi deal.',en:'System receives notification when a new deal is created in HubSpot.'},desc:{sr:'Kada se u HubSpotu kreira novi deal, softver automatski dobija notifikaciju i može pokrenuti workflow: obaveštenje nadležnom zaposlenom, priprema dokumenata, kreiranje draft ugovora. Lakši početak onboarding procesa bez ručnog prenosa podataka.',en:'When a new deal is created in HubSpot, the software automatically receives a notification and can trigger a workflow: notify responsible employee, prepare documents, create draft contract. Lighter-weight starting point for onboarding without manual data transfer.'},pain:{sr:'Andjela ručno prati nove dealove u HubSpotu i prenosi podatke. Kašnjenje između deal kreacije i početka onboardinga.',en:'Andjela manually monitors new deals in HubSpot and transfers data. Delay between deal creation and onboarding start.'},who:['andjela_t','valentina']},
   ]},
 ];
@@ -1936,6 +1974,17 @@ async function logout() {
   await fetch('/auth/logout', { method: 'POST' });
   window.location.href = '/login';
 }
+
+// ===================== BOOT =====================
+(function() {
+  const role = window.__USER_ROLE__ || 'employee';
+
+  // Hide Software Reqs tab for anyone who isn't super_admin
+  if (role !== 'super_admin') {
+    const tab = document.getElementById('nav-tab-reqs');
+    if (tab) tab.style.display = 'none';
+  }
+})();
 </script>
 </body>
 </html>

@@ -209,6 +209,37 @@ select option{background:#0f1629;}
 
 /* ── Loading ── */
 .loading{text-align:center;padding:48px;color:var(--text-muted);font-size:.9rem;}
+
+/* ── Preview App ── */
+.preview-container{display:none;}
+.preview-container.open{display:block;}
+.preview-banner{
+  position:sticky;top:60px;z-index:90;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:10px 28px;
+  background:rgba(10,14,26,0.95);
+  border-bottom:2px solid rgba(79,142,247,0.45);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+.preview-banner-label{font-size:.84rem;color:var(--text-muted);line-height:1.4;}
+.preview-banner-label strong{color:var(--accent);margin-right:4px;}
+.preview-banner-label .preview-co{color:var(--text);font-weight:600;}
+.preview-banner-label .preview-sep{margin:0 6px;opacity:.4;}
+.btn-close-preview{
+  flex-shrink:0;padding:6px 16px;border-radius:12px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);
+  color:var(--text-muted);font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all 0.2s ease;white-space:nowrap;
+}
+.btn-close-preview:hover{background:rgba(247,79,79,.1);border-color:rgba(247,79,79,.35);color:var(--error);}
+.preview-iframe{width:100%;border:none;height:calc(100vh - 97px);display:block;background:var(--bg);}
+.btn-preview{
+  padding:7px 16px;border-radius:20px;border:1px solid rgba(79,142,247,.3);
+  background:rgba(79,142,247,.08);color:var(--accent);
+  font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;
+  cursor:pointer;transition:all 0.2s ease;white-space:nowrap;
+}
+.btn-preview:hover{background:rgba(79,142,247,.18);border-color:rgba(79,142,247,.5);box-shadow:0 0 12px rgba(79,142,247,.2);}
 </style>
 </head>
 <body>
@@ -240,6 +271,7 @@ select option{background:#0f1629;}
     <div class="panel-header">
       <h2 id="users-heading">Users</h2>
       <div class="panel-actions">
+        <button class="btn-preview" onclick="previewAppFromUsers()">👁 Preview App</button>
         <button class="btn-secondary" id="btn-create-admin" onclick="openModal('modal-admin')" style="display:none">+ Create Admin</button>
         <button class="btn-primary" onclick="openModal('modal-employee')">+ Create Employee</button>
       </div>
@@ -273,15 +305,29 @@ select option{background:#0f1629;}
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Company Name</th><th>Created</th></tr>
+          <tr><th>Company Name</th><th>Created</th><th>Actions</th></tr>
         </thead>
         <tbody id="companies-tbody">
-          <tr class="empty-row"><td colspan="2">Loading…</td></tr>
+          <tr class="empty-row"><td colspan="3">Loading…</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </main>
+
+<!-- ── Preview Container ── -->
+<div class="preview-container" id="preview-container">
+  <div class="preview-banner">
+    <span class="preview-banner-label">
+      👁 <strong>PREVIEW MODE</strong>
+      — <span class="preview-co" id="preview-co-name">AAA Lease</span>
+      <span class="preview-sep">|</span>
+      <span id="preview-banner-sub">Gledaš kako zaposleni vide aplikaciju</span>
+    </span>
+    <button class="btn-close-preview" onclick="closePreview()">✕ Zatvori preview</button>
+  </div>
+  <iframe class="preview-iframe" id="preview-iframe" src="" title="App Preview" sandbox="allow-scripts allow-same-origin"></iframe>
+</div>
 
 <!-- ── Modals ── -->
 
@@ -560,13 +606,16 @@ function renderUsers(users) {
 function renderCompanies(list) {
   const tbody = document.getElementById('companies-tbody');
   if (!list.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="2">No companies yet.</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="3">No companies yet.</td></tr>';
     return;
   }
   tbody.innerHTML = list.map(c => `
     <tr>
       <td>${esc(c.name)}</td>
       <td style="color:var(--text-muted);font-size:.82rem">${fmtDate(c.created_at)}</td>
+      <td><div class="td-actions">
+        <button class="btn-preview" onclick="previewApp('${esc(c.name)}', 'Gledaš kako zaposleni vide aplikaciju')">👁 Preview App</button>
+      </div></td>
     </tr>
   `).join('');
 }
@@ -811,6 +860,38 @@ function showToast(msg, type = 'success') {
   t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 3500);
+}
+
+// ── Preview App ───────────────────────────────────────────────────────────────
+function previewApp(companyName, bannerSub) {
+  document.getElementById('preview-co-name').textContent = companyName || 'AAA Lease';
+  document.getElementById('preview-banner-sub').textContent = bannerSub || 'Gledaš kako zaposleni vide aplikaciju';
+  // Re-set src so the iframe always reloads fresh
+  const iframe = document.getElementById('preview-iframe');
+  iframe.src = '';
+  iframe.src = '/app?preview=true';
+  const container = document.getElementById('preview-container');
+  container.classList.add('open');
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function previewAppFromUsers() {
+  let companyName = 'AAA Lease';
+  let bannerSub = 'Gledaš kako zaposleni vide aplikaciju';
+  if (currentUser?.role === 'admin') {
+    const co = companies.find(c => c.id === currentUser.companyId);
+    companyName = co?.name || 'AAA Lease';
+    bannerSub = 'Gledaš kako tvoji zaposleni vide aplikaciju';
+  } else {
+    // super_admin: use first loaded company name or fallback
+    companyName = companies[0]?.name || 'AAA Lease';
+  }
+  previewApp(companyName, bannerSub);
+}
+
+function closePreview() {
+  document.getElementById('preview-container').classList.remove('open');
+  document.getElementById('preview-iframe').src = '';
 }
 
 // ── Start ─────────────────────────────────────────────────────────────────────

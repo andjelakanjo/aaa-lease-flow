@@ -13,14 +13,16 @@ router.get('/', (req, res) => {
 });
 
 // GET /app — main application (all authenticated employees see this)
-// Injects window.__USER_ROLE__ so the frontend knows the role without a second fetch.
+// Injects window.__USER_ROLE__ and window.__PREVIEW_MODE__ so the frontend can adapt.
+// ?preview=true forces role to 'employee' and signals the app to hide its own header.
 router.get('/app', (req, res) => {
-  const role = req.user?.role || 'employee';
+  const isPreview = req.query.preview === 'true';
+  const role = isPreview ? 'employee' : (req.user?.role || 'employee');
   const appPath = path.join(__dirname, '..', 'public', 'app.html');
   const html = fs.readFileSync(appPath, 'utf-8');
   const injected = html.replace(
     '<head>',
-    `<head><script>window.__USER_ROLE__ = ${JSON.stringify(role)};</script>`
+    `<head><script>window.__USER_ROLE__ = ${JSON.stringify(role)};window.__PREVIEW_MODE__ = ${JSON.stringify(isPreview)};</script>`
   );
   res.set('Content-Type', 'text/html');
   res.send(injected);
