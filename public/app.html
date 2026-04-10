@@ -313,7 +313,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <button class="nav-tab" onclick="switchView('flow')"><span data-t="nav_flow">Process Flow</span></button>
     <button class="nav-tab" onclick="switchView('procmap')"><span data-t="nav_procmap">Process Map</span></button>
     <button class="nav-tab" onclick="switchView('docs')"><span data-t="nav_docs">Key Documents</span></button>
-    <button class="nav-tab gold" id="nav-tab-reqs" onclick="switchView('reqs')" style="display:none"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
+    <button class="nav-tab gold" id="nav-tab-reqs" onclick="switchView('reqs')"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
     <button class="nav-tab" onclick="switchView('glossary')"><span data-t="nav_glossary">📖 Glossary</span></button>
     <button class="nav-tab" onclick="switchView('quiz')"><span data-t="nav_quiz">Quiz</span></button>
     <button class="nav-tab" onclick="switchView('contacts')">👤 Contacts</button>
@@ -1902,12 +1902,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
   });
 
-  // Show Software Reqs tab only for super_admin.
-  // window.__USER_ROLE__ is injected by the server in routes/app.js from req.user.role.
-  if (window.__USER_ROLE__ === 'super_admin') {
-    const reqsTab = document.getElementById('nav-tab-reqs');
-    if (reqsTab) reqsTab.style.display = '';
-  }
+
 });
 
 function downloadContactsCSV() {
