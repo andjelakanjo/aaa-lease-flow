@@ -113,13 +113,38 @@ router.post('/logout', (req, res) => {
 
 // GET /auth/me
 router.get('/me', async (req, res) => {
-  const token = req.cookies?.sb_token;
-  if (!token) return res.status(401).json({ error: 'Not authenticated.' });
+  const sbToken = req.cookies?.sb_token;
+  const acSession = req.cookies?.ac_session;
 
-  const { data: { user }, error } = await supabase.auth.getUser(token);
-  if (error || !user) return res.status(401).json({ error: 'Session invalid.' });
+  if (sbToken) {
+    const { data: { user }, error } = await supabase.auth.getUser(sbToken);
+    if (error || !user) return res.status(401).json({ error: 'Session invalid.' });
 
-  res.json({ email: user.email, id: user.id });
+    const { data: profile } = await supabase.admin
+      .from('profiles')
+      .select('role, is_active')
+      .eq('user_id', user.id)
+      .single();
+
+    if (profile && profile.is_active === false) return res.status(403).json({ error: 'Account revoked.' });
+
+    return res.json({ email: user.email, id: user.id, role: profile?.role || 'employee' });
+  }
+
+  if (acSession) {
+    const { data: profile, error } = await supabase.admin
+      .from('profiles')
+      .select('id, role, is_active, expires_at')
+      .eq('id', acSession)
+      .single();
+
+    if (error || !profile || !profile.is_active) return res.status(401).json({ error: 'Session invalid.' });
+    if (profile.expires_at && new Date(profile.expires_at) < new Date()) return res.status(401).json({ error: 'Session expired.' });
+
+    return res.json({ role: profile.role || 'employee' });
+  }
+
+  return res.status(401).json({ error: 'Not authenticated.' });
 });
 
 module.exports = router;
