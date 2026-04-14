@@ -331,7 +331,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <button class="nav-tab gold" type="button" id="nav-tab-reqs" data-action="switch-view" data-view="reqs"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="glossary"><span data-t="nav_glossary">📖 Glossary</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="quiz"><span data-t="nav_quiz">Quiz</span></button>
-    <button class="nav-tab" type="button" data-action="switch-view" data-view="contacts">👤 Contacts</button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="contacts"><span data-t="nav_contacts">👤 Contacts</span></button>
   </nav>
   <div class="header-right">
     <button class="logout-btn" type="button" data-action="logout" title="Sign out">⏻</button>
@@ -354,47 +354,49 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <div class="dept-label" style="color:var(--mgmt)" data-t="dept_mgmt">Management</div>
     <div class="cards-grid">
       <div class="person-card mgmt" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">
-        <div class="card-top"><div><div class="card-name">Alex Petrusevski</div><div class="card-title" data-person-role="alex"></div></div><span class="card-location">Chicago</span></div>
-        <div class="card-docs"><span class="doc-tag" data-t-txt="All approvals">All approvals</span><span class="doc-tag" data-t-txt="P&L oversight">P&L oversight</span><span class="doc-tag" data-t-txt="Recovery decisions">Recovery decisions</span></div>
+        <div class="card-top"><div><div class="card-name">Alex Petrusevski</div><div class="card-title" data-person-role="alex"></div></div><span class="card-location" data-t="loc_chicago">Chicago</span></div>
+        <div class="card-docs"><span class="doc-tag" data-t="tag_ceo_approvals">All approvals</span><span class="doc-tag" data-t="tag_ceo_pl">P&L oversight</span><span class="doc-tag" data-t="tag_ceo_recovery">Recovery decisions</span></div>
       </div>
       <div class="person-card mgmt" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0">
-        <div class="card-top"><div><div class="card-name">Milica Rajković</div><div class="card-title" data-person-role="milica_r"></div></div><span class="card-location">US</span></div>
-        <div class="card-docs"><span class="doc-tag">Monthly AR review</span><span class="doc-tag">Financial oversight</span><span class="doc-tag">Bank coordination</span></div>
+        <div class="card-top"><div><div class="card-name">Milica Rajković</div><div class="card-title" data-person-role="milica_r"></div></div><span class="card-location" data-t="loc_us">US</span></div>
+        <div class="card-docs"><span class="doc-tag" data-t="tag_fd_ar">Monthly AR review</span><span class="doc-tag" data-t="tag_fd_fin">Financial oversight</span><span class="doc-tag" data-t="tag_fd_bank">Bank coordination</span></div>
       </div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--ops)" data-t="dept_ops">Operations</div>
     <div class="cards-grid">
-      <div class="person-card ops" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Radu Motica</div><div class="card-title" data-person-role="radu"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Billing list</span><span class="doc-tag">Asset assignment</span><span class="doc-tag">P&L dept</span></div></div>
-      <div class="person-card ops" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Fabrizio</div><div class="card-title" data-person-role="fabrizio"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Check-in/out</span><span class="doc-tag">Inspection report</span></div></div>
-      <div class="person-card ops" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Israel</div><div class="card-title" data-person-role="israel"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Registrations</span><span class="doc-tag">PM / DOT</span><span class="doc-tag">Mileage</span></div></div>
-      <div class="person-card ops" data-action="open-panel" data-person-id="gustavo" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Gustavo</div><div class="card-title" data-person-role="gustavo"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Daily log</span><span class="doc-tag">Inspections</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Radu Motica</div><div class="card-title" data-person-role="radu"></div></div><span class="card-location" data-t="loc_us">US</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ops_bill_list">Billing list</span><span class="doc-tag" data-t="tag_ops_asset">Asset assignment</span><span class="doc-tag" data-t="tag_ops_pl_dept">P&L dept</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Fabrizio</div><div class="card-title" data-person-role="fabrizio"></div></div><span class="card-location" data-t="loc_us">US</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ops_inout">Check-in/out</span><span class="doc-tag" data-t="tag_ops_insp_rep">Inspection report</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Israel</div><div class="card-title" data-person-role="israel"></div></div><span class="card-location" data-t="loc_us">US</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ops_reg">Registrations</span><span class="doc-tag" data-t="tag_ops_pm_dot">PM / DOT</span><span class="doc-tag" data-t="tag_ops_mileage">Mileage</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="gustavo" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Gustavo</div><div class="card-title" data-person-role="gustavo"></div></div><span class="card-location" data-t="loc_us">US</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ops_daily_log">Daily log</span><span class="doc-tag" data-t="tag_ops_insp">Inspections</span></div></div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--acc)" data-t="dept_payable">Payables — Kragujevac</div>
     <div class="cards-grid">
-      <div class="person-card acc" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Andjela Trifunovic</div><div class="card-title" data-person-role="andjela_t"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Active Units List</span><span class="doc-tag">DocuSign</span><span class="doc-tag">Cross-collateral</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="nadja" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Nadja</div><div class="card-title" data-person-role="nadja"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Vendor bills</span><span class="doc-tag">QB payables</span><span class="doc-tag">With Aleksandra</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Aleksandra Djokic</div><div class="card-title" data-person-role="aleksandra"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Fixed assets</span><span class="doc-tag">Loan list</span><span class="doc-tag">Claims</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Nadia Daneski</div><div class="card-title" data-person-role="nadia"></div></div><span class="card-location" data-t="loc_remote_skopje">Remote (Skopje)</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ap_hunt">AP / Huntington</span><span class="doc-tag" data-t="tag_ap_qb">QB payables</span><span class="doc-tag" data-t="tag_ap_rep_toll">Repairs &amp; tolls</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Aleksandra Djokic</div><div class="card-title" data-person-role="aleksandra"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_acc_fa">Fixed assets</span><span class="doc-tag" data-t="tag_acc_loan">Loan list</span><span class="doc-tag" data-t="tag_acc_claims">Claims</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="mina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Mina</div><div class="card-title" data-person-role="mina"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_toll_inv">Toll invoices</span><span class="doc-tag" data-t="tag_with_jov">With Jovana</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="jovana" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Jovana</div><div class="card-title" data-person-role="jovana"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_tolls_ap">Tolls / AP</span><span class="doc-tag" data-t="tag_on_leave">On leave</span></div></div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--acc)" data-t="dept_billing">Billing &amp; AR — Kragujevac</div>
     <div class="cards-grid">
-      <div class="person-card acc" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Valentina Lelovic</div><div class="card-title" data-person-role="valentina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Contracts</span><span class="doc-tag">Amendments</span><span class="doc-tag">GPS check</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Tina Srdic</div><div class="card-title" data-person-role="tina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Confirmed Payments</span><span class="doc-tag">Weekly/Monthly inv.</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Hanna Bencks</div><div class="card-title" data-person-role="hanna"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Tolls billing</span><span class="doc-tag">Daily billing list</span><span class="doc-tag">Bank recon</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Milica Doson</div><div class="card-title" data-person-role="milica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">AR Aging</span><span class="doc-tag">Buyout notices</span><span class="doc-tag">Recovery</span></div></div>
-      <div class="person-card acc" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Brankica</div><div class="card-title" data-person-role="brankica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Credit bureau CSV</span><span class="doc-tag">GPS list</span><span class="doc-tag">Mileage billing</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Andjela Trifunovic</div><div class="card-title" data-person-role="andjela_t"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_cu_aul">Active Units List</span><span class="doc-tag" data-t="tag_cu_ds">DocuSign</span><span class="doc-tag" data-t="tag_cu_cc">Cross-collateral</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Valentina Lelovic</div><div class="card-title" data-person-role="valentina"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_cu_contracts">Contracts</span><span class="doc-tag" data-t="tag_cu_amend">Amendments</span><span class="doc-tag" data-t="tag_cu_gps">GPS check</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Tina Srdic</div><div class="card-title" data-person-role="tina"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_bi_conf">Confirmed Payments</span><span class="doc-tag" data-t="tag_bi_inv">Weekly/Monthly inv.</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Hanna Bencks</div><div class="card-title" data-person-role="hanna"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_ar_toll_bill">Tolls billing</span><span class="doc-tag" data-t="tag_ar_daily_list">Daily billing list</span><span class="doc-tag" data-t="tag_ar_bank_rec">Bank recon</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Milica Doson</div><div class="card-title" data-person-role="milica"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_col_ar_age">AR Aging</span><span class="doc-tag" data-t="tag_col_buyout">Buyout notices</span><span class="doc-tag" data-t="tag_col_rec">Recovery</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Brankica</div><div class="card-title" data-person-role="brankica"></div></div><span class="card-location" data-t="loc_kg">Kragujevac</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_br_cb">Credit bureau CSV</span><span class="doc-tag" data-t="tag_br_gps">GPS list</span><span class="doc-tag" data-t="tag_br_mile">Mileage billing</span></div></div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--sales)" data-t="dept_sales">Sales / Legal / US</div>
     <div class="cards-grid">
-      <div class="person-card sales" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Roman</div><div class="card-title" data-person-role="roman"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Bank financing</span><span class="doc-tag">Bill of sale</span></div></div>
-      <div class="person-card sales" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Emily</div><div class="card-title" data-person-role="emily"></div></div><span class="card-location">Chicago</span></div><div class="card-docs"><span class="doc-tag">Title transfers</span><span class="doc-tag">IFTA/HHUT</span><span class="doc-tag">Registrations</span></div></div>
+      <div class="person-card sales" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Roman</div><div class="card-title" data-person-role="roman"></div></div><span class="card-location" data-t="loc_us">US</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_sa_fin">Bank financing</span><span class="doc-tag" data-t="tag_sa_bos">Bill of sale</span></div></div>
+      <div class="person-card sales" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Emily</div><div class="card-title" data-person-role="emily"></div></div><span class="card-location" data-t="loc_chicago">Chicago</span></div><div class="card-docs"><span class="doc-tag" data-t="tag_em_title">Title transfers</span><span class="doc-tag" data-t="tag_em_ifta">IFTA/HHUT</span><span class="doc-tag" data-t="tag_em_reg">Registrations</span></div></div>
     </div>
   </div>
 </div>
@@ -460,7 +462,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--acc)">Active Lease — Billing</div></div>
         <div class="flow-steps">
           <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Sends weekly/monthly lease invoices via QuickBooks memorized list</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="nadja" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadja</div><div class="flow-step-what">Vendor bills and QuickBooks payables (with Aleksandra); align with Hanna on repair-related vendor invoices</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what">Vendor invoices by email → approvals (Radu rental / ops lease) → QuickBooks payables + Huntington payments; Repair sheet + HubSpot repair costs; billable tolls with billing</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Mileage overage billing monthly (if client exceeds 130,000 miles/year)</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Tolls, repairs, final charges billed separately</div></div>
         </div>
@@ -615,7 +617,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">IL / IN</div><div class="flow-step-what">Direct transfer — client submits to SOS</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Other states</div><div class="flow-step-what">AAA signs and mails title — client registers independently</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register, removes from active inventory</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="nadja" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadja</div><div class="flow-step-what">Supports payable-side entries in QuickBooks for sale/buyout closeout (with Aleksandra)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what">Cost-of-sales / GJ entries to close fixed assets at sale (list from Brankica/billing); with Aleksandra on purchase vs disposal</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
@@ -700,7 +702,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div class="procmap-stage-label">④ Active Contract</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="tina" role="button" tabindex="0">Tina</div>Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</div></div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives additional invoices: tolls, repairs, mileage overage.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0">Hanna / Brankica</div>Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Vendor repair/parts bills are paid or booked by AAA; costs tie back to client billing where applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="nadja" role="button" tabindex="0">Nadja</div><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra</div>QuickBooks payables: vendor bills, 3-way alignment with Hanna on repair invoices when needed.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Vendor repair/parts bills are paid or booked by AAA; costs tie back to client billing where applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0">Nadia</div><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra</div>QuickBooks payables: vendor bills, 3-way alignment with Hanna on repair invoices when needed.</div></div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica Doson</div>Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).</div></div>
         <div class="procmap-stage-label">⑤ Issues (optional)</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Reports accident. Submits claim form and adjuster info from their insurance.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra / Brankica</div>Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</div></div>
@@ -842,60 +844,62 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <!-- CONTACTS VIEW -->
 <div id="contacts-view" class="view">
   <div class="contacts-header">
-    <h2>Contact Directory</h2>
-    <button class="btn-csv" type="button" data-action="download-contacts-csv">⬇ Download CSV</button>
+    <h2 data-t="contacts_title">Contact Directory</h2>
+    <button class="btn-csv" type="button" data-action="download-contacts-csv" data-t="contacts_csv">⬇ Download CSV</button>
   </div>
 
   <div class="contacts-dept">
-    <div class="contacts-dept-title">Management</div>
+    <div class="contacts-dept-title" data-t="contacts_dept_mgmt">Management</div>
     <div class="contacts-card">
       <table class="contacts-table">
-        <tr><td class="ct-name">Milica Rajković</td><td class="ct-role">Fractional CFO</td><td class="ct-email"><a href="mailto:mili.r@aaalease.net">mili.r@aaalease.net</a></td><td class="ct-loc">US</td></tr>
-        <tr><td class="ct-name">Alex Petrusevski</td><td class="ct-role">CEO</td><td class="ct-email"><a href="mailto:alex@aaalease.net">alex@aaalease.net</a></td><td class="ct-loc">Chicago, US</td></tr>
+        <tr><td class="ct-name">Milica Rajković</td><td class="ct-role"><span data-t="ct_role_cfo">Fractional CFO</span></td><td class="ct-email"><a href="mailto:mili.r@aaalease.net">mili.r@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_us">US</span></td></tr>
+        <tr><td class="ct-name">Alex Petrusevski</td><td class="ct-role"><span data-t="ct_role_ceo">CEO</span></td><td class="ct-email"><a href="mailto:alex@aaalease.net">alex@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_chicago_us">Chicago, US</span></td></tr>
       </table>
     </div>
   </div>
 
   <div class="contacts-dept">
-    <div class="contacts-dept-title">Operations — Rental Division (US)</div>
+    <div class="contacts-dept-title" data-t="contacts_dept_ops">Operations — Rental Division (US)</div>
     <div class="contacts-card">
       <table class="contacts-table">
-        <tr><td class="ct-name">Radu Motica</td><td class="ct-role">Rental Manager</td><td class="ct-email"><a href="mailto:radu.m@aaalease.net">radu.m@aaalease.net</a></td><td class="ct-loc">US</td></tr>
-        <tr><td class="ct-name">Fabrizio</td><td class="ct-role">Rental Ops Rep</td><td class="ct-email"><span>—</span></td><td class="ct-loc">US</td></tr>
-        <tr><td class="ct-name">Israel</td><td class="ct-role">Compliance / Maintenance</td><td class="ct-email"><span>—</span></td><td class="ct-loc">US</td></tr>
-        <tr><td class="ct-name">Gustavo</td><td class="ct-role">Driver</td><td class="ct-email"><span>—</span></td><td class="ct-loc">US</td></tr>
+        <tr><td class="ct-name">Radu Motica</td><td class="ct-role"><span data-t="ct_role_rental_mgr">Rental Manager</span></td><td class="ct-email"><a href="mailto:radu.m@aaalease.net">radu.m@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_us">US</span></td></tr>
+        <tr><td class="ct-name">Fabrizio</td><td class="ct-role"><span data-t="ct_role_rental_ops">Rental Ops Rep</span></td><td class="ct-email"><span data-t="ct_no_email">—</span></td><td class="ct-loc"><span data-t="ct_loc_us">US</span></td></tr>
+        <tr><td class="ct-name">Israel</td><td class="ct-role"><span data-t="ct_role_compliance">Compliance / Maintenance</span></td><td class="ct-email"><span data-t="ct_no_email">—</span></td><td class="ct-loc"><span data-t="ct_loc_us">US</span></td></tr>
+        <tr><td class="ct-name">Gustavo</td><td class="ct-role"><span data-t="ct_role_driver">Driver</span></td><td class="ct-email"><span data-t="ct_no_email">—</span></td><td class="ct-loc"><span data-t="ct_loc_us">US</span></td></tr>
       </table>
     </div>
   </div>
 
   <div class="contacts-dept">
-    <div class="contacts-dept-title">Payables — Kragujevac</div>
+    <div class="contacts-dept-title" data-t="contacts_dept_pay">Payables — Kragujevac / remote</div>
     <div class="contacts-card">
       <table class="contacts-table">
-        <tr><td class="ct-name">Andjela Trifunovic</td><td class="ct-role">Contracts &amp; Documentation (Payables cluster)</td><td class="ct-email"><a href="mailto:angela.t@aaalease.net">angela.t@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Nadja</td><td class="ct-role">Payables / QuickBooks vendor bills</td><td class="ct-email"><span>—</span></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Aleksandra Djokic</td><td class="ct-role">Payable / Fixed Assets / Accounting Manager</td><td class="ct-email"><a href="mailto:Alexandra.Dj@aaalease.net">Alexandra.Dj@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
+        <tr><td class="ct-name">Nadia Daneski</td><td class="ct-role"><span data-t="ct_role_nadia_ap">Accounts Payable / Huntington / QuickBooks</span></td><td class="ct-email"><a href="mailto:nadia@aaalease.net">nadia@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_remote_skopje">Remote (Skopje)</span></td></tr>
+        <tr><td class="ct-name">Aleksandra Djokic</td><td class="ct-role"><span data-t="ct_role_aleks_payable">Payable / Fixed Assets / Accounting Manager</span></td><td class="ct-email"><a href="mailto:Alexandra.Dj@aaalease.net">Alexandra.Dj@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Mina</td><td class="ct-role"><span data-t="ct_role_mina_tolls">Tolls — invoice processing</span></td><td class="ct-email"><span data-t="ct_no_email">—</span></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Jovana</td><td class="ct-role"><span data-t="ct_role_jovana_leave">Tolls / AP (on maternity leave)</span></td><td class="ct-email"><span data-t="ct_no_email">—</span></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
       </table>
     </div>
   </div>
   <div class="contacts-dept">
-    <div class="contacts-dept-title">Billing &amp; AR — Kragujevac</div>
+    <div class="contacts-dept-title" data-t="contacts_dept_bill">Billing &amp; AR — Kragujevac</div>
     <div class="contacts-card">
       <table class="contacts-table">
-        <tr><td class="ct-name">Valentina Lelovic</td><td class="ct-role">Contracts &amp; Documentation</td><td class="ct-email"><a href="mailto:valentina.l@aaalease.net">valentina.l@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Tina Srdic</td><td class="ct-role">Billing &amp; Parking</td><td class="ct-email"><a href="mailto:tina.s@aaalease.net">tina.s@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Hanna Bencks</td><td class="ct-role">AR / Additional Charges</td><td class="ct-email"><a href="mailto:hanna.b@aaalease.net">hanna.b@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Milica Doson</td><td class="ct-role">Collections &amp; Recovery</td><td class="ct-email"><a href="mailto:mili.d@aaalease.net">mili.d@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
-        <tr><td class="ct-name">Brankica Virijevic</td><td class="ct-role">Lease Approvals / Credit Bureau / GPS</td><td class="ct-email"><a href="mailto:brankica.v@aaalease.net">brankica.v@aaalease.net</a></td><td class="ct-loc">Kragujevac</td></tr>
+        <tr><td class="ct-name">Andjela Trifunovic</td><td class="ct-role"><span data-t="ct_role_andjela_contracts">Contracts &amp; Documentation — not payables/AP</span></td><td class="ct-email"><a href="mailto:angela.t@aaalease.net">angela.t@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Valentina Lelovic</td><td class="ct-role"><span data-t="ct_role_valentina_contracts">Contracts &amp; Documentation</span></td><td class="ct-email"><a href="mailto:valentina.l@aaalease.net">valentina.l@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Tina Srdic</td><td class="ct-role"><span data-t="ct_role_tina_billing">Billing &amp; Parking</span></td><td class="ct-email"><a href="mailto:tina.s@aaalease.net">tina.s@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Hanna Bencks</td><td class="ct-role"><span data-t="ct_role_hanna_ar">AR / Additional Charges</span></td><td class="ct-email"><a href="mailto:hanna.b@aaalease.net">hanna.b@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Milica Doson</td><td class="ct-role"><span data-t="ct_role_milica_col">Collections &amp; Recovery</span></td><td class="ct-email"><a href="mailto:mili.d@aaalease.net">mili.d@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
+        <tr><td class="ct-name">Brankica Virijevic</td><td class="ct-role"><span data-t="ct_role_brankica">Lease Approvals / Credit Bureau / GPS</span></td><td class="ct-email"><a href="mailto:brankica.v@aaalease.net">brankica.v@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_kg">Kragujevac</span></td></tr>
       </table>
     </div>
   </div>
 
   <div class="contacts-dept">
-    <div class="contacts-dept-title">Software Implementation</div>
+    <div class="contacts-dept-title" data-t="contacts_dept_sw">Software Implementation</div>
     <div class="contacts-card">
       <table class="contacts-table">
-        <tr><td class="ct-name">Andjela Kanjo</td><td class="ct-role">Software Implementation Specialist</td><td class="ct-email"><a href="mailto:andjela.k@aaalease.net">andjela.k@aaalease.net</a></td><td class="ct-loc">Beograd</td></tr>
+        <tr><td class="ct-name">Andjela Kanjo</td><td class="ct-role"><span data-t="ct_role_andjela_k">Software Implementation (IT) — not accounting / not payables</span></td><td class="ct-email"><a href="mailto:andjela.k@aaalease.net">andjela.k@aaalease.net</a></td><td class="ct-loc"><span data-t="ct_loc_bg">Belgrade</span></td></tr>
       </table>
     </div>
   </div>
@@ -924,7 +928,7 @@ const T = {
     nav_docs:"Ključna Dokumenta", nav_reqs:"⚡ Software Reqs", nav_glossary:"📖 Glosar", nav_quiz:"Kviz",
     leg_ops:"Operacije", leg_acc:"Računovodstvo", leg_mgmt:"Menadžment",
     dept_mgmt:"Menadžment", dept_ops:"Operacije — Rental Division",
-    dept_acc:"Računovodstvo — Kragujevac", dept_payable:"Payables — Kragujevac", dept_billing:"Billing i naplata — Kragujevac", dept_sales:"Prodaja / Legal / SAD",
+    dept_acc:"Računovodstvo — Kragujevac", dept_payable:"Payables — Kragujevac / remote", dept_billing:"Billing i naplata — Kragujevac", dept_sales:"Prodaja / Legal / SAD",
     flow_title:"End-to-End Tok Procesa",
     flow_sub:"Od novog klijenta do naplate. Klikni na korak da vidiš odgovornu osobu.",
     flow_stream_label:"Izaberi Revenue Stream:",
@@ -959,13 +963,96 @@ const T = {
     quiz_next:"Sledeće →",
     quiz_score_labels:["Treba još učiti 📚","Dobar napredak 👍","Odlično! 🎉","Ekspert! 🏆"],
     quiz_again:"Pokušaj ponovo", quiz_back:"Nazad na Mapu",
+    nav_contacts:"👤 Kontakti",
+    contacts_title:"Imenik kontakata",
+    contacts_csv:"⬇ Preuzmi CSV",
+    contacts_dept_mgmt:"Menadžment",
+    contacts_dept_ops:"Operacije — Rental odsek (SAD)",
+    contacts_dept_pay:"Obaveze (Payables) — Kragujevac / udaljeno",
+    contacts_dept_bill:"Billing i potraživanja (AR) — Kragujevac",
+    contacts_dept_sw:"Implementacija softvera",
+    ct_no_email:"—",
+    ct_role_cfo:"Frakcioni CFO",
+    ct_role_ceo:"CEO",
+    ct_role_rental_mgr:"Menadžer rentala",
+    ct_role_rental_ops:"Operativac rentala",
+    ct_role_compliance:"Usklađenost / održavanje",
+    ct_role_driver:"Vozač",
+    ct_role_nadia_ap:"Obaveze prema dobavljačima / Huntington / QuickBooks",
+    ct_role_aleks_payable:"Payable / osnovna sredstva / menadžer računovodstva",
+    ct_role_mina_tolls:"Tolovi — obrada faktura",
+    ct_role_jovana_leave:"Tolovi / AP (na bolovanju)",
+    ct_role_andjela_contracts:"Ugovori i dokumentacija — nije payables/AP",
+    ct_role_valentina_contracts:"Ugovori i dokumentacija",
+    ct_role_tina_billing:"Billing i parking",
+    ct_role_hanna_ar:"Potraživanja (AR) / dodatni troškovi",
+    ct_role_milica_col:"Naplata i recovery",
+    ct_role_brankica:"Lease odobrenja / credit bureau / GPS",
+    ct_role_andjela_k:"Implementacija softvera (IT) — nije računovodstvo / nije payables",
+    ct_loc_us:"SAD",
+    ct_loc_chicago_us:"Čikago, SAD",
+    ct_loc_kg:"Kragujevac",
+    ct_loc_remote_skopje:"Udaljeno (Skoplje)",
+    ct_loc_bg:"Beograd",
+    loc_us:"SAD",
+    loc_chicago:"Čikago",
+    loc_kg:"Kragujevac",
+    loc_remote_skopje:"Udaljeno (Skoplje)",
+    tag_ceo_approvals:"Sva odobrenja",
+    tag_ceo_pl:"Pregled P&L-a",
+    tag_ceo_recovery:"Recovery odluke",
+    tag_fd_ar:"Mesečni AR pregled",
+    tag_fd_fin:"Finansijski nadzor",
+    tag_fd_bank:"Koordinacija sa bankom",
+    tag_ops_bill_list:"Billing lista",
+    tag_ops_asset:"Dodela opreme",
+    tag_ops_pl_dept:"P&L odseka",
+    tag_ops_inout:"Check-in / check-out",
+    tag_ops_insp_rep:"Inspekcioni izveštaj",
+    tag_ops_reg:"Registracije",
+    tag_ops_pm_dot:"PM / DOT",
+    tag_ops_mileage:"Miljaža",
+    tag_ops_daily_log:"Dnevni log",
+    tag_ops_insp:"Inspekcije",
+    tag_ap_hunt:"AP / Huntington",
+    tag_ap_qb:"QB payables",
+    tag_ap_rep_toll:"Popravke i tolovi",
+    tag_acc_fa:"Osnovna sredstva",
+    tag_acc_loan:"Loan lista",
+    tag_acc_claims:"Claims",
+    tag_toll_inv:"Fakture tolova",
+    tag_with_jov:"Sa Jovanom",
+    tag_tolls_ap:"Tolovi / AP",
+    tag_on_leave:"Na bolovanju",
+    tag_cu_aul:"Active Units lista",
+    tag_cu_ds:"DocuSign",
+    tag_cu_cc:"Cross-collateral",
+    tag_cu_contracts:"Ugovori",
+    tag_cu_amend:"Amendmani",
+    tag_cu_gps:"GPS provera",
+    tag_bi_conf:"Confirmed Payments",
+    tag_bi_inv:"Nedeljni / mesečni inv.",
+    tag_ar_toll_bill:"Naplata tolova",
+    tag_ar_daily_list:"Dnevna billing lista",
+    tag_ar_bank_rec:"Bankovna rekonsilijacija",
+    tag_col_ar_age:"AR Aging",
+    tag_col_buyout:"Buyout obaveštenja",
+    tag_col_rec:"Recovery",
+    tag_br_cb:"Credit bureau CSV",
+    tag_br_gps:"GPS lista",
+    tag_br_mile:"Mileage billing",
+    tag_sa_fin:"Bankarsko finansiranje",
+    tag_sa_bos:"Bill of sale",
+    tag_em_title:"Title transferi",
+    tag_em_ifta:"IFTA / HHUT",
+    tag_em_reg:"Registracije",
   },
   en: {
     nav_map:"Team Map", nav_flow:"Process Flow", nav_procmap:"Process Map",
     nav_docs:"Key Documents", nav_reqs:"⚡ Software Reqs", nav_glossary:"📖 Glossary", nav_quiz:"Quiz",
     leg_ops:"Operations", leg_acc:"Accounting", leg_mgmt:"Management",
     dept_mgmt:"Management", dept_ops:"Operations — Rental Division",
-    dept_acc:"Accounting — Kragujevac", dept_payable:"Payables — Kragujevac", dept_billing:"Billing & AR — Kragujevac", dept_sales:"Sales / Legal / US",
+    dept_acc:"Accounting — Kragujevac", dept_payable:"Payables — Kragujevac / remote", dept_billing:"Billing & AR — Kragujevac", dept_sales:"Sales / Legal / US",
     flow_title:"End-to-End Process Flow",
     flow_sub:"From new client to collection. Click any step to see the responsible person.",
     flow_stream_label:"Select Revenue Stream:",
@@ -1000,6 +1087,89 @@ const T = {
     quiz_next:"Next →",
     quiz_score_labels:["Keep studying 📚","Good progress 👍","Excellent! 🎉","Expert! 🏆"],
     quiz_again:"Try Again", quiz_back:"Back to Map",
+    nav_contacts:"👤 Contacts",
+    contacts_title:"Contact Directory",
+    contacts_csv:"⬇ Download CSV",
+    contacts_dept_mgmt:"Management",
+    contacts_dept_ops:"Operations — Rental Division (US)",
+    contacts_dept_pay:"Payables — Kragujevac / remote",
+    contacts_dept_bill:"Billing & AR — Kragujevac",
+    contacts_dept_sw:"Software Implementation",
+    ct_no_email:"—",
+    ct_role_cfo:"Fractional CFO",
+    ct_role_ceo:"CEO",
+    ct_role_rental_mgr:"Rental Manager",
+    ct_role_rental_ops:"Rental Ops Rep",
+    ct_role_compliance:"Compliance / Maintenance",
+    ct_role_driver:"Driver",
+    ct_role_nadia_ap:"Accounts Payable / Huntington / QuickBooks",
+    ct_role_aleks_payable:"Payable / Fixed Assets / Accounting Manager",
+    ct_role_mina_tolls:"Tolls — invoice processing",
+    ct_role_jovana_leave:"Tolls / AP (on maternity leave)",
+    ct_role_andjela_contracts:"Contracts & Documentation — not payables/AP",
+    ct_role_valentina_contracts:"Contracts & Documentation",
+    ct_role_tina_billing:"Billing & Parking",
+    ct_role_hanna_ar:"AR / Additional Charges",
+    ct_role_milica_col:"Collections & Recovery",
+    ct_role_brankica:"Lease Approvals / Credit Bureau / GPS",
+    ct_role_andjela_k:"Software Implementation (IT) — not accounting / not payables",
+    ct_loc_us:"US",
+    ct_loc_chicago_us:"Chicago, US",
+    ct_loc_kg:"Kragujevac",
+    ct_loc_remote_skopje:"Remote (Skopje)",
+    ct_loc_bg:"Belgrade",
+    loc_us:"US",
+    loc_chicago:"Chicago",
+    loc_kg:"Kragujevac",
+    loc_remote_skopje:"Remote (Skopje)",
+    tag_ceo_approvals:"All approvals",
+    tag_ceo_pl:"P&L oversight",
+    tag_ceo_recovery:"Recovery decisions",
+    tag_fd_ar:"Monthly AR review",
+    tag_fd_fin:"Financial oversight",
+    tag_fd_bank:"Bank coordination",
+    tag_ops_bill_list:"Billing list",
+    tag_ops_asset:"Asset assignment",
+    tag_ops_pl_dept:"Dept P&L",
+    tag_ops_inout:"Check-in/out",
+    tag_ops_insp_rep:"Inspection report",
+    tag_ops_reg:"Registrations",
+    tag_ops_pm_dot:"PM / DOT",
+    tag_ops_mileage:"Mileage",
+    tag_ops_daily_log:"Daily log",
+    tag_ops_insp:"Inspections",
+    tag_ap_hunt:"AP / Huntington",
+    tag_ap_qb:"QB payables",
+    tag_ap_rep_toll:"Repairs & tolls",
+    tag_acc_fa:"Fixed assets",
+    tag_acc_loan:"Loan list",
+    tag_acc_claims:"Claims",
+    tag_toll_inv:"Toll invoices",
+    tag_with_jov:"With Jovana",
+    tag_tolls_ap:"Tolls / AP",
+    tag_on_leave:"On leave",
+    tag_cu_aul:"Active Units List",
+    tag_cu_ds:"DocuSign",
+    tag_cu_cc:"Cross-collateral",
+    tag_cu_contracts:"Contracts",
+    tag_cu_amend:"Amendments",
+    tag_cu_gps:"GPS check",
+    tag_bi_conf:"Confirmed Payments",
+    tag_bi_inv:"Weekly/Monthly inv.",
+    tag_ar_toll_bill:"Tolls billing",
+    tag_ar_daily_list:"Daily billing list",
+    tag_ar_bank_rec:"Bank recon",
+    tag_col_ar_age:"AR Aging",
+    tag_col_buyout:"Buyout notices",
+    tag_col_rec:"Recovery",
+    tag_br_cb:"Credit bureau CSV",
+    tag_br_gps:"GPS list",
+    tag_br_mile:"Mileage billing",
+    tag_sa_fin:"Bank financing",
+    tag_sa_bos:"Bill of sale",
+    tag_em_title:"Title transfers",
+    tag_em_ifta:"IFTA/HHUT",
+    tag_em_reg:"Registrations",
   }
 };
 
@@ -1018,7 +1188,7 @@ const PEOPLE = {
     },
     docs:{sr:["AR Aging izveštaj (mesečni review)","Finansijski izveštaji","QuickBooks mesečni izveštaji"],en:["AR Aging Report (monthly review)","Financial reports","QuickBooks monthly reports"]},
     tools:["QuickBooks","Google Sheets","JPM Bank","Email"],
-    connects:["milica","hanna","andjela_t","aleksandra","nadja","brankica","tina","alex"],
+    connects:["milica","hanna","andjela_t","aleksandra","nadia","brankica","tina","alex"],
     pains:{sr:["AR review je manuelan — izveštaj se izvlači iz QuickBooks-a i prolazi ručno po klijentu","Nema jednog mesta gde vidi sve otvorene stavke po klijentu + buduće obaveze","Teško je brzo videti P&L po unitu bez ručnog izvlačenja iz više sistema"],en:["AR review is manual — report extracted from QuickBooks and reviewed line by line","No single place to see all open items per client + future obligations","Hard to quickly see P&L per unit without manually pulling from multiple systems"]}
   },
   alex: {
@@ -1044,7 +1214,7 @@ const PEOPLE = {
     },
     docs:{sr:["Rent billing spreadsheet (250 redova nedeljno)","Asset assignment sheet","Rental Pool Assets sheet"],en:["Rental billing spreadsheet (250 rows weekly)","Asset assignment sheet","Rental Pool Assets sheet"]},
     tools:["Google Sheets","FleetMate","Email"],
-    connects:["fabrizio","israel","hanna","tina","alex","milica_r"],
+    connects:["fabrizio","israel","hanna","tina","alex","milica_r","nadia"],
     pains:{sr:["Provodi 1.5+ sat svaki ponedeljak računajući billing ručno","Nema automatskog zaustavljanja billing-a kada se unit vrati","Miljaže se unose ručno nedeljno po unitu","Nedeljno ukrštanje podataka sa accountingom"],en:["Spends 1.5+ hours every Monday calculating billing manually","No automatic billing stop when a unit is returned","Mileage must be entered manually each week per unit","Weekly cross-verification with accounting"]}
   },
   fabrizio: {
@@ -1090,8 +1260,8 @@ const PEOPLE = {
     name:"Andjela Trifunovic", role:{sr:"Ugovori i Dokumentacija",en:"Contracts & Documentation"},
     dept:"acc", location:"Kragujevac", email:"angela.t@aaalease.net",
     summary:{
-      sr:"Centralna tačka između salesmen-a, klijenata i accountinga. Priprema i šalje ugovore, prikuplja dokumentaciju, vodi Active Units listu kao master record i koordiniše registracije.",
-      en:"Central connector between salespeople, clients, and accounting. Prepares and sends contracts, collects documentation, manages the Active Units List as the master record, and coordinates registrations."
+      sr:"Centralna tačka između salesmen-a, klijenata i billing/accounting tima za ugovore, dokumentaciju i Active Units. Nije deo payables/AP: vendor uplate, Huntington i billable/toll tokove vode Nadia i Aleksandra (Mina/Jovana na delu dolaznih tolova). Komunicira sa: salesmenima, klijentima, Alexom, Milicom Doson (banka/down payment), Valentinom, Brankicom, Raduom (rental dokumentacija), Aleksandrom (liste/osiguranje), Emily u lancu title/registracija.",
+      en:"Central hub for contracts, documentation, and the Active Units master record between sales, clients, and billing/accounting. Not on payables/AP: vendor payments, Huntington, and billable/toll flows are owned by Nadia and Aleksandra (Mina/Jovana on part of incoming tolls). Communicates with: salespeople, clients, Alex, Milica Doson (bank/down payment), Valentina, Brankica, Radu (rental paperwork), Aleksandra (lists/insurance), Emily in the title/registration chain."
     },
     processes:{
       sr:["Prati HubSpot za nove dealove od salemana","Proverava informacije deala: osiguranje, vrednost vozila, status down payment-a","Priprema ugovor (rental ili lease) i šalje via DocuSign: salesman → klijent → Alex → accounting","Kači potpisan ugovor + inspekcione izveštaje na Google Drive po klijentu","Kreira down payment invoice u QuickBooks-u, šalje Milici za banku","Vodi Active Units listu — master record (nikad ne briši, samo dodaj)","Ažurira statuse unita: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void itd.","Kada Paid Off: deaktivira unit u HubSpot-u, QuickBooks-u i svim listama","Vodi cross-collateral i loan dokumentaciju po ugovoru","Koordiniše process registracija: proverava vlasništvo nad titleom","Nedeljno prati osiguranje — šalje listu missing COI Milici i Aleksandri"],
@@ -1099,7 +1269,7 @@ const PEOPLE = {
     },
     docs:{sr:["Active Units Lista","Google Drive folderi po klijentu","Insurance Tracker (nedeljno)","Cross-Collateral lista","Loan lista","Registrations lista"],en:["Active Units List","Google Drive folders per client","Insurance Tracker (weekly)","Cross-Collateral list","Loan list","Registrations list"]},
     tools:["HubSpot","DocuSign","QuickBooks","Google Sheets","Google Drive"],
-    connects:["valentina","milica","milica_r","brankica","nadja","aleksandra","radu","alex"],
+    connects:["valentina","milica","milica_r","brankica","aleksandra","radu","alex","emily"],
     pains:{sr:["Promena statusa zahteva ručno ažuriranje HubSpot-a, QuickBooks-a i svih lista posebno","Unit ima različite identifikatore u različitim sistemima","Mora proveravati 3 liste da utvrdi status registracije za jedan unit","Priprema ugovora je ručna — nema auto-popunjavanja iz HubSpot-a"],en:["Status change requires manual update in HubSpot, QuickBooks, and multiple sheets separately","Unit has different identifiers in different systems","Must check 3 lists to determine registration status for one unit","Contract preparation is manual — no auto-fill from HubSpot data"]}
   },
   valentina: {
@@ -1112,7 +1282,7 @@ const PEOPLE = {
     },
     docs:{sr:["Ugovori (DocuSign)","Amendmani / Promissory notes","Release forme","Parking Agreements","Drive folderi po klijentu"],en:["Contracts (DocuSign)","Amendments / Promissory notes","Release forms","Parking Agreements","Drive folders per client"]},
     tools:["HubSpot","DocuSign","QuickBooks","Google Sheets","Google Drive","Routemate","FleetLocate"],
-    connects:["andjela_t","milica","milica_r","brankica","nadja","aleksandra","alex"],
+    connects:["andjela_t","milica","milica_r","brankica","aleksandra","alex"],
     pains:{sr:["Mora proveriti 3 liste pre svakog ugovora","Status mora biti ažuriran na 2 mesta istovremeno","Ako check-in datum nije unet na vreme, billing nastavlja greškom","GPS mora biti proveren ručno u 2 sistema"],en:["Must check 3 lists before every contract","Status must be updated in 2 places simultaneously","If unit return date not entered on time, billing continues incorrectly","GPS must be verified manually in 2 systems"]}
   },
   tina: {
@@ -1125,7 +1295,7 @@ const PEOPLE = {
     },
     docs:{sr:["Confirmed Payments lista (tabovi po tipu billing-a)","Dnevna billing lista","Parking tabela po iznosima (mesečno)"],en:["Confirmed Payments list (tabs per billing type)","Daily billing list","Parking table by amounts (monthly)"]},
     tools:["QuickBooks (Memorized Transaction List)","Google Sheets","Easy Storage"],
-    connects:["hanna","milica","radu","andjela_t","milica_r"],
+    connects:["hanna","milica","radu","andjela_t","milica_r","nadia"],
     pains:{sr:["Svaki invoice mora biti otvoren i poslat posebno — nema batch send","Miljaža se ručno računa za svaki kamion svake nedelje","Pravilo zatvaranja invoicea (rent → tolovi → lease) je kompleksno","Odbijene uplate stižu 2-3 dana kasno — mora ići nazad i ispravljati","~300-350 parking invoicea se šalje ručno mesečno"],en:["Every invoice must be opened and sent individually — no batch send","Mileage must be manually calculated for each truck every week","Invoice closing rule (rent → tolls → lease) is complex","Rejected payments arrive 2-3 days late — must go back and reverse","~300-350 parking invoices sent manually each month"]}
   },
   hanna: {
@@ -1138,7 +1308,7 @@ const PEOPLE = {
     },
     docs:{sr:["Active lista (za pronalaženje klijenta po unitu i datumu)","Bank confirm lista (po danu)","Toll lista (po godini)","Repair lista","Final charge lista","Dnevna billing lista"],en:["Active list (for finding client per unit per date)","Bank confirm list (by day)","Toll list (by year)","Repair list","Final charge list","Daily billing list"]},
     tools:["QuickBooks","Google Sheets","Email"],
-    connects:["tina","milica","milica_r","andjela_t","aleksandra","nadja"],
+    connects:["tina","milica","milica_r","andjela_t","aleksandra","nadia"],
     pains:{sr:["Zatvaranje invoicea traje ~4h za mesečne liste — sve manuelno","Mora otvoriti svaki invoice posebno — nema batch","Odbijeni paymenti stižu 2-3 dana kasno i moraju se ručno brisati iz QBs","Repair invoicei: mora skinuti sa Drive-a, priložiti ručno, 2MB limit u QBs"],en:["Invoice closing takes ~4h for monthly lists — all manual","Must open each invoice separately — no batch","Rejected payments arrive 2-3 days late and must be manually deleted from QBs","Repair invoices: must download from Drive, attach manually, 2MB limit in QBs"]}
   },
   milica: {
@@ -1151,34 +1321,63 @@ const PEOPLE = {
     },
     docs:{sr:["AR Aging report (mesečno)","Buyout notice sheet (master)","Bank template-i (JPM)","Recovery lista","Late fee lista"],en:["AR Aging report (monthly)","Buyout notice sheet (master)","Bank templates (JPM)","Recovery list","Late fee list"]},
     tools:["JPM Bank","Google Sheets","HubSpot","SmartSheet"],
-    connects:["milica_r","hanna","tina","brankica","aleksandra","nadja","alex","andjela_t"],
+    connects:["milica_r","hanna","tina","brankica","aleksandra","nadia","alex","andjela_t"],
     pains:{sr:["Nema automatske kalkulacije late fee — ručno mesečno za svakog klijenta","Nema real-time pregleda preostalog balansa po unitu","Nema automatskog buyout notification-a","Billing lista se popunjava ručno"],en:["No automated late fee calculation — manual monthly for every client","No real-time remaining balance view per unit","No automated buyout notification — must check sheet manually","Billing list auto-population is manual"]}
   },
   aleksandra: {
     name:"Aleksandra Djokic", role:{sr:"Payable / Fixed Assets",en:"Payable / Fixed Assets"},
     dept:"acc", location:"Kragujevac", email:"",
-    summary:{sr:"Aleksandra vodi payable stranu QuickBooks-a zajedno sa Nadijom (jedine dve sa payable pristupom). Vodi amortizaciju fixed assets-a, loan listu, claims, bill of sale, vendor plaćanja i credit bureau podatke.",en:"Aleksandra manages the payable side of QuickBooks together with Nadja (the only two with payable access). Handles fixed asset amortization, loan list, claims, bill of sale, vendor payments, and credit bureau data."},
+    summary:{sr:"Aleksandra vodi payable stranu QuickBooks-a zajedno sa Nadiom (jedine dve sa punim payable pristupom; Mina/Jovana pomažu na tolovima). Vodi amortizaciju fixed assets-a, loan listu, claims, bill of sale, vendor plaćanja i credit bureau podatke.",en:"Aleksandra manages the QuickBooks payables side together with Nadia (the two with full payable access; Mina/Jovana assist on toll intake). Handles fixed asset amortization, loan list, claims, bill of sale, vendor payments, and credit bureau data."},
     processes:{
-      sr:["Mesečno: ažurira fixed asset listu (novi kupljeni ulaze, prodati/istekli izlaze)","Mesečno: radi amortizaciju za sve kompanijske asete","Vodi loan listu: svi uniti pod bankarskim kreditom","Kada klijent isplati: proverava da li je unit pod kreditom → traži payoff od banke → koordiniše title transfer sa Emily","Claims: prima obaveštenja → šalje claim formu → prati adjuster info → beleži primanje čeka od osiguranja","Mesečna total loss lista → zatvara jedinice u fixed asset registru i QB-u","Bill of sale: mesečni sheet svih prodaja i buyouta — usklađuje sa Nadijom za QB unose","Vodi vendor payment liste sa Nadijom"],
-      en:["Monthly: updates fixed asset list (new purchases in, sold/expired out)","Monthly: runs amortization for all company-owned assets","Maintains loan list: all units under bank credit","When client pays off: checks if unit is under loan → requests payoff from bank → coordinates title transfer with Emily","Claims: receives notifications → sends claim form → tracks adjuster info → records insurance check receipt","Monthly total loss list → closes units in fixed asset register and QB","Bill of sale: monthly sheet of all sales and buyouts — coordinates QB entries with Nadja","Manages vendor payment lists with Nadja"]
+      sr:["Mesečno: ažurira fixed asset listu (novi kupljeni ulaze, prodati/istekli izlaze)","Mesečno: radi amortizaciju za sve kompanijske asete","Vodi loan listu: svi uniti pod bankarskim kreditom","Kada klijent isplati: proverava da li je unit pod kreditom → traži payoff od banke → koordiniše title transfer sa Emily","Claims: prima obaveštenja → šalje claim formu → prati adjuster info → beleži primanje čeka od osiguranja","Mesečna total loss lista → zatvara jedinice u fixed asset registru i QB-u","Bill of sale: mesečni sheet svih prodaja i buyouta — usklađuje QB unose sa Nadiom","Vodi vendor payment liste sa Nadiom; bank reconciliacija sa izvodima"],
+      en:["Monthly: updates fixed asset list (new purchases in, sold/expired out)","Monthly: runs amortization for all company-owned assets","Maintains loan list: all units under bank credit","When client pays off: checks if unit is under loan → requests payoff from bank → coordinates title transfer with Emily","Claims: receives notifications → sends claim form → tracks adjuster info → records insurance check receipt","Monthly total loss list → closes units in fixed asset register and QB","Bill of sale: monthly sheet of all sales and buyouts — coordinates QB entries with Nadia","Manages vendor payment lists with Nadia; bank reconciliation with statements"]
     },
     docs:{sr:["Fixed asset lista","Loan lista","Claims lista (od 2022, kumulativna)","Bill of Sale lista (mesečno)","Vendor lista","Purchase lista"],en:["Fixed asset list","Loan list","Claims list (from 2022, cumulative)","Bill of Sale list (monthly)","Vendor list","Purchase list"]},
     tools:["QuickBooks (payable)","Google Sheets","SmartSheet","FleetLocate","Routemate"],
-    connects:["brankica","andjela_t","milica","milica_r","nadja","emily","alex"],
+    connects:["brankica","andjela_t","milica","milica_r","nadia","emily","alex"],
     pains:{sr:["Current balance za credit bureau mora ručno računati za svakog klijenta (uključuje buduće rate)","Unit se prati različito u različitim sistemima — teška usklađenost","Miljaže iz 2 sistema (FleetLocate + Routemate) spajaju se ručno po VIN-u","Kada se unit proda: mora ručno ažurirati 4-5 mesta","Amortizacija depozita potpuno ručna u Excelu mesečno"],en:["Current balance for credit bureau must be manually calculated for every client (includes future payments)","Unit tracked differently in different systems — hard to reconcile","Mileage from 2 systems (FleetLocate + Routemate) manually merged by VIN","When unit sold: must manually update 4-5 different places","Deposit amortization fully manual in Excel monthly"]}
   },
-  nadja: {
-    name:"Nadja", role:{sr:"Payables / QuickBooks",en:"Payables / QuickBooks"},
-    dept:"acc", location:"Kragujevac", email:"",
-    summary:{sr:"Nadja je u Payables timu u Kragujevcu. Zajedno sa Aleksandrom unosi i plaća vendor billove u QuickBooks-u (payables pristup). Sarađuje sa Hanom kada vendor fakture prate popravke koje Hana naplaćuje klijentu.",en:"Nadja is on the Payables team in Kragujevac. With Aleksandra she enters and pays vendor bills in QuickBooks (payables access). Works with Hanna when vendor invoices tie to repairs that Hanna bills to the client."},
+  nadia: {
+    name:"Nadia Daneski",
+    role:{sr:"Accounts Payable / knjiženje",en:"Accounts Payable & bookkeeping"},
+    dept:"acc",
+    location:"Remote (Skopje)",
+    email:"nadia@aaalease.net",
+    summary:{sr:"Vodi AP za AAA Lease remote iz Skoplja; sav rad praktično preko mejla. Prima vendor fakture; traži odobrenje od Raduza za rental, od operativnog tima za repairs/transport/towing, od Stefana Milovanovića za složenije lease slučajeve, ili od Aleksandre kao menadžera. Emily prosleđuje stavke (tolovi itd.) u accounting. Plaća preko Huntington banke i knjiži u QuickBooks. Sa Minom i Jovanom deli deo rada na dolaznim tolovima (Jovana trenutno na bolovanju). Skoro dnevno sa Aleksandrom; sa billingom oko billable-a i refundova klijentu.",en:"Owns AP for AAA Lease, remote from Skopje; work is almost entirely by email. Receives vendor invoices; requests approval from Radu (rental), operations (repairs/transport/towing), Stefan Milovanović for complex lease cases, or Aleksandra as manager. Emily forwards items (tolls, etc.) into accounting. Pays via Huntington Bank and books in QuickBooks. Shares incoming toll work with Mina and Jovana (Jovana currently on leave). Near-daily with Aleksandra; with billing on billables and customer refunds."},
     processes:{
-      sr:["Unosi i knjiži vendor billove u QuickBooks payable modulu","Koordinacija sa Aleksandrom za fixed assets, loan listu i BOS tokove koji imaju payable stranu","Usaglašavanje sa Hanom oko repair/vendor troškova koji se reflektuju na klijentskim invoiceima","Pomaže oko mesečnih payable lista i purchase evidencije"],
-      en:["Enters and books vendor bills in the QuickBooks payables module","Coordinates with Aleksandra on fixed assets, loan list, and BOS flows that touch payables","Aligns with Hanna on repair/vendor costs that flow through to client invoices","Helps with monthly payable lists and purchase tracking"]
+      sr:["Prima fakture mejlom; proverava da li je stavka „naša“ (unit u vlasništvu u datom trenutku) pre plaćanja — posebno tolove od partnera","Nakon odobrenja: knjiženje u QB i nalog + plaćanje u Huntington-u; obično prvo knjiženje vendor fakture, osim hitnih izuzetaka","Repairs / transport / fuel / parking: Repair spreadsheet (narandžasti tabovi) — payable vs AR (billable: chargeback, claim, final charges); HubSpot — repair invoice polja; ručno sabiranje repair cost po godini za uvid u trošak po unitu","Billable u QB tek kada billing ili operativci napišu kome se naplaćuje; za tolove — unos u violation listu, billing dopunjava kolonu klijenta i šalje naplatu","Refund klijentu po instrukciji billinga; akružno knjiženje provizija po fakturama koje billing prosledi","Mesečno: cost of sales lista → GJ u QB (zatvaranje asseta); Texas rental P&amp;L i parking; prepaid / other current assets; AP aging; neklasifikovane transakcije; akružni troškovi; kartice — paralelno sa Aleksandrom na zatvaranju meseca"],
+      en:["Receives invoices by email; validates AAA-owned workload (e.g. toll was ours in that period) before paying, especially tolls from lessors","After approval: QuickBooks entry + Huntington payment; usually book vendor bill first unless an urgent exception","Repairs / transport / fuel / parking: Repair spreadsheet (orange tabs) — AP vs AR billable tags (chargeback, claim, final charges); HubSpot repair-invoice fields; manual rolling repair cost per year for unit cost insight","Billable in QB only after billing/ops specifies the customer; tolls → violation list entry, billing adds customer column and invoices","Customer refunds per billing instructions; accrues commissions from billing-provided invoices","Month-end: cost-of-sales list → QB GJ asset closures; Texas rental P&L and parking; prepaid/other current assets; AP aging; unclassified transactions; accruals; credit cards — with Aleksandra on month close"]
     },
-    docs:{sr:["Vendor / payable liste","Purchase evidencija"],en:["Vendor / payable lists","Purchase tracking"]},
-    tools:["QuickBooks (payable)","Google Sheets","Email"],
-    connects:["aleksandra","hanna","andjela_t","milica_r","brankica"],
-    pains:{sr:["Vendor podaci često stižu emailom ili u prilogu — nema centralnog inbox-a u sistemu","Isti trošak se ponekad prati i u billing i u payable listama"],en:["Vendor data often arrives by email or attachment — no central inbox in the system","Same cost is sometimes tracked in both billing and payable lists"]}
+    docs:{sr:["Repair spreadsheet","Violation / toll liste","HubSpot inventory","Huntington nalozi","Cost of sales lista","Prepaid / other current assets"],en:["Repair spreadsheet","Violation / toll lists","HubSpot inventory","Huntington payment batches","Cost-of-sales list","Prepaid / other current assets"]},
+    tools:["Email","QuickBooks (payable)","Huntington Bank","Google Sheets","HubSpot"],
+    connects:["aleksandra","radu","hanna","tina","milica","emily","brankica","milica_r","mina","jovana"],
+    pains:{sr:["Isti trošak ide u QB, spreadsheet i HubSpot — lako se preskoči korak","Čekanje odobrenja od operativaca na terenu usporava plaćanja","Veliki obim ponavljajućih vendor invoice-a i dalje ručno"],en:["Same cost hits QB, spreadsheets, and HubSpot — easy to miss a step","Waiting on yard/ops approvals slows payment runs","High volume of recurring vendor invoices still manual"]}
+  },
+  mina: {
+    name:"Mina",
+    role:{sr:"Tolovi — obrada faktura",en:"Tolls — invoice processing"},
+    dept:"acc",
+    location:"Kragujevac",
+    email:"",
+    summary:{sr:"Novija u timu; sa Jovanom i Nadiom radi na dolaznim tolovima od partnera sa čije opreme AAA uzima lease/rent.",en:"Newer to the team; with Jovana and Nadia processes incoming toll invoices from partners whose equipment AAA leases or rents."},
+    processes:{sr:["Provera da faktura odgovara našem unitu i datumu pre plaćanja/knjiženja"],en:["Checks invoice matches our unit and date before payment/booking"]},
+    docs:{sr:[],en:[]},
+    tools:["Email","Google Sheets"],
+    connects:["nadia","jovana","hanna","aleksandra"],
+    pains:{sr:[],en:[]}
+  },
+  jovana: {
+    name:"Jovana",
+    role:{sr:"Tolovi / AP (bolovanje)",en:"Tolls / AP (on leave)"},
+    dept:"acc",
+    location:"Kragujevac",
+    email:"",
+    summary:{sr:"Radila tolove i AP zajedno sa Minom i Nadiom; trenutno na bolovanju povezanom sa trudnoćom.",en:"Worked tolls/AP with Mina and Nadia; currently on maternity-related leave."},
+    processes:{sr:["Dolazni tolovi — koordinacija sa Nadiom pre knjiženja i plaćanja"],en:["Incoming tolls — coordination with Nadia before booking and payment"]},
+    docs:{sr:[],en:[]},
+    tools:["Email","Google Sheets"],
+    connects:["mina","nadia","aleksandra"],
+    pains:{sr:[],en:[]}
   },
   brankica: {
     name:"Brankica", role:{sr:"Lease Approvals / Credit Bureau / GPS",en:"Lease Approvals / Credit Bureau / GPS"},
@@ -1190,7 +1389,7 @@ const PEOPLE = {
     },
     docs:{sr:["Lease Approvals folder (Drive)","GPS lista","Mileage billing lista","Claims lista","Credit Bureau CSV (mesečno)","Bill of Sale lista (mesečno)"],en:["Lease Approvals folder (Drive)","GPS list","Mileage billing list","Claims list","Credit Bureau CSV (monthly)","Bill of Sale list (monthly)"]},
     tools:["QuickBooks","Google Sheets","FleetLocate","Routemate","Hutchins portal"],
-    connects:["andjela_t","valentina","aleksandra","nadja","milica","milica_r","alex","emily"],
+    connects:["andjela_t","valentina","aleksandra","nadia","milica","milica_r","alex","emily"],
     pains:{sr:["Credit bureau CSV izuzetno zahtevan: ručno računa current balance (uključujući buduće rate) za 500+ klijenata","Mora razlikovati open balance <30 dana i >30 dana za svakog klijenta","Spajanje milaža iz 2 GPS sistema ručno po VIN-u","Conditional format za milaže mora se ručno podešavati po unitu","Submission se često odbija — mora ispravljati i ponovo submittovati"],en:["Credit bureau CSV extremely time-consuming: manually calculates current balance (including future payments) for 500+ clients","Must distinguish open balance <30 days vs >30 days for every client","Mileage merge from 2 GPS systems manually by VIN number","Conditional format for mileage must be set manually per unit","Submission often rejected — must correct and resubmit"]}
   },
   roman: {
@@ -1209,14 +1408,14 @@ const PEOPLE = {
   emily: {
     name:"Emily", role:{sr:"Title i Registracije (SAD)",en:"Title & Registration (US)"},
     dept:"sales", location:"Chicago", email:"",
-    summary:{sr:"Emily vodi title transfere u SAD, koordiniše IFTA/HHUT godišnje izveštaje i vrši godišnje registracije vozila. Detaljan mapping još nije završen.",en:"Emily handles title transfers in the US, coordinates IFTA/HHUT annual reports, and files annual vehicle registrations. Full process mapping is still pending."},
+    summary:{sr:"Emily vodi title transfere u SAD, koordiniše IFTA/HHUT godišnje izveštaje i vrši godišnje registracije vozila. Prima mejlove koji treba da prođu kroz accounting (npr. tolovi) i prosleđuje ih u AP (Nadia). Detaljan mapping još nije završen.",en:"Emily handles title transfers in the US, coordinates IFTA/HHUT annual reports, and files annual vehicle registrations. Receives emails that need to flow through accounting (e.g. tolls) and forwards them to AP (Nadia). Full process mapping is still pending."},
     processes:{
-      sr:["Šalje title transfer dokumentaciju Secretary of State-u za IL i IN","Koordiniše IFTA / Heavy Highway Use Tax (HHUT) reporting","Vrši godišnje registracije vozila","Obaveštava Brankicu/Aleksandru kada su title transferi završeni","Šalje HHUT iznose Maji za klijentske invoicee"],
-      en:["Sends title transfer documentation to Secretary of State for IL and IN","Coordinates IFTA / Heavy Highway Use Tax (HHUT) reporting","Files annual vehicle registrations","Notifies Brankica/Aleksandra when title transfers are complete","Sends HHUT amounts to Maja for client invoicing"]
+      sr:["Šalje title transfer dokumentaciju Secretary of State-u za IL i IN","Koordiniše IFTA / Heavy Highway Use Tax (HHUT) reporting","Vrši godišnje registracije vozila","Obaveštava Brankicu/Aleksandru kada su title transferi završeni","Šalje HHUT iznose Maji za klijentske invoicee","Prosleđuje relevantne mejlove (tolovi i sl.) u accounting / payables"],
+      en:["Sends title transfer documentation to Secretary of State for IL and IN","Coordinates IFTA / Heavy Highway Use Tax (HHUT) reporting","Files annual vehicle registrations","Notifies Brankica/Aleksandra when title transfers are complete","Sends HHUT amounts to Maja for client invoicing","Forwards relevant emails (tolls, etc.) into accounting / payables"]
     },
     docs:{sr:["Title transfer dokumentacija","IFTA izveštaji po kvartalu","Registracioni dokumenti"],en:["Title transfer documentation","IFTA reports by quarter","Registration filings"]},
     tools:["Secretary of State portal","Email","Google Drive"],
-    connects:["aleksandra","brankica","andjela_t"],
+    connects:["aleksandra","brankica","andjela_t","nadia"],
     pains:{sr:["Kompletan process mapping još nije završen — potreban poseban sastanak"],en:["Full process mapping not yet completed — dedicated session needed"]}
   }
 };
@@ -1314,7 +1513,7 @@ const GLOSSARY = [
    term:{sr:"General Journal Entry (Ručno knjiženje)",en:"General Journal Entry"},
    termEn:"General Journal Entry",
    short:{sr:"Ručni unos u QuickBooks koji direktno menja stanje na računima — za složenije transakcije koje standardni payment ne može.",en:"Manual entry in QuickBooks that directly adjusts account balances — for complex transactions that a standard payment cannot handle."},
-   detail:{sr:"Koristi se za: zatvaranje down payment-a koji je pokriven promissory note-om, knjiženje kredit transakcija, transfere između računa, ispravke grešaka. Za razliku od standardnog payment-a koji uvek mora da bude 'full amount', general journal može da pokrije parcijalnu vrednost na kompleksan način. Samo Aleksandra i Nadija imaju pristup.",en:"Used for: closing down payments covered by a promissory note, recording credit transactions, transfers between accounts, error corrections. Unlike a standard payment which must always be 'full amount', a general journal can cover partial values in complex ways. Only Aleksandra and Nadija have access."},
+   detail:{sr:"Koristi se za: zatvaranje down payment-a koji je pokriven promissory note-om, knjiženje kredit transakcija, transfere između računa, ispravke grešaka. Za razliku od standardnog payment-a koji uvek mora da bude 'full amount', general journal može da pokrije parcijalnu vrednost na kompleksan način. Samo Aleksandra i Nadia imaju pristup.",en:"Used for: closing down payments covered by a promissory note, recording credit transactions, transfers between accounts, error corrections. Unlike a standard payment which must always be 'full amount', a general journal can cover partial values in complex ways. Only Aleksandra and Nadia have access."},
    example:{sr:"Klijent je dobio promissory note za $10,000 down payment. Umesto da se unese kao regularni payment, Aleksandra kreira general journal entry koji zatvara down payment invoice i kreira liability (dug) na strani promissory note-a.",en:"A client received a promissory note for a $10,000 down payment. Instead of entering it as a regular payment, Aleksandra creates a general journal entry that closes the down payment invoice and creates a liability on the promissory note side."}
   },
   {id:"credit_memo",cat:"acc",
@@ -1341,8 +1540,8 @@ const GLOSSARY = [
   {id:"ap",cat:"acc",
    term:{sr:"AP — Accounts Payable (Obaveze prema dobavljačima)",en:"AP — Accounts Payable"},
    termEn:"Accounts Payable (AP)",
-   short:{sr:"Svi iznosi koje AAA Lease duguje vendorima i bankama — upravljano isključivo od Aleksandre i Nadije.",en:"All amounts AAA Lease owes to vendors and banks — managed exclusively by Aleksandra and Nadija."},
-   detail:{sr:"AP uključuje: mesečne rate prema bankama za unite pod kreditom, plaćanja vendorima (Skyline, Premier i dr.) za unite koje rentamo/lizujemo od njih, kao i sve ostale poslovne troškove. Samo Aleksandra i Nadija imaju QBs pristup payable strani.",en:"AP includes: monthly payments to banks for units under credit, payments to vendors (Skyline, Premier, etc.) for units we rent/lease from them, and all other business expenses. Only Aleksandra and Nadija have QBs access to the payable side."},
+   short:{sr:"Svi iznosi koje AAA Lease duguje vendorima i bankama — vode Aleksandra (Kragujevac) i Nadia (remote) u QB payable; Mina i Jovana pomažu na dolaznim tolovima.",en:"All amounts AAA Lease owes to vendors and banks — led by Aleksandra (Kragujevac) and Nadia (remote) in QB payables; Mina and Jovana assist on incoming tolls."},
+   detail:{sr:"AP uključuje: mesečne rate prema bankama za unite pod kreditom, plaćanja vendorima (Skyline, Premier i dr.) za unite koje rentamo/lizujemo od njih, kao i sve ostale poslovne troškove. Aleksandra i Nadia imaju QBs pristup payable strani; Mina i Jovana rade deo tolova uz Nadiu.",en:"AP includes: monthly payments to banks for units under credit, payments to vendors (Skyline, Premier, etc.) for units we rent/lease from them, and all other business expenses. Aleksandra and Nadia have QBs payables access; Mina and Jovana handle part of toll intake with Nadia."},
    example:{sr:"AAA Lease lizuje 5 kamiona od Skyline-a. Svaki mesec Aleksandra u QBs upisuje 5 invoicea od Skyline-a i odobrava plaćanje. To je AP transakcija.",en:"AAA Lease leases 5 trucks from Skyline. Each month Aleksandra enters 5 Skyline invoices in QBs and approves payment. That is an AP transaction."}
   },
   {id:"fixed_assets",cat:"acc",
@@ -1610,7 +1809,7 @@ const DOCUMENTS = [
    detail:{sr:'Standard: 130,000 milja/god. Neki ugovori: 160k ili 220k. Čim pređe → invoice. Mileage se resetuje i nova godina počinje. Milica Kamić i Milica Rajković imaju pristup.',en:'Standard: 130,000 miles/year. Some contracts: 160k or 220k. Once exceeded → invoice. Mileage resets and new year begins. Milica Kamić and Milica Rajković have access.'},
    statuses:[]
   },
-  {id:'fixed-asset-list',freq:'monthly',owners:['aleksandra','nadja'],tool:'QuickBooks + Google Sheets',link:null,
+  {id:'fixed-asset-list',freq:'monthly',owners:['aleksandra','nadia'],tool:'QuickBooks + Google Sheets',link:null,
    title:{sr:'Fixed Asset Lista',en:'Fixed Asset List'},
    subtitle:{sr:'Svi kompanijski uniti — amortizacija',en:'All company-owned units — depreciation'},
    desc:{sr:'Lista svih unita koje AAA Lease poseduje. Mesečno se ažurira: novi kupljeni ulaze, prodati/otpisani izlaze. Osnova za mesečnu amortizaciju. Mora biti usklađena sa QBs na kraju meseca.',en:'List of all units AAA Lease owns. Updated monthly: new purchases added, sold/written off removed. Basis for monthly depreciation. Must match QBs at end of month.'},
@@ -1621,20 +1820,20 @@ const DOCUMENTS = [
    title:{sr:'Claims Lista',en:'Claims List'},
    subtitle:{sr:'Evidencija svih insurance claims od 2022.',en:'Record of all insurance claims since 2022'},
    desc:{sr:'Lista koja se samo dopunjuje od 2022. Svaki eksidenat/claim dobija red. Billing se NE zaustavlja dok ne stigne ček od osiguranja.',en:'List only added to since 2022. Every accident/claim gets a row. Billing does NOT stop until insurance check arrives.'},
-   detail:{sr:'Polja: broj claim-a, ime adjustera, tip (daily repair ili total loss), datum primanja čeka. Mesečno: lista total loss slučajeva za zatvaranje u fixed asset listi (Aleksandra + Nadja za QB payable stranu gde treba).',en:'Fields: claim number, adjuster name, type (daily repair or total loss), date check received. Monthly: total loss list for closure in fixed asset list (Aleksandra + Nadja for QB payables side where needed).'},
+   detail:{sr:'Polja: broj claim-a, ime adjustera, tip (daily repair ili total loss), datum primanja čeka. Mesečno: lista total loss slučajeva za zatvaranje u fixed asset listi (Aleksandra + Nadia za QB payable stranu gde treba).',en:'Fields: claim number, adjuster name, type (daily repair or total loss), date check received. Monthly: total loss list for closure in fixed asset list (Aleksandra + Nadia for QB payables side where needed).'},
    statuses:[]
   },
-  {id:'bill-of-sale',freq:'monthly',owners:['aleksandra','nadja','brankica','roman'],tool:'Google Sheets',link:null,
+  {id:'bill-of-sale',freq:'monthly',owners:['aleksandra','nadia','brankica','roman'],tool:'Google Sheets',link:null,
    title:{sr:'Bill of Sale Lista',en:'Bill of Sale List'},
    subtitle:{sr:'Mesečna evidencija prodaja i buyouta',en:'Monthly record of sales and buyouts'},
-   desc:{sr:'Na kraju meseca Brankica i Roman dodaju sve prodaje za cash i buyoute. Lista ide Aleksandri i Nadji da zatvore unite u fixed asset listi i QB payable gde je potrebno.',en:'At end of month Brankica and Roman add all cash sales and buyouts. List goes to Aleksandra and Nadja to close units in fixed asset list and QB payables where needed.'},
+   desc:{sr:'Na kraju meseca Brankica i Roman dodaju sve prodaje za cash i buyoute. Lista ide Aleksandri i Nadii Daneski da zatvore unite u fixed asset listi i QB payable gde je potrebno.',en:'At end of month Brankica and Roman add all cash sales and buyouts. List goes to Aleksandra and Nadia Daneski to close units in fixed asset list and QB payables where needed.'},
    detail:{sr:'Prodaje: Roman i salesmani. Buyouti: Brankica. Razlika — Salesman prodaje: unit nije bio na lease. Buyout: klijent završio lease i otkupio unit.',en:'Sales: Roman and salespeople. Buyouts: Brankica. Difference — Sales: unit was not on lease. Buyout: client finished lease and purchased unit.'},
    statuses:[]
   },
-  {id:'vendor-payables-qb',freq:'ongoing',owners:['nadja','aleksandra'],tool:'QuickBooks',link:null,
+  {id:'vendor-payables-qb',freq:'ongoing',owners:['nadia','aleksandra'],tool:'QuickBooks',link:null,
    title:{sr:'Vendor billovi — QuickBooks Payables',en:'Vendor bills — QuickBooks Payables'},
    subtitle:{sr:'Ulazni računi vendora i isplate',en:'Vendor invoices and payments'},
-   desc:{sr:'Nadja i Aleksandra imaju pristup payable modulu u QuickBooks-u. Unose vendor billove, usklađuju sa Hanom kada su troškovi popravke u vezi sa klijentskim naplatama.',en:'Nadja and Aleksandra have access to the QuickBooks payables module. They enter vendor bills and align with Hanna when repair costs tie to client billing.'},
+   desc:{sr:'Nadia i Aleksandra imaju pristup payable modulu u QuickBooks-u. Unose vendor billove, usklađuju sa Hanom kada su troškovi popravke u vezi sa klijentskim naplatama.',en:'Nadia and Aleksandra have access to the QuickBooks payables module. They enter vendor bills and align with Hanna when repair costs tie to client billing.'},
    detail:{sr:'Kritično: samo ovaj par sme u payable deo QBs — sprečava duplo knjiženje i greške u chart of accounts.',en:'Critical: only this pair may work the payable side of QBs — prevents duplicate booking and chart-of-accounts errors.'},
    statuses:[]
   },
@@ -1730,7 +1929,7 @@ const REQUIREMENTS = [
     {id:'r9',priority:'must',title:{sr:'Automatski stop billing-a kada se unit vrati',en:'Automatic billing stop when unit is returned'},short:{sr:'Čim se unit označi kao vraćen (check-in), billing automatski staje.',en:'As soon as unit is marked returned (check-in), billing automatically stops.'},desc:{sr:'Sistem detektuje check-in datum i automatski: zaustavlja recurring invoice, generiše prorated invoice za period do vraćanja, kreira credit memo ako je klijent preplatio.',en:'System detects check-in date and automatically: stops recurring invoice, generates prorated invoice for period until return, creates credit memo if client overpaid.'},pain:{sr:'Ako Fabrizio/Radu ne unesu check-in datum na vreme, billing nastavlja greškom.',en:'If Fabrizio/Radu don\'t enter check-in date on time, billing continues incorrectly.'},who:['tina','radu','fabrizio']},
     {id:'r10',priority:'must',title:{sr:'Prorated billing za nove i vraćene unite',en:'Prorated billing for new and returned units'},short:{sr:'Sistem automatski računa proration od datuma preuzimanja/vraćanja.',en:'System automatically calculates proration from pickup/return date.'},desc:{sr:'Kada klijent uzme unit usred meseca/nedelje, sistem automatski izračunava i kreira prorated invoice. Isto za povratak.',en:'When client picks up unit mid-month/week, system automatically calculates and creates prorated invoice. Same for returns.'},pain:{sr:'Maja/Tina ručno računaju proration za svaki novi klijent ili povratak.',en:'Maja/Tina manually calculate proration for every new client or return.'},who:['tina','radu']},
     {id:'r11',priority:'must',title:{sr:'Redosled zatvaranja invoicea (Rent → Tolovi → Lease)',en:'Invoice closing order (Rent → Tolls → Lease)'},short:{sr:'Uplata se automatski alocira: rent → tolovi/registracije → lease.',en:'Payment automatically allocated: rent → tolls/registrations → lease.'},desc:{sr:'Konfigurabilan redosled zatvaranja po tipu invoicea. Vidljivo koji invoicei su zatvoreni iz koje uplate.',en:'Configurable closing order by invoice type. Visible which invoices were closed by which payment.'},pain:{sr:'Hana ručno zatvara svaki invoice po Aleksovom pravilu. Kompleksno za klijente sa i rent i lease. ~4h mesečno.',en:"Hana manually closes every invoice per Alex's rule. Complex for clients with both rent and lease. ~4h monthly."},who:['hanna','tina','milica']},
-    {id:'r12',priority:'must',title:{sr:'QuickBooks integracija — dvosmeran sync i batch invoicing',en:'QuickBooks integration — bidirectional sync and batch invoicing'},short:{sr:'Sve transakcije automatski sinhronizovane sa QBs; batch slanje i konsolidovani izvodi po klijentu.',en:'All transactions automatically synced with QBs; batch sending and consolidated statements per client.'},desc:{sr:'Bidirekciona integracija: (1) invoicei kreirani u softveru → automatski u QBs, (2) uplate u banci → automatski zatvaraju odgovarajuće invoicee, (3) batch invoicing — svi invoicei za jedan ciklus šalju se odjednom bez otvaranja svakog posebno, (4) konsolidovani izvod — mogućnost grupisanja više invoicea po klijentu u jedan objedinjen statement (npr. Rent + Lease + Tolovi za jednog klijenta = jedan PDF).',en:'Bidirectional integration: (1) invoices created in software → auto-appear in QBs, (2) bank payments → automatically close matching invoices, (3) batch invoicing — all invoices for one billing cycle sent at once without opening each individually, (4) consolidated statements — ability to group multiple invoices per client into one combined statement (e.g. Rent + Lease + Tolls for one client = one PDF).'},pain:{sr:'Sve se unosi ručno u QBs. Nema batch slanja — Tina otvara svaki invoice posebno. Nema konsolidovanog izvoda po klijentu.',en:'Everything entered manually in QBs. No batch sending — Tina opens each invoice individually. No consolidated statement per client.'},who:['tina','hanna','milica','aleksandra','nadja']},
+    {id:'r12',priority:'must',title:{sr:'QuickBooks integracija — dvosmeran sync i batch invoicing',en:'QuickBooks integration — bidirectional sync and batch invoicing'},short:{sr:'Sve transakcije automatski sinhronizovane sa QBs; batch slanje i konsolidovani izvodi po klijentu.',en:'All transactions automatically synced with QBs; batch sending and consolidated statements per client.'},desc:{sr:'Bidirekciona integracija: (1) invoicei kreirani u softveru → automatski u QBs, (2) uplate u banci → automatski zatvaraju odgovarajuće invoicee, (3) batch invoicing — svi invoicei za jedan ciklus šalju se odjednom bez otvaranja svakog posebno, (4) konsolidovani izvod — mogućnost grupisanja više invoicea po klijentu u jedan objedinjen statement (npr. Rent + Lease + Tolovi za jednog klijenta = jedan PDF).',en:'Bidirectional integration: (1) invoices created in software → auto-appear in QBs, (2) bank payments → automatically close matching invoices, (3) batch invoicing — all invoices for one billing cycle sent at once without opening each individually, (4) consolidated statements — ability to group multiple invoices per client into one combined statement (e.g. Rent + Lease + Tolls for one client = one PDF).'},pain:{sr:'Sve se unosi ručno u QBs. Nema batch slanja — Tina otvara svaki invoice posebno. Nema konsolidovanog izvoda po klijentu.',en:'Everything entered manually in QBs. No batch sending — Tina opens each invoice individually. No consolidated statement per client.'},who:['tina','hanna','milica','aleksandra','nadia']},
     {id:'r13',priority:'must',title:{sr:'Automatski reversal odbijenih uplata',en:'Automatic reversal of rejected payments'},short:{sr:'Sistem automatski detektuje odbijene ACH uplate i reversuje zatvorene invoicee.',en:'System automatically detects rejected ACH payments and reverses closed invoices.'},desc:{sr:'Kada banka odbije uplatu: označi invoicee kao neplaćene, dodaje $35 rejected fee, obaveštava Milicu. Ne čeka 2-3 dana.',en:'When bank rejects payment: marks invoices as unpaid, adds $35 rejected fee, notifies Milica. Does not wait 2-3 days.'},pain:{sr:'Odbijene uplate stižu 2-3 dana posle. Tina/Hana moraju ručno pronaći i reversovati zatvorene invoicee.',en:'Rejected payments arrive 2-3 days later. Tina/Hana must manually find and reverse closed invoices.'},who:['tina','hanna','milica']},
     {id:'r14',priority:'must',title:{sr:'Klijentski portal — pregled stanja i plaćanje',en:'Client portal — balance view and payment'},short:{sr:'Klijent vidi sve invoicee, plati direktno, preuzima dokumente.',en:'Client views all invoices, pays directly, downloads documents.'},desc:{sr:'Portal: pregled invoicea (plaćenih i otvorenih), direktno ACH plaćanje, preuzimanje ugovora i registracija, pregled preostalog iznosa i buyout-a.',en:'Portal: invoice overview (paid and open), direct ACH payment, contract and registration downloads, remaining balance and buyout view.'},pain:{sr:'Klijenti stalno zovu/pišu za informacije o stanju. Milica odgovara na iste upite.',en:'Clients constantly call/email for balance info. Milica answers the same queries repeatedly.'},who:['milica','milica_r']},
   ]},
@@ -1759,7 +1958,7 @@ const REQUIREMENTS = [
     {id:'r31',priority:'nice',title:{sr:'IFTA / HHUT reporting',en:'IFTA / HHUT reporting'},short:{sr:'Sistem prati miljaže po statu i kvartalu — osnova za godišnji IFTA izveštaj.',en:'System tracks mileage per state and quarter — basis for annual IFTA report.'},desc:{sr:'Automatsko praćenje milja po unitu po statu. Kvartalni izveštaj za Secretary of State. Emily sada skuplja podatke ručno.',en:'Automatic tracking of miles per unit per state. Quarterly report for Secretary of State. Emily currently collects data manually.'},pain:{sr:'IFTA je opisan kao "rudarski posao". Skupljanje mileage podataka od klijenata po kvartalu je izuzetno zahtevano.',en:'IFTA described as an "incredibly laborious task." Collecting quarterly mileage data from clients is extremely demanding.'},who:['emily','brankica']},
   ]},
   {module:'access',icon:'🔐',moduleName:{sr:'Pristup, Uloge i Integracije',en:'Access, Roles & Integrations'},items:[
-    {id:'r32',priority:'nice',title:{sr:'Role-based pristup (5 nivoa)',en:'Role-based access (5 levels)'},short:{sr:'Svaki zaposleni vidi i menja samo ono što mu odgovara ulozi.',en:'Each employee sees and modifies only what matches their role.'},desc:{sr:'Minimum 5 uloga: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, klijenti; (3) Contracts — ugovori, dokumenti; (4) Finance — payable, izveštaji; (5) Admin — sve.',en:'Minimum 5 roles: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, clients; (3) Contracts — contracts, documents; (4) Finance — payable, reports; (5) Admin — everything.'},pain:{sr:'QBs payable pristup samo Aleksandra i Nadija, ali nema granularnih uloga za ostale sisteme.',en:'QBs payable access only Aleksandra and Nadija, but no granular roles for other systems.'},who:['milica_r','alex','andjela_t']},
+    {id:'r32',priority:'nice',title:{sr:'Role-based pristup (5 nivoa)',en:'Role-based access (5 levels)'},short:{sr:'Svaki zaposleni vidi i menja samo ono što mu odgovara ulozi.',en:'Each employee sees and modifies only what matches their role.'},desc:{sr:'Minimum 5 uloga: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, klijenti; (3) Contracts — ugovori, dokumenti; (4) Finance — payable, izveštaji; (5) Admin — sve.',en:'Minimum 5 roles: (1) Operations — inventory, check-in/out, mileage; (2) Accounting — billing, AR, clients; (3) Contracts — contracts, documents; (4) Finance — payable, reports; (5) Admin — everything.'},pain:{sr:'QBs puni payable pristup Aleksandra i Nadia; Mina/Jovana deo tolova — ali nema granularnih uloga za ostale sisteme.',en:'QBs full payables access Aleksandra and Nadia; Mina/Jovana part of tolls — but no granular roles for other systems.'},who:['milica_r','alex','andjela_t']},
     {id:'r33',priority:'nice',title:{sr:'15-20 korisnika odmah, brzo skaliranje',en:'15-20 users immediately, fast scaling'},short:{sr:'Minimum 15-20 seatova odmah. Bez dugih procurement procesa za dodavanje.',en:'Minimum 15-20 seats immediately. No lengthy procurement process for adding users.'},desc:{sr:'AAA Lease ima ~20 US zaposlenih + tim u Kragujevcu. Softver mora podržati sve odmah.',en:'AAA Lease has ~20 US employees + Kragujevac team. Software must support everyone immediately.'},pain:{sr:'Različiti alati imaju različita ograničenja seatova i cene po korisniku.',en:'Different tools have different seat limits and per-user pricing.'},who:['milica_r','alex']},
     {id:'r34',priority:'nice',title:{sr:'Leave coverage — uvid u kolegu',en:'Leave coverage — colleague visibility'},short:{sr:'Manager/kolega može privremeno preuzeti zadatke odsutnog zaposlenog.',en:'Manager/colleague can temporarily take over tasks of absent employee.'},desc:{sr:'Kada je neko odsutan, manager dobija privremeni pristup njihovom radnom prostoru. Sve otvorene stavke su vidljive.',en:'When someone is absent, manager gets temporary access to their workspace. All open items are visible.'},pain:{sr:'Kada neko nije dostupan, niko ne zna gde su mu stvari ni šta je pending.',en:"When someone is unavailable, no one knows where their items are or what's pending."},who:['milica_r','andjela_t']},
     {id:'r35',priority:'nice',title:{sr:'HubSpot integracija ili zamena CRM-a',en:'HubSpot integration or CRM replacement'},short:{sr:'Deal podaci iz CRM-a se automatski povlače u softver.',en:'Deal data from CRM automatically pulled into software.'},desc:{sr:'Bidirekciona sinhronizacija: novi deal u HubSpot → automatski u softveru. Status promena → ažurira HubSpot. Ili: softver ima ugrađen CRM.',en:'Bidirectional sync: new deal in HubSpot → auto-appears in software. Status change → updates HubSpot. Or: software has built-in CRM.'},pain:{sr:'Andjela prati HubSpot i ručno prenosi podatke u Active Units listu i QBs. Dupli unos.',en:'Andjela monitors HubSpot and manually transfers data to Active Units List and QBs. Duplicate entry.'},who:['andjela_t','valentina','brankica']},
@@ -1876,8 +2075,8 @@ const QUIZ_QUESTIONS = {
   role: [
     {q:{sr:"Ko prima novi lease deal PRVI pre nego što ide na ugovor?",en:"Who receives a new lease deal FIRST before it proceeds to contract?"},options:{sr:["Andjela Trifunovic","Brankica","Milica Doson","Valentina"],en:["Andjela Trifunovic","Brankica","Milica Doson","Valentina"]},correct:1,explain:{sr:"Brankica proverava credit score i bank balance svakog novog lease klijenta pre nego što deal ide na odobrenje kod Aleksa.",en:"Brankica checks the credit score and bank balance of every new lease client before the deal goes to Alex for approval."}},
     {q:{sr:"Ko svaki ponedeljak ručno računa billing za rent weekly?",en:"Who manually calculates rent weekly billing every Monday?"},options:{sr:["Tina Srdic","Hana Bencks","Radu Motica","Milica"],en:["Tina Srdic","Hana Bencks","Radu Motica","Milica"]},correct:2,explain:{sr:"Radu provodi 1.5+ sat svaki ponedeljak računajući billing — mileage in/out po unitu, fiksni iznos.",en:"Radu spends 1.5+ hours every Monday calculating billing — mileage in/out per unit, fixed amount."}},
-    {q:{sr:"Ko jedini ima pristup payable strani QuickBooks-a?",en:"Who exclusively has access to the payable side of QuickBooks?"},options:{sr:["Milica i Tina","Aleksandra i Nadja","Hana i Maja","Brankica i Valentina"],en:["Milica and Tina","Aleksandra and Nadja","Hana and Maja","Brankica and Valentina"]},correct:1,explain:{sr:"Aleksandra i Nadja su jedine sa pristupom payable strani QBs. Niko drugi ne sme da ulazi.",en:"Aleksandra and Nadja are the only ones with access to the payable side of QBs. No one else may enter."}},
-    {q:{sr:"Ko je u Payables timu u Kragujevcu (pored Aleksandre)?",en:"Who is on the Payables team in Kragujevac (besides Aleksandra)?"},options:{sr:["Tina i Milica","Andjela i Nadja","Radu i Fabrizio","Roman i Emily"],en:["Tina and Milica","Andjela and Nadja","Radu and Fabrizio","Roman and Emily"]},correct:1,explain:{sr:"Na mapi tima Payables — Kragujevac su Andjela Trifunovic, Nadja i Aleksandra Djokic.",en:"On the team map under Payables — Kragujevac: Andjela Trifunovic, Nadja, and Aleksandra Djokic."}},
+    {q:{sr:"Ko ima pristup payable strani QuickBooks-a (puno knjiženje i isplate)?",en:"Who has full QuickBooks payables access (booking and payments)?"},options:{sr:["Milica i Tina","Aleksandra i Nadia","Hana i Maja","Brankica i Valentina"],en:["Milica and Tina","Aleksandra and Nadia","Hana and Maja","Brankica and Valentina"]},correct:1,explain:{sr:"Aleksandra i Nadia imaju puni pristup payable strani QBs. Mina i Jovana pomažu na delu dolaznih tolova uz Nadiu.",en:"Aleksandra and Nadia have full payables access in QBs. Mina and Jovana assist on part of incoming tolls with Nadia."}},
+    {q:{sr:"Ko je u Payables/AP klasteru pored Aleksandre?",en:"Who is in the Payables/AP cluster besides Aleksandra?"},options:{sr:["Nadia (remote), Mina/Jovana na tolovima; Andjela Trifunovic je ugovori, ne AP","Tina i Milica","Andjela Trifunovic i Valentina","Roman i Emily"],en:["Nadia (remote), Mina/Jovana on tolls; Andjela Trifunovic is contracts, not AP","Tina and Milica","Andjela Trifunovic and Valentina","Roman and Emily"]},correct:0,explain:{sr:"Nadia vodi AP remote; Mina i Jovana rade deo tolova. Andjela Trifunovic je Billing & ugovori — nije payables.",en:"Nadia leads AP remotely; Mina and Jovana handle part of tolls. Andjela Trifunovic is billing/contracts — not payables."}},
     {q:{sr:"Ko pravi Confirmed Payments listu i šta boje označavaju?",en:"Who maintains the Confirmed Payments list and what do colors mean?"},options:{sr:["Hana — uplate iz banke","Tina — status uplata po boji (zeleno=plaćeno, crveno=odbijeno)","Milica — AR aging","Aleksandra — fixed assets"],en:["Hana — bank payments","Tina — payment status by color (green=paid, red=rejected)","Milica — AR aging","Aleksandra — fixed assets"]},correct:1,explain:{sr:"Tina vodi Confirmed Payments listu: zeleno=plaćeno, crveno=odbijeno (+$35), plavo=delimično, sivo=unit vraćen.",en:"Tina maintains the Confirmed Payments list: green=paid, red=rejected (+$35), blue=partial, grey=unit returned."}},
     {q:{sr:"Ko šalje mesečni credit bureau CSV na Hutchins portal?",en:"Who submits the monthly credit bureau CSV to the Hutchins portal?"},options:{sr:["Milica","Aleksandra","Brankica","Andjela Trifunovic"],en:["Milica","Aleksandra","Brankica","Andjela Trifunovic"]},correct:2,explain:{sr:"Brankica priprema i uploaduje CSV na Hutchins svaki mesec za 500+ klijenata.",en:"Brankica prepares and uploads the CSV to Hutchins every month for 500+ clients."}},
     {q:{sr:"Šta znači status 'Lawyer' na Active Units listi?",en:"What does 'Lawyer' status mean on the Active Units List?"},options:{sr:["Unit je prodat advokatu","Pravni tim preuzima — billing MORA odmah da stane","Klijent ima advokata za pregovore","Unit u sudskom sporu"],en:["Unit sold to a lawyer","Legal team takes over — billing MUST stop immediately","Client has a lawyer for negotiations","Unit in legal dispute"]},correct:1,explain:{sr:"Kada je deal u statusu Lawyer, sav billing staje odmah. Ni jedan invoice ne sme da izađe.",en:"When a deal is in Lawyer status, all billing stops immediately. No invoice may be sent."}},
@@ -2108,8 +2307,10 @@ function downloadContactsCSV() {
     ['Fabrizio','Rental Ops Rep','','US','Operations — Rental Division (US)'],
     ['Israel','Compliance / Maintenance','','US','Operations — Rental Division (US)'],
     ['Gustavo','Driver','','US','Operations — Rental Division (US)'],
-    ['Andjela Trifunovic','Contracts & Documentation (Payables cluster)','angela.t@aaalease.net','Kragujevac','Payables — Kragujevac'],
-    ['Nadja','Payables / QuickBooks vendor bills','','Kragujevac','Payables — Kragujevac'],
+    ['Andjela Trifunovic','Contracts & Documentation (not AP/payables)','angela.t@aaalease.net','Kragujevac','Billing & AR — Kragujevac'],
+    ['Nadia Daneski','Accounts Payable & bookkeeping','nadia@aaalease.net','Remote (Skopje)','Payables / AP'],
+    ['Mina','Tolls — invoice processing','','Kragujevac','Payables — tolls'],
+    ['Jovana','Tolls / AP (on leave)','','Kragujevac','Payables — tolls'],
     ['Aleksandra Djokic','Payable / Fixed Assets / Accounting Manager','Alexandra.Dj@aaalease.net','Kragujevac','Payables — Kragujevac'],
     ['Valentina Lelovic','Contracts & Documentation','valentina.l@aaalease.net','Kragujevac','Billing & AR — Kragujevac'],
     ['Tina Srdic','Billing & Parking','tina.s@aaalease.net','Kragujevac','Billing & AR — Kragujevac'],
