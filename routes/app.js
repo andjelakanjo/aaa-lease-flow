@@ -13,6 +13,12 @@ function extractInlineScriptFromAppHtml(html) {
   return m?.[1] || null;
 }
 
+/** Escape for use inside double-quoted HTML attributes (CSP blocks inline script injection). */
+function escAttr(v) {
+  if (v == null || v === '') return '';
+  return String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
 // GET / — redirect to the appropriate destination based on role
 router.get('/', (req, res) => {
   const role = req.user?.role;
@@ -37,9 +43,18 @@ router.get('/app', (req, res) => {
     '<script src="/app-inline.js" defer></script>'
   );
 
+  const appUser = {
+    role,
+    email: isPreview ? null : req.user?.email ?? null,
+    profileId: isPreview ? null : req.user?.profileId ?? null,
+    companyId: isPreview ? null : req.user?.companyId ?? null
+  };
+  // Session context on <html> — Helmet CSP allows this; inline <script> in <head> would be blocked by script-src 'self'.
   const injected = htmlWithoutInlineScript.replace(
-    '<head>',
-    `<head><script>window.__USER_ROLE__ = ${JSON.stringify(role)};window.__PREVIEW_MODE__ = ${JSON.stringify(isPreview)};</script>`
+    '<html lang="en">',
+    `<html lang="en" data-app-role="${escAttr(role)}" data-app-preview="${isPreview ? '1' : '0'}" data-app-email="${escAttr(
+      appUser.email || ''
+    )}" data-app-profile-id="${escAttr(appUser.profileId || '')}" data-app-company-id="${escAttr(appUser.companyId || '')}">`
   );
   res.set('Content-Type', 'text/html');
   res.send(injected);

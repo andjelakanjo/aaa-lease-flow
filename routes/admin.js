@@ -63,7 +63,8 @@ router.get('/', (req, res) => {
 router.get('/api/me', (req, res) => {
   res.json({
     role: req.user.role,
-    companyId: req.user.companyId,
+    companyId: req.user.companyId ?? null,
+    profileId: req.user.profileId ?? null,
     firstName: req.user.firstName,
     lastName: req.user.lastName,
     email: req.user.email || null

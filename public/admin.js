@@ -535,7 +535,41 @@ function showToast(msg, type = 'success') {
 }
 
 // ── Preview App ───────────────────────────────────────────────────────────────
+function setHubState(state) {
+  document.querySelectorAll('.header-hub [data-hub-state]').forEach((btn) => {
+    btn.classList.toggle('hub-tab-active', btn.getAttribute('data-hub-state') === state);
+  });
+}
+
+function closeStaffAppEmbed() {
+  const main = document.querySelector('main');
+  const box = document.getElementById('staff-app-container');
+  const iframe = document.getElementById('staff-app-iframe');
+  if (box) box.classList.remove('open');
+  if (iframe) iframe.src = '';
+  if (main) main.style.display = '';
+  setHubState('dashboard');
+}
+
+/** @param {'map'|'reqs'|'impl'} appTab — map = full onboarding home */
+function openStaffAppEmbed(appTab = 'map') {
+  closePreview();
+  const main = document.querySelector('main');
+  const box = document.getElementById('staff-app-container');
+  const iframe = document.getElementById('staff-app-iframe');
+  if (!main || !box || !iframe) return;
+  main.style.display = 'none';
+  box.classList.add('open');
+  const q = appTab && appTab !== 'map' ? '?tab=' + encodeURIComponent(appTab) : '';
+  iframe.src = '/app' + q;
+  const state =
+    appTab === 'reqs' ? 'app-reqs' : appTab === 'impl' ? 'app-impl' : 'app-onboarding';
+  setHubState(state);
+  window.scrollTo(0, 0);
+}
+
 function previewApp(companyName, bannerSub) {
+  closeStaffAppEmbed();
   document.getElementById('preview-co-name').textContent = companyName || 'AAA Lease';
   document.getElementById('preview-banner-sub').textContent =
     bannerSub || 'Gledaš kako zaposleni vide aplikaciju';
@@ -563,6 +597,11 @@ function previewAppFromUsers() {
 function closePreview() {
   document.getElementById('preview-container').classList.remove('open');
   document.getElementById('preview-iframe').src = '';
+}
+
+function openHubDashboard() {
+  closePreview();
+  closeStaffAppEmbed();
 }
 
 // ── Event wiring ──────────────────────────────────────────────────────────────
@@ -596,6 +635,13 @@ function setupEventHandlers() {
     if (action === 'close-modal') {
       const modal = el.getAttribute('data-modal');
       if (modal) closeModal(modal);
+      return;
+    }
+
+    if (action === 'hub-dashboard') return void openHubDashboard();
+    if (action === 'hub-app') {
+      const tab = el.getAttribute('data-app-tab') || 'map';
+      openStaffAppEmbed(tab === 'reqs' || tab === 'impl' || tab === 'map' ? tab : 'map');
       return;
     }
 

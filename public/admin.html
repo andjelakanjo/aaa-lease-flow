@@ -31,10 +31,24 @@ header{
   background:rgba(10,14,26,0.80);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
   border-bottom:1px solid rgba(255,255,255,0.08);
   position:sticky;top:0;z-index:100;
+  gap:16px;
 }
+.header-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap;min-width:0;flex:1;}
 .header-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;}
 .header-logo span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
-.header-right{display:flex;align-items:center;gap:14px;}
+.header-hub{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.hub-tab{
+  padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.04);color:var(--text-muted);
+  font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:500;
+  text-decoration:none;white-space:nowrap;transition:all 0.2s ease;
+}
+.hub-tab:hover{color:var(--text);border-color:rgba(79,142,247,.35);background:rgba(79,142,247,.08);}
+.hub-tab-active{
+  background:rgba(79,142,247,.18);border-color:rgba(79,142,247,.45);color:#fff;
+  box-shadow:0 0 14px rgba(79,142,247,.22);
+}
+.header-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .header-user{font-size:.85rem;color:var(--text-muted);}
 #user-name{color:var(--text);font-weight:500;}
 
@@ -240,13 +254,56 @@ select option{background:#0f1629;}
   cursor:pointer;transition:all 0.2s ease;white-space:nowrap;
 }
 .btn-preview:hover{background:rgba(79,142,247,.18);border-color:rgba(79,142,247,.5);box-shadow:0 0 12px rgba(79,142,247,.2);}
+
+/* ── Staff app (full /app in admin — keeps header) ── */
+.hub-tab{border:none;font:inherit;cursor:pointer;}
+.staff-app-container{display:none;}
+.staff-app-container.open{display:block;}
+.staff-app-banner{
+  position:sticky;top:60px;z-index:90;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:10px 28px;
+  background:rgba(10,14,26,0.96);
+  border-bottom:2px solid rgba(79,247,168,0.4);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+.staff-app-banner-label{font-size:.84rem;color:var(--text-muted);line-height:1.45;max-width:min(720px,100%);}
+.staff-app-banner-label strong{color:var(--success);margin-right:6px;}
+.btn-staff-banner{
+  flex-shrink:0;padding:7px 16px;border-radius:12px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+  color:var(--text);font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all 0.2s ease;white-space:nowrap;
+}
+.btn-staff-banner:hover{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.4);color:#fff;}
+.staff-app-iframe{width:100%;border:none;height:calc(100vh - 60px - 52px);display:block;background:var(--bg);}
+
+/* ── Onboarding hub card (dashboard) ── */
+.hub-card{
+  margin-bottom:22px;padding:20px 22px;border-radius:16px;
+  border:1px solid rgba(79,247,168,.22);
+  background:linear-gradient(135deg,rgba(79,247,168,.08),rgba(79,142,247,.05));
+  box-shadow:0 4px 24px rgba(0,0,0,.25);
+}
+.hub-card-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+.hub-card h3{font-size:1.02rem;font-weight:600;margin-bottom:8px;color:var(--text);}
+.hub-card p{font-size:.84rem;color:var(--text-muted);line-height:1.55;max-width:640px;}
+.hub-card .btn-primary{flex-shrink:0;align-self:center;}
 </style>
 </head>
 <body>
 
 <!-- Header -->
 <header>
-  <div class="header-logo">AAA <span>Lease</span> Admin</div>
+  <div class="header-left">
+    <div class="header-logo">AAA <span>Lease</span> Admin</div>
+    <nav class="header-hub" aria-label="Admin areas">
+      <button type="button" class="hub-tab hub-tab-active" data-action="hub-dashboard" data-hub-state="dashboard" title="Korisnici, pristupni kodovi, kompanije">Dashboard</button>
+      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="reqs" data-hub-state="app-reqs" title="Zahtevi za lizing softver">Software Reqs</button>
+      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="impl" data-hub-state="app-impl" title="Implementacija — deljeni status + privatni dnevnik">Implementacija</button>
+      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="map" data-hub-state="app-onboarding" title="Cela onboarding aplikacija">Onboarding</button>
+    </nav>
+  </div>
   <div class="header-right">
     <div class="header-user">
       <span id="user-name">…</span>
@@ -268,6 +325,23 @@ select option{background:#0f1629;}
 
   <!-- Users panel -->
   <div class="panel active" id="panel-users">
+    <div class="hub-card" id="admin-onboarding-hub-card">
+      <div class="hub-card-inner">
+        <div>
+          <h3>Onboarding aplikacija — tim i implementacija lizing softvera</h3>
+          <p>
+            Ovo je <strong>onboarding hub</strong> za AAA Lease: mapa tima, procesi, dokumenti, zahtevi prema softveru, glosar, kviz i merljiv napredak — nezavisno od trenutnog projekta implementacije.
+            Za rad na implementaciji postoje posebni delovi (deljeni status + <strong>privatni dnevnik</strong>).
+            U <strong>gornjoj traci</strong> su prečice <strong>Software Reqs</strong>, <strong>Implementacija</strong> i ceo <strong>Onboarding</strong>; ispod isto u jednom kliku. Na <strong>Dashboard</strong> — zelena traka ili dugme Dashboard gore.
+          </p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;align-self:center;">
+          <button type="button" class="btn-primary" data-action="hub-app" data-app-tab="map">Ceo onboarding</button>
+          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="reqs">Software Reqs</button>
+          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="impl">Implementacija</button>
+        </div>
+      </div>
+    </div>
     <div class="panel-header">
       <h2 id="users-heading">Users</h2>
       <div class="panel-actions">
@@ -314,6 +388,18 @@ select option{background:#0f1629;}
     </div>
   </div>
 </main>
+
+<!-- ── Full app embed (admin / super_admin — keeps header + hub) ── -->
+<div class="staff-app-container" id="staff-app-container">
+  <div class="staff-app-banner">
+    <span class="staff-app-banner-label">
+      <strong>ONBOARDING APP</strong>
+      Puna onboarding aplikacija u okviru admina — tim, procesi, dokumenti, zahtevi za softver i (kad treba) implementacija sa deljenim statusom i privatnim dnevnikom. Sadržaj je opšti hub, ne vezan za jedan konkretan projekat.
+    </span>
+    <button type="button" class="btn-staff-banner" data-action="hub-dashboard">← Nazad na Dashboard</button>
+  </div>
+  <iframe class="staff-app-iframe" id="staff-app-iframe" src="" title="AAA Lease Onboarding App" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+</div>
 
 <!-- ── Preview Container ── -->
 <div class="preview-container" id="preview-container">

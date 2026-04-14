@@ -189,26 +189,37 @@ router.get('/me', async (req, res) => {
 
     const { data: profile } = await supabase.admin
       .from('profiles')
-      .select('role, is_active')
+      .select('id, role, company_id, is_active')
       .eq('user_id', user.id)
       .single();
 
     if (profile && profile.is_active === false) return res.status(403).json({ error: 'Account revoked.' });
 
-    return res.json({ email: user.email, id: user.id, role: profile?.role || 'employee' });
+    return res.json({
+      email: user.email,
+      id: user.id,
+      role: profile?.role || 'employee',
+      profileId: profile?.id || null,
+      companyId: profile?.company_id ?? null
+    });
   }
 
   if (acSession) {
     const { data: profile, error } = await supabase.admin
       .from('profiles')
-      .select('id, role, is_active, expires_at')
+      .select('id, role, company_id, is_active, expires_at')
       .eq('id', acSession)
       .single();
 
     if (error || !profile || !profile.is_active) return res.status(401).json({ error: 'Session invalid.' });
     if (profile.expires_at && new Date(profile.expires_at) < new Date()) return res.status(401).json({ error: 'Session expired.' });
 
-    return res.json({ role: profile.role || 'employee' });
+    return res.json({
+      email: null,
+      role: profile.role || 'employee',
+      profileId: profile.id,
+      companyId: profile.company_id ?? null
+    });
   }
 
   return res.status(401).json({ error: 'Not authenticated.' });

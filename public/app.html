@@ -35,6 +35,13 @@ header{
 header h1{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:.02em;white-space:nowrap;}
 header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.header-admin-dash{
+  padding:7px 14px;border-radius:20px;border:1px solid rgba(247,200,79,.38);
+  background:rgba(247,200,79,.1);color:var(--gold);
+  font-size:.78rem;font-weight:600;text-decoration:none;font-family:'DM Sans',sans-serif;
+  white-space:nowrap;transition:all 0.2s ease;
+}
+.header-admin-dash:hover{background:rgba(247,200,79,.18);border-color:rgba(247,200,79,.55);}
 .nav-tabs{display:flex;gap:5px;flex-wrap:wrap;}
 .nav-tab{
   padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);
@@ -46,6 +53,13 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .nav-tab.gold{border-color:rgba(247,200,79,0.3);color:var(--gold);}
 .nav-tab.gold:hover{background:rgba(247,200,79,0.12);border-color:rgba(247,200,79,0.5);box-shadow:0 0 12px rgba(247,200,79,0.25);}
 .nav-tab.gold.active{background:rgba(247,200,79,0.18);border-color:rgba(247,200,79,0.6);color:var(--gold);box-shadow:0 0 16px rgba(247,200,79,0.35);}
+.nav-tab-impl-staff{
+  border-color:rgba(79,247,168,.42)!important;
+  color:#b8f5d0!important;
+  font-weight:600;
+}
+.nav-tab-impl-staff:hover{background:rgba(79,247,168,.12)!important;border-color:rgba(79,247,168,.55)!important;color:#fff!important;}
+.nav-tab-impl-staff.active{background:rgba(79,247,168,.2)!important;border-color:rgba(79,247,168,.65)!important;color:#fff!important;box-shadow:0 0 14px rgba(79,247,168,.25);}
 .lang-toggle{display:flex;border:1px solid rgba(255,255,255,0.10);border-radius:20px;overflow:hidden;}
 .lang-btn{padding:6px 14px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;transition:all 0.2s ease;}
 .lang-btn.active{background:rgba(79,142,247,0.22);color:var(--accent);}
@@ -318,6 +332,23 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .contacts-note{background:rgba(255,180,0,.06);border:1px solid rgba(255,180,0,.18);border-radius:12px;padding:13px 18px;font-size:.82rem;color:var(--text-muted);margin-top:6px;line-height:1.5;}
 .btn-csv{padding:8px 16px;border-radius:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);color:var(--text-muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:.75rem;transition:all 0.2s ease;letter-spacing:.02em;}
 .btn-csv:hover{border-color:rgba(79,142,247,.4);color:var(--accent);background:rgba(79,142,247,.08);}
+.impl-hero{margin-bottom:18px;}
+.impl-subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.impl-panel{display:none;}
+.impl-panel.active{display:block;}
+.impl-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.impl-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.impl-table th,.impl-table td{padding:8px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top;}
+.impl-inp{width:100%;max-width:100%;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-size:.8rem;box-sizing:border-box;}
+.impl-note{font-size:.78rem;color:var(--text-muted);margin-top:10px;line-height:1.5;}
+.impl-msg{color:#f7a79a;font-size:.82rem;margin-bottom:10px;}
+.onb-mod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.onb-mod input{width:18px;height:18px;cursor:pointer;flex-shrink:0;}
+.impl-report-block{margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.impl-report-title{font-weight:600;margin-bottom:6px;}
+.impl-report-meta{font-size:.78rem;color:var(--text-muted);}
+.impl-report-toolbar{display:none;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+.impl-report-toolbar.visible{display:flex;}
 </style>
 </head>
 <body>
@@ -329,11 +360,14 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <button class="nav-tab" type="button" data-action="switch-view" data-view="procmap"><span data-t="nav_procmap">Process Map</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="docs"><span data-t="nav_docs">Key Documents</span></button>
     <button class="nav-tab gold" type="button" id="nav-tab-reqs" data-action="switch-view" data-view="reqs"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
+    <button class="nav-tab nav-tab-impl-staff" type="button" id="nav-tab-impl" style="display:none" data-action="switch-view" data-view="impl"><span data-t="nav_impl">Implementacija</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="glossary"><span data-t="nav_glossary">📖 Glossary</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="quiz"><span data-t="nav_quiz">Quiz</span></button>
+    <button class="nav-tab" type="button" id="nav-tab-onboarding" style="display:none" data-action="switch-view" data-view="onboarding"><span data-t="nav_onboarding">Moj onboarding</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="contacts"><span data-t="nav_contacts">👤 Contacts</span></button>
   </nav>
   <div class="header-right">
+    <a href="/admin" id="link-admin-dashboard" class="header-admin-dash" style="display:none" data-t="header_admin_dash">← Admin dashboard</a>
     <button class="logout-btn" type="button" data-action="logout" title="Sign out">⏻</button>
     <div class="lang-toggle">
       <button class="lang-btn active" type="button" id="btn-sr" data-action="set-lang" data-lang="sr">SR</button>
@@ -841,6 +875,92 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   </div>
 </div>
 
+<!-- IMPLEMENTATION (admin + super_admin) -->
+<div id="impl-view" class="view">
+  <div class="impl-hero">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.35rem;margin-bottom:6px;" data-t="impl_title">Implementacija</h2>
+    <p class="impl-note" data-t="impl_intro">Deljeni statusi vendora; sastanci, taskovi i dnevnik su privatni samo za tvoj nalog.</p>
+  </div>
+  <div class="stream-tabs impl-subnav" id="impl-subnav">
+    <button class="stream-tab tab-lease active" type="button" data-action="switch-impl-tab" data-impl-tab="vendors" data-t="impl_tab_vendors">Vendori</button>
+    <button class="stream-tab tab-rental" type="button" data-action="switch-impl-tab" data-impl-tab="diary" data-t="impl_tab_diary">Moj dnevnik</button>
+    <button class="stream-tab tab-cash" type="button" data-action="switch-impl-tab" data-impl-tab="report" data-t="impl_tab_report">Onboarding izveštaj</button>
+  </div>
+  <div id="impl-panel-vendors" class="impl-panel active">
+    <div style="margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <label id="impl-company-filter-wrap" style="display:none;align-items:center;gap:8px;font-size:.82rem;color:var(--text-muted);">
+        <span data-t="impl_filter_company">Kompanija</span>
+        <select id="impl-vendor-company-filter" class="impl-inp" style="width:auto;min-width:200px;"></select>
+      </label>
+      <button class="btn-primary" type="button" data-action="impl-refresh-vendors" data-t="impl_refresh">Osveži</button>
+      <button class="btn-secondary" type="button" data-action="impl-add-vendor" data-t="impl_add_vendor">+ Vendor</button>
+    </div>
+    <div id="impl-vendors-msg" class="impl-msg" style="display:none;"></div>
+    <table class="impl-table">
+      <thead><tr>
+        <th data-t="impl_col_name">Naziv</th>
+        <th data-t="impl_col_status">Status</th>
+        <th data-t="impl_col_notes">Beleške</th>
+        <th id="impl-th-company" data-t="impl_col_company">Kompanija</th>
+        <th data-t="impl_col_actions">Akcije</th>
+      </tr></thead>
+      <tbody id="impl-vendor-tbody"></tbody>
+    </table>
+  </div>
+  <div id="impl-panel-diary" class="impl-panel">
+    <div class="impl-card">
+      <h3 style="font-size:1rem;margin-bottom:10px;" data-t="impl_meetings">Sastanci</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:10px;">
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_vendor">Vendor</span><select id="impl-meet-vendor" class="impl-inp"></select></label>
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_meet_title">Naslov</span><input id="impl-meet-title" class="impl-inp" type="text"></label>
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_meet_when">Termin</span><input id="impl-meet-when" class="impl-inp" type="datetime-local"></label>
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_meet_link">Meet link</span><input id="impl-meet-url" class="impl-inp" type="url" placeholder="https://"></label>
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_meet_recording">Snimak</span><input id="impl-meet-rec" class="impl-inp" type="url" placeholder="https://"></label>
+      </div>
+      <button class="btn-primary" type="button" data-action="impl-add-meeting" data-t="impl_meet_add">Dodaj sastanak</button>
+      <div id="impl-meet-list" style="margin-top:14px;"></div>
+    </div>
+    <div class="impl-card">
+      <h3 style="font-size:1rem;margin-bottom:10px;" data-t="impl_tasks">Taskovi</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;align-items:flex-end;">
+        <label style="flex:1;min-width:200px;font-size:.75rem;color:var(--text-muted);"><span data-t="impl_task_title">Naslov</span><input id="impl-task-title" class="impl-inp" type="text"></label>
+        <label style="font-size:.75rem;color:var(--text-muted);"><span data-t="impl_task_due">Rok</span><input id="impl-task-due" class="impl-inp" type="date"></label>
+        <label style="font-size:.75rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;"><input id="impl-task-doc" type="checkbox"> <span data-t="impl_task_doc">Dokument</span></label>
+        <button class="btn-secondary" type="button" data-action="impl-add-task" data-t="impl_task_add">+ Task</button>
+      </div>
+      <div id="impl-task-list"></div>
+    </div>
+    <div class="impl-card">
+      <h3 style="font-size:1rem;margin-bottom:10px;" data-t="impl_journal">Dnevnik</h3>
+      <label style="font-size:.75rem;color:var(--text-muted);display:block;margin-bottom:6px;"><span data-t="impl_journal_day">Dan</span><input id="impl-journal-date" class="impl-inp" type="date" style="max-width:200px;"></label>
+      <textarea id="impl-journal-body" class="impl-inp" rows="3" style="resize:vertical;margin-bottom:8px;" data-placeholder-t="impl_journal_ph"></textarea>
+      <button class="btn-primary" type="button" data-action="impl-save-journal" data-t="impl_journal_save">Sačuvaj unos</button>
+      <div id="impl-journal-list" style="margin-top:14px;"></div>
+    </div>
+  </div>
+  <div id="impl-panel-report" class="impl-panel">
+    <p class="impl-note" data-t="impl_report_hint">Završetak modula po zaposlenom (samo zaposleni u izabranoj kompaniji za super admin).</p>
+    <div id="impl-report-select-wrap" class="impl-report-toolbar">
+      <label style="font-size:.82rem;color:var(--text-muted);"><span data-t="impl_filter_company">Kompanija</span>
+        <select id="impl-report-company" class="impl-inp" style="width:auto;min-width:200px;"></select>
+      </label>
+      <button class="btn-primary" type="button" data-action="impl-load-report" data-t="impl_refresh">Osveži</button>
+    </div>
+    <div id="impl-report-body"></div>
+  </div>
+</div>
+
+<!-- ONBOARDING PROGRESS (employees) -->
+<div id="onboarding-view" class="view">
+  <div style="margin-bottom:18px;">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.35rem;margin-bottom:6px;" data-t="onb_title">Moj onboarding</h2>
+    <p style="color:var(--text-muted);font-size:.85rem;" data-t="onb_sub">Označi module koje si pregledao ili završio.</p>
+    <div id="onb-progress-line" style="margin-top:12px;font-family:'DM Mono',monospace;font-size:.85rem;color:var(--gold);"></div>
+  </div>
+  <div id="onboarding-modules-list"></div>
+  <p id="onboarding-error" class="impl-msg" style="display:none;margin-top:12px;"></p>
+</div>
+
 <!-- CONTACTS VIEW -->
 <div id="contacts-view" class="view">
   <div class="contacts-header">
@@ -921,6 +1041,26 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 </div>
 
 <script>
+// Session from server on <html data-app-*> (CSP-safe). Fallbacks for static/offline open.
+function getAppRole() {
+  try {
+    const fromDom = document.documentElement.getAttribute('data-app-role');
+    return String(fromDom || window.__USER_ROLE__ || 'employee').trim();
+  } catch (_) {
+    return String(window.__USER_ROLE__ || 'employee').trim();
+  }
+}
+function isPreviewMode() {
+  try {
+    const p = document.documentElement.getAttribute('data-app-preview');
+    if (p === '1') return true;
+    if (p === '0') return false;
+    return !!window.__PREVIEW_MODE__;
+  } catch (_) {
+    return !!window.__PREVIEW_MODE__;
+  }
+}
+
 // ===================== TRANSLATIONS =====================
 const T = {
   sr: {
@@ -964,6 +1104,46 @@ const T = {
     quiz_score_labels:["Treba još učiti 📚","Dobar napredak 👍","Odlično! 🎉","Ekspert! 🏆"],
     quiz_again:"Pokušaj ponovo", quiz_back:"Nazad na Mapu",
     nav_contacts:"👤 Kontakti",
+    nav_impl:"Implementacija",
+    nav_onboarding:"Moj onboarding",
+    header_admin_dash:"← Admin (korisnici i kompanije)",
+    impl_title:"Implementacija",
+    impl_intro:"Vendor je snabdevač lizing softvera (npr. IntraSoft, Odessa, PYA Solutions / Soft4Leasing uz Business Central) — ne AAA Lease. Aktivna implementacija je sa jednim izabranim ponuđačem; ostali redovi mogu biti samo kontekst. Deljeni statusi za tim; sastanci, snimci, taskovi i dnevnik vidljivi samo tebi na nalogu.",
+    impl_tab_vendors:"Vendori",
+    impl_tab_diary:"Moj dnevnik",
+    impl_tab_report:"Onboarding izveštaj",
+    impl_filter_company:"Kompanija",
+    impl_refresh:"Osveži",
+    impl_add_vendor:"+ Vendor",
+    impl_col_name:"Naziv",
+    impl_col_status:"Status",
+    impl_col_notes:"Beleške",
+    impl_col_company:"Kompanija",
+    impl_col_actions:"Akcije",
+    impl_meetings:"Sastanci",
+    impl_vendor:"Vendor",
+    impl_meet_title:"Naslov",
+    impl_meet_when:"Termin",
+    impl_meet_link:"Meet link",
+    impl_meet_rec:"Snimak (Fathom / drugo)",
+    impl_meet_add:"Dodaj sastanak",
+    impl_tasks:"Taskovi",
+    impl_task_title:"Naslov",
+    impl_task_due:"Rok",
+    impl_task_doc:"Dokument za kreiranje",
+    impl_task_add:"+ Task",
+    impl_journal:"Dnevnik",
+    impl_journal_day:"Dan",
+    impl_journal_ph:"Kratak zapis šta si uradio danas...",
+    impl_journal_save:"Sačuvaj unos",
+    impl_report_hint:"Procenat završenih modula po zaposlenom. Super admin može filtrirati kompaniju.",
+    impl_save:"Sačuvaj",
+    impl_delete:"Obriši",
+    impl_no_vendors:"Nema vendora. Dodaj prvog.",
+    impl_err:"Greška pri učitavanju.",
+    onb_title:"Moj onboarding",
+    onb_sub:"Označi module koje si pregledao ili završio.",
+    onb_progress:"Napredak",
     contacts_title:"Imenik kontakata",
     contacts_csv:"⬇ Preuzmi CSV",
     contacts_dept_mgmt:"Menadžment",
@@ -1288,6 +1468,46 @@ const T = {
     quiz_score_labels:["Keep studying 📚","Good progress 👍","Excellent! 🎉","Expert! 🏆"],
     quiz_again:"Try Again", quiz_back:"Back to Map",
     nav_contacts:"👤 Contacts",
+    nav_impl:"Implementation",
+    nav_onboarding:"My onboarding",
+    header_admin_dash:"← Admin (users & companies)",
+    impl_title:"Implementation",
+    impl_intro:"A vendor is a leasing-software supplier (e.g. IntraSoft, Odessa, PYA Solutions / Soft4Leasing with Dynamics 365 Business Central) — not AAA Lease. Active implementation is with one chosen supplier; other rows can stay for context only. Statuses are shared with the team; meetings, recordings, tasks, and journal entries are visible only to you.",
+    impl_tab_vendors:"Vendors",
+    impl_tab_diary:"My diary",
+    impl_tab_report:"Onboarding report",
+    impl_filter_company:"Company",
+    impl_refresh:"Refresh",
+    impl_add_vendor:"+ Vendor",
+    impl_col_name:"Name",
+    impl_col_status:"Status",
+    impl_col_notes:"Notes",
+    impl_col_company:"Company",
+    impl_col_actions:"Actions",
+    impl_meetings:"Meetings",
+    impl_vendor:"Vendor",
+    impl_meet_title:"Title",
+    impl_meet_when:"When",
+    impl_meet_link:"Meet link",
+    impl_meet_rec:"Recording (Fathom / other)",
+    impl_meet_add:"Add meeting",
+    impl_tasks:"Tasks",
+    impl_task_title:"Title",
+    impl_task_due:"Due",
+    impl_task_doc:"Document to create",
+    impl_task_add:"+ Task",
+    impl_journal:"Journal",
+    impl_journal_day:"Day",
+    impl_journal_ph:"Short note on what you did today...",
+    impl_journal_save:"Save entry",
+    impl_report_hint:"Module completion per employee. Super admins can filter by company.",
+    impl_save:"Save",
+    impl_delete:"Delete",
+    impl_no_vendors:"No vendors yet. Add one.",
+    impl_err:"Could not load data.",
+    onb_title:"My onboarding",
+    onb_sub:"Check off modules you have reviewed or completed.",
+    onb_progress:"Progress",
     contacts_title:"Contact Directory",
     contacts_csv:"⬇ Download CSV",
     contacts_dept_mgmt:"Management",
@@ -2023,6 +2243,9 @@ function setLang(lang) {
     if (id === 'docs-view') renderDocs();
     else if (id === 'reqs-view') renderReqs();
     else if (id === 'glossary-view') renderGlossary();
+    else if (id === 'impl-view') {
+      initImplCompanies().then(() => refreshImplHub());
+    } else if (id === 'onboarding-view') refreshOnboardingEmployee();
   }
   // Update person role labels on cards
   document.querySelectorAll('[data-person-role]').forEach(el => {
@@ -2062,20 +2285,313 @@ function switchProcmap(id, btn) {
 
 // ===================== VIEW =====================
 function switchView(v) {
+  const role = getAppRole();
+  const preview = isPreviewMode();
+  const effectiveRole = preview ? 'employee' : role;
+  if (v === 'reqs' && effectiveRole === 'employee') return;
+  if (v === 'impl' && (preview || (role !== 'admin' && role !== 'super_admin'))) return;
+  if (v === 'onboarding' && effectiveRole !== 'employee') return;
+  const viewEl = document.getElementById(v + '-view');
+  if (!viewEl) return;
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-  document.getElementById(v + '-view').classList.add('active');
-  const idx = ['map','flow','procmap','docs','reqs','glossary','quiz','contacts'].indexOf(v);
-  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx].classList.add('active');
+  document.querySelectorAll('#main-nav .nav-tab').forEach(el => el.classList.remove('active'));
+  viewEl.classList.add('active');
+  const tab = document.querySelector(`#main-nav .nav-tab[data-view="${v}"]`);
+  if (tab) tab.classList.add('active');
   if (v === 'docs') renderDocs();
   if (v === 'reqs') renderReqs();
   if (v === 'glossary') renderGlossary();
-  // Update role labels on cards when switching to map
+  if (v === 'impl') refreshImplHub();
+  if (v === 'onboarding') refreshOnboardingEmployee();
   if (v === 'map') {
     document.querySelectorAll('[data-person-role]').forEach(el => {
       const pid = el.dataset.personRole;
       if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
     });
+  }
+}
+
+function applyInitialAppTabFromUrl() {
+  let tab = '';
+  try {
+    tab = (new URLSearchParams(window.location.search).get('tab') || '').trim();
+  } catch (_) {}
+  const allowed = new Set(['map', 'flow', 'procmap', 'docs', 'reqs', 'impl', 'glossary', 'quiz', 'onboarding', 'contacts']);
+  if (!tab || tab === 'map' || !allowed.has(tab)) return;
+  switchView(tab);
+}
+
+// ===================== IMPLEMENTATION API (admin / super_admin) =====================
+let implCompanies = [];
+let implVendors = [];
+
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function implApi(path, opts = {}) {
+  const r = await fetch('/api/implementation' + path, {
+    method: opts.method || 'GET',
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json', ...(opts.headers || {}) },
+    body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined
+  });
+  const text = await r.text();
+  let json = {};
+  try { json = text ? JSON.parse(text) : {}; } catch (_) { /* ignore */ }
+  if (!r.ok) throw new Error(json.error || text || r.statusText);
+  return json;
+}
+
+function switchImplTab(tab, btn) {
+  document.querySelectorAll('#impl-subnav .stream-tab').forEach((b) => b.classList.remove('active'));
+  (btn || document.querySelector(`#impl-subnav [data-impl-tab="${tab}"]`))?.classList.add('active');
+  document.querySelectorAll('#impl-view .impl-panel').forEach((p) => p.classList.remove('active'));
+  document.getElementById('impl-panel-' + tab)?.classList.add('active');
+  if (tab === 'report') refreshImplReport();
+  if (tab === 'diary') refreshImplDiary();
+  if (tab === 'vendors') refreshImplVendors();
+}
+
+async function initImplCompanies() {
+  const role = getAppRole();
+  if (role !== 'super_admin') return;
+  if (!implCompanies.length) {
+    try {
+      implCompanies = await implApi('/companies');
+    } catch (e) {
+      console.error(e);
+      implCompanies = [];
+    }
+  }
+  const filterSel = document.getElementById('impl-vendor-company-filter');
+  const reportSel = document.getElementById('impl-report-company');
+  const optAll = LANG === 'sr' ? 'Sve + globalni vendori' : 'All + global vendors';
+  if (filterSel) {
+    filterSel.innerHTML = `<option value="">${escapeHtml(optAll)}</option>`;
+    implCompanies.forEach((c) => {
+      filterSel.insertAdjacentHTML('beforeend', `<option value="${c.id}">${escapeHtml(c.name)}</option>`);
+    });
+  }
+  if (reportSel) {
+    reportSel.innerHTML = '';
+    implCompanies.forEach((c) => {
+      reportSel.insertAdjacentHTML('beforeend', `<option value="${c.id}">${escapeHtml(c.name)}</option>`);
+    });
+  }
+}
+
+function fillMeetVendorSelect() {
+  const sel = document.getElementById('impl-meet-vendor');
+  if (!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '';
+  implVendors.forEach((v) => {
+    sel.insertAdjacentHTML('beforeend', `<option value="${v.id}">${escapeHtml(v.name)}</option>`);
+  });
+  if (cur && [...sel.options].some((o) => o.value === cur)) sel.value = cur;
+}
+
+async function refreshImplVendors() {
+  const msg = document.getElementById('impl-vendors-msg');
+  const tbody = document.getElementById('impl-vendor-tbody');
+  const role = getAppRole();
+  const thCo = document.getElementById('impl-th-company');
+  if (thCo) thCo.style.display = role === 'super_admin' ? '' : 'none';
+  if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  try {
+    let path = '/vendors';
+    if (role === 'super_admin') {
+      const cid = document.getElementById('impl-vendor-company-filter')?.value;
+      if (cid) path += '?company_id=' + encodeURIComponent(cid);
+    }
+    implVendors = await implApi(path);
+    fillMeetVendorSelect();
+    if (!implVendors.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="impl-note">${escapeHtml(t('impl_no_vendors'))}</td></tr>`;
+      return;
+    }
+    implVendors.forEach((v) => {
+      const tr = document.createElement('tr');
+      const companyCell =
+        role === 'super_admin'
+          ? `<td><select class="impl-inp impl-vendor-co" data-vendor-id="${v.id}" style="min-width:140px;">
+              <option value="">${LANG === 'sr' ? 'Globalno' : 'Global'}</option>
+              ${implCompanies.map((c) => `<option value="${c.id}" ${v.company_id === c.id ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('')}
+            </select></td>`
+          : '<td style="display:none"></td>';
+      tr.innerHTML = `
+        <td><input class="impl-inp impl-v-name" type="text" value="${escapeHtml(v.name)}" data-vendor-id="${v.id}"></td>
+        <td><input class="impl-inp impl-v-status" type="text" value="${escapeHtml(v.status)}" data-vendor-id="${v.id}"></td>
+        <td><input class="impl-inp impl-v-notes" type="text" value="${escapeHtml(v.notes || '')}" data-vendor-id="${v.id}"></td>
+        ${companyCell}
+        <td style="white-space:nowrap;">
+          <button type="button" class="btn-secondary" data-action="impl-save-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_save'))}</button>
+          <button type="button" class="btn-secondary" data-action="impl-delete-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_delete'))}</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  } catch (e) {
+    console.error(e);
+    if (msg) {
+      msg.style.display = 'block';
+      msg.textContent = t('impl_err') + ' ' + (e.message || '');
+    }
+  }
+}
+
+async function refreshImplDiary() {
+  const jd = document.getElementById('impl-journal-date');
+  if (jd && !jd.value) jd.value = new Date().toISOString().slice(0, 10);
+  const meetList = document.getElementById('impl-meet-list');
+  const taskList = document.getElementById('impl-task-list');
+  const journalList = document.getElementById('impl-journal-list');
+  try {
+    const [meetings, tasks, journal] = await Promise.all([
+      implApi('/meetings'),
+      implApi('/tasks'),
+      implApi('/journal')
+    ]);
+    if (meetList) {
+      meetList.innerHTML = meetings.length
+        ? meetings
+            .map((m) => {
+              const vn = implVendors.find((x) => x.id === m.vendor_id);
+              const when = m.scheduled_at ? new Date(m.scheduled_at).toLocaleString() : '—';
+              return `<div class="impl-report-block" style="border:none;padding:8px 0;">
+                <div class="impl-report-title">${escapeHtml(m.title)} <span class="impl-report-meta">· ${escapeHtml(vn?.name || '')} · ${escapeHtml(when)}</span></div>
+                ${m.meet_url ? `<div class="impl-report-meta"><a href="${escapeHtml(m.meet_url)}" target="_blank" rel="noopener">Meet</a></div>` : ''}
+                ${m.recording_url ? `<div class="impl-report-meta"><a href="${escapeHtml(m.recording_url)}" target="_blank" rel="noopener">Recording</a></div>` : ''}
+                <button type="button" class="btn-secondary" data-action="impl-delete-meeting" data-meeting-id="${m.id}">${escapeHtml(t('impl_delete'))}</button>
+              </div>`;
+            })
+            .join('')
+        : `<p class="impl-note">${LANG === 'sr' ? 'Nema sastanaka.' : 'No meetings yet.'}</p>`;
+    }
+    if (taskList) {
+      taskList.innerHTML = tasks.length
+        ? tasks
+            .map(
+              (x) =>
+                `<div class="onb-mod" style="border:none;">
+              <input type="checkbox" data-action="impl-toggle-task" data-task-id="${x.id}" ${x.done ? 'checked' : ''}/>
+              <span>${escapeHtml(x.title)}${x.task_type === 'document' ? ' 📄' : ''}</span>
+              <span class="impl-report-meta" style="margin-left:auto;">${x.due_at ? escapeHtml(x.due_at.slice(0, 10)) : ''}</span>
+              <button type="button" class="btn-secondary" data-action="impl-delete-task" data-task-id="${x.id}">${escapeHtml(t('impl_delete'))}</button>
+            </div>`
+            )
+            .join('')
+        : `<p class="impl-note">${LANG === 'sr' ? 'Nema taskova.' : 'No tasks yet.'}</p>`;
+    }
+    if (journalList) {
+      journalList.innerHTML = journal.length
+        ? journal
+            .map(
+              (j) =>
+                `<div class="impl-report-block" style="border:none;">
+              <div class="impl-report-meta">${escapeHtml(j.entry_date)}</div>
+              <div style="font-size:.86rem;margin:6px 0;">${escapeHtml(j.body)}</div>
+              <button type="button" class="btn-secondary" data-action="impl-delete-journal" data-journal-id="${j.id}">${escapeHtml(t('impl_delete'))}</button>
+            </div>`
+            )
+            .join('')
+        : `<p class="impl-note">${LANG === 'sr' ? 'Nema unosa.' : 'No journal entries yet.'}</p>`;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function refreshImplReport() {
+  const body = document.getElementById('impl-report-body');
+  const toolbar = document.getElementById('impl-report-select-wrap');
+  const role = getAppRole();
+  if (!body) return;
+  body.innerHTML = '';
+  if (toolbar) {
+    if (role === 'super_admin') {
+      toolbar.classList.add('visible');
+    } else {
+      toolbar.classList.remove('visible');
+    }
+  }
+  try {
+    let path = '/onboarding/report';
+    if (role === 'super_admin') {
+      const cid = document.getElementById('impl-report-company')?.value;
+      if (cid) path += '?company_id=' + encodeURIComponent(cid);
+    }
+    const rows = await implApi(path);
+    if (!rows.length) {
+      body.innerHTML = `<p class="impl-note">${LANG === 'sr' ? 'Nema zaposlenih za prikaz.' : 'No employees to show.'}</p>`;
+      return;
+    }
+    body.innerHTML = rows
+      .map((r) => {
+        const pct = r.total ? Math.round((100 * r.completed) / r.total) : 0;
+        return `<div class="impl-report-block">
+          <div class="impl-report-title">${escapeHtml(r.name)}</div>
+          <div class="impl-report-meta">${escapeHtml(r.email || '')} · ${r.completed}/${r.total} (${pct}%)</div>
+        </div>`;
+      })
+      .join('');
+  } catch (e) {
+    console.error(e);
+    body.innerHTML = `<p class="impl-msg">${escapeHtml(e.message || '')}</p>`;
+  }
+}
+
+async function refreshImplHub() {
+  const role = getAppRole();
+  const wrap = document.getElementById('impl-company-filter-wrap');
+  if (wrap) wrap.style.display = role === 'super_admin' ? 'flex' : 'none';
+  if (role === 'super_admin' && !implCompanies.length) await initImplCompanies();
+  const activePanel = document.querySelector('#impl-view .impl-panel.active')?.id;
+  if (activePanel === 'impl-panel-diary') await refreshImplDiary();
+  else if (activePanel === 'impl-panel-report') await refreshImplReport();
+  else await refreshImplVendors();
+}
+
+async function refreshOnboardingEmployee() {
+  const list = document.getElementById('onboarding-modules-list');
+  const line = document.getElementById('onb-progress-line');
+  const err = document.getElementById('onboarding-error');
+  if (err) {
+    err.style.display = 'none';
+    err.textContent = '';
+  }
+  if (!list) return;
+  list.innerHTML = '';
+  try {
+    const data = await implApi('/onboarding/my-progress');
+    if (line) line.textContent = `${t('onb_progress')}: ${data.completed} / ${data.total}`;
+    data.modules.forEach((m) => {
+      const title = LANG === 'sr' ? m.title_sr : m.title_en;
+      const row = document.createElement('label');
+      row.className = 'onb-mod';
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.checked = !!m.completed_at;
+      chk.dataset.action = 'onboarding-toggle';
+      chk.dataset.moduleKey = m.key;
+      const span = document.createElement('span');
+      span.textContent = title;
+      row.appendChild(chk);
+      row.appendChild(span);
+      list.appendChild(row);
+    });
+  } catch (e) {
+    console.error(e);
+    if (err) {
+      err.style.display = 'block';
+      err.textContent = e.message || t('impl_err');
+    }
   }
 }
 
@@ -2652,6 +3168,176 @@ window.addEventListener('DOMContentLoaded', () => {
       downloadContactsCSV();
       return;
     }
+    if (action === 'switch-impl-tab') {
+      const tab = el.getAttribute('data-impl-tab');
+      if (tab) switchImplTab(tab, el);
+      return;
+    }
+    if (action === 'impl-refresh-vendors') {
+      refreshImplVendors();
+      return;
+    }
+    if (action === 'impl-add-vendor') {
+      (async () => {
+        try {
+          const role = getAppRole();
+          let company_id = null;
+          if (role === 'super_admin') {
+            const cid = document.getElementById('impl-vendor-company-filter')?.value;
+            company_id = cid || null;
+          }
+          await implApi('/vendors', {
+            method: 'POST',
+            body: {
+              name: LANG === 'sr' ? 'Novi vendor' : 'New vendor',
+              status: 'active',
+              notes: '',
+              company_id
+            }
+          });
+          await refreshImplVendors();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-save-vendor') {
+      const id = el.getAttribute('data-vendor-id');
+      const tr = el.closest('tr');
+      (async () => {
+        try {
+          const name = tr?.querySelector('.impl-v-name')?.value?.trim();
+          const status = tr?.querySelector('.impl-v-status')?.value?.trim();
+          const notes = tr?.querySelector('.impl-v-notes')?.value ?? '';
+          const coSel = tr?.querySelector('.impl-vendor-co');
+          const body = { name, status, notes };
+          if (coSel) body.company_id = coSel.value || null;
+          await implApi('/vendors/' + id, { method: 'PATCH', body });
+          await refreshImplVendors();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-delete-vendor') {
+      const id = el.getAttribute('data-vendor-id');
+      if (!id || !confirm(LANG === 'sr' ? 'Obrisati vendor?' : 'Delete this vendor?')) return;
+      (async () => {
+        try {
+          await implApi('/vendors/' + id, { method: 'DELETE' });
+          await refreshImplVendors();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-add-meeting') {
+      (async () => {
+        try {
+          const vendor_id = document.getElementById('impl-meet-vendor')?.value;
+          const title = document.getElementById('impl-meet-title')?.value?.trim();
+          const scheduled_raw = document.getElementById('impl-meet-when')?.value;
+          const meet_url = document.getElementById('impl-meet-url')?.value?.trim() || null;
+          const recording_url = document.getElementById('impl-meet-rec')?.value?.trim() || null;
+          if (!vendor_id || !title) {
+            alert(LANG === 'sr' ? 'Izaberi vendor i naslov.' : 'Pick a vendor and title.');
+            return;
+          }
+          const scheduled_at = scheduled_raw ? new Date(scheduled_raw).toISOString() : null;
+          await implApi('/meetings', {
+            method: 'POST',
+            body: { vendor_id, title, scheduled_at, meet_url, recording_url }
+          });
+          document.getElementById('impl-meet-title').value = '';
+          document.getElementById('impl-meet-when').value = '';
+          document.getElementById('impl-meet-url').value = '';
+          document.getElementById('impl-meet-rec').value = '';
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-delete-meeting') {
+      const id = el.getAttribute('data-meeting-id');
+      if (!id) return;
+      (async () => {
+        try {
+          await implApi('/meetings/' + id, { method: 'DELETE' });
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-add-task') {
+      (async () => {
+        try {
+          const title = document.getElementById('impl-task-title')?.value?.trim();
+          if (!title) return;
+          const due = document.getElementById('impl-task-due')?.value || null;
+          const task_type = document.getElementById('impl-task-doc')?.checked ? 'document' : 'general';
+          await implApi('/tasks', { method: 'POST', body: { title, due_at: due, task_type } });
+          document.getElementById('impl-task-title').value = '';
+          document.getElementById('impl-task-due').value = '';
+          document.getElementById('impl-task-doc').checked = false;
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-delete-task') {
+      const id = el.getAttribute('data-task-id');
+      if (!id) return;
+      (async () => {
+        try {
+          await implApi('/tasks/' + id, { method: 'DELETE' });
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-save-journal') {
+      (async () => {
+        try {
+          const body = document.getElementById('impl-journal-body')?.value?.trim();
+          const entry_date = document.getElementById('impl-journal-date')?.value;
+          if (!body) return;
+          await implApi('/journal', { method: 'POST', body: { body, entry_date } });
+          document.getElementById('impl-journal-body').value = '';
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-delete-journal') {
+      const id = el.getAttribute('data-journal-id');
+      if (!id) return;
+      (async () => {
+        try {
+          await implApi('/journal/' + id, { method: 'DELETE' });
+          await refreshImplDiary();
+        } catch (err) {
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (action === 'impl-load-report') {
+      refreshImplReport();
+      return;
+    }
     if (action === 'switch-view') {
       const view = el.getAttribute('data-view');
       if (view) switchView(view);
@@ -2692,10 +3378,49 @@ window.addEventListener('DOMContentLoaded', () => {
     renderGlossary();
   });
 
+  document.getElementById('impl-vendor-company-filter')?.addEventListener('change', () => {
+    refreshImplVendors();
+  });
+
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (!(t instanceof HTMLElement)) return;
+    if (t.matches('input[data-action="onboarding-toggle"]')) {
+      const key = t.getAttribute('data-module-key');
+      if (!key) return;
+      (async () => {
+        const prev = !t.checked;
+        try {
+          if (t.checked) await implApi('/onboarding/complete', { method: 'POST', body: { module_key: key } });
+          else await implApi('/onboarding/complete/' + encodeURIComponent(key), { method: 'DELETE' });
+          await refreshOnboardingEmployee();
+        } catch (err) {
+          t.checked = prev;
+          alert(err.message || String(err));
+        }
+      })();
+      return;
+    }
+    if (t.matches('input[data-action="impl-toggle-task"]')) {
+      const id = t.getAttribute('data-task-id');
+      if (!id) return;
+      (async () => {
+        try {
+          await implApi('/tasks/' + id, { method: 'PATCH', body: { done: t.checked } });
+        } catch (err) {
+          t.checked = !t.checked;
+          alert(err.message || String(err));
+        }
+      })();
+    }
+  });
+
   // Close panel on backdrop click (overlay).
   document.getElementById('panel-overlay')?.addEventListener('click', (e) => {
     if (e.target === document.getElementById('panel-overlay')) closePanel();
   });
+
+  applyInitialAppTabFromUrl();
 });
 
 function downloadContactsCSV() {
@@ -2735,12 +3460,32 @@ async function logout() {
 
 // ===================== BOOT =====================
 (function() {
-  const role = window.__USER_ROLE__ || 'employee';
+  const role = getAppRole();
+  const preview = isPreviewMode();
+  const effectiveRole = preview ? 'employee' : role;
 
-  // Hide Software Reqs tab for anyone who isn't super_admin
-  if (role !== 'super_admin') {
-    const tab = document.getElementById('nav-tab-reqs');
-    if (tab) tab.style.display = 'none';
+  const reqsTab = document.getElementById('nav-tab-reqs');
+  if (reqsTab) {
+    if (effectiveRole === 'employee') reqsTab.style.display = 'none';
+    else reqsTab.style.display = 'inline-flex';
+  }
+
+  const implTab = document.getElementById('nav-tab-impl');
+  if (implTab) {
+    if (!preview && (role === 'admin' || role === 'super_admin')) implTab.style.display = 'inline-flex';
+    else implTab.style.display = 'none';
+  }
+
+  const onbTab = document.getElementById('nav-tab-onboarding');
+  if (onbTab) {
+    if (!preview && effectiveRole === 'employee') onbTab.style.display = 'inline-flex';
+    else onbTab.style.display = 'none';
+  }
+
+  const adminDash = document.getElementById('link-admin-dashboard');
+  if (adminDash && (role === 'admin' || role === 'super_admin') && !preview) {
+    adminDash.style.display = '';
+    adminDash.setAttribute('target', '_top');
   }
 })();
 </script>
