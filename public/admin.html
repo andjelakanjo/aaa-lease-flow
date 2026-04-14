@@ -262,8 +262,8 @@ select option{background:#0f1629;}
 <main>
   <!-- Tab nav -->
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('users', this)">Users</button>
-    <button class="tab-btn" id="tab-companies" onclick="switchTab('companies', this)" style="display:none">Companies</button>
+    <button class="tab-btn active" type="button" data-action="switch-tab" data-tab="users">Users</button>
+    <button class="tab-btn" type="button" id="tab-companies" data-action="switch-tab" data-tab="companies" style="display:none">Companies</button>
   </div>
 
   <!-- Users panel -->
@@ -271,9 +271,9 @@ select option{background:#0f1629;}
     <div class="panel-header">
       <h2 id="users-heading">Users</h2>
       <div class="panel-actions">
-        <button class="btn-preview" onclick="previewAppFromUsers()">👁 Preview App</button>
-        <button class="btn-secondary" id="btn-create-admin" onclick="openModal('modal-admin')" style="display:none">+ Create Admin</button>
-        <button class="btn-primary" onclick="openModal('modal-employee')">+ Create Employee</button>
+        <button class="btn-preview" type="button" data-action="preview-app-from-users">👁 Preview App</button>
+        <button class="btn-secondary" type="button" id="btn-create-admin" data-action="open-modal" data-modal="modal-admin" style="display:none">+ Create Admin</button>
+        <button class="btn-primary" type="button" data-action="open-modal" data-modal="modal-employee">+ Create Employee</button>
       </div>
     </div>
     <div class="table-wrap">
@@ -300,7 +300,7 @@ select option{background:#0f1629;}
   <div class="panel" id="panel-companies">
     <div class="panel-header">
       <h2>Companies</h2>
-      <button class="btn-primary" onclick="openModal('modal-company')">+ Create Company</button>
+      <button class="btn-primary" type="button" data-action="open-modal" data-modal="modal-company">+ Create Company</button>
     </div>
     <div class="table-wrap">
       <table>
@@ -324,7 +324,7 @@ select option{background:#0f1629;}
       <span class="preview-sep">|</span>
       <span id="preview-banner-sub">Gledaš kako zaposleni vide aplikaciju</span>
     </span>
-    <button class="btn-close-preview" onclick="closePreview()">✕ Zatvori preview</button>
+    <button class="btn-close-preview" type="button" data-action="close-preview">✕ Zatvori preview</button>
   </div>
   <iframe class="preview-iframe" id="preview-iframe" src="" title="App Preview" sandbox="allow-scripts allow-same-origin"></iframe>
 </div>
@@ -341,8 +341,8 @@ select option{background:#0f1629;}
       <input type="text" id="company-name" placeholder="e.g. AAA Lease">
     </div>
     <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('modal-company')">Cancel</button>
-      <button class="btn-modal-submit" id="submit-company" onclick="submitCompany()">Create</button>
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-company">Cancel</button>
+      <button class="btn-modal-submit" type="button" id="submit-company" data-action="submit-company">Create</button>
     </div>
   </div>
 </div>
@@ -371,11 +371,70 @@ select option{background:#0f1629;}
       </select>
     </div>
     <p style="font-size:.78rem;color:var(--text-muted);margin-top:-8px;margin-bottom:16px;">
-      An invite email will be sent to set their password.
+      You will get a password-set link to share (email/Slack).
     </p>
     <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('modal-admin')">Cancel</button>
-      <button class="btn-modal-submit" id="submit-admin" onclick="submitAdmin()">Send Invite</button>
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-admin">Cancel</button>
+      <button class="btn-modal-submit" type="button" id="submit-admin" data-action="submit-admin">Send Invite</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invite Link Display (shown after admin creation) -->
+<div class="modal-backdrop" id="modal-invite-link">
+  <div class="modal" style="text-align:center;">
+    <h3>Admin Created</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;">
+      Share this link so they can set a password.
+    </p>
+    <div class="code-display" style="text-align:left;">
+      <p>Invite Link</p>
+      <div class="code-value" id="invite-link-value" style="font-size:.78rem;letter-spacing:0;word-break:break-all;">—</div>
+    </div>
+    <button class="btn-copy" type="button" data-action="copy-invite-link">Copy Link</button>
+    <div class="copy-success" id="invite-copy-success" style="display:none">Copied!</div>
+    <div class="modal-actions" style="justify-content:center;margin-top:24px;">
+      <button class="btn-modal-submit" type="button" data-action="close-modal" data-modal="modal-invite-link">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Password recovery link (super_admin — share with admin / super_admin who missed email) -->
+<div class="modal-backdrop" id="modal-recovery-link">
+  <div class="modal" style="text-align:center;">
+    <h3>Password reset link</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;">
+      Share this link once. It opens the same “set password” page as invite recovery.
+    </p>
+    <div class="code-display" style="text-align:left;">
+      <p>Link</p>
+      <div class="code-value" id="recovery-link-value" style="font-size:.78rem;letter-spacing:0;word-break:break-all;">—</div>
+    </div>
+    <button class="btn-copy" type="button" data-action="copy-recovery-link">Copy link</button>
+    <div class="copy-success" id="recovery-copy-success" style="display:none">Copied!</div>
+    <div class="modal-actions" style="justify-content:center;margin-top:24px;">
+      <button class="btn-modal-submit" type="button" data-action="close-modal" data-modal="modal-recovery-link">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Set password directly (super_admin — e.g. colleague never opened invite email) -->
+<div class="modal-backdrop" id="modal-set-password">
+  <div class="modal">
+    <h3>Set password</h3>
+    <p id="set-password-for-label" style="font-size:.82rem;color:var(--text-muted);margin-bottom:14px;"></p>
+    <div class="modal-error" id="err-set-password"></div>
+    <div class="field">
+      <label for="set-password-new">New password</label>
+      <input type="password" id="set-password-new" autocomplete="new-password" placeholder="At least 8 characters">
+    </div>
+    <div class="field">
+      <label for="set-password-confirm">Confirm password</label>
+      <input type="password" id="set-password-confirm" autocomplete="new-password" placeholder="Repeat password">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-set-password">Cancel</button>
+      <button class="btn-modal-submit" type="button" id="submit-set-password" data-action="submit-set-password">Save</button>
     </div>
   </div>
 </div>
@@ -408,8 +467,8 @@ select option{background:#0f1629;}
       </select>
     </div>
     <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('modal-employee')">Cancel</button>
-      <button class="btn-modal-submit" id="submit-employee" onclick="submitEmployee()">Create</button>
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-employee">Cancel</button>
+      <button class="btn-modal-submit" type="button" id="submit-employee" data-action="submit-employee">Create</button>
     </div>
   </div>
 </div>
@@ -425,10 +484,10 @@ select option{background:#0f1629;}
       <p>Access Code</p>
       <div class="code-value" id="code-value">AAA-XXXX-XXXX</div>
     </div>
-    <button class="btn-copy" onclick="copyCode()">Copy Code</button>
+    <button class="btn-copy" type="button" data-action="copy-code">Copy Code</button>
     <div class="copy-success" id="copy-success" style="display:none">Copied!</div>
     <div class="modal-actions" style="justify-content:center;margin-top:24px;">
-      <button class="btn-modal-submit" onclick="closeModal('modal-access-code')">Done</button>
+      <button class="btn-modal-submit" type="button" data-action="close-modal" data-modal="modal-access-code">Done</button>
     </div>
   </div>
 </div>
@@ -441,10 +500,10 @@ select option{background:#0f1629;}
       <p>Access Code</p>
       <div class="code-value" id="view-code-value">—</div>
     </div>
-    <button class="btn-copy" onclick="copyViewCode()">Copy Code</button>
+    <button class="btn-copy" type="button" data-action="copy-view-code">Copy Code</button>
     <div class="copy-success" id="view-copy-success" style="display:none">Copied!</div>
     <div class="modal-actions" style="justify-content:center;margin-top:24px;">
-      <button class="btn-modal-submit" onclick="closeModal('modal-view-code')">Close</button>
+      <button class="btn-modal-submit" type="button" data-action="close-modal" data-modal="modal-view-code">Close</button>
     </div>
   </div>
 </div>
@@ -463,9 +522,9 @@ select option{background:#0f1629;}
       <input type="text" id="delete-confirm-input" placeholder="delete" autocomplete="off">
     </div>
     <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('modal-delete')">Cancel</button>
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-delete">Cancel</button>
       <button class="btn-modal-submit" id="submit-delete"
-        style="background:var(--error);" onclick="submitDelete()">Delete</button>
+        type="button" style="background:var(--error);" data-action="submit-delete">Delete</button>
     </div>
   </div>
 </div>
@@ -484,418 +543,12 @@ select option{background:#0f1629;}
       </select>
     </div>
     <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('modal-extend')">Cancel</button>
-      <button class="btn-modal-submit" onclick="submitExtend()">Extend</button>
+      <button class="btn-modal-cancel" type="button" data-action="close-modal" data-modal="modal-extend">Cancel</button>
+      <button class="btn-modal-submit" type="button" data-action="submit-extend">Extend</button>
     </div>
   </div>
 </div>
 
-<script>
-// ── State ─────────────────────────────────────────────────────────────────────
-let currentUser = null;
-let companies = [];
-let selectedUserId = null;
-let userToDeleteId = null;
-
-// ── Init ──────────────────────────────────────────────────────────────────────
-async function init() {
-  try {
-    const res = await fetch('/admin/api/me', { headers: { Accept: 'application/json' } });
-    if (!res.ok) { window.location.href = '/login'; return; }
-    currentUser = await res.json();
-  } catch {
-    window.location.href = '/login';
-    return;
-  }
-
-  // Header
-  const name = [currentUser.firstName, currentUser.lastName].filter(Boolean).join(' ')
-             || currentUser.email || 'Admin';
-  document.getElementById('user-name').textContent = name;
-  const badge = document.getElementById('user-role-badge');
-  badge.textContent = currentUser.role.replace('_', ' ');
-  badge.className = `badge badge-${currentUser.role}`;
-
-  // Super-admin-only elements
-  if (currentUser.role === 'super_admin') {
-    document.getElementById('tab-companies').style.display = '';
-    document.getElementById('btn-create-admin').style.display = '';
-  } else {
-    document.getElementById('users-heading').textContent = 'Employees';
-    document.getElementById('emp-company-field').style.display = 'none';
-  }
-
-  // Load data
-  await Promise.all([
-    loadUsers(),
-    loadCompanies()
-  ]);
-}
-
-// ── Tab switching ─────────────────────────────────────────────────────────────
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-' + name).classList.add('active');
-}
-
-// ── Data loading ──────────────────────────────────────────────────────────────
-async function loadUsers() {
-  const res = await fetch('/admin/api/users', { headers: { Accept: 'application/json' } });
-  if (!res.ok) { showToast('Failed to load users.', 'error'); return; }
-  const users = await res.json();
-  renderUsers(users);
-}
-
-async function loadCompanies() {
-  const res = await fetch('/admin/api/companies', { headers: { Accept: 'application/json' } });
-  if (!res.ok) return;
-  companies = await res.json();
-  renderCompanies(companies);
-  populateCompanySelects(companies);
-}
-
-// ── Render helpers ────────────────────────────────────────────────────────────
-function renderUsers(users) {
-  const tbody = document.getElementById('users-tbody');
-  if (!users.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No users yet.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = users.map(u => {
-    const name = [u.first_name, u.last_name].filter(Boolean).join(' ') || '—';
-    const company = u.companies?.name || '—';
-    const expiry = formatExpiry(u.expires_at);
-    const status = u.is_active
-      ? `<span class="status-active">Active</span>`
-      : `<span class="status-revoked">Revoked</span>`;
-
-    const emailCell = u.role === 'employee'
-      ? `<span style="color:var(--text-muted);font-size:.78rem">Access Code</span>`
-      : `<span style="font-size:.82rem">${esc(u.email || '—')}</span>`;
-
-    // Actions: never show for super_admin rows (protect self-lock), show for others
-    let actions = '';
-    if (u.role !== 'super_admin') {
-      const viewCodeBtn = u.role === 'employee' && u.access_code
-        ? `<button class="btn-sm" onclick="openViewCode('${esc(u.access_code)}')">View Code</button>`
-        : '';
-      actions = `
-        ${viewCodeBtn}
-        <button class="btn-sm" onclick="openExtend('${u.id}')">Extend</button>
-        ${u.is_active
-          ? `<button class="btn-sm-danger" onclick="revokeUser('${u.id}')">Revoke</button>`
-          : ''}
-        <button class="btn-sm-danger" onclick="openDeleteUser('${u.id}', '${esc(name)}')">Delete</button>
-      `;
-    }
-
-    return `<tr>
-      <td>${esc(name)}</td>
-      <td><span class="badge badge-${u.role}">${u.role.replace('_',' ')}</span></td>
-      <td>${emailCell}</td>
-      <td>${esc(company)}</td>
-      <td>${expiry}</td>
-      <td>${status}</td>
-      <td><div class="td-actions">${actions}</div></td>
-    </tr>`;
-  }).join('');
-}
-
-function renderCompanies(list) {
-  const tbody = document.getElementById('companies-tbody');
-  if (!list.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="3">No companies yet.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = list.map(c => `
-    <tr>
-      <td>${esc(c.name)}</td>
-      <td style="color:var(--text-muted);font-size:.82rem">${fmtDate(c.created_at)}</td>
-      <td><div class="td-actions">
-        <button class="btn-preview" onclick="previewApp('${esc(c.name)}', 'Gledaš kako zaposleni vide aplikaciju')">👁 Preview App</button>
-      </div></td>
-    </tr>
-  `).join('');
-}
-
-function populateCompanySelects(list) {
-  const opts = ['<option value="">— select company —</option>',
-    ...list.map(c => `<option value="${c.id}">${esc(c.name)}</option>`)
-  ].join('');
-  document.getElementById('admin-company').innerHTML = opts;
-  document.getElementById('emp-company').innerHTML = opts;
-}
-
-function formatExpiry(ts) {
-  if (!ts) return '<span style="color:var(--text-muted)">Unlimited</span>';
-  const d = new Date(ts);
-  if (d < new Date()) return `<span class="status-expired">Expired ${fmtDate(ts)}</span>`;
-  return fmtDate(ts);
-}
-
-function fmtDate(ts) {
-  return new Date(ts).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-}
-
-function esc(str) {
-  return String(str).replace(/[&<>"']/g, c =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-// ── Modal helpers ─────────────────────────────────────────────────────────────
-function openModal(id) {
-  // Clear errors and inputs when opening
-  const modal = document.getElementById(id);
-  modal.querySelectorAll('.modal-error').forEach(e => { e.textContent=''; e.classList.remove('show'); });
-  modal.querySelectorAll('input').forEach(i => i.value = '');
-  document.getElementById(id).classList.add('open');
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
-
-// Close on backdrop click
-document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-  backdrop.addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
-});
-
-function setModalError(errId, msg) {
-  const el = document.getElementById(errId);
-  el.textContent = msg;
-  el.classList.add('show');
-}
-
-function setSubmitLoading(btnId, loading) {
-  const btn = document.getElementById(btnId);
-  if (btn) btn.disabled = loading;
-}
-
-// ── Create Company ────────────────────────────────────────────────────────────
-async function submitCompany() {
-  const name = document.getElementById('company-name').value.trim();
-  if (!name) { setModalError('err-company', 'Company name is required.'); return; }
-
-  setSubmitLoading('submit-company', true);
-  const res = await fetch('/admin/api/companies', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ name })
-  });
-  const data = await res.json();
-  setSubmitLoading('submit-company', false);
-
-  if (!res.ok) { setModalError('err-company', data.error || 'Failed to create company.'); return; }
-  closeModal('modal-company');
-  showToast('Company created.');
-  await loadCompanies();
-}
-
-// ── Create Admin ──────────────────────────────────────────────────────────────
-async function submitAdmin() {
-  const first_name = document.getElementById('admin-first').value.trim();
-  const last_name = document.getElementById('admin-last').value.trim();
-  const email = document.getElementById('admin-email').value.trim();
-  const company_id = document.getElementById('admin-company').value;
-
-  if (!first_name || !last_name || !email || !company_id) {
-    setModalError('err-admin', 'All fields are required.'); return;
-  }
-
-  setSubmitLoading('submit-admin', true);
-  const res = await fetch('/admin/api/users/admin', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ first_name, last_name, email, company_id })
-  });
-  const data = await res.json();
-  setSubmitLoading('submit-admin', false);
-
-  if (!res.ok) { setModalError('err-admin', data.error || 'Failed to create admin.'); return; }
-  closeModal('modal-admin');
-  showToast('Admin invited — invite email sent.');
-  await loadUsers();
-}
-
-// ── Create Employee ───────────────────────────────────────────────────────────
-async function submitEmployee() {
-  const first_name = document.getElementById('emp-first').value.trim();
-  const last_name = document.getElementById('emp-last').value.trim();
-  const expiry = document.getElementById('emp-expiry').value;
-  const company_id = currentUser.role === 'super_admin'
-    ? document.getElementById('emp-company').value
-    : currentUser.companyId;
-
-  if (!first_name || !last_name) {
-    setModalError('err-employee', 'First name and last name are required.'); return;
-  }
-  if (currentUser.role === 'super_admin' && !company_id) {
-    setModalError('err-employee', 'Please select a company.'); return;
-  }
-
-  setSubmitLoading('submit-employee', true);
-  const res = await fetch('/admin/api/users/employee', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ first_name, last_name, expiry, company_id })
-  });
-  const data = await res.json();
-  setSubmitLoading('submit-employee', false);
-
-  if (!res.ok) { setModalError('err-employee', data.error || 'Failed to create employee.'); return; }
-  closeModal('modal-employee');
-  await loadUsers();
-
-  // Show access code
-  document.getElementById('code-value').textContent = data.access_code;
-  document.getElementById('copy-success').style.display = 'none';
-  openModal('modal-access-code');
-}
-
-// ── Copy access code ──────────────────────────────────────────────────────────
-function copyCode() {
-  const code = document.getElementById('code-value').textContent;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('copy-success').style.display = 'block';
-  });
-}
-
-// ── Extend Access ─────────────────────────────────────────────────────────────
-function openExtend(userId) {
-  selectedUserId = userId;
-  document.getElementById('extend-expiry').value = '30days';
-  document.getElementById('err-extend').classList.remove('show');
-  document.getElementById('modal-extend').classList.add('open');
-}
-
-async function submitExtend() {
-  if (!selectedUserId) return;
-  const expiry = document.getElementById('extend-expiry').value;
-
-  const res = await fetch(`/admin/api/users/${selectedUserId}/extend`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ expiry })
-  });
-  const data = await res.json();
-
-  if (!res.ok) { setModalError('err-extend', data.error || 'Failed to extend access.'); return; }
-  closeModal('modal-extend');
-  showToast('Access extended.');
-  selectedUserId = null;
-  await loadUsers();
-}
-
-// ── Revoke ────────────────────────────────────────────────────────────────────
-async function revokeUser(userId) {
-  if (!confirm('Revoke access for this user? They will be signed out immediately.')) return;
-
-  const res = await fetch(`/admin/api/users/${userId}/revoke`, {
-    method: 'PATCH',
-    headers: { Accept: 'application/json' }
-  });
-  const data = await res.json();
-
-  if (!res.ok) { showToast(data.error || 'Failed to revoke.', 'error'); return; }
-  showToast('Access revoked.');
-  await loadUsers();
-}
-
-// ── View Access Code ──────────────────────────────────────────────────────────
-function openViewCode(code) {
-  document.getElementById('view-code-value').textContent = code;
-  document.getElementById('view-copy-success').style.display = 'none';
-  document.getElementById('modal-view-code').classList.add('open');
-}
-
-function copyViewCode() {
-  const code = document.getElementById('view-code-value').textContent;
-  navigator.clipboard.writeText(code).then(() => {
-    document.getElementById('view-copy-success').style.display = 'block';
-  });
-}
-
-// ── Delete User ───────────────────────────────────────────────────────────────
-function openDeleteUser(userId, name) {
-  userToDeleteId = userId;
-  document.getElementById('delete-user-name').textContent = name;
-  document.getElementById('delete-confirm-input').value = '';
-  const errEl = document.getElementById('err-delete');
-  errEl.textContent = '';
-  errEl.classList.remove('show');
-  document.getElementById('modal-delete').classList.add('open');
-}
-
-async function submitDelete() {
-  if (!userToDeleteId) return;
-  const input = document.getElementById('delete-confirm-input').value.trim();
-  if (input !== 'delete') {
-    setModalError('err-delete', 'Type "delete" to confirm.');
-    return;
-  }
-
-  setSubmitLoading('submit-delete', true);
-  const res = await fetch(`/admin/api/users/${userToDeleteId}`, {
-    method: 'DELETE',
-    headers: { Accept: 'application/json' }
-  });
-  const data = await res.json();
-  setSubmitLoading('submit-delete', false);
-
-  if (!res.ok) { setModalError('err-delete', data.error || 'Failed to delete user.'); return; }
-  closeModal('modal-delete');
-  showToast('User deleted.');
-  userToDeleteId = null;
-  await loadUsers();
-}
-
-// ── Toast ─────────────────────────────────────────────────────────────────────
-function showToast(msg, type = 'success') {
-  const t = document.createElement('div');
-  t.className = `toast toast-${type}`;
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 3500);
-}
-
-// ── Preview App ───────────────────────────────────────────────────────────────
-function previewApp(companyName, bannerSub) {
-  document.getElementById('preview-co-name').textContent = companyName || 'AAA Lease';
-  document.getElementById('preview-banner-sub').textContent = bannerSub || 'Gledaš kako zaposleni vide aplikaciju';
-  // Re-set src so the iframe always reloads fresh
-  const iframe = document.getElementById('preview-iframe');
-  iframe.src = '';
-  iframe.src = '/app?preview=true';
-  const container = document.getElementById('preview-container');
-  container.classList.add('open');
-  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function previewAppFromUsers() {
-  let companyName = 'AAA Lease';
-  let bannerSub = 'Gledaš kako zaposleni vide aplikaciju';
-  if (currentUser?.role === 'admin') {
-    const co = companies.find(c => c.id === currentUser.companyId);
-    companyName = co?.name || 'AAA Lease';
-    bannerSub = 'Gledaš kako tvoji zaposleni vide aplikaciju';
-  } else {
-    // super_admin: use first loaded company name or fallback
-    companyName = companies[0]?.name || 'AAA Lease';
-  }
-  previewApp(companyName, bannerSub);
-}
-
-function closePreview() {
-  document.getElementById('preview-container').classList.remove('open');
-  document.getElementById('preview-iframe').src = '';
-}
-
-// ── Start ─────────────────────────────────────────────────────────────────────
-init();
-</script>
+<script src="/admin.js" defer></script>
 </body>
 </html>

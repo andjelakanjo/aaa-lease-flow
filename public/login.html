@@ -158,6 +158,33 @@ input:focus{
   display:none;
 }
 .error-msg.show{display:block;}
+.hint-row{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:-8px;
+  margin-bottom:12px;
+}
+.link-btn{
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.75);
+  font-size:.78rem;
+  cursor:pointer;
+  padding:0;
+  text-decoration:underline;
+}
+.link-btn:hover{color:#fff;}
+.info-msg{
+  background:rgba(79,142,247,.08);
+  border:1px solid rgba(79,142,247,.25);
+  color:rgba(255,255,255,0.9);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:.82rem;
+  margin-bottom:16px;
+  display:none;
+}
+.info-msg.show{display:block;}
 </style>
 </head>
 <body>
@@ -168,13 +195,14 @@ input:focus{
   </div>
 
   <div class="tabs">
-    <button class="tab active" id="tab-email" onclick="switchTab('email')">Email / Password</button>
-    <button class="tab" id="tab-code" onclick="switchTab('code')">Access Code</button>
+    <button class="tab active" id="tab-email" type="button" data-tab="email">Email / Password</button>
+    <button class="tab" id="tab-code" type="button" data-tab="code">Access Code</button>
   </div>
 
   <!-- Email/Password tab -->
   <div class="tab-panel active" id="panel-email">
     <div class="error-msg" id="err-email"></div>
+    <div class="info-msg" id="forgot-ok">If an account exists for that email, we sent a password reset link.</div>
     <form id="form-email">
       <div class="field">
         <label for="email">Email</label>
@@ -183,6 +211,12 @@ input:focus{
       <div class="field">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <p style="font-size:.72rem;color:var(--text-muted);margin:-4px 0 8px;line-height:1.35;">
+        For admin accounts (email login) only. Employees use the <strong>Access Code</strong> tab — no password.
+      </p>
+      <div class="hint-row">
+        <button class="link-btn" type="button" id="btn-forgot">Forgot password?</button>
       </div>
       <button class="btn" type="submit" id="btn-email">Sign in →</button>
     </form>
@@ -203,96 +237,6 @@ input:focus{
   </div>
 </div>
 
-<script>
-// Redirect invite links to /auth/confirm preserving the full hash
-(function() {
-  const hash = window.location.hash;
-  if (hash && hash.includes('access_token=') && hash.includes('type=invite')) {
-    window.location.replace('/auth/confirm' + hash);
-  }
-})();
-
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  document.getElementById('panel-' + tab).classList.add('active');
-}
-
-// Auto-format access code input as user types
-document.getElementById('access-code').addEventListener('input', function() {
-  let v = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-  if (v.length > 3) v = v.slice(0, 3) + '-' + v.slice(3);
-  if (v.length > 8) v = v.slice(0, 8) + '-' + v.slice(8);
-  this.value = v.slice(0, 13);
-});
-
-// Email/password login
-document.getElementById('form-email').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('btn-email');
-  const err = document.getElementById('err-email');
-  err.classList.remove('show');
-  btn.disabled = true;
-  btn.textContent = 'Signing in…';
-
-  try {
-    const res = await fetch('/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: document.getElementById('email').value.trim(),
-        password: document.getElementById('password').value
-      })
-    });
-    const data = await res.json();
-    if (res.ok && data.ok) {
-      window.location.href = data.redirect || '/app';
-    } else {
-      err.textContent = data.error || 'Login failed. Please try again.';
-      err.classList.add('show');
-    }
-  } catch {
-    err.textContent = 'Network error — please try again.';
-    err.classList.add('show');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Sign in →';
-  }
-});
-
-// Access code login
-document.getElementById('form-code').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('btn-code');
-  const err = document.getElementById('err-code');
-  err.classList.remove('show');
-  btn.disabled = true;
-  btn.textContent = 'Verifying…';
-
-  try {
-    const res = await fetch('/auth/login-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        access_code: document.getElementById('access-code').value.trim()
-      })
-    });
-    const data = await res.json();
-    if (res.ok && data.ok) {
-      window.location.href = data.redirect || '/app';
-    } else {
-      err.textContent = data.error || 'Invalid code. Please try again.';
-      err.classList.add('show');
-    }
-  } catch {
-    err.textContent = 'Network error — please try again.';
-    err.classList.add('show');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Enter →';
-  }
-});
-</script>
+<script src="/login.js" defer></script>
 </body>
 </html>

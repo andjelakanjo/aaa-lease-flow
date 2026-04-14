@@ -138,7 +138,7 @@ input:focus{border-color:var(--accent);}
 
   <!-- Shown when token is missing/invalid -->
   <div id="invalid-state">
-    <p>This invite link is invalid or has already been used.</p>
+    <p>This link is invalid or has expired.</p>
     <a href="/login" class="btn" style="display:block;text-align:center;text-decoration:none;">Go to login →</a>
   </div>
 
@@ -165,67 +165,6 @@ input:focus{border-color:var(--accent);}
   </div>
 </div>
 
-<script>
-// Parse the hash fragment: #access_token=...&refresh_token=...&type=invite
-const hash = window.location.hash.slice(1);
-const params = Object.fromEntries(new URLSearchParams(hash));
-const accessToken = params.access_token;
-
-if (!accessToken) {
-  document.getElementById('form-state').style.display = 'none';
-  document.getElementById('invalid-state').style.display = 'block';
-}
-
-document.getElementById('set-password-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const password = document.getElementById('password').value;
-  const confirm = document.getElementById('password-confirm').value;
-  const btn = document.getElementById('btn-submit');
-  const err = document.getElementById('err');
-  const success = document.getElementById('success');
-
-  err.classList.remove('show');
-
-  if (password !== confirm) {
-    err.textContent = 'Passwords do not match.';
-    err.classList.add('show');
-    return;
-  }
-  if (password.length < 8) {
-    err.textContent = 'Password must be at least 8 characters.';
-    err.classList.add('show');
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Setting password…';
-
-  try {
-    const res = await fetch('/auth/confirm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ access_token: accessToken, password })
-    });
-    const data = await res.json();
-
-    if (res.ok && data.ok) {
-      success.classList.add('show');
-      document.getElementById('set-password-form').style.display = 'none';
-      setTimeout(() => { window.location.href = '/login'; }, 2000);
-    } else {
-      err.textContent = data.error || 'Failed to set password. Please try again.';
-      err.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Set password →';
-    }
-  } catch {
-    err.textContent = 'Network error — please try again.';
-    err.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Set password →';
-  }
-});
-</script>
+<script src="/confirm.js" defer></script>
 </body>
 </html>

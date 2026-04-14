@@ -76,6 +76,27 @@ router.get('/confirm', (req, res) => {
   res.sendFile(require('path').join(__dirname, '..', 'public', 'confirm.html'));
 });
 
+// POST /auth/forgot-password — send a password recovery email (no user enumeration)
+router.post('/forgot-password', async (req, res) => {
+  const email = req.body?.email?.trim();
+  if (!email) return res.status(400).json({ error: 'Email is required.' });
+
+  // Use the current origin so it works on localhost + Vercel previews.
+  const origin = `${req.protocol}://${req.get('host')}`;
+
+  // Always return OK (prevents user enumeration). Supabase only sends if email exists.
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/confirm`
+  });
+
+  if (error) {
+    console.error('[auth/forgot-password] resetPasswordForEmail failed:', error.message);
+    // Still respond OK to avoid leaking existence / configuration details
+  }
+
+  res.json({ ok: true });
+});
+
 // POST /auth/confirm — set password using the access_token from the invite hash
 router.post('/confirm', async (req, res) => {
   const { access_token, password } = req.body;

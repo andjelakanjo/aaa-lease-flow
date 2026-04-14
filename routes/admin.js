@@ -22,6 +22,10 @@ function requireSuperAdmin(req, res, next) {
   next();
 }
 
+function getOrigin(req) {
+  return `${req.protocol}://${req.get('host')}`;
+}
+
 // Apply admin role check to all routes in this router
 router.use(requireAdminRole);
 
@@ -100,7 +104,9 @@ router.post('/api/companies', requireSuperAdmin, async (req, res) => {
 router.get('/api/users', async (req, res) => {
   let query = supabase.admin
     .from('profiles')
-    .select('id, first_name, last_name, email, role, company_id, access_code, expires_at, is_active, created_at, companies(name)')
+    .select(
+      'id, user_id, first_name, last_name, email, role, company_id, access_code, expires_at, is_active, created_at, companies(name)'
+    )
     .order('created_at', { ascending: false });
 
   // Admins see only their own company's employees
@@ -122,18 +128,22 @@ router.post('/api/users/admin', requireSuperAdmin, async (req, res) => {
     return res.status(400).json({ error: 'All fields are required.' });
   }
 
-  // Invite the user — Supabase sends an email with a magic link to set their password
-  const { data: invited, error: inviteError } =
-    await supabase.admin.auth.admin.inviteUserByEmail(email.trim());
-  if (inviteError) {
-    return res.status(500).json({ error: inviteError.message || 'Failed to invite user.' });
+  // Generate a password set link (invite) without relying on Supabase email templates.
+  const origin = getOrigin(req);
+  const { data: linkData, error: linkError } = await supabase.admin.auth.admin.generateLink({
+    type: 'invite',
+    email: email.trim(),
+    options: { redirectTo: `${origin}/auth/confirm` }
+  });
+  if (linkError || !linkData?.user?.id) {
+    return res.status(500).json({ error: linkError?.message || 'Failed to generate invite link.' });
   }
 
   // Create the profile record
   const { data: profile, error: profileError } = await supabase.admin
     .from('profiles')
     .insert({
-      user_id: invited.user.id,
+      user_id: linkData.user.id,
       first_name: first_name.trim(),
       last_name: last_name.trim(),
       email: email.trim(),
@@ -147,7 +157,93 @@ router.post('/api/users/admin', requireSuperAdmin, async (req, res) => {
   if (profileError) {
     return res.status(500).json({ error: profileError.message || 'Failed to create profile.' });
   }
-  res.json(profile);
+  res.json({
+    profile,
+    invite_link: linkData?.properties?.action_link || null
+  });
+});
+
+// Generate a password recovery link (super_admin only). Employees use access codes only — no password reset.
+router.post('/api/users/:id/recovery-link', requireSuperAdmin, async (req, res) => {
+  const { id } = req.params;
+
+  // Fetch the profile to get email/user_id and enforce scoping
+  const { data: profile, error: fetchError } = await supabase.admin
+    .from('profiles')
+    .select('id, user_id, email, role, company_id')
+    .eq('id', id)
+    .single();
+
+  if (fetchError || !profile) {
+    return res.status(404).json({ error: 'User not found.' });
+  }
+
+  if (profile.role === 'employee') {
+    return res.status(400).json({ error: 'Employees sign in with an access code only — no password reset.' });
+  }
+  if (!['admin', 'super_admin'].includes(profile.role)) {
+    return res.status(400).json({ error: 'Password reset is only for admin email accounts.' });
+  }
+  if (!profile.user_id) {
+    return res.status(400).json({ error: 'This profile is not linked to a login account (missing user_id).' });
+  }
+
+  if (!profile.email) {
+    return res.status(400).json({ error: 'This user has no email account.' });
+  }
+
+  const origin = getOrigin(req);
+  const { data: linkData, error: linkError } = await supabase.admin.auth.admin.generateLink({
+    type: 'recovery',
+    email: profile.email,
+    options: { redirectTo: `${origin}/auth/confirm` }
+  });
+
+  if (linkError) {
+    return res.status(500).json({ error: linkError.message || 'Failed to generate recovery link.' });
+  }
+
+  res.json({ ok: true, recovery_link: linkData?.properties?.action_link || null });
+});
+
+// Set password directly (super_admin only) — for cases where invite email was missed. Not for employees (access code only).
+router.post('/api/users/:id/password', requireSuperAdmin, async (req, res) => {
+  const { id } = req.params;
+  const password = req.body?.password;
+
+  if (!password || typeof password !== 'string') {
+    return res.status(400).json({ error: 'Password is required.' });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters.' });
+  }
+
+  const { data: profile, error: fetchError } = await supabase.admin
+    .from('profiles')
+    .select('id, user_id, email, role')
+    .eq('id', id)
+    .single();
+
+  if (fetchError || !profile) {
+    return res.status(404).json({ error: 'User not found.' });
+  }
+  if (profile.role === 'employee') {
+    return res.status(400).json({ error: 'Employees use access codes only — cannot set a password on this profile.' });
+  }
+  if (!['admin', 'super_admin'].includes(profile.role)) {
+    return res.status(400).json({ error: 'Password can only be set for admin accounts.' });
+  }
+  if (!profile.user_id) {
+    return res.status(400).json({ error: 'No Auth user linked (missing user_id). Create or link the user in Supabase Auth first.' });
+  }
+
+  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(profile.user_id, { password });
+  if (updateError) {
+    console.error('[admin/set-password] updateUserById failed:', updateError.message);
+    return res.status(500).json({ error: updateError.message || 'Failed to set password.' });
+  }
+
+  res.json({ ok: true });
 });
 
 // Create employee (super_admin or admin)

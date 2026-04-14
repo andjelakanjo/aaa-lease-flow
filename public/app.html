@@ -324,20 +324,20 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <header>
   <h1>AAA <span>Lease</span></h1>
   <nav class="nav-tabs" id="main-nav">
-    <button class="nav-tab active" onclick="switchView('map')"><span data-t="nav_map">Team Map</span></button>
-    <button class="nav-tab" onclick="switchView('flow')"><span data-t="nav_flow">Process Flow</span></button>
-    <button class="nav-tab" onclick="switchView('procmap')"><span data-t="nav_procmap">Process Map</span></button>
-    <button class="nav-tab" onclick="switchView('docs')"><span data-t="nav_docs">Key Documents</span></button>
-    <button class="nav-tab gold" id="nav-tab-reqs" onclick="switchView('reqs')"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
-    <button class="nav-tab" onclick="switchView('glossary')"><span data-t="nav_glossary">📖 Glossary</span></button>
-    <button class="nav-tab" onclick="switchView('quiz')"><span data-t="nav_quiz">Quiz</span></button>
-    <button class="nav-tab" onclick="switchView('contacts')">👤 Contacts</button>
+    <button class="nav-tab active" type="button" data-action="switch-view" data-view="map"><span data-t="nav_map">Team Map</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="flow"><span data-t="nav_flow">Process Flow</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="procmap"><span data-t="nav_procmap">Process Map</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="docs"><span data-t="nav_docs">Key Documents</span></button>
+    <button class="nav-tab gold" type="button" id="nav-tab-reqs" data-action="switch-view" data-view="reqs"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="glossary"><span data-t="nav_glossary">📖 Glossary</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="quiz"><span data-t="nav_quiz">Quiz</span></button>
+    <button class="nav-tab" type="button" data-action="switch-view" data-view="contacts">👤 Contacts</button>
   </nav>
   <div class="header-right">
-    <button class="logout-btn" onclick="logout()" title="Sign out">⏻</button>
+    <button class="logout-btn" type="button" data-action="logout" title="Sign out">⏻</button>
     <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-sr" onclick="setLang('sr')">SR</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" type="button" id="btn-sr" data-action="set-lang" data-lang="sr">SR</button>
+      <button class="lang-btn" type="button" id="btn-en" data-action="set-lang" data-lang="en">EN</button>
     </div>
   </div>
 </header>
@@ -353,11 +353,11 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div class="dept-section">
     <div class="dept-label" style="color:var(--mgmt)" data-t="dept_mgmt">Management</div>
     <div class="cards-grid">
-      <div class="person-card mgmt" onclick="openPanel('alex')">
+      <div class="person-card mgmt" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">
         <div class="card-top"><div><div class="card-name">Alex Petrusevski</div><div class="card-title" data-person-role="alex"></div></div><span class="card-location">Chicago</span></div>
         <div class="card-docs"><span class="doc-tag" data-t-txt="All approvals">All approvals</span><span class="doc-tag" data-t-txt="P&L oversight">P&L oversight</span><span class="doc-tag" data-t-txt="Recovery decisions">Recovery decisions</span></div>
       </div>
-      <div class="person-card mgmt" onclick="openPanel('milica_r')">
+      <div class="person-card mgmt" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0">
         <div class="card-top"><div><div class="card-name">Milica Rajković</div><div class="card-title" data-person-role="milica_r"></div></div><span class="card-location">US</span></div>
         <div class="card-docs"><span class="doc-tag">Monthly AR review</span><span class="doc-tag">Financial oversight</span><span class="doc-tag">Bank coordination</span></div>
       </div>
@@ -366,29 +366,29 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div class="dept-section">
     <div class="dept-label" style="color:var(--ops)" data-t="dept_ops">Operations</div>
     <div class="cards-grid">
-      <div class="person-card ops" onclick="openPanel('radu')"><div class="card-top"><div><div class="card-name">Radu Motica</div><div class="card-title" data-person-role="radu"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Billing list</span><span class="doc-tag">Asset assignment</span><span class="doc-tag">P&L dept</span></div></div>
-      <div class="person-card ops" onclick="openPanel('fabrizio')"><div class="card-top"><div><div class="card-name">Fabrizio</div><div class="card-title" data-person-role="fabrizio"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Check-in/out</span><span class="doc-tag">Inspection report</span></div></div>
-      <div class="person-card ops" onclick="openPanel('israel')"><div class="card-top"><div><div class="card-name">Israel</div><div class="card-title" data-person-role="israel"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Registrations</span><span class="doc-tag">PM / DOT</span><span class="doc-tag">Mileage</span></div></div>
-      <div class="person-card ops" onclick="openPanel('gustavo')"><div class="card-top"><div><div class="card-name">Gustavo</div><div class="card-title" data-person-role="gustavo"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Daily log</span><span class="doc-tag">Inspections</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Radu Motica</div><div class="card-title" data-person-role="radu"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Billing list</span><span class="doc-tag">Asset assignment</span><span class="doc-tag">P&L dept</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Fabrizio</div><div class="card-title" data-person-role="fabrizio"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Check-in/out</span><span class="doc-tag">Inspection report</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Israel</div><div class="card-title" data-person-role="israel"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Registrations</span><span class="doc-tag">PM / DOT</span><span class="doc-tag">Mileage</span></div></div>
+      <div class="person-card ops" data-action="open-panel" data-person-id="gustavo" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Gustavo</div><div class="card-title" data-person-role="gustavo"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Daily log</span><span class="doc-tag">Inspections</span></div></div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--acc)" data-t="dept_acc">Accounting — Kragujevac</div>
     <div class="cards-grid">
-      <div class="person-card acc" onclick="openPanel('andjela_t')"><div class="card-top"><div><div class="card-name">Andjela Trifunovic</div><div class="card-title" data-person-role="andjela_t"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Active Units List</span><span class="doc-tag">DocuSign</span><span class="doc-tag">Cross-collateral</span></div></div>
-      <div class="person-card acc" onclick="openPanel('valentina')"><div class="card-top"><div><div class="card-name">Valentina Lelovic</div><div class="card-title" data-person-role="valentina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Contracts</span><span class="doc-tag">Amendments</span><span class="doc-tag">GPS check</span></div></div>
-      <div class="person-card acc" onclick="openPanel('tina')"><div class="card-top"><div><div class="card-name">Tina Srdic</div><div class="card-title" data-person-role="tina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Confirmed Payments</span><span class="doc-tag">Weekly/Monthly inv.</span></div></div>
-      <div class="person-card acc" onclick="openPanel('hanna')"><div class="card-top"><div><div class="card-name">Hanna Bencks</div><div class="card-title" data-person-role="hanna"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Tolls billing</span><span class="doc-tag">Daily billing list</span><span class="doc-tag">Bank recon</span></div></div>
-      <div class="person-card acc" onclick="openPanel('milica')"><div class="card-top"><div><div class="card-name">Milica Doson</div><div class="card-title" data-person-role="milica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">AR Aging</span><span class="doc-tag">Buyout notices</span><span class="doc-tag">Recovery</span></div></div>
-      <div class="person-card acc" onclick="openPanel('aleksandra')"><div class="card-top"><div><div class="card-name">Aleksandra Djokic</div><div class="card-title" data-person-role="aleksandra"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Fixed assets</span><span class="doc-tag">Loan list</span><span class="doc-tag">Claims</span></div></div>
-      <div class="person-card acc" onclick="openPanel('brankica')"><div class="card-top"><div><div class="card-name">Brankica</div><div class="card-title" data-person-role="brankica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Credit bureau CSV</span><span class="doc-tag">GPS list</span><span class="doc-tag">Mileage billing</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Andjela Trifunovic</div><div class="card-title" data-person-role="andjela_t"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Active Units List</span><span class="doc-tag">DocuSign</span><span class="doc-tag">Cross-collateral</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Valentina Lelovic</div><div class="card-title" data-person-role="valentina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Contracts</span><span class="doc-tag">Amendments</span><span class="doc-tag">GPS check</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Tina Srdic</div><div class="card-title" data-person-role="tina"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Confirmed Payments</span><span class="doc-tag">Weekly/Monthly inv.</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Hanna Bencks</div><div class="card-title" data-person-role="hanna"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Tolls billing</span><span class="doc-tag">Daily billing list</span><span class="doc-tag">Bank recon</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Milica Doson</div><div class="card-title" data-person-role="milica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">AR Aging</span><span class="doc-tag">Buyout notices</span><span class="doc-tag">Recovery</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Aleksandra Djokic</div><div class="card-title" data-person-role="aleksandra"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Fixed assets</span><span class="doc-tag">Loan list</span><span class="doc-tag">Claims</span></div></div>
+      <div class="person-card acc" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Brankica</div><div class="card-title" data-person-role="brankica"></div></div><span class="card-location">Kragujevac</span></div><div class="card-docs"><span class="doc-tag">Credit bureau CSV</span><span class="doc-tag">GPS list</span><span class="doc-tag">Mileage billing</span></div></div>
     </div>
   </div>
   <div class="dept-section">
     <div class="dept-label" style="color:var(--sales)" data-t="dept_sales">Sales / Legal / US</div>
     <div class="cards-grid">
-      <div class="person-card sales" onclick="openPanel('roman')"><div class="card-top"><div><div class="card-name">Roman</div><div class="card-title" data-person-role="roman"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Bank financing</span><span class="doc-tag">Bill of sale</span></div></div>
-      <div class="person-card sales" onclick="openPanel('emily')"><div class="card-top"><div><div class="card-name">Emily</div><div class="card-title" data-person-role="emily"></div></div><span class="card-location">Chicago</span></div><div class="card-docs"><span class="doc-tag">Title transfers</span><span class="doc-tag">IFTA/HHUT</span><span class="doc-tag">Registrations</span></div></div>
+      <div class="person-card sales" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Roman</div><div class="card-title" data-person-role="roman"></div></div><span class="card-location">US</span></div><div class="card-docs"><span class="doc-tag">Bank financing</span><span class="doc-tag">Bill of sale</span></div></div>
+      <div class="person-card sales" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="card-top"><div><div class="card-name">Emily</div><div class="card-title" data-person-role="emily"></div></div><span class="card-location">Chicago</span></div><div class="card-docs"><span class="doc-tag">Title transfers</span><span class="doc-tag">IFTA/HHUT</span><span class="doc-tag">Registrations</span></div></div>
     </div>
   </div>
 </div>
@@ -399,10 +399,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div class="stream-selector">
     <div class="stream-selector-label" data-t="flow_stream_label">Select Revenue Stream:</div>
     <div class="stream-tabs">
-      <button class="stream-tab tab-lease active" onclick="switchStream('lease',this)">📋 Lease</button>
-      <button class="stream-tab tab-rental" onclick="switchStream('rental',this)">🚛 Rental</button>
-      <button class="stream-tab tab-cash" onclick="switchStream('cash',this)">💰 Cash Sales</button>
-      <button class="stream-tab tab-parking" onclick="switchStream('parking',this)">🅿️ Parking</button>
+      <button class="stream-tab tab-lease active" type="button" data-action="switch-stream" data-stream="lease">📋 Lease</button>
+      <button class="stream-tab tab-rental" type="button" data-action="switch-stream" data-stream="rental">🚛 Rental</button>
+      <button class="stream-tab tab-cash" type="button" data-action="switch-stream" data-stream="cash">💰 Cash Sales</button>
+      <button class="stream-tab tab-parking" type="button" data-action="switch-stream" data-stream="parking">🅿️ Parking</button>
     </div>
     <div class="stream-selector-sub" data-t="flow_stream_sub">Each revenue stream has its own end-to-end process</div>
   </div>
@@ -417,17 +417,17 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Lead &amp; Approval</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Credit score, bank balance, FMCSA status, True Funding cross-collateral list</div></div>
-          <div class="flow-step" onclick="openPanel('alex')"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Final approval or rejection, defines contract terms</div></div>
-          <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Bank financing coordination if needed</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Credit score, bank balance, FMCSA status, True Funding cross-collateral list</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Final approval or rejection, defines contract terms</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Bank financing coordination if needed</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)">Contract &amp; Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('andjela_t')"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare contract via DocuSign (salesman → client → Alex → accounting)</div></div>
-          <div class="flow-step" onclick="openPanel('andjela_t')"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Verify COI, collect down payment, create down payment invoice in QB</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare contract via DocuSign (salesman → client → Alex → accounting)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Verify COI, collect down payment, create down payment invoice in QB</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Check</div><div class="flow-step-what">If unit on loan — promissory note required</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Check</div><div class="flow-step-what">If client on True Funding list — cross-collateral agreement required</div></div>
         </div>
@@ -436,7 +436,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)">GPS &amp; Release</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('valentina')"><div class="flow-step-who" style="color:var(--acc)">Valentina / Brankica</div><div class="flow-step-what">Verify GPS active in FleetLocate or Routemate</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Valentina / Brankica</div><div class="flow-step-what">Verify GPS active in FleetLocate or Routemate</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">When all docs confirmed</div><div class="flow-step-what">Issue release form to Radu / salesman</div></div>
         </div>
       </div>
@@ -444,49 +444,49 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--ops)">Unit Pickup</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection, photographs unit condition</div></div>
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends report to client + DOT registration copy + 24hr maintenance info</div></div>
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates spreadsheets — removes from available, adds to checkout tab</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection, photographs unit condition</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends report to client + DOT registration copy + 24hr maintenance info</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates spreadsheets — removes from available, adds to checkout tab</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--acc)">Active Lease — Billing</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('tina')"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Sends weekly/monthly lease invoices via QuickBooks memorized list</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Mileage overage billing monthly (if client exceeds 130,000 miles/year)</div></div>
-          <div class="flow-step" onclick="openPanel('hanna')"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Tolls, repairs, final charges billed separately</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Sends weekly/monthly lease invoices via QuickBooks memorized list</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Mileage overage billing monthly (if client exceeds 130,000 miles/year)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Tolls, repairs, final charges billed separately</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Collections &amp; AR</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily monitoring — rejected payments, calls, ACH pulls from JPM bank</div></div>
-          <div class="flow-step" onclick="openPanel('hanna')"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Invoice closing: rent first → tolls/repairs → lease (Alex's rule)</div></div>
-          <div class="flow-step" onclick="openPanel('milica_r')"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what">Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Monthly credit bureau CSV export to Hutchins</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily monitoring — rejected payments, calls, ACH pulls from JPM bank</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Invoice closing: rent first → tolls/repairs → lease (Alex's rule)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what">Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Monthly credit bureau CSV export to Hutchins</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">07</div><div class="flow-stage-name" style="color:var(--acc)">Lease End / Buyout</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Notifies team when all payments complete</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Checks if unit on bank loan — requests payoff (Alex approval required)</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS + ST556, sends to client for signature</div></div>
-          <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates title transfer with Emily</div></div>
-          <div class="flow-step" onclick="openPanel('emily')"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends documents to Secretary of State</div></div>
-          <div class="flow-step" onclick="openPanel('aleksandra')"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Notifies team when all payments complete</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Checks if unit on bank loan — requests payoff (Alex approval required)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS + ST556, sends to client for signature</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates title transfer with Emily</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends documents to Secretary of State</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">08</div><div class="flow-stage-name" style="color:var(--ops)">Recovery (if non-payment)</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Sends recovery notice (7–14 days to respond)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Sends recovery notice (7–14 days to respond)</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">No response</div><div class="flow-step-what">GPS starter disable</div></div>
-          <div class="flow-step" onclick="openPanel('teo')"><div class="flow-step-who" style="color:var(--ops)">Teo</div><div class="flow-step-what">Physical recovery, $2,500 recovery fee</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="teo" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Teo</div><div class="flow-step-what">Physical recovery, $2,500 recovery fee</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">If unresolved</div><div class="flow-step-what">Case sent to attorney</div></div>
         </div>
       </div>
@@ -503,38 +503,38 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Inquiry &amp; Lead</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Customer → Radu</div><div class="flow-step-what">Customer contacts Radu directly (word of mouth / ads)</div></div>
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Creates HubSpot deal, soft-holds unit in spreadsheet</div></div>
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Agreement on unit type, rate (weekly or monthly), pickup timing</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Customer → Radu</div><div class="flow-step-what">Customer contacts Radu directly (word of mouth / ads)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Creates HubSpot deal, soft-holds unit in spreadsheet</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Agreement on unit type, rate (weekly or monthly), pickup timing</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)">Setup &amp; Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Sends COI requirements and insurance info to client</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Sends COI requirements and insurance info to client</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable</div></div>
-          <div class="flow-step" onclick="openPanel('andjela_t')"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs)</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--ops)">Unit Checkout</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection — measures tires, brakes, photographs condition</div></div>
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends inspection report + DOT copy + registration copy to client; if reefer/truck — also 24hr breakdown maintenance info</div></div>
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates Google Sheets — removes from Available Trailers, updates customer name, logs in Checkout tab</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection — measures tires, brakes, photographs condition</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends inspection report + DOT copy + registration copy to client; if reefer/truck — also 24hr breakdown maintenance info</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates Google Sheets — removes from Available Trailers, updates customer name, logs in Checkout tab</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)">Weekly Billing (every Monday)</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('israel')"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Logs mileage for each truck at start of day</div></div>
-          <div class="flow-step" onclick="openPanel('tina')"><div class="flow-step-who" style="color:var(--acc)">Tina / Hanna</div><div class="flow-step-what">Send billing spreadsheet (250+ rows weekly / 500–600 rows monthly)</div></div>
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Reviews billing list, calculates prorated amounts for pickups/returns, adds mileage charges (base rate + $0.12/mile for trucks; trailers fixed rate)</div></div>
-          <div class="flow-step" onclick="openPanel('radu')"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Replies to billing email when done — accounting cross-checks</div></div>
-          <div class="flow-step" onclick="openPanel('tina')"><div class="flow-step-who" style="color:var(--acc)">Tina / Milica D.</div><div class="flow-step-what">Tina creates invoices in QB; Milica pulls ACH payments</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Logs mileage for each truck at start of day</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Hanna</div><div class="flow-step-what">Send billing spreadsheet (250+ rows weekly / 500–600 rows monthly)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Reviews billing list, calculates prorated amounts for pickups/returns, adds mileage charges (base rate + $0.12/mile for trucks; trailers fixed rate)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Replies to billing email when done — accounting cross-checks</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Milica D.</div><div class="flow-step-what">Tina creates invoices in QB; Milica pulls ACH payments</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
@@ -542,17 +542,17 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--ops)">Unit Return</div></div>
         <div class="flow-steps">
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Customer</div><div class="flow-step-what">Returns Mon–Fri business hours (2 weeks notice in agreement, not enforced)</div></div>
-          <div class="flow-step" onclick="openPanel('fabrizio')"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Check-in inspection — measures tires, brakes, photographs condition</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Check-in inspection — measures tires, brakes, photographs condition</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">FleetMate</div><div class="flow-step-what">Automatically sends check-in report to billing team — signals billing stop</div></div>
-          <div class="flow-step" onclick="openPanel('israel')"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Submits usage charges (tire/brake wear) within 48 hours</div></div>
-          <div class="flow-step" onclick="openPanel('israel')"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Damage charges billed within 7 days — emails billing with unit number, customer, amounts</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Submits usage charges (tire/brake wear) within 48 hours</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Damage charges billed within 7 days — emails billing with unit number, customer, amounts</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Collections</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('milica')"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily bank monitoring — rejected payments, calls, recovery notices</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily bank monitoring — rejected payments, calls, recovery notices</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">If non-payment persists</div><div class="flow-step-what">Same recovery procedure as Lease stream</div></div>
         </div>
       </div>
@@ -569,26 +569,26 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Deal Identification</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('alex')"><div class="flow-step-who" style="color:var(--mgmt)">Alex / Roman / Scott / Ilija</div><div class="flow-step-what">Identify unit for sale (from inventory, lease buyout, or auction)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex / Roman / Scott / Ilija</div><div class="flow-step-what">Identify unit for sale (from inventory, lease buyout, or auction)</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">HubSpot</div><div class="flow-step-what">Deal created with unit info and pricing</div></div>
-          <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates bank financing if needed (True Funding or external bank)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates bank financing if needed (True Funding or external bank)</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--mgmt)">Approval &amp; Pricing</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('alex')"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Approves sale price</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Verifies unit status — checks if on loan, on lease, GPS status</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Approves sale price</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Verifies unit status — checks if on loan, on lease, GPS status</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)">Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS (Bill of Sale) + ST556</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS (Bill of Sale) + ST556</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Signs + provides Power of Attorney</div></div>
-          <div class="flow-step" onclick="openPanel('tina')"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Creates sale revenue invoice in QuickBooks</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Creates sale revenue invoice in QuickBooks</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
@@ -596,28 +596,28 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)">Payment</div></div>
         <div class="flow-steps">
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Arranges payment (cash or bank financing)</div></div>
-          <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates financing with bank, notifies Brankica when funds received</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates financing with bank, notifies Brankica when funds received</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--sales)">Title Transfer</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('roman')"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Notifies Emily when payment confirmed</div></div>
-          <div class="flow-step" onclick="openPanel('emily')"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends title transfer documents to Secretary of State</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Notifies Emily when payment confirmed</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends title transfer documents to Secretary of State</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">IL / IN</div><div class="flow-step-what">Direct transfer — client submits to SOS</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Other states</div><div class="flow-step-what">AAA signs and mails title — client registers independently</div></div>
-          <div class="flow-step" onclick="openPanel('aleksandra')"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register, removes from active inventory</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register, removes from active inventory</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Commission Calculation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">End of month: pulls BOS list + Active Units list + P&amp;L report from Aleksandra</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">End of month: pulls BOS list + Active Units list + P&amp;L report from Aleksandra</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Formula</div><div class="flow-step-what">Sale price − wholesale − transport − repairs − marketing fee = net profit; commission = % of net profit (varies per salesman) or flat fee</div></div>
           <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Lease units</div><div class="flow-step-what">Commission paid monthly only if client is current on payments</div></div>
-          <div class="flow-step" onclick="openPanel('brankica')"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Submits commission calculations to Alex / Milica Rajković for approval</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Submits commission calculations to Alex / Milica Rajković for approval</div></div>
         </div>
       </div>
     </div>
@@ -667,9 +667,9 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <div id="procmap-view" class="view">
   <div style="margin-bottom:14px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="procmap_title">Process Map</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="procmap_sub">Customer ↔ AAA Lease — select a revenue stream.</p></div>
   <div class="stream-tabs" style="margin-bottom:18px;">
-    <button class="stream-tab active" onclick="switchProcmap('lease',this)">Lease</button>
-    <button class="stream-tab" onclick="switchProcmap('rental',this)">Rental</button>
-    <button class="stream-tab" onclick="switchProcmap('cash',this)">Cash Sales</button>
+    <button class="stream-tab active" type="button" data-action="switch-procmap" data-stream="lease">Lease</button>
+    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="rental">Rental</button>
+    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="cash">Cash Sales</button>
   </div>
 
   <!-- LEASE SWIMLANE -->
@@ -682,23 +682,23 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
         <div class="procmap-stage-label">① Inquiry &amp; Approval</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('brankica')">Brankica</div>Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" onclick="openPanel('alex')">Alex</div>Final approval or rejection. Defines contract terms.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica</div>Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex</div>Final approval or rejection. Defines contract terms.</div></div>
         <div class="procmap-stage-label">② Contract &amp; Documentation</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('andjela_t')">Andjela T. / Valentina</div>Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— waits for GPS confirmation and release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('valentina')">Valentina / Brankica</div>Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0">Andjela T. / Valentina</div>Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— waits for GPS confirmation and release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0">Valentina / Brankica</div>Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</div></div>
         <div class="procmap-stage-label">③ Unit Pickup</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio</div>Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div>Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.</div></div>
         <div class="procmap-stage-label">④ Active Contract</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('tina')">Tina</div>Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives additional invoices: tolls, repairs, mileage overage.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('hanna')">Hanna / Brankica</div>Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica Doson</div>Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="tina" role="button" tabindex="0">Tina</div>Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives additional invoices: tolls, repairs, mileage overage.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0">Hanna / Brankica</div>Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica Doson</div>Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).</div></div>
         <div class="procmap-stage-label">⑤ Issues (optional)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Reports accident. Submits claim form and adjuster info from their insurance.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('aleksandra')">Aleksandra / Brankica</div>Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Late on payments. Receives recovery notice (7–14 days). GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica D. + Alex</div>Recovery notice → GPS disable → Teo picks up unit ($2,500 fee) → case to attorney. "Lawyer" status = billing stops.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Reports accident. Submits claim form and adjuster info from their insurance.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra / Brankica</div>Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Late on payments. Receives recovery notice (7–14 days). GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D. + Alex</div>Recovery notice → GPS disable → Teo picks up unit ($2,500 fee) → case to attorney. "Lawyer" status = billing stops.</div></div>
         <div class="procmap-stage-label">⑥ End of Contract</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Buyout:</strong> pays remaining amount. Receives BOS + ST556. Registers title in own name (IL/IN — SOS; others — title copy).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('brankica')">Brankica → Roman → Emily → Aleksandra</div>Brankica prepares BOS + ST556. Roman coordinates title with Emily. Emily → Secretary of State. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Return:</strong> brings unit back. Signs check-in inspection. Receives final billing for damage/overage.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio → Aleksandra → Tina</div>Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Buyout:</strong> pays remaining amount. Receives BOS + ST556. Registers title in own name (IL/IN — SOS; others — title copy).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Roman → Emily → Aleksandra</div>Brankica prepares BOS + ST556. Roman coordinates title with Emily. Emily → Secretary of State. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Return:</strong> brings unit back. Signs check-in inspection. Receives final billing for damage/overage.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Aleksandra → Tina</div>Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.</div></div>
       </div>
     </div>
   </div>
@@ -713,17 +713,17 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
         <div class="procmap-stage-label">① Inquiry &amp; Lead</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts Radu directly (word of mouth or ads).</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('radu')">Radu</div>Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts Radu directly (word of mouth or ads).</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu</div>Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.</div></div>
         <div class="procmap-stage-label">② Setup &amp; Documentation</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('radu')">Radu → Andjela T. / Valentina</div>Radu sends COI requirements. Andjela T./Valentina prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs).</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu → Andjela T. / Valentina</div>Radu sends COI requirements. Andjela T./Valentina prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs).</div></div>
         <div class="procmap-stage-label">③ Unit Checkout</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Picks up unit. Signs checkout inspection. Receives registration copy and inspection report.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio</div>Checkout inspection — measures tires/brakes, photographs condition. Sends inspection report + DOT/registration copy + 24hr breakdown info (if reefer/truck). Updates Google Sheets.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Picks up unit. Signs checkout inspection. Receives registration copy and inspection report.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div>Checkout inspection — measures tires/brakes, photographs condition. Sends inspection report + DOT/registration copy + 24hr breakdown info (if reefer/truck). Updates Google Sheets.</div></div>
         <div class="procmap-stage-label">④ Weekly Billing (every Monday)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives weekly billing. Pays via ACH pull.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('radu')">Israel → Radu → Tina / Milica D.</div>Israel logs mileage. Radu reviews billing sheet (250+ rows), calculates prorated amounts + mileage charges ($0.12/mile trucks; trailers fixed). Tina creates QB invoices; Milica pulls ACH.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives weekly billing. Pays via ACH pull.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Israel → Radu → Tina / Milica D.</div>Israel logs mileage. Radu reviews billing sheet (250+ rows), calculates prorated amounts + mileage charges ($0.12/mile trucks; trailers fixed). Tina creates QB invoices; Milica pulls ACH.</div></div>
         <div class="procmap-stage-label">⑤ Unit Return</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Returns unit Mon–Fri. Signs check-in inspection. Receives final charges (usage, damage).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" onclick="openPanel('fabrizio')">Fabrizio → Israel → Billing</div>Check-in inspection. FleetMate auto-sends report → billing stop signal. Israel submits usage charges within 48h. Damage billed within 7 days.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Returns unit Mon–Fri. Signs check-in inspection. Receives final charges (usage, damage).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Israel → Billing</div>Check-in inspection. FleetMate auto-sends report → billing stop signal. Israel submits usage charges within 48h. Damage billed within 7 days.</div></div>
         <div class="procmap-stage-label">⑥ Collections (if needed)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives recovery notice if payment rejected. GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('milica')">Milica D.</div>Daily bank monitoring — rejected payments, calls, recovery notices. Same recovery procedure as Lease if non-payment persists.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives recovery notice if payment rejected. GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D.</div>Daily bank monitoring — rejected payments, calls, recovery notices. Same recovery procedure as Lease if non-payment persists.</div></div>
       </div>
     </div>
   </div>
@@ -738,14 +738,14 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
         <div class="procmap-stage-label">① Deal &amp; Approval</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Expresses interest in purchasing unit.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" onclick="openPanel('alex')">Alex / Roman / Scott / Ilija</div>Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">If financing needed — works with Roman on bank approval. Waits for deal confirmation.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" onclick="openPanel('roman')">Roman</div>Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Expresses interest in purchasing unit.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex / Roman / Scott / Ilija</div>Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">If financing needed — works with Roman on bank approval. Waits for deal confirmation.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="roman" role="button" tabindex="0">Roman</div>Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.</div></div>
         <div class="procmap-stage-label">② Documentation &amp; Payment</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs BOS + ST556. Provides Power of Attorney. Arranges payment (cash or financing).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('brankica')">Brankica → Tina</div>Brankica prepares BOS + ST556. Tina creates sale revenue invoice in QB.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs BOS + ST556. Provides Power of Attorney. Arranges payment (cash or financing).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Tina</div>Brankica prepares BOS + ST556. Tina creates sale revenue invoice in QB.</div></div>
         <div class="procmap-stage-label">③ Title Transfer</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>IL/IN:</strong> submits docs to Secretary of State directly.<br><strong>Other states:</strong> registers title independently using mailed copy.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" onclick="openPanel('emily')">Roman → Emily → Aleksandra</div>Roman notifies Emily when payment confirmed. Emily sends title transfer docs to SOS. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>IL/IN:</strong> submits docs to Secretary of State directly.<br><strong>Other states:</strong> registers title independently using mailed copy.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="emily" role="button" tabindex="0">Roman → Emily → Aleksandra</div>Roman notifies Emily when payment confirmed. Emily sends title transfer docs to SOS. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
         <div class="procmap-stage-label">④ Commission (internal)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— no customer action —</div><div class="procmap-mid-cell"></div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" onclick="openPanel('brankica')">Brankica → Alex / Milica Rajković</div>End of month: pulls BOS list + P&amp;L. Calculates commission per salesman (net profit %). Submits for approval.</div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— no customer action —</div><div class="procmap-mid-cell"></div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Alex / Milica Rajković</div>End of month: pulls BOS list + P&amp;L. Calculates commission per salesman (net profit %). Submits for approval.</div></div>
       </div>
     </div>
   </div>
@@ -755,12 +755,12 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <div id="docs-view" class="view">
   <div style="margin-bottom:18px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="docs_title">Key Documents</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="docs_sub">All documents referenced in processes.</p></div>
   <div class="docs-search">
-    <input type="text" id="docs-search-input" data-placeholder-t="docs_search" placeholder="Search document..." oninput="filterDocs()">
-    <button class="filter-btn active" onclick="filterByFreq('all',this)" data-t="f_all">All</button>
-    <button class="filter-btn" onclick="filterByFreq('daily',this)" data-t="f_daily">Daily</button>
-    <button class="filter-btn" onclick="filterByFreq('weekly',this)" data-t="f_weekly">Weekly</button>
-    <button class="filter-btn" onclick="filterByFreq('monthly',this)" data-t="f_monthly">Monthly</button>
-    <button class="filter-btn" onclick="filterByFreq('ongoing',this)" data-t="f_ongoing">Ongoing</button>
+    <input type="text" id="docs-search-input" data-placeholder-t="docs_search" placeholder="Search document...">
+    <button class="filter-btn active" type="button" data-action="filter-docs-freq" data-freq="all" data-t="f_all">All</button>
+    <button class="filter-btn" type="button" data-action="filter-docs-freq" data-freq="daily" data-t="f_daily">Daily</button>
+    <button class="filter-btn" type="button" data-action="filter-docs-freq" data-freq="weekly" data-t="f_weekly">Weekly</button>
+    <button class="filter-btn" type="button" data-action="filter-docs-freq" data-freq="monthly" data-t="f_monthly">Monthly</button>
+    <button class="filter-btn" type="button" data-action="filter-docs-freq" data-freq="ongoing" data-t="f_ongoing">Ongoing</button>
   </div>
   <div id="docs-list"></div>
 </div>
@@ -777,10 +777,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     </div>
   </div>
   <div class="reqs-filters">
-    <input type="text" class="reqs-search" id="reqs-search" data-placeholder-t="reqs_search" placeholder="Search requirements..." oninput="renderReqs()">
-    <button class="reqs-filter-btn active" onclick="setReqsFilter('all',this)" data-t="f_all">All</button>
-    <button class="reqs-filter-btn" onclick="setReqsFilter('must',this)" data-t="reqs_must">Must Have</button>
-    <button class="reqs-filter-btn" onclick="setReqsFilter('nice',this)" data-t="reqs_nice">Nice to Have</button>
+    <input type="text" class="reqs-search" id="reqs-search" data-placeholder-t="reqs_search" placeholder="Search requirements...">
+    <button class="reqs-filter-btn active" type="button" data-action="set-reqs-filter" data-filter="all" data-t="f_all">All</button>
+    <button class="reqs-filter-btn" type="button" data-action="set-reqs-filter" data-filter="must" data-t="reqs_must">Must Have</button>
+    <button class="reqs-filter-btn" type="button" data-action="set-reqs-filter" data-filter="nice" data-t="reqs_nice">Nice to Have</button>
   </div>
   <div id="reqs-list"></div>
 </div>
@@ -792,11 +792,11 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <p data-t="gloss_sub">Definitions of lease and accounting terms used daily at AAA Lease.</p>
   </div>
   <div class="gloss-filters">
-    <input type="text" class="gloss-search" id="gloss-search" data-placeholder-t="gloss_search" placeholder="Search term..." oninput="renderGlossary()">
-    <button class="gloss-cat-btn active" onclick="setGlossFilter('all',this)" data-t="gloss_cat_all">All</button>
-    <button class="gloss-cat-btn" onclick="setGlossFilter('lease',this)" data-t="gloss_cat_lease">Lease</button>
-    <button class="gloss-cat-btn" onclick="setGlossFilter('acc',this)" data-t="gloss_cat_acc">Accounting</button>
-    <button class="gloss-cat-btn" onclick="setGlossFilter('ops',this)" data-t="gloss_cat_ops">Operations</button>
+    <input type="text" class="gloss-search" id="gloss-search" data-placeholder-t="gloss_search" placeholder="Search term...">
+    <button class="gloss-cat-btn active" type="button" data-action="set-gloss-filter" data-filter="all" data-t="gloss_cat_all">All</button>
+    <button class="gloss-cat-btn" type="button" data-action="set-gloss-filter" data-filter="lease" data-t="gloss_cat_lease">Lease</button>
+    <button class="gloss-cat-btn" type="button" data-action="set-gloss-filter" data-filter="acc" data-t="gloss_cat_acc">Accounting</button>
+    <button class="gloss-cat-btn" type="button" data-action="set-gloss-filter" data-filter="ops" data-t="gloss_cat_ops">Operations</button>
   </div>
   <div id="gloss-list"></div>
 </div>
@@ -807,25 +807,25 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <h2 data-t="quiz_title">Knowledge Check</h2>
     <p data-t="quiz_sub">Test your understanding of AAA Lease processes.</p>
     <div class="quiz-type-btns">
-      <button class="quiz-type-btn selected" id="btn-by-role" onclick="selectQuizType('role')" data-t="quiz_by_pos">By Position</button>
-      <button class="quiz-type-btn" id="btn-by-process" onclick="selectQuizType('process')" data-t="quiz_by_proc">By Process</button>
+      <button class="quiz-type-btn selected" id="btn-by-role" type="button" data-action="select-quiz-type" data-type="role" data-t="quiz_by_pos">By Position</button>
+      <button class="quiz-type-btn" id="btn-by-process" type="button" data-action="select-quiz-type" data-type="process" data-t="quiz_by_proc">By Process</button>
     </div>
-    <button class="btn-primary" onclick="startQuiz()" data-t="quiz_start">Start Quiz →</button>
+    <button class="btn-primary" type="button" data-action="start-quiz" data-t="quiz_start">Start Quiz →</button>
   </div>
   <div id="quiz-game-screen" style="display:none;">
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     <div id="question-container"></div>
     <div class="quiz-nav">
       <span class="quiz-progress" id="quiz-progress-text"></span>
-      <button class="btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none;" data-t="quiz_next">Next →</button>
+      <button class="btn-primary" id="next-btn" type="button" data-action="next-question" style="display:none;" data-t="quiz_next">Next →</button>
     </div>
   </div>
   <div id="quiz-result-screen" style="display:none;" class="score-card">
     <div class="score-big" id="final-score"></div>
     <div class="score-label" id="final-label"></div>
     <div style="margin-top:22px;display:flex;gap:10px;justify-content:center;">
-      <button class="btn-primary" onclick="restartQuiz()" data-t="quiz_again">Try Again</button>
-      <button class="btn-secondary" onclick="switchView('map')" data-t="quiz_back">Back to Map</button>
+      <button class="btn-primary" type="button" data-action="restart-quiz" data-t="quiz_again">Try Again</button>
+      <button class="btn-secondary" type="button" data-action="switch-view" data-view="map" data-t="quiz_back">Back to Map</button>
     </div>
   </div>
 </div>
@@ -834,7 +834,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <div id="contacts-view" class="view">
   <div class="contacts-header">
     <h2>Contact Directory</h2>
-    <button class="btn-csv" onclick="downloadContactsCSV()">⬇ Download CSV</button>
+    <button class="btn-csv" type="button" data-action="download-contacts-csv">⬇ Download CSV</button>
   </div>
 
   <div class="contacts-dept">
@@ -887,10 +887,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 </div>
 
 <!-- PANEL -->
-<div class="panel-overlay" id="panel-overlay" onclick="closePanel(event)">
+<div class="panel-overlay" id="panel-overlay">
   <div class="detail-panel" id="detail-panel">
     <div class="panel-header">
-      <button class="panel-close" onclick="closePanel()">✕</button>
+      <button class="panel-close" type="button" data-action="close-panel">✕</button>
       <div class="panel-name" id="panel-name"></div>
       <div class="panel-role" id="panel-role"></div>
       <div class="panel-meta" id="panel-meta"></div>
@@ -1492,7 +1492,7 @@ function openPanel(id) {
     html += `<div class="panel-section"><div class="panel-section-title">${t('panel_pains')}</div><ul class="pain-list">${pains.map(pain=>`<li class="pain-item">${pain}</li>`).join('')}</ul></div>`;
   }
   if (p.connects.length > 0) {
-    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_connects')}</div><div class="connects-to">${p.connects.map(c=>`<span class="connects-chip" onclick="openPanel('${c}')">${PEOPLE[c]?.name||c}</span>`).join('')}</div></div>`;
+    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_connects')}</div><div class="connects-to">${p.connects.map(c=>`<span class="connects-chip" data-action="open-panel" data-person-id="${c}" role="button" tabindex="0">${PEOPLE[c]?.name||c}</span>`).join('')}</div></div>`;
   }
   document.getElementById('panel-body').innerHTML = html;
   document.getElementById('panel-overlay').classList.add('open');
@@ -1646,7 +1646,7 @@ function renderDocs() {
       <div class="doc-status-grid">
         ${d.statuses.map(s=>`<div class="status-item"><div class="status-name">${s.name}</div><div class="status-desc">${s.desc[LANG]||s.desc.en}</div></div>`).join('')}
       </div>` : '';
-    return `<div class="doc-card" onclick="toggleDocDetail('${d.id}')">
+    return `<div class="doc-card" data-action="toggle-doc-detail" data-doc-id="${d.id}">
       <div class="doc-card-top"><div><div class="doc-card-title">${title}</div><div class="doc-card-subtitle">${subtitle}</div></div>
       <div class="doc-card-badges"><span class="doc-freq ${d.freq}">${freqLabel[d.freq]}</span></div></div>
       <div class="doc-card-desc">${desc}</div>
@@ -1657,7 +1657,7 @@ function renderDocs() {
       <div class="doc-card-meta">
         <div><span class="doc-meta-label">${t('doc_tool')}:</span> ${d.tool}</div>
         <div><span class="doc-meta-label">${t('doc_owners')}:</span>
-          <div class="doc-owners">${d.owners.map(o=>`<span class="doc-owner-chip" onclick="event.stopPropagation();openPanel('${o}')">${PEOPLE[o]?.name||o}</span>`).join('')}</div>
+          <div class="doc-owners">${d.owners.map(o=>`<span class="doc-owner-chip" data-action="open-panel" data-person-id="${o}" data-stop="1" role="button" tabindex="0">${PEOPLE[o]?.name||o}</span>`).join('')}</div>
         </div>
         ${d.link?`<a href="${d.link}" target="_blank" style="color:var(--accent);font-size:.76rem;">🔗</a>`:`<span class="doc-link-btn">🔗 ${t('doc_link_none')}</span>`}
       </div>
@@ -1755,12 +1755,12 @@ function renderReqs() {
       const short = r.short[LANG]||r.short.en;
       const desc = r.desc[LANG]||r.desc.en;
       const pain = r.pain[LANG]||r.pain.en;
-      html += `<div class="req-card" id="card-${r.id}" onclick="toggleReq('${r.id}')">
+      html += `<div class="req-card" id="card-${r.id}" data-action="toggle-req" data-req-id="${r.id}">
         <div><div class="req-title">${title}</div><div class="req-short">${short}</div>
         <div class="req-detail" id="detail-${r.id}">
           <div class="req-detail-desc">${desc}</div>
           <div class="req-pain">${pain}</div>
-          <div class="req-who"><span class="req-who-label" style="font-family:'DM Mono',monospace;font-size:.66rem;color:var(--text-muted);text-transform:uppercase;">${LANG==='sr'?'Tiče se':'Affects'}: </span>${r.who.map(w=>`<span class="doc-owner-chip" onclick="event.stopPropagation();openPanel('${w}')">${PEOPLE[w]?.name||w}</span>`).join('')}</div>
+          <div class="req-who"><span class="req-who-label" style="font-family:'DM Mono',monospace;font-size:.66rem;color:var(--text-muted);text-transform:uppercase;">${LANG==='sr'?'Tiče se':'Affects'}: </span>${r.who.map(w=>`<span class="doc-owner-chip" data-action="open-panel" data-person-id="${w}" data-stop="1" role="button" tabindex="0">${PEOPLE[w]?.name||w}</span>`).join('')}</div>
         </div></div>
         <div class="req-badges"><span class="${r.priority==='must'?'badge-must':'badge-nice'}">${r.priority==='must'?'★ MUST HAVE':'◇ NICE TO HAVE'}</span></div>
       </div>`;
@@ -1810,7 +1810,7 @@ function renderGlossary() {
       const short = g.short[LANG]||g.short.en;
       const detail = g.detail[LANG]||g.detail.en;
       const example = g.example[LANG]||g.example.en;
-      html += `<div class="gloss-card" id="gcard-${g.id}" onclick="toggleGloss('${g.id}')">
+      html += `<div class="gloss-card" id="gcard-${g.id}" data-action="toggle-gloss" data-gloss-id="${g.id}">
         <div class="gloss-term">${term}${g.termEn && g.termEn!==term?`<span class="gloss-term-en">${g.termEn}</span>`:''}<span class="gloss-cat-badge ${g.cat}">${g.cat}</span></div>
         <div class="gloss-short">${short}</div>
         <div class="gloss-detail" id="gdetail-${g.id}">
@@ -1887,7 +1887,7 @@ function renderQuestion() {
       <div class="question-meta">${meta} · Q${currentIndex+1}</div>
       <div class="question-text">${qText}</div>
       <div class="answer-options">
-        ${opts.map((opt,i)=>`<button class="answer-option" onclick="checkAnswer(${i})">${opt}</button>`).join('')}
+        ${opts.map((opt,i)=>`<button class="answer-option" type="button" data-action="check-answer" data-answer-index="${i}">${opt}</button>`).join('')}
       </div>
       <div class="quiz-feedback" id="quiz-feedback"></div>
     </div>`;
@@ -1940,7 +1940,125 @@ window.addEventListener('DOMContentLoaded', () => {
     if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
   });
 
+  // Centralized click handler to avoid inline onclick attributes.
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    const el = target?.closest?.('[data-action]');
+    if (!el) return;
+    if (el.hasAttribute('data-stop')) e.stopPropagation();
+    const action = el.getAttribute('data-action');
 
+    if (action === 'toggle-doc-detail') {
+      const id = el.getAttribute('data-doc-id');
+      if (id) toggleDocDetail(id);
+      return;
+    }
+    if (action === 'toggle-req') {
+      const id = el.getAttribute('data-req-id');
+      if (id) toggleReq(id);
+      return;
+    }
+    if (action === 'toggle-gloss') {
+      const id = el.getAttribute('data-gloss-id');
+      if (id) toggleGloss(id);
+      return;
+    }
+    if (action === 'check-answer') {
+      const idxRaw = el.getAttribute('data-answer-index');
+      const idx = idxRaw === null ? NaN : Number(idxRaw);
+      if (!Number.isNaN(idx)) checkAnswer(idx);
+      return;
+    }
+    if (action === 'switch-stream') {
+      const stream = el.getAttribute('data-stream');
+      if (stream) switchStream(stream, el);
+      return;
+    }
+    if (action === 'switch-procmap') {
+      const stream = el.getAttribute('data-stream');
+      if (stream) switchProcmap(stream, el);
+      return;
+    }
+    if (action === 'filter-docs-freq') {
+      const freq = el.getAttribute('data-freq') || 'all';
+      filterByFreq(freq, el);
+      return;
+    }
+    if (action === 'set-reqs-filter') {
+      const filter = el.getAttribute('data-filter') || 'all';
+      setReqsFilter(filter, el);
+      return;
+    }
+    if (action === 'set-gloss-filter') {
+      const filter = el.getAttribute('data-filter') || 'all';
+      setGlossFilter(filter, el);
+      return;
+    }
+    if (action === 'select-quiz-type') {
+      const type = el.getAttribute('data-type') || 'role';
+      selectQuizType(type);
+      return;
+    }
+    if (action === 'start-quiz') {
+      startQuiz();
+      return;
+    }
+    if (action === 'next-question') {
+      nextQuestion();
+      return;
+    }
+    if (action === 'restart-quiz') {
+      restartQuiz();
+      return;
+    }
+    if (action === 'download-contacts-csv') {
+      downloadContactsCSV();
+      return;
+    }
+    if (action === 'switch-view') {
+      const view = el.getAttribute('data-view');
+      if (view) switchView(view);
+      return;
+    }
+    if (action === 'set-lang') {
+      const lang = el.getAttribute('data-lang');
+      if (lang) setLang(lang);
+      return;
+    }
+    if (action === 'logout') {
+      logout();
+      return;
+    }
+    if (action === 'open-panel') {
+      const pid = el.getAttribute('data-person-id');
+      if (pid) openPanel(pid);
+      return;
+    }
+    if (action === 'close-panel') {
+      closePanel();
+      return;
+    }
+  });
+
+  const docsSearchInput = document.getElementById('docs-search-input');
+  docsSearchInput?.addEventListener('input', () => {
+    filterDocs();
+  });
+
+  const reqsSearchInput = document.getElementById('reqs-search');
+  reqsSearchInput?.addEventListener('input', () => {
+    renderReqs();
+  });
+
+  const glossSearchInput = document.getElementById('gloss-search');
+  glossSearchInput?.addEventListener('input', () => {
+    renderGlossary();
+  });
+
+  // Close panel on backdrop click (overlay).
+  document.getElementById('panel-overlay')?.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('panel-overlay')) closePanel();
+  });
 });
 
 function downloadContactsCSV() {

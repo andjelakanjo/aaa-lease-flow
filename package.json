@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon --watch server.js --watch routes --watch middleware --watch public --ext js,html,css server.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

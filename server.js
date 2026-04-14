@@ -22,13 +22,19 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrcAttr: ["'unsafe-inline'"],
+        // Disallow inline <script> blocks (we serve JS as files).
+        scriptSrc: ["'self'"],
+        // Disallow inline event handlers (onclick=..., oninput=..., etc).
+        scriptSrcAttr: ["'none'"],
         styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         connectSrc: ["'self'", 'https://*.supabase.co'],
         imgSrc: ["'self'", 'data:'],
-        objectSrc: ["'none'"]
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        // Admin embeds /app?preview=true in an iframe on the same origin.
+        frameAncestors: ["'self'"]
       }
     }
   })
@@ -38,6 +44,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 // ── Public routes ─────────────────────────────────────────────────────────────
+
+// Serve public JS assets (login/admin/app scripts).
+// We intentionally keep HTML behind explicit routes/middleware.
+app.get(/^\/[a-zA-Z0-9._-]+\.js$/, (req, res, next) => {
+  const safeName = path.basename(req.path);
+  res.sendFile(path.join(__dirname, 'public', safeName), (err) => {
+    if (err) next();
+  });
+});
 
 app.use('/auth', authLimiter, authRoutes);
 
