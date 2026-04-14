@@ -1,9 +1,17 @@
-// Redirect invite links to /auth/confirm preserving the full hash.
+// Redirect invite/recovery tokens to /auth/confirm (hash or query; Supabase usually uses hash).
 (function redirectInviteLinks() {
   const hash = window.location.hash;
-  if (hash && hash.includes('access_token=') && (hash.includes('type=invite') || hash.includes('type=recovery'))) {
+  const search = window.location.search;
+  const hp = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : '');
+  const sp = new URLSearchParams(search);
+  const token = hp.get('access_token') || sp.get('access_token');
+  const type = hp.get('type') || sp.get('type');
+  if (!token || (type !== 'invite' && type !== 'recovery')) return;
+  if (hp.get('access_token')) {
     window.location.replace('/auth/confirm' + hash);
+    return;
   }
+  window.location.replace('/auth/confirm#' + sp.toString());
 })();
 
 function switchTab(tab) {

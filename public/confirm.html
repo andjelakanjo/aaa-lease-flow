@@ -138,7 +138,13 @@ input:focus{border-color:var(--accent);}
 
   <!-- Shown when token is missing/invalid -->
   <div id="invalid-state">
-    <p>This link is invalid or has expired.</p>
+    <p>This link is invalid, expired, or the reset token never reached this page.</p>
+    <p style="margin-top:12px;">
+      If you use <strong>Vercel preview protection</strong> (SSO), the browser often drops the <code>#access_token…</code>
+      part after you log in to Vercel — then reset cannot work on that URL. Fix: set env <code>AUTH_REDIRECT_ORIGIN</code>
+      to your stable app URL (e.g. production) and add <code>…/auth/confirm</code> under Supabase Auth → URL configuration → Redirect URLs,
+      or turn off deployment protection for this preview.
+    </p>
     <a href="/login" class="btn" style="display:block;text-align:center;text-decoration:none;">Go to login →</a>
   </div>
 

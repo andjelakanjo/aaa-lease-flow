@@ -1,6 +1,13 @@
-// Parse the hash fragment: #access_token=...&refresh_token=...&type=invite
-const hash = window.location.hash.slice(1);
-const params = Object.fromEntries(new URLSearchParams(hash));
+// Tokens usually arrive in the hash (#access_token=…). Query params are a rare fallback.
+function parseAuthParams() {
+  const merged = new URLSearchParams();
+  if (window.location.hash.length > 1) {
+    new URLSearchParams(window.location.hash.slice(1)).forEach((v, k) => merged.set(k, v));
+  }
+  new URLSearchParams(window.location.search).forEach((v, k) => merged.set(k, v));
+  return Object.fromEntries(merged);
+}
+const params = parseAuthParams();
 const accessToken = params.access_token;
 
 function showInvalidState() {

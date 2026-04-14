@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const supabase = require('../config/supabase');
+const { getAuthRedirectOrigin } = require('../lib/authRedirectOrigin');
 
 // ── Role guards ───────────────────────────────────────────────────────────────
 
@@ -20,10 +21,6 @@ function requireSuperAdmin(req, res, next) {
     return res.status(403).json({ error: 'Super admin access required.' });
   }
   next();
-}
-
-function getOrigin(req) {
-  return `${req.protocol}://${req.get('host')}`;
 }
 
 // Apply admin role check to all routes in this router
@@ -129,7 +126,7 @@ router.post('/api/users/admin', requireSuperAdmin, async (req, res) => {
   }
 
   // Generate a password set link (invite) without relying on Supabase email templates.
-  const origin = getOrigin(req);
+  const origin = getAuthRedirectOrigin(req);
   const { data: linkData, error: linkError } = await supabase.admin.auth.admin.generateLink({
     type: 'invite',
     email: email.trim(),
@@ -192,7 +189,7 @@ router.post('/api/users/:id/recovery-link', requireSuperAdmin, async (req, res) 
     return res.status(400).json({ error: 'This user has no email account.' });
   }
 
-  const origin = getOrigin(req);
+  const origin = getAuthRedirectOrigin(req);
   const { data: linkData, error: linkError } = await supabase.admin.auth.admin.generateLink({
     type: 'recovery',
     email: profile.email,

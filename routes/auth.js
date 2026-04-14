@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
+const { getAuthRedirectOrigin } = require('../lib/authRedirectOrigin');
 
 // POST /auth/login — email + password
 router.post('/login', async (req, res) => {
@@ -81,8 +82,7 @@ router.post('/forgot-password', async (req, res) => {
   const email = req.body?.email?.trim();
   if (!email) return res.status(400).json({ error: 'Email is required.' });
 
-  // Use the current origin so it works on localhost + Vercel previews.
-  const origin = `${req.protocol}://${req.get('host')}`;
+  const origin = getAuthRedirectOrigin(req);
 
   // Always return OK (prevents user enumeration). Supabase only sends if email exists.
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
