@@ -200,7 +200,12 @@ router.post('/api/users/:id/recovery-link', requireSuperAdmin, async (req, res) 
     return res.status(500).json({ error: linkError.message || 'Failed to generate recovery link.' });
   }
 
-  res.json({ ok: true, recovery_link: linkData?.properties?.action_link || null });
+  res.json({
+    ok: true,
+    recovery_link: linkData?.properties?.action_link || null,
+    // Same OTP Supabase would put in an email — works on phones where long links / #hash break in-app browsers.
+    recovery_code: linkData?.properties?.email_otp || null
+  });
 });
 
 // Set password directly (super_admin only) — for cases where invite email was missed. Not for employees (access code only).

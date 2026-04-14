@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAA Lease — Reset password (code)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3d;
+  --accent:#4f8ef7; --text:#e8eaf0; --text-muted:#8890a4;
+  --error:#f74f4f; --success:#4fcf8e; --shadow:0 8px 32px rgba(0,0,0,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif;
+  min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+}
+.card{
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  padding:40px 36px; width:100%; max-width:400px; box-shadow:var(--shadow);
+}
+.logo{text-align:center;margin-bottom:24px;}
+.logo h1{font-family:'DM Serif Display',serif;font-size:1.6rem;}
+.logo h1 span{color:var(--accent);}
+.logo p{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.12em;margin-top:4px;}
+.heading{font-size:1rem;font-weight:600;margin-bottom:6px;}
+.subtext{font-size:.82rem;color:var(--text-muted);margin-bottom:22px;line-height:1.45;}
+.field{margin-bottom:16px;}
+label{
+  display:block;font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--text-muted);margin-bottom:7px;
+}
+input{
+  width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:.9rem;outline:none;
+}
+input:focus{border-color:var(--accent);}
+.hint{font-size:.75rem;color:var(--text-muted);margin-top:6px;}
+.btn{
+  width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;
+  font-size:.92rem;font-weight:500;cursor:pointer;margin-top:8px;
+}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.error-msg{
+  background:rgba(247,79,79,.1);border:1px solid rgba(247,79,79,.3);color:var(--error);
+  border-radius:8px;padding:10px 14px;font-size:.82rem;margin-bottom:16px;display:none;
+}
+.error-msg.show{display:block;}
+.success-msg{
+  background:rgba(79,207,142,.1);border:1px solid rgba(79,207,142,.3);color:var(--success);
+  border-radius:8px;padding:10px 14px;font-size:.82rem;margin-bottom:16px;display:none;
+}
+.success-msg.show{display:block;}
+.back{margin-top:18px;text-align:center;}
+.back a{color:var(--accent);font-size:.85rem;text-decoration:none;}
+.back a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <h1>AAA <span>Lease</span></h1>
+    <p>Reset password — code</p>
+  </div>
+  <div class="heading">Use the code from your admin</div>
+  <div class="subtext">Your admin generated a <strong>6-digit code</strong> in the dashboard. Enter it here with your work email and a new password.</div>
+
+  <div class="error-msg" id="err"></div>
+  <div class="success-msg" id="success">Password updated! You can log in now…</div>
+
+  <form id="recovery-form">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@company.com">
+    </div>
+    <div class="field">
+      <label for="code">6-digit code</label>
+      <input type="text" id="code" name="code" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" required placeholder="123456" maxlength="12">
+      <p class="hint">Digits only. If the code expired, ask for a new “Reset link” in the admin panel.</p>
+    </div>
+    <div class="field">
+      <label for="password">New password</label>
+      <input type="password" id="password" name="password" autocomplete="new-password" required placeholder="••••••••" minlength="8">
+    </div>
+    <div class="field">
+      <label for="password-confirm">Confirm password</label>
+      <input type="password" id="password-confirm" name="password_confirm" autocomplete="new-password" required placeholder="••••••••" minlength="8">
+    </div>
+    <button class="btn" type="submit" id="btn-submit">Save password →</button>
+  </form>
+  <div class="back"><a href="/login">← Back to login</a></div>
+</div>
+<script src="/recovery.js" defer></script>
+</body>
+</html>

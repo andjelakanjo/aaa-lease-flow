@@ -98,7 +98,7 @@ function renderUsers(users) {
         viewerIsSuper && hasEmailLogin
           ? `<button class="btn-sm" type="button" data-action="generate-recovery-link" data-user-id="${esc(
               u.id
-            )}">Reset link</button>
+            )}" data-user-email="${esc(u.email || '')}">Reset link</button>
              <button class="btn-sm" type="button" data-action="open-set-password" data-user-id="${esc(
                u.id
              )}" data-user-name="${esc(name)}">Set password</button>`
@@ -341,7 +341,14 @@ function copyRecoveryLink() {
   });
 }
 
-async function generateRecoveryLinkForUser(userId) {
+function copyRecoveryOtp() {
+  const code = document.getElementById('recovery-otp-value').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById('recovery-otp-copy-success').style.display = 'block';
+  });
+}
+
+async function generateRecoveryLinkForUser(userId, colleagueEmail) {
   const res = await fetch(`/admin/api/users/${userId}/recovery-link`, {
     method: 'POST',
     headers: { Accept: 'application/json' }
@@ -351,12 +358,25 @@ async function generateRecoveryLinkForUser(userId) {
     showToast(data.error || 'Failed to generate reset link.', 'error');
     return;
   }
-  if (!data.recovery_link) {
-    showToast('No link returned.', 'error');
+  if (!data.recovery_link && !data.recovery_code) {
+    showToast('No reset data returned.', 'error');
     return;
   }
-  document.getElementById('recovery-link-value').textContent = data.recovery_link;
+  const base = `${window.location.origin}/auth/recovery`;
+  document.getElementById('recovery-page-url').textContent = colleagueEmail
+    ? `${base}?email=${encodeURIComponent(colleagueEmail)}`
+    : base;
+  document.getElementById('recovery-link-value').textContent = data.recovery_link || '—';
   document.getElementById('recovery-copy-success').style.display = 'none';
+  const otpSection = document.getElementById('recovery-otp-section');
+  const otpVal = document.getElementById('recovery-otp-value');
+  if (data.recovery_code && otpSection && otpVal) {
+    otpVal.textContent = data.recovery_code;
+    otpSection.style.display = 'block';
+    document.getElementById('recovery-otp-copy-success').style.display = 'none';
+  } else if (otpSection) {
+    otpSection.style.display = 'none';
+  }
   openModal('modal-recovery-link');
 }
 
@@ -589,6 +609,7 @@ function setupEventHandlers() {
     if (action === 'copy-view-code') return void copyViewCode();
     if (action === 'copy-invite-link') return void copyInviteLink();
     if (action === 'copy-recovery-link') return void copyRecoveryLink();
+    if (action === 'copy-recovery-otp') return void copyRecoveryOtp();
     if (action === 'submit-set-password') return void submitSetPassword();
     if (action === 'submit-extend') return void submitExtend();
     if (action === 'submit-delete') return void submitDelete();
@@ -620,7 +641,8 @@ function setupEventHandlers() {
 
     if (action === 'generate-recovery-link') {
       const userId = el.getAttribute('data-user-id');
-      if (userId) generateRecoveryLinkForUser(userId);
+      const colleagueEmail = el.getAttribute('data-user-email') || '';
+      if (userId) generateRecoveryLinkForUser(userId, colleagueEmail);
       return;
     }
 

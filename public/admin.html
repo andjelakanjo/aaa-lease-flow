@@ -402,10 +402,19 @@ select option{background:#0f1629;}
 <!-- Password recovery link (super_admin — share with admin / super_admin who missed email) -->
 <div class="modal-backdrop" id="modal-recovery-link">
   <div class="modal" style="text-align:center;">
-    <h3>Password reset link</h3>
-    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;">
-      Share this link once. It opens the same “set password” page as invite recovery.
+    <h3>Password reset for colleague</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:10px;text-align:left;">
+      <strong>On a phone</strong>, the long link often breaks (Gmail / in-app browser drops the token). Prefer:
+      send them the <strong>6-digit code</strong> below and this page:
+      <span id="recovery-page-url" style="display:block;margin-top:8px;font-family:'DM Mono',monospace;font-size:.76rem;word-break:break-all;color:var(--accent);"></span>
     </p>
+    <div id="recovery-otp-section" class="code-display" style="text-align:center;margin-bottom:14px;display:none;">
+      <p>One-time code (expires soon)</p>
+      <div class="code-value" id="recovery-otp-value" style="font-size:1.35rem;letter-spacing:0.2em;">—</div>
+      <button class="btn-copy" type="button" data-action="copy-recovery-otp" style="margin-top:10px;">Copy code</button>
+      <div class="copy-success" id="recovery-otp-copy-success" style="display:none">Copied!</div>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:6px;text-align:left;">Optional — link (may not work in all mobile mail apps):</p>
     <div class="code-display" style="text-align:left;">
       <p>Link</p>
       <div class="code-value" id="recovery-link-value" style="font-size:.78rem;letter-spacing:0;word-break:break-all;">—</div>

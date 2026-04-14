@@ -77,6 +77,49 @@ router.get('/confirm', (req, res) => {
   res.sendFile(require('path').join(__dirname, '..', 'public', 'confirm.html'));
 });
 
+// GET /auth/recovery — set password using email + OTP from admin “Reset link” (no #fragment; works better on mobile)
+router.get('/recovery', (req, res) => {
+  res.sendFile(require('path').join(__dirname, '..', 'public', 'recovery.html'));
+});
+
+// POST /auth/recovery-apply — verify recovery OTP then set password
+router.post('/recovery-apply', async (req, res) => {
+  const email = req.body?.email?.trim();
+  const token = req.body?.token != null ? String(req.body.token).trim() : '';
+  const password = req.body?.password;
+
+  if (!email || !token || !password) {
+    return res.status(400).json({ error: 'Email, code, and password are required.' });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters.' });
+  }
+
+  const { data, error } = await supabase.auth.verifyOtp({
+    email,
+    token,
+    type: 'recovery'
+  });
+
+  if (error || !data?.user) {
+    console.error('[auth/recovery-apply] verifyOtp:', error?.message);
+    return res.status(401).json({
+      error: 'Invalid or expired code. Ask your admin to generate a new “Reset link” from the dashboard.'
+    });
+  }
+
+  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(data.user.id, {
+    password,
+    email_confirm: true
+  });
+  if (updateError) {
+    console.error('[auth/recovery-apply] updateUserById failed:', updateError.message);
+    return res.status(500).json({ error: 'Failed to set password. Please try again.' });
+  }
+
+  res.json({ ok: true });
+});
+
 // POST /auth/forgot-password — send a password recovery email (no user enumeration)
 router.post('/forgot-password', async (req, res) => {
   const email = req.body?.email?.trim();
