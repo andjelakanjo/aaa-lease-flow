@@ -237,7 +237,33 @@ router.post('/api/users/:id/password', requireSuperAdmin, async (req, res) => {
     return res.status(400).json({ error: 'No Auth user linked (missing user_id). Create or link the user in Supabase Auth first.' });
   }
 
-  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(profile.user_id, { password });
+  const { data: authData, error: authFetchError } = await supabase.admin.auth.admin.getUserById(profile.user_id);
+  if (authFetchError || !authData?.user) {
+    return res.status(400).json({
+      error: 'Linked Auth user not found. Check that profiles.user_id matches a user in Authentication → Users.'
+    });
+  }
+
+  const authUser = authData.user;
+  const profileEmail = (profile.email || '').trim().toLowerCase();
+  const authEmail = (authUser.email || '').trim().toLowerCase();
+
+  if (profileEmail && authEmail && profileEmail !== authEmail) {
+    return res.status(409).json({
+      error:
+        'Profile email and Supabase Auth email do not match. Open Supabase → Authentication → Users and align the email with the profile, then try again.',
+      profile_email: profile.email,
+      auth_email: authUser.email
+    });
+  }
+
+  // Confirm email so signInWithPassword works when "Confirm email" is required in Auth settings.
+  const attrs = { password, email_confirm: true };
+  if (!authUser.email && profile.email?.trim()) {
+    attrs.email = profile.email.trim();
+  }
+
+  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(profile.user_id, attrs);
   if (updateError) {
     console.error('[admin/set-password] updateUserById failed:', updateError.message);
     return res.status(500).json({ error: updateError.message || 'Failed to set password.' });

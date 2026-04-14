@@ -395,7 +395,11 @@ async function submitSetPassword() {
   setSubmitLoading('submit-set-password', false);
 
   if (!res.ok) {
-    setModalError('err-set-password', data.error || 'Failed to set password.');
+    let msg = data.error || 'Failed to set password.';
+    if (res.status === 409 && data.profile_email && data.auth_email) {
+      msg += ` Profile: ${data.profile_email}. Auth: ${data.auth_email}.`;
+    }
+    setModalError('err-set-password', msg);
     return;
   }
   closeModal('modal-set-password');

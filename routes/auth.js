@@ -114,8 +114,11 @@ router.post('/confirm', async (req, res) => {
     return res.status(401).json({ error: 'Invalid or expired invite link.' });
   }
 
-  // Update the password via admin client
-  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(user.id, { password });
+  // Update the password via admin client (confirm email so login works if confirmations are enforced)
+  const { error: updateError } = await supabase.admin.auth.admin.updateUserById(user.id, {
+    password,
+    email_confirm: true
+  });
   if (updateError) {
     console.error('[auth/confirm] updateUserById failed:', updateError.message);
     return res.status(500).json({ error: 'Failed to set password. Please try again.' });
