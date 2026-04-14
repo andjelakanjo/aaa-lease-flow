@@ -407,10 +407,10 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div class="stream-selector">
     <div class="stream-selector-label" data-t="flow_stream_label">Select Revenue Stream:</div>
     <div class="stream-tabs">
-      <button class="stream-tab tab-lease active" type="button" data-action="switch-stream" data-stream="lease">📋 Lease</button>
-      <button class="stream-tab tab-rental" type="button" data-action="switch-stream" data-stream="rental">🚛 Rental</button>
-      <button class="stream-tab tab-cash" type="button" data-action="switch-stream" data-stream="cash">💰 Cash Sales</button>
-      <button class="stream-tab tab-parking" type="button" data-action="switch-stream" data-stream="parking">🅿️ Parking</button>
+      <button class="stream-tab tab-lease active" type="button" data-action="switch-stream" data-stream="lease" data-t="flow_tab_lease">📋 Lease</button>
+      <button class="stream-tab tab-rental" type="button" data-action="switch-stream" data-stream="rental" data-t="flow_tab_rental">🚛 Rental</button>
+      <button class="stream-tab tab-cash" type="button" data-action="switch-stream" data-stream="cash" data-t="flow_tab_cash">💰 Cash Sales</button>
+      <button class="stream-tab tab-parking" type="button" data-action="switch-stream" data-stream="parking" data-t="flow_tab_parking">🅿️ Parking</button>
     </div>
     <div class="stream-selector-sub" data-t="flow_stream_sub">Each revenue stream has its own end-to-end process</div>
   </div>
@@ -419,84 +419,84 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="stream-lease" class="stream-panel active">
     <div class="stream-banner">
       <div class="stream-banner-icon">📋</div>
-      <div><div class="stream-banner-name">LEASE</div><div class="stream-banner-desc">Finance lease sa buyout opcijom — od aplikacije i odobrenja do zatvaranja ugovora i title transfera</div></div>
+      <div><div class="stream-banner-name">LEASE</div><div class="stream-banner-desc" data-t="flow_l_desc">Finance lease sa buyout opcijom — od aplikacije i odobrenja do zatvaranja ugovora i title transfera</div></div>
     </div>
     <div class="flow-container">
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Lead &amp; Approval</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)" data-t="flow_l_s01n">Lead &amp; Approval</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Credit score, bank balance, FMCSA status, True Funding cross-collateral list</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Final approval or rejection, defines contract terms</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Bank financing coordination if needed</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s01w1">Credit score, bank balance, FMCSA status, True Funding cross-collateral list</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what" data-t="flow_l_s01w2">Final approval or rejection, defines contract terms</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" data-t="flow_l_s01w3">Bank financing coordination if needed</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)">Contract &amp; Documentation</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s02n">Contract &amp; Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare contract via DocuSign (salesman → client → Alex → accounting)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Verify COI, collect down payment, create down payment invoice in QB</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Check</div><div class="flow-step-what">If unit on loan — promissory note required</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Check</div><div class="flow-step-what">If client on True Funding list — cross-collateral agreement required</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what" data-t="flow_l_s02w1">Prepare contract via DocuSign (salesman → client → Alex → accounting)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what" data-t="flow_l_s02w2">Verify COI, collect down payment, create down payment invoice in QB</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s02who_check">Check</div><div class="flow-step-what" data-t="flow_l_s02w3">If unit on loan — promissory note required</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s02who_check">Check</div><div class="flow-step-what" data-t="flow_l_s02w4">If client on True Funding list — cross-collateral agreement required</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)">GPS &amp; Release</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s03n">GPS &amp; Release</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Valentina / Brankica</div><div class="flow-step-what">Verify GPS active in FleetLocate or Routemate</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">When all docs confirmed</div><div class="flow-step-what">Issue release form to Radu / salesman</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Valentina / Brankica</div><div class="flow-step-what" data-t="flow_l_s03w1">Verify GPS active in FleetLocate or Routemate</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s03who_when">When all docs confirmed</div><div class="flow-step-what" data-t="flow_l_s03w2">Issue release form to Radu / salesman</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--ops)">Unit Pickup</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--ops)" data-t="flow_l_s04n">Unit Pickup</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection, photographs unit condition</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends report to client + DOT registration copy + 24hr maintenance info</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates spreadsheets — removes from available, adds to checkout tab</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w1">Checkout inspection, photographs unit condition</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w2">Sends report to client + DOT registration copy + 24hr maintenance info</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w3">Updates spreadsheets — removes from available, adds to checkout tab</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--acc)">Active Lease — Billing</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s05n">Active Lease — Billing</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Sends weekly/monthly lease invoices via QuickBooks memorized list</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what">Vendor invoices by email → approvals (Radu rental / ops lease) → QuickBooks payables + Huntington payments; Repair sheet + HubSpot repair costs; billable tolls with billing</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Mileage overage billing monthly (if client exceeds 130,000 miles/year)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Tolls, repairs, final charges billed separately</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what" data-t="flow_l_s05w1">Sends weekly/monthly lease invoices via QuickBooks memorized list</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what" data-t="flow_l_s05w2">Vendor invoices by email → approvals (Radu rental / ops lease) → QuickBooks payables + Huntington payments; Repair sheet + HubSpot repair costs; billable tolls with billing</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s05w3">Mileage overage billing monthly (if client exceeds 130,000 miles/year)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" data-t="flow_l_s05w4">Tolls, repairs, final charges billed separately</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Collections &amp; AR</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s06n">Collections &amp; AR</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily monitoring — rejected payments, calls, ACH pulls from JPM bank</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what">Invoice closing: rent first → tolls/repairs → lease (Alex's rule)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what">Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Monthly credit bureau CSV export to Hutchins</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what" data-t="flow_l_s06w1">Daily monitoring — rejected payments, calls, ACH pulls from JPM bank</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" data-t="flow_l_s06w2">Invoice closing: rent first → tolls/repairs → lease (Alex's rule)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what" data-t="flow_l_s06w3">Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s06w4">Monthly credit bureau CSV export to Hutchins</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">07</div><div class="flow-stage-name" style="color:var(--acc)">Lease End / Buyout</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">07</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s07n">Lease End / Buyout</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Notifies team when all payments complete</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Checks if unit on bank loan — requests payoff (Alex approval required)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS + ST556, sends to client for signature</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates title transfer with Emily</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends documents to Secretary of State</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what" data-t="flow_l_s07w1">Notifies team when all payments complete</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s07w2">Checks if unit on bank loan — requests payoff (Alex approval required)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s07w3">Prepares BOS + ST556, sends to client for signature</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" data-t="flow_l_s07w4">Coordinates title transfer with Emily</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what" data-t="flow_l_s07w5">Sends documents to Secretary of State</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what" data-t="flow_l_s07w6">Closes unit in QB and Fixed Asset register</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">08</div><div class="flow-stage-name" style="color:var(--ops)">Recovery (if non-payment)</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">08</div><div class="flow-stage-name" style="color:var(--ops)" data-t="flow_l_s08n">Recovery (if non-payment)</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Sends recovery notice (7–14 days to respond)</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">No response</div><div class="flow-step-what">GPS starter disable</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="teo" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Teo</div><div class="flow-step-what">Physical recovery, $2,500 recovery fee</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">If unresolved</div><div class="flow-step-what">Case sent to attorney</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what" data-t="flow_l_s08w1">Sends recovery notice (7–14 days to respond)</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s08who_noresp">No response</div><div class="flow-step-what" data-t="flow_l_s08w2">GPS starter disable</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="teo" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Teo</div><div class="flow-step-what" data-t="flow_l_s08w3">Physical recovery, $2,500 recovery fee</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s08who_unres">If unresolved</div><div class="flow-step-what" data-t="flow_l_s08w4">Case sent to attorney</div></div>
         </div>
       </div>
     </div>
@@ -506,63 +506,63 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="stream-rental" class="stream-panel">
     <div class="stream-banner">
       <div class="stream-banner-icon">🚛</div>
-      <div><div class="stream-banner-name">RENTAL</div><div class="stream-banner-desc">Kratkoročni i dugoročni najam trailers & trucks — od inquiry i setup-a do weekly billing i check-in-a</div></div>
+      <div><div class="stream-banner-name">RENTAL</div><div class="stream-banner-desc" data-t="flow_r_desc">Kratkoročni i dugoročni najam trailers & trucks — od inquiry i setup-a do weekly billing i check-in-a</div></div>
     </div>
     <div class="flow-container">
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Inquiry &amp; Lead</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)" data-t="flow_r_s01n">Inquiry &amp; Lead</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Customer → Radu</div><div class="flow-step-what">Customer contacts Radu directly (word of mouth / ads)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Creates HubSpot deal, soft-holds unit in spreadsheet</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Agreement on unit type, rate (weekly or monthly), pickup timing</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)" data-t="flow_r_s01who_cr">Customer → Radu</div><div class="flow-step-what" data-t="flow_r_s01w1">Customer contacts Radu directly (word of mouth / ads)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" data-t="flow_r_s01w2">Creates HubSpot deal, soft-holds unit in spreadsheet</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" data-t="flow_r_s01w3">Agreement on unit type, rate (weekly or monthly), pickup timing</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)">Setup &amp; Documentation</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_r_s02n">Setup &amp; Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Sends COI requirements and insurance info to client</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what">Prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" data-t="flow_r_s02w1">Sends COI requirements and insurance info to client</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_r_s02who_client">Client</div><div class="flow-step-what" data-t="flow_r_s02w2">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela T. / Valentina</div><div class="flow-step-what" data-t="flow_r_s02w3">Prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs)</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--ops)">Unit Checkout</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--ops)" data-t="flow_r_s03n">Unit Checkout</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Checkout inspection — measures tires, brakes, photographs condition</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Sends inspection report + DOT copy + registration copy to client; if reefer/truck — also 24hr breakdown maintenance info</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Updates Google Sheets — removes from Available Trailers, updates customer name, logs in Checkout tab</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_r_s03w1">Checkout inspection — measures tires, brakes, photographs condition</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_r_s03w2">Sends inspection report + DOT copy + registration copy to client; if reefer/truck — also 24hr breakdown maintenance info</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_r_s03w3">Updates Google Sheets — removes from Available Trailers, updates customer name, logs in Checkout tab</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)">Weekly Billing (every Monday)</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_r_s04n">Weekly Billing (every Monday)</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Logs mileage for each truck at start of day</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Hanna</div><div class="flow-step-what">Send billing spreadsheet (250+ rows weekly / 500–600 rows monthly)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Reviews billing list, calculates prorated amounts for pickups/returns, adds mileage charges (base rate + $0.12/mile for trucks; trailers fixed rate)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what">Replies to billing email when done — accounting cross-checks</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Milica D.</div><div class="flow-step-what">Tina creates invoices in QB; Milica pulls ACH payments</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what" data-t="flow_r_s04w1">Logs mileage for each truck at start of day</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Hanna</div><div class="flow-step-what" data-t="flow_r_s04w2">Send billing spreadsheet (250+ rows weekly / 500–600 rows monthly)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" data-t="flow_r_s04w3">Reviews billing list, calculates prorated amounts for pickups/returns, adds mileage charges (base rate + $0.12/mile for trucks; trailers fixed rate)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="radu" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Radu</div><div class="flow-step-what" data-t="flow_r_s04w4">Replies to billing email when done — accounting cross-checks</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina / Milica D.</div><div class="flow-step-what" data-t="flow_r_s04w5">Tina creates invoices in QB; Milica pulls ACH payments</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--ops)">Unit Return</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--ops)" data-t="flow_r_s05n">Unit Return</div></div>
         <div class="flow-steps">
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Customer</div><div class="flow-step-what">Returns Mon–Fri business hours (2 weeks notice in agreement, not enforced)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what">Check-in inspection — measures tires, brakes, photographs condition</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">FleetMate</div><div class="flow-step-what">Automatically sends check-in report to billing team — signals billing stop</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Submits usage charges (tire/brake wear) within 48 hours</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what">Damage charges billed within 7 days — emails billing with unit number, customer, amounts</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_r_s05who_cust">Customer</div><div class="flow-step-what" data-t="flow_r_s05w1">Returns Mon–Fri business hours (2 weeks notice in agreement, not enforced)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_r_s05w2">Check-in inspection — measures tires, brakes, photographs condition</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_r_s05who_fm">FleetMate</div><div class="flow-step-what" data-t="flow_r_s05w3">Automatically sends check-in report to billing team — signals billing stop</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what" data-t="flow_r_s05w4">Submits usage charges (tire/brake wear) within 48 hours</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="israel" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Israel</div><div class="flow-step-what" data-t="flow_r_s05w5">Damage charges billed within 7 days — emails billing with unit number, customer, amounts</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Collections</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_r_s06n">Collections</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what">Daily bank monitoring — rejected payments, calls, recovery notices</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">If non-payment persists</div><div class="flow-step-what">Same recovery procedure as Lease stream</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what" data-t="flow_r_s06w1">Daily bank monitoring — rejected payments, calls, recovery notices</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_r_s06who_np">If non-payment persists</div><div class="flow-step-what" data-t="flow_r_s06w2">Same recovery procedure as Lease stream</div></div>
         </div>
       </div>
     </div>
@@ -572,62 +572,62 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="stream-cash" class="stream-panel">
     <div class="stream-banner">
       <div class="stream-banner-icon">💰</div>
-      <div><div class="stream-banner-name">CASH SALES</div><div class="stream-banner-desc">Prodaja jedinica iz inventara — od deal identification i pricing-a do title transfera i commission kalkulacije</div></div>
+      <div><div class="stream-banner-name">CASH SALES</div><div class="stream-banner-desc" data-t="flow_c_desc">Prodaja jedinica iz inventara — od deal identification i pricing-a do title transfera i commission kalkulacije</div></div>
     </div>
     <div class="flow-container">
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)">Deal Identification</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">01</div><div class="flow-stage-name" style="color:var(--sales)" data-t="flow_c_s01n">Deal Identification</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex / Roman / Scott / Ilija</div><div class="flow-step-what">Identify unit for sale (from inventory, lease buyout, or auction)</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">HubSpot</div><div class="flow-step-what">Deal created with unit info and pricing</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates bank financing if needed (True Funding or external bank)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex / Roman / Scott / Ilija</div><div class="flow-step-what" data-t="flow_c_s01w1">Identify unit for sale (from inventory, lease buyout, or auction)</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s01who_hs">HubSpot</div><div class="flow-step-what" data-t="flow_c_s01w2">Deal created with unit info and pricing</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" data-t="flow_c_s01w3">Coordinates bank financing if needed (True Funding or external bank)</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--mgmt)">Approval &amp; Pricing</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">02</div><div class="flow-stage-name" style="color:var(--mgmt)" data-t="flow_c_s02n">Approval &amp; Pricing</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what">Approves sale price</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Verifies unit status — checks if on loan, on lease, GPS status</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="alex" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Alex</div><div class="flow-step-what" data-t="flow_c_s02w1">Approves sale price</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_c_s02w2">Verifies unit status — checks if on loan, on lease, GPS status</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)">Documentation</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_c_s03n">Documentation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Prepares BOS (Bill of Sale) + ST556</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Signs + provides Power of Attorney</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what">Creates sale revenue invoice in QuickBooks</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_c_s03w1">Prepares BOS (Bill of Sale) + ST556</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s03who_cl">Client</div><div class="flow-step-what" data-t="flow_c_s03w2">Signs + provides Power of Attorney</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what" data-t="flow_c_s03w3">Creates sale revenue invoice in QuickBooks</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)">Payment</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_c_s04n">Payment</div></div>
         <div class="flow-steps">
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Client</div><div class="flow-step-what">Arranges payment (cash or bank financing)</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Coordinates financing with bank, notifies Brankica when funds received</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s03who_cl">Client</div><div class="flow-step-what" data-t="flow_c_s04w2">Arranges payment (cash or bank financing)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" data-t="flow_c_s04w3">Coordinates financing with bank, notifies Brankica when funds received</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--sales)">Title Transfer</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">05</div><div class="flow-stage-name" style="color:var(--sales)" data-t="flow_c_s05n">Title Transfer</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what">Notifies Emily when payment confirmed</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what">Sends title transfer documents to Secretary of State</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">IL / IN</div><div class="flow-step-what">Direct transfer — client submits to SOS</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Other states</div><div class="flow-step-what">AAA signs and mails title — client registers independently</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what">Closes unit in QB and Fixed Asset register, removes from active inventory</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what">Cost-of-sales / GJ entries to close fixed assets at sale (list from Brankica/billing); with Aleksandra on purchase vs disposal</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="roman" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Roman</div><div class="flow-step-what" data-t="flow_c_s05w1">Notifies Emily when payment confirmed</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="emily" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--sales)">Emily</div><div class="flow-step-what" data-t="flow_c_s05w2">Sends title transfer documents to Secretary of State</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s05who_il">IL / IN</div><div class="flow-step-what" data-t="flow_c_s05w3">Direct transfer — client submits to SOS</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s05who_os">Other states</div><div class="flow-step-what" data-t="flow_c_s05w4">AAA signs and mails title — client registers independently</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Aleksandra</div><div class="flow-step-what" data-t="flow_c_s05w5">Closes unit in QB and Fixed Asset register, removes from active inventory</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Nadia</div><div class="flow-step-what" data-t="flow_c_s05w6">Cost-of-sales / GJ entries to close fixed assets at sale (list from Brankica/billing); with Aleksandra on purchase vs disposal</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
-        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)">Commission Calculation</div></div>
+        <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_c_s06n">Commission Calculation</div></div>
         <div class="flow-steps">
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">End of month: pulls BOS list + Active Units list + P&amp;L report from Aleksandra</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Formula</div><div class="flow-step-what">Sale price − wholesale − transport − repairs − marketing fee = net profit; commission = % of net profit (varies per salesman) or flat fee</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)">Lease units</div><div class="flow-step-what">Commission paid monthly only if client is current on payments</div></div>
-          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what">Submits commission calculations to Alex / Milica Rajković for approval</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_c_s06w1">End of month: pulls BOS list + Active Units list + P&amp;L report from Aleksandra</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s06who_f">Formula</div><div class="flow-step-what" data-t="flow_c_s06w2">Sale price − wholesale − transport − repairs − marketing fee = net profit; commission = % of net profit (varies per salesman) or flat fee</div></div>
+          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_c_s06who_lu">Lease units</div><div class="flow-step-what" data-t="flow_c_s06w3">Commission paid monthly only if client is current on payments</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_c_s06w4">Submits commission calculations to Alex / Milica Rajković for approval</div></div>
         </div>
       </div>
     </div>
@@ -637,36 +637,36 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="stream-parking" class="stream-panel">
     <div class="stream-banner">
       <div class="stream-banner-icon">🅿️</div>
-      <div><div class="stream-banner-name">PARKING</div><div class="stream-banner-desc">Parking spaces — vodi se kroz Easy Storage sistem, van je scope-a implementacije novog softvera</div></div>
+      <div><div class="stream-banner-name">PARKING</div><div class="stream-banner-desc" data-t="flow_p_desc">Parking spaces — vodi se kroz Easy Storage sistem, van je scope-a implementacije novog softvera</div></div>
     </div>
-    <div class="parking-badge">Parking — Easy Storage (van scope novog softvera)</div>
-    <p class="parking-intro">AAA Lease rents parking spaces at the Chicago yard through Easy Storage — a separate platform that handles parking independently from lease/rental operations.</p>
+    <div class="parking-badge" data-t="flow_p_badge">Parking — Easy Storage (van scope novog softvera)</div>
+    <p class="parking-intro" data-t="flow_p_intro">AAA Lease rents parking spaces at the Chicago yard through Easy Storage — a separate platform that handles parking independently from lease/rental operations.</p>
     <div class="parking-grid">
       <div class="parking-card">
-        <div class="parking-card-title">How It Works</div>
+        <div class="parking-card-title" data-t="flow_p_c1t">How It Works</div>
         <ul>
-          <li>Month-to-month agreements only — no long-term contracts</li>
-          <li>Billed under <strong>individual's name</strong>, not company name</li>
-          <li>Typical rate: <strong>$250/month</strong> per space</li>
-          <li>Easy Storage automatically pulls monthly payments from customers</li>
+          <li data-t="flow_p_c1l1">Month-to-month agreements only — no long-term contracts</li>
+          <li data-t="flow_p_c1l2">Billed under an individual's name, not the company name.</li>
+          <li data-t="flow_p_c1l3">Typical rate: $250/month per space.</li>
+          <li data-t="flow_p_c1l4">Easy Storage automatically pulls monthly payments from customers</li>
         </ul>
       </div>
       <div class="parking-card">
-        <div class="parking-card-title">Tina's Role</div>
+        <div class="parking-card-title" data-t="flow_p_c2t">Tina's Role</div>
         <ul>
-          <li>Monitors payment statuses in Easy Storage <strong>daily</strong></li>
-          <li>If payment fails: calls customer, manually processes retry</li>
-          <li>Creates QB invoices for: parking deposits, late fees, lockout fees, FI fee (Easy Storage processing fee deducted from payout)</li>
-          <li>Includes parking amounts in <strong>daily billing list to Milica</strong></li>
+          <li data-t="flow_p_c2l1">Monitors payment statuses in Easy Storage daily.</li>
+          <li data-t="flow_p_c2l2">If payment fails: calls customer, manually processes retry</li>
+          <li data-t="flow_p_c2l3">Creates QB invoices for: parking deposits, late fees, lockout fees, FI fee (Easy Storage processing fee deducted from payout)</li>
+          <li data-t="flow_p_c2l4">Includes parking amounts in the daily billing list to Milica.</li>
         </ul>
       </div>
       <div class="parking-card" style="grid-column:1/-1;">
-        <div class="parking-card-title">Key Accounting Notes</div>
+        <div class="parking-card-title" data-t="flow_p_c3t">Key Accounting Notes</div>
         <ul>
-          <li>Parking revenue booked to a <strong>separate revenue line</strong></li>
-          <li><strong>FI fee</strong> (Easy Storage system charge) deducted automatically and booked separately in QB</li>
-          <li>No integration needed with new lease management software</li>
-          <li>Easy Storage remains <strong>permanent system of record</strong> for parking</li>
+          <li data-t="flow_p_c3l1">Parking revenue booked to a separate revenue line.</li>
+          <li data-t="flow_p_c3l2">FI fee (Easy Storage system charge) deducted automatically and booked separately in QB.</li>
+          <li data-t="flow_p_c3l3">No integration needed with new lease management software</li>
+          <li data-t="flow_p_c3l4">Easy Storage remains the permanent system of record for parking.</li>
         </ul>
       </div>
     </div>
@@ -677,39 +677,39 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 <div id="procmap-view" class="view">
   <div style="margin-bottom:14px;"><h2 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:5px;" data-t="procmap_title">Process Map</h2><p style="color:var(--text-muted);font-size:.85rem;" data-t="procmap_sub">Customer ↔ AAA Lease — select a revenue stream.</p></div>
   <div class="stream-tabs" style="margin-bottom:18px;">
-    <button class="stream-tab active" type="button" data-action="switch-procmap" data-stream="lease">Lease</button>
-    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="rental">Rental</button>
-    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="cash">Cash Sales</button>
+    <button class="stream-tab active" type="button" data-action="switch-procmap" data-stream="lease" data-t="pm_tab_lease">Lease</button>
+    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="rental" data-t="pm_tab_rental">Rental</button>
+    <button class="stream-tab" type="button" data-action="switch-procmap" data-stream="cash" data-t="pm_tab_cash">Cash Sales</button>
   </div>
 
   <!-- LEASE SWIMLANE -->
   <div id="pm-lease" class="stream-panel active">
     <div style="max-width:980px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:0;">
-        <div class="procmap-header customer">👤 <span>CUSTOMER / KLIJENT</span></div>
+        <div class="procmap-header customer"><span data-t="pm_hdr_cust">👤 CUSTOMER / KLIJENT</span></div>
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
-        <div class="procmap-header aaa">🏢 AAA LEASE</div>
+        <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
-        <div class="procmap-stage-label">① Inquiry &amp; Approval</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica</div>Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex</div>Final approval or rejection. Defines contract terms.</div></div>
-        <div class="procmap-stage-label">② Contract &amp; Documentation</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0">Andjela T. / Valentina</div>Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— waits for GPS confirmation and release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0">Valentina / Brankica</div>Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</div></div>
-        <div class="procmap-stage-label">③ Unit Pickup</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div>Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.</div></div>
-        <div class="procmap-stage-label">④ Active Contract</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="tina" role="button" tabindex="0">Tina</div>Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives additional invoices: tolls, repairs, mileage overage.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0">Hanna / Brankica</div>Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Vendor repair/parts bills are paid or booked by AAA; costs tie back to client billing where applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0">Nadia</div><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra</div>QuickBooks payables: vendor bills, 3-way alignment with Hanna on repair invoices when needed.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica Doson</div>Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).</div></div>
-        <div class="procmap-stage-label">⑤ Issues (optional)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Reports accident. Submits claim form and adjuster info from their insurance.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra / Brankica</div>Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Late on payments. Receives recovery notice (7–14 days). GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D. + Alex</div>Recovery notice → GPS disable → Teo picks up unit ($2,500 fee) → case to attorney. "Lawyer" status = billing stops.</div></div>
-        <div class="procmap-stage-label">⑥ End of Contract</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Buyout:</strong> pays remaining amount. Receives BOS + ST556. Registers title in own name (IL/IN — SOS; others — title copy).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Roman → Emily → Aleksandra</div>Brankica prepares BOS + ST556. Roman coordinates title with Emily. Emily → Secretary of State. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>Return:</strong> brings unit back. Signs check-in inspection. Receives final billing for damage/overage.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Aleksandra → Tina</div>Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.</div></div>
+        <div class="procmap-stage-label" data-t="pm_l1">① Inquiry &amp; Approval</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l1cc">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica</div><span data-t="pm_l1aa">Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l2cc">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex</div><span data-t="pm_l2aa">Final approval or rejection. Defines contract terms.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_l3">② Contract &amp; Documentation</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l3cc">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0">Andjela T. / Valentina</div><span data-t="pm_l3aa">Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;" data-t="pm_l4cc">— waits for GPS confirmation and release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0">Valentina / Brankica</div><span data-t="pm_l4aa">Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_l5">③ Unit Pickup</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l5cc">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div><span data-t="pm_l5aa">Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_l6">④ Active Contract</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l6cc">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="tina" role="button" tabindex="0">Tina</div><span data-t="pm_l6aa">Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l7cc">Receives additional invoices: tolls, repairs, mileage overage.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0">Hanna / Brankica</div><span data-t="pm_l7aa">Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l8cc">Vendor repair/parts bills are paid or booked by AAA; costs tie back to client billing where applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="nadia" role="button" tabindex="0">Nadia</div><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra</div><span data-t="pm_l8aa">QuickBooks payables: vendor bills, 3-way alignment with Hanna on repair invoices when needed.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l9cc">Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica Doson</div><span data-t="pm_l9aa">Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_l10">⑤ Issues (optional)</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l10cc">Reports accident. Submits claim form and adjuster info from their insurance.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="aleksandra" role="button" tabindex="0">Aleksandra / Brankica</div><span data-t="pm_l10aa">Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l11cc">Late on payments. Receives recovery notice (7–14 days). GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D. + Alex</div><span data-t="pm_l11aa">Recovery notice → GPS disable → Teo picks up unit ($2,500 fee) → case to attorney. "Lawyer" status = billing stops.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_l12">⑥ End of Contract</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l12cc_buy">Buyout: pays remaining amount. Receives BOS + ST556. Registers title in own name (IL/IN — SOS; others — title copy).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Roman → Emily → Aleksandra</div><span data-t="pm_l12aa_buy">Brankica prepares BOS + ST556. Roman coordinates title with Emily. Emily → Secretary of State. Aleksandra closes unit in QB &amp; Fixed Assets.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l12cc_ret">Return: brings unit back. Signs check-in inspection. Receives final billing for damage/overage.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Aleksandra → Tina</div><span data-t="pm_l12aa_ret">Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.</span></div></div>
       </div>
     </div>
   </div>
@@ -718,23 +718,23 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="pm-rental" class="stream-panel">
     <div style="max-width:980px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:0;">
-        <div class="procmap-header customer">👤 CUSTOMER / KLIJENT</div>
+        <div class="procmap-header customer"><span data-t="pm_hdr_cust">👤 CUSTOMER / KLIJENT</span></div>
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
-        <div class="procmap-header aaa">🏢 AAA LEASE</div>
+        <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
-        <div class="procmap-stage-label">① Inquiry &amp; Lead</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Contacts Radu directly (word of mouth or ads).</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu</div>Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.</div></div>
-        <div class="procmap-stage-label">② Setup &amp; Documentation</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu → Andjela T. / Valentina</div>Radu sends COI requirements. Andjela T./Valentina prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs).</div></div>
-        <div class="procmap-stage-label">③ Unit Checkout</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Picks up unit. Signs checkout inspection. Receives registration copy and inspection report.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div>Checkout inspection — measures tires/brakes, photographs condition. Sends inspection report + DOT/registration copy + 24hr breakdown info (if reefer/truck). Updates Google Sheets.</div></div>
-        <div class="procmap-stage-label">④ Weekly Billing (every Monday)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Uses unit. Receives weekly billing. Pays via ACH pull.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Israel → Radu → Tina / Milica D.</div>Israel logs mileage. Radu reviews billing sheet (250+ rows), calculates prorated amounts + mileage charges ($0.12/mile trucks; trailers fixed). Tina creates QB invoices; Milica pulls ACH.</div></div>
-        <div class="procmap-stage-label">⑤ Unit Return</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Returns unit Mon–Fri. Signs check-in inspection. Receives final charges (usage, damage).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Israel → Billing</div>Check-in inspection. FleetMate auto-sends report → billing stop signal. Israel submits usage charges within 48h. Damage billed within 7 days.</div></div>
-        <div class="procmap-stage-label">⑥ Collections (if needed)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Receives recovery notice if payment rejected. GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D.</div>Daily bank monitoring — rejected payments, calls, recovery notices. Same recovery procedure as Lease if non-payment persists.</div></div>
+        <div class="procmap-stage-label" data-t="pm_r1">① Inquiry &amp; Lead</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r1cc">Contacts Radu directly (word of mouth or ads).</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu</div><span data-t="pm_r1aa">Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_r2">② Setup &amp; Documentation</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r2cc">Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu → Andjela T. / Valentina</div><span data-t="pm_r2aa">Radu sends COI requirements. Andjela T./Valentina prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs).</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_r3">③ Unit Checkout</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r3cc">Picks up unit. Signs checkout inspection. Receives registration copy and inspection report.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div><span data-t="pm_r3aa">Checkout inspection — measures tires/brakes, photographs condition. Sends inspection report + DOT/registration copy + 24hr breakdown info (if reefer/truck). Updates Google Sheets.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_r4">④ Weekly Billing (every Monday)</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r4cc">Uses unit. Receives weekly billing. Pays via ACH pull.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Israel → Radu → Tina / Milica D.</div><span data-t="pm_r4aa">Israel logs mileage. Radu reviews billing sheet (250+ rows), calculates prorated amounts + mileage charges ($0.12/mile trucks; trailers fixed). Tina creates QB invoices; Milica pulls ACH.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_r5">⑤ Unit Return</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r5cc">Returns unit Mon–Fri. Signs check-in inspection. Receives final charges (usage, damage).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio → Israel → Billing</div><span data-t="pm_r5aa">Check-in inspection. FleetMate auto-sends report → billing stop signal. Israel submits usage charges within 48h. Damage billed within 7 days.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_r6">⑥ Collections (if needed)</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r6cc">Receives recovery notice if payment rejected. GPS starter disabled if no response.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="milica" role="button" tabindex="0">Milica D.</div><span data-t="pm_r6aa">Daily bank monitoring — rejected payments, calls, recovery notices. Same recovery procedure as Lease if non-payment persists.</span></div></div>
       </div>
     </div>
   </div>
@@ -743,20 +743,20 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   <div id="pm-cash" class="stream-panel">
     <div style="max-width:980px;margin:0 auto;">
       <div style="display:grid;grid-template-columns:1fr 52px 1fr;margin-bottom:0;">
-        <div class="procmap-header customer">👤 CUSTOMER / KLIJENT</div>
+        <div class="procmap-header customer"><span data-t="pm_hdr_cust">👤 CUSTOMER / KLIJENT</span></div>
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
-        <div class="procmap-header aaa">🏢 AAA LEASE</div>
+        <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
       <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
-        <div class="procmap-stage-label">① Deal &amp; Approval</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Expresses interest in purchasing unit.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex / Roman / Scott / Ilija</div>Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).</div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">If financing needed — works with Roman on bank approval. Waits for deal confirmation.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="roman" role="button" tabindex="0">Roman</div>Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.</div></div>
-        <div class="procmap-stage-label">② Documentation &amp; Payment</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell">Signs BOS + ST556. Provides Power of Attorney. Arranges payment (cash or financing).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Tina</div>Brankica prepares BOS + ST556. Tina creates sale revenue invoice in QB.</div></div>
-        <div class="procmap-stage-label">③ Title Transfer</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell"><strong>IL/IN:</strong> submits docs to Secretary of State directly.<br><strong>Other states:</strong> registers title independently using mailed copy.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="emily" role="button" tabindex="0">Roman → Emily → Aleksandra</div>Roman notifies Emily when payment confirmed. Emily sends title transfer docs to SOS. Aleksandra closes unit in QB &amp; Fixed Assets.</div></div>
-        <div class="procmap-stage-label">④ Commission (internal)</div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;">— no customer action —</div><div class="procmap-mid-cell"></div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Alex / Milica Rajković</div>End of month: pulls BOS list + P&amp;L. Calculates commission per salesman (net profit %). Submits for approval.</div></div>
+        <div class="procmap-stage-label" data-t="pm_c1">① Deal &amp; Approval</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c1cc">Expresses interest in purchasing unit.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex / Roman / Scott / Ilija</div><span data-t="pm_c1aa">Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c2cc">If financing needed — works with Roman on bank approval. Waits for deal confirmation.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="roman" role="button" tabindex="0">Roman</div><span data-t="pm_c2aa">Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_c3">② Documentation &amp; Payment</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c3cc">Signs BOS + ST556. Provides Power of Attorney. Arranges payment (cash or financing).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Tina</div><span data-t="pm_c3aa">Brankica prepares BOS + ST556. Tina creates sale revenue invoice in QB.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_c4">③ Title Transfer</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c4cc">IL/IN: submits docs to Secretary of State directly. Other states: registers title independently using mailed copy.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="emily" role="button" tabindex="0">Roman → Emily → Aleksandra</div><span data-t="pm_c4aa">Roman notifies Emily when payment confirmed. Emily sends title transfer docs to SOS. Aleksandra closes unit in QB &amp; Fixed Assets.</span></div></div>
+        <div class="procmap-stage-label" data-t="pm_c5">④ Commission (internal)</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;" data-t="pm_c5cc">— no customer action —</div><div class="procmap-mid-cell"></div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica → Alex / Milica Rajković</div><span data-t="pm_c5aa">End of month: pulls BOS list + P&amp;L. Calculates commission per salesman (net profit %). Submits for approval.</span></div></div>
       </div>
     </div>
   </div>
@@ -1046,6 +1046,206 @@ const T = {
     tag_em_title:"Title transferi",
     tag_em_ifta:"IFTA / HHUT",
     tag_em_reg:"Registracije",
+    flow_c_desc:"Prodaja jedinica iz inventara — od identifikacije deala i cene do prenosa titula i obračuna provizije.",
+    flow_c_s01n:"Identifikacija deala",
+    flow_c_s01w1:"Identifikuje unit za prodaju (inventar, lease buyout ili aukcija)",
+    flow_c_s01w2:"Deal kreiran sa podacima o unitu i cenom",
+    flow_c_s01w3:"Koordiniše bankarsko finansiranje (True Funding ili eksterna banka)",
+    flow_c_s01who_hs:"HubSpot",
+    flow_c_s02n:"Odobrenje i cena",
+    flow_c_s02w1:"Odobrava prodajnu cenu",
+    flow_c_s02w2:"Proverava status unita — kredit, lease, GPS",
+    flow_c_s03n:"Dokumentacija",
+    flow_c_s03w1:"Priprema BOS + ST556",
+    flow_c_s03w2:"Potpisuje + daje punomoćje",
+    flow_c_s03w3:"Kreira invoice prodajnog prihoda u QuickBooks-u",
+    flow_c_s03who_cl:"Klijent",
+    flow_c_s04n:"Plaćanje",
+    flow_c_s04w2:"Dogovara plaćanje (gotovina ili banka)",
+    flow_c_s04w3:"Koordiniše finansiranje sa bankom, obaveštava Brankicu kad legnu sredstva",
+    flow_c_s05n:"Prenos titula",
+    flow_c_s05w1:"Obaveštava Emily kad je uplata potvrđena",
+    flow_c_s05w2:"Šalje dokumenta za title transfer Secretary of State-u",
+    flow_c_s05w3:"Direktan transfer — klijent šalje u SOS",
+    flow_c_s05w4:"AAA potpisuje i šalje titulom — klijent se sam registruje",
+    flow_c_s05w5:"Zatvara unit u QB i FA registru, skida sa aktivnog inventara",
+    flow_c_s05w6:"Cost of sales / GJ knjiženja za zatvaranje asseta pri prodaji (lista od Brankice/billinga); sa Aleksandrom oko nabavke vs otpisa",
+    flow_c_s05who_il:"IL / IN",
+    flow_c_s05who_os:"Druge države",
+    flow_c_s06n:"Obračun provizije",
+    flow_c_s06w1:"Kraj meseca: vuče BOS + Active Units + P&L od Aleksandre",
+    flow_c_s06w2:"Prodajna − wholesale − transport − popravke − marketing fee = neto; provizija = % od neta (po salesmanu) ili fiks",
+    flow_c_s06w3:"Provizija mesečno samo ako klijent redovno plaća",
+    flow_c_s06w4:"Šalje obračun provizije Alexu / Milici Rajković na odobrenje",
+    flow_c_s06who_f:"Formula",
+    flow_c_s06who_lu:"Lease uniti",
+    flow_l_desc:"Finance lease sa buyout opcijom — od aplikacije i odobrenja do zatvaranja ugovora i prenosa titula.",
+    flow_l_s01n:"Lead i odobrenje",
+    flow_l_s01w1:"Kreditni skor, stanje na računu, FMCSA status, True Funding cross-collateral lista",
+    flow_l_s01w2:"Konačno odobrenje ili odbijanje; definiše uslove ugovora",
+    flow_l_s01w3:"Koordinacija bankarskog finansiranja po potrebi",
+    flow_l_s02n:"Ugovor i dokumentacija",
+    flow_l_s02w1:"Priprema ugovora preko DocuSign (salesman → klijent → Alex → računovodstvo)",
+    flow_l_s02w2:"Provera COI, prikupljanje down payment-a, kreiranje down payment fakture u QB",
+    flow_l_s02w3:"Ako je unit pod kreditom — potreban promissory note",
+    flow_l_s02w4:"Ako je klijent na True Funding listi — potreban cross-collateral ugovor",
+    flow_l_s02who_check:"Provera",
+    flow_l_s03n:"GPS i otpust jedinice",
+    flow_l_s03w1:"Provera aktivnog GPS u FleetLocate ili Routemate",
+    flow_l_s03w2:"Izdavanje release forme Raduu / salesmanu",
+    flow_l_s03who_when:"Kada su svi dokumenti potvrđeni",
+    flow_l_s04n:"Preuzimanje jedinice",
+    flow_l_s04w1:"Checkout inspekcija; fotografisanje stanja jedinice",
+    flow_l_s04w2:"Šalje izveštaj klijentu + DOT kopiju registracije + info o održavanju 24h",
+    flow_l_s04w3:"Ažurira tabele — skida sa dostupnih, dodaje u checkout tab",
+    flow_l_s05n:"Aktivni lease — naplata",
+    flow_l_s05w1:"Šalje nedeljne/mesečne lease fakture preko QuickBooks memorized liste",
+    flow_l_s05w2:"Vendor fakture mejlom → odobrenja (Radu rental / ops lease) → QB payables + Huntington; Repair sheet + HubSpot troškovi popravki; billable tolovi sa billingom",
+    flow_l_s05w3:"Naplata prekoračenja milja mesečno (ako klijent pređe 130.000 milja/god)",
+    flow_l_s05w4:"Tolovi, popravke, final charges naplaćeni odvojeno",
+    flow_l_s06n:"Naplata i potraživanja (AR)",
+    flow_l_s06w1:"Dnevni monitoring — odbijene uplate, pozivi, ACH povlačenja iz JPM banke",
+    flow_l_s06w2:"Zatvaranje faktura: prvo rent → tolovi/popravke → lease (Alexovo pravilo)",
+    flow_l_s06w3:"Mesečni AR pregled (~10. u mesecu), late fee (10% na otvoreni saldo 30+ dana)",
+    flow_l_s06w4:"Mesečni credit bureau CSV export u Hutchins",
+    flow_l_s07n:"Kraj lease-a / buyout",
+    flow_l_s07w1:"Obaveštava tim kada su sve uplate završene",
+    flow_l_s07w2:"Proverava da li je unit pod bankarskim kreditom — traži payoff (potrebno Alexovo odobrenje)",
+    flow_l_s07w3:"Priprema BOS + ST556, šalje klijentu na potpis",
+    flow_l_s07w4:"Koordiniše prenos titula sa Emily",
+    flow_l_s07w5:"Šalje dokumenta Secretary of State-u",
+    flow_l_s07w6:"Zatvara unit u QB i registru osnovnih sredstava",
+    flow_l_s08n:"Recovery (ako nema plaćanja)",
+    flow_l_s08w1:"Šalje recovery obaveštenje (7–14 dana za odgovor)",
+    flow_l_s08w2:"Isključivanje GPS startera",
+    flow_l_s08w3:"Fizički recovery, $2,500 naknada",
+    flow_l_s08w4:"Slučaj ide advokatu",
+    flow_l_s08who_noresp:"Nema odgovora",
+    flow_l_s08who_unres:"Ako ostane nerešeno",
+    flow_p_badge:"Parking — Easy Storage (van scope novog softvera)",
+    flow_p_c1l1:"Samo ugovori mesec-dva-mesec — bez dugoročnih ugovora.",
+    flow_p_c1l2:"Naplata na ime fizičkog lica, ne na firmu.",
+    flow_p_c1l3:"Tipična cena: $250/mesec po mestu.",
+    flow_p_c1l4:"Easy Storage automatski povlači mesečne uplate od klijenata.",
+    flow_p_c1t:"Kako funkcioniše",
+    flow_p_c2l1:"Prati statuse uplata u Easy Storage svakodnevno.",
+    flow_p_c2l2:"Ako uplata padne: zove klijenta, ručno ponavlja povlačenje.",
+    flow_p_c2l3:"Pravi QB fakture za: depozite parkinga, late fee, lockout fee, FI fee (naknada Easy Storage koja se odbija od isplate).",
+    flow_p_c2l4:"Uključuje parking iznose u dnevnoj billing listi za Milicu.",
+    flow_p_c2t:"Uloga Tine",
+    flow_p_c3l1:"Prihod od parkinga ide na poseban prihodni konto.",
+    flow_p_c3l2:"FI fee (naknada sistema Easy Storage) se automatski odbija i posebno knjiži u QB.",
+    flow_p_c3l3:"Nije potrebna integracija sa novim lease management softverom.",
+    flow_p_c3l4:"Easy Storage ostaje trajni sistem evidencije za parking.",
+    flow_p_c3t:"Ključne računovodstvene napomene",
+    flow_p_desc:"Parking mesta — kroz Easy Storage, van scope-a novog softvera.",
+    flow_p_intro:"AAA Lease izdaje parking mesta na čikaškom placu preko Easy Storage — odvojene platforme van lease/rent operacija.",
+    flow_r_desc:"Kratkoročni i dugoročni najam prikolica i kamiona — od upita i podešavanja do nedeljnog billinga i check-in-a.",
+    flow_r_s01n:"Upit i lead",
+    flow_r_s01w1:"Klijent kontaktira Radua direktno (preporuke / oglasi)",
+    flow_r_s01w2:"Pravi HubSpot deal, soft-hold jedinice u tabeli",
+    flow_r_s01w3:"Dogovor o tipu jedinice, ceni (nedeljno/mesečno), terminu preuzimanja",
+    flow_r_s01who_cr:"Klijent → Radu",
+    flow_r_s02n:"Podešavanje i dokumentacija",
+    flow_r_s02w1:"Šalje zahteve za COI i info o osiguranju klijentu",
+    flow_r_s02w2:"Šalje COI, rental aplikaciju, izvode 3 meseca, ACH formu, down payment ako treba",
+    flow_r_s02w3:"Priprema rental ugovora preko DocuSign (Radu proverava → klijent potpisuje → Alex potpisuje)",
+    flow_r_s02who_client:"Klijent",
+    flow_r_s03n:"Checkout jedinice",
+    flow_r_s03w1:"Checkout inspekcija — meri gume, kočnice, fotografisanje stanja",
+    flow_r_s03w2:"Šalje inspekcioni izveštaj + DOT + registraciju klijentu; za hladnjaču/kamion i 24h breakdown info",
+    flow_r_s03w3:"Ažurira Google Sheets — skida sa Available Trailers, ažurira ime klijenta, log u Checkout tabu",
+    flow_r_s04n:"Nedeljni billing (svaki ponedeljak)",
+    flow_r_s04w1:"Unosi miljažu za svaki kamion na početku dana",
+    flow_r_s04w2:"Šalje billing tabelu (250+ redova nedeljno / 500–600 mesečno)",
+    flow_r_s04w3:"Pregleda billing listu, prorated za preuzimanja/povratke, dodaje mileage (baza + $0.12/milja kamioni; prikolice fiksno)",
+    flow_r_s04w4:"Odgovara na billing mejl kad gotovo — računovodstvo radi krst proveru",
+    flow_r_s04w5:"Tina pravi fakture u QB; Milica povlači ACH uplate",
+    flow_r_s05n:"Povrat jedinice",
+    flow_r_s05w1:"Povrat pon–pet u radno vreme (2 nedelje najave u ugovoru, nije striktno)",
+    flow_r_s05w2:"Check-in inspekcija — meri gume, kočnice, fotografisanje stanja",
+    flow_r_s05w3:"Automatski šalje check-in izveštaj billing timu — signal za stop naplate",
+    flow_r_s05w4:"Šalje usage charges (gume/kočnice) u roku od 48h",
+    flow_r_s05w5:"Damage naplata u roku od 7 dana — mejl billingu sa brojem unita, klijentom, iznosima",
+    flow_r_s05who_cust:"Klijent",
+    flow_r_s05who_fm:"FleetMate",
+    flow_r_s06n:"Naplata",
+    flow_r_s06w1:"Dnevni monitoring banke — odbijene uplate, pozivi, recovery obaveštenja",
+    flow_r_s06w2:"Isti recovery postupak kao u lease toku",
+    flow_r_s06who_np:"Ako neplaćanje traje",
+    flow_tab_cash:"💰 Cash prodaja",
+    flow_tab_lease:"📋 Lease",
+    flow_tab_parking:"🅿️ Parking",
+    flow_tab_rental:"🚛 Rental",
+    pm_c1:"① Deal i odobrenje",
+    pm_c1aa:"Identifikacija, HubSpot deal. Alex cena. Brankica status.",
+    pm_c1cc:"Interesovanje za kupovinu unita.",
+    pm_c2aa:"Banka, True Funding. Potvrda sredstava, obaveštavanje tima.",
+    pm_c2cc:"Ako finansiranje — sa Romanom. Čeka potvrdu.",
+    pm_c3:"② Dokumentacija i plaćanje",
+    pm_c3aa:"Brankica BOS+ST556. Tina QB invoice.",
+    pm_c3cc:"Potpis BOS+ST556, punomoćje, plaćanje.",
+    pm_c4:"③ Prenos titula",
+    pm_c4aa:"Roman→Emily→SOS. Aleksandra zatvara QB/FA.",
+    pm_c4cc:"IL/IN direktno SOS. Ostalo samostalna registracija.",
+    pm_c5:"④ Provizija (interno)",
+    pm_c5aa:"Kraj meseca: BOS+P&L, provizija po salesmanu, na odobrenje.",
+    pm_c5cc:"— nema akcije klijenta —",
+    pm_hdr_aaa:"🏢 AAA LEASE",
+    pm_hdr_cust:"👤 KLIJENT",
+    pm_l1:"① Upit i odobrenje",
+    pm_l10:"⑤ Problemi (opciono)",
+    pm_l10aa:"Prima claim. Prati osiguranje. Billing NE staje dok ne stigne ček od osiguranja.",
+    pm_l10cc:"Prijavljuje udes. Šalje claim formu i podatke adjustera od svog osiguranja.",
+    pm_l11aa:"Recovery → GPS off → Teo po unitu ($2,500) → advokat. Status Lawyer = billing staje.",
+    pm_l11cc:"Kašnjenje. Recovery obaveštenje (7–14 dana). GPS starter off ako nema odgovora.",
+    pm_l12:"⑥ Kraj ugovora",
+    pm_l12aa_buy:"Brankica BOS+ST556. Roman sa Emily. Emily → SOS. Aleksandra zatvara QB i FA.",
+    pm_l12aa_ret:"Check-in + damage. Status. Tina: credit memo. Unit → Available.",
+    pm_l12cc_buy:"Buyout: plata ostatka. BOS+ST556. Registracija titula (IL/IN SOS; ostalo kopija).",
+    pm_l12cc_ret:"Povrat: vraća unit. Check-in. Final billing za štetu/prekoračenje.",
+    pm_l1aa:"Proverava kredit, stanje na računu, FMCSA, True Funding vezu. Šalje Alexu.",
+    pm_l1cc:"Kontaktira AAA Lease. Šalje aplikaciju, dokumenta firme, vozačku, DOT broj.",
+    pm_l2aa:"Konačno odobrenje ili odbijanje. Definiše uslove.",
+    pm_l2cc:"Čeka odluku. Ako odbijeno — kraj. Ako odobreno — nastavlja dokumentaciju.",
+    pm_l3:"② Ugovor i dokumentacija",
+    pm_l3aa:"Priprema ugovor (DocuSign). Proverava COI i uplatu. Kreira down payment invoice u QB.",
+    pm_l3cc:"Potpisuje ugovor u DocuSign. Plaća down payment. Šalje COI.",
+    pm_l4aa:"Proverava GPS. Kada je sve OK — izdaje release formu.",
+    pm_l4cc:"— čeka GPS potvrdu i release formu —",
+    pm_l5:"③ Preuzimanje jedinice",
+    pm_l5aa:"Checkout inspekcija, fotografije, izveštaj klijentu. DOT kopija + 24h održavanje.",
+    pm_l5cc:"Dolazi po unit. Potpisuje checkout. Dobija kopiju registracije i ugovor.",
+    pm_l6:"④ Aktivni ugovor",
+    pm_l6aa:"Šalje lease fakture preko QB Memorized (nedeljno / 1. i 15.).",
+    pm_l6cc:"Koristi unit. Prima fakture. Plaća preko ACH (JPM šablon).",
+    pm_l7aa:"Hana: tolovi, popravke, final charges. Brankica: prekoračenje milja mesečno (130k/god besplatno).",
+    pm_l7cc:"Prima dodatne fakture: tolovi, popravke, prekoračenje milja.",
+    pm_l8aa:"QB payables: vendor fakture, usklađivanje sa Hanom oko repair invoice-a.",
+    pm_l8cc:"Vendor računi za popravke/delove plaćaju se ili knjiže; troškovi se vežu za naplatu klijentu gde treba.",
+    pm_l9aa:"Dnevno: uplate i odbijanja. Zove za odbijene pull-ove. Zatvara: rent→tolovi→lease.",
+    pm_l9cc:"Uplata se automatski povlači (ACH). Ako odbijeno — poziv iz računovodstva.",
+    pm_r1:"① Upit i lead",
+    pm_r1aa:"HubSpot deal, soft-hold, dogovor o tipu, ceni, terminu.",
+    pm_r1cc:"Kontaktira Radua direktno.",
+    pm_r2:"② Setup i dokumentacija",
+    pm_r2aa:"Radu šalje zahteve za COI. Andjela/Valentina rental DocuSign (Radu→klijent→Alex).",
+    pm_r2cc:"Šalje COI, aplikaciju, izvode, ACH, down payment ako treba.",
+    pm_r3:"③ Checkout",
+    pm_r3aa:"Checkout inspekcija, izveštaj, DOT/registracija, 24h info, Sheets.",
+    pm_r3cc:"Preuzima unit. Potpisuje checkout. Dobija registraciju i izveštaj.",
+    pm_r4:"④ Nedeljni billing (ponedeljak)",
+    pm_r4aa:"Israel miljaža. Radu billing tabela. Tina QB, Milica ACH.",
+    pm_r4cc:"Koristi unit. Nedeljni billing. Plaća ACH.",
+    pm_r5:"⑤ Povrat",
+    pm_r5aa:"Check-in. FleetMate signal. Israel 48h. Damage 7 dana.",
+    pm_r5cc:"Povrat pon–pet. Check-in. Final charges.",
+    pm_r6:"⑥ Naplata (ako treba)",
+    pm_r6aa:"Dnevni monitoring banke. Isti recovery kao lease.",
+    pm_r6cc:"Recovery obaveštenje ako odbijena uplata. GPS off.",
+    pm_tab_cash:"Cash prodaja",
+    pm_tab_lease:"Lease",
+    pm_tab_rental:"Rental",
   },
   en: {
     nav_map:"Team Map", nav_flow:"Process Flow", nav_procmap:"Process Map",
@@ -1170,6 +1370,206 @@ const T = {
     tag_em_title:"Title transfers",
     tag_em_ifta:"IFTA/HHUT",
     tag_em_reg:"Registrations",
+    flow_c_desc:"Selling units from inventory — from deal identification and pricing through title transfer and commission calculation.",
+    flow_c_s01n:"Deal Identification",
+    flow_c_s01w1:"Identify unit for sale (from inventory, lease buyout, or auction)",
+    flow_c_s01w2:"Deal created with unit info and pricing",
+    flow_c_s01w3:"Coordinates bank financing if needed (True Funding or external bank)",
+    flow_c_s01who_hs:"HubSpot",
+    flow_c_s02n:"Approval & Pricing",
+    flow_c_s02w1:"Approves sale price",
+    flow_c_s02w2:"Verifies unit status — checks if on loan, on lease, GPS status",
+    flow_c_s03n:"Documentation",
+    flow_c_s03w1:"Prepares BOS (Bill of Sale) + ST556",
+    flow_c_s03w2:"Signs + provides Power of Attorney",
+    flow_c_s03w3:"Creates sale revenue invoice in QuickBooks",
+    flow_c_s03who_cl:"Client",
+    flow_c_s04n:"Payment",
+    flow_c_s04w2:"Arranges payment (cash or bank financing)",
+    flow_c_s04w3:"Coordinates financing with bank, notifies Brankica when funds received",
+    flow_c_s05n:"Title Transfer",
+    flow_c_s05w1:"Notifies Emily when payment confirmed",
+    flow_c_s05w2:"Sends title transfer documents to Secretary of State",
+    flow_c_s05w3:"Direct transfer — client submits to SOS",
+    flow_c_s05w4:"AAA signs and mails title — client registers independently",
+    flow_c_s05w5:"Closes unit in QB and Fixed Asset register, removes from active inventory",
+    flow_c_s05w6:"Cost-of-sales / GJ entries to close fixed assets at sale (list from Brankica/billing); with Aleksandra on purchase vs disposal",
+    flow_c_s05who_il:"IL / IN",
+    flow_c_s05who_os:"Other states",
+    flow_c_s06n:"Commission Calculation",
+    flow_c_s06w1:"End of month: pulls BOS list + Active Units list + P&L report from Aleksandra",
+    flow_c_s06w2:"Sale price − wholesale − transport − repairs − marketing fee = net profit; commission = % of net profit (varies per salesman) or flat fee",
+    flow_c_s06w3:"Commission paid monthly only if client is current on payments",
+    flow_c_s06w4:"Submits commission calculations to Alex / Milica Rajković for approval",
+    flow_c_s06who_f:"Formula",
+    flow_c_s06who_lu:"Lease units",
+    flow_l_desc:"Finance lease with buyout — from application and approval through contract close and title transfer.",
+    flow_l_s01n:"Lead & Approval",
+    flow_l_s01w1:"Credit score, bank balance, FMCSA status, True Funding cross-collateral list",
+    flow_l_s01w2:"Final approval or rejection, defines contract terms",
+    flow_l_s01w3:"Bank financing coordination if needed",
+    flow_l_s02n:"Contract & Documentation",
+    flow_l_s02w1:"Prepare contract via DocuSign (salesman → client → Alex → accounting)",
+    flow_l_s02w2:"Verify COI, collect down payment, create down payment invoice in QB",
+    flow_l_s02w3:"If unit on loan — promissory note required",
+    flow_l_s02w4:"If client on True Funding list — cross-collateral agreement required",
+    flow_l_s02who_check:"Check",
+    flow_l_s03n:"GPS & Release",
+    flow_l_s03w1:"Verify GPS active in FleetLocate or Routemate",
+    flow_l_s03w2:"Issue release form to Radu / salesman",
+    flow_l_s03who_when:"When all docs confirmed",
+    flow_l_s04n:"Unit Pickup",
+    flow_l_s04w1:"Checkout inspection, photographs unit condition",
+    flow_l_s04w2:"Sends report to client + DOT registration copy + 24hr maintenance info",
+    flow_l_s04w3:"Updates spreadsheets — removes from available, adds to checkout tab",
+    flow_l_s05n:"Active Lease — Billing",
+    flow_l_s05w1:"Sends weekly/monthly lease invoices via QuickBooks memorized list",
+    flow_l_s05w2:"Vendor invoices by email → approvals (Radu rental / ops lease) → QuickBooks payables + Huntington payments; Repair sheet + HubSpot repair costs; billable tolls with billing",
+    flow_l_s05w3:"Mileage overage billing monthly (if client exceeds 130,000 miles/year)",
+    flow_l_s05w4:"Tolls, repairs, final charges billed separately",
+    flow_l_s06n:"Collections & AR",
+    flow_l_s06w1:"Daily monitoring — rejected payments, calls, ACH pulls from JPM bank",
+    flow_l_s06w2:"Invoice closing: rent first → tolls/repairs → lease (Alex's rule)",
+    flow_l_s06w3:"Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)",
+    flow_l_s06w4:"Monthly credit bureau CSV export to Hutchins",
+    flow_l_s07n:"Lease End / Buyout",
+    flow_l_s07w1:"Notifies team when all payments complete",
+    flow_l_s07w2:"Checks if unit on bank loan — requests payoff (Alex approval required)",
+    flow_l_s07w3:"Prepares BOS + ST556, sends to client for signature",
+    flow_l_s07w4:"Coordinates title transfer with Emily",
+    flow_l_s07w5:"Sends documents to Secretary of State",
+    flow_l_s07w6:"Closes unit in QB and Fixed Asset register",
+    flow_l_s08n:"Recovery (if non-payment)",
+    flow_l_s08w1:"Sends recovery notice (7–14 days to respond)",
+    flow_l_s08w2:"GPS starter disable",
+    flow_l_s08w3:"Physical recovery, $2,500 recovery fee",
+    flow_l_s08w4:"Case sent to attorney",
+    flow_l_s08who_noresp:"No response",
+    flow_l_s08who_unres:"If unresolved",
+    flow_p_badge:"Parking — Easy Storage (out of scope for new software)",
+    flow_p_c1l1:"Month-to-month only — no long-term contracts.",
+    flow_p_c1l2:"Billed under an individual's name, not the company name.",
+    flow_p_c1l3:"Typical rate: $250/month per space.",
+    flow_p_c1l4:"Easy Storage automatically pulls monthly payments from customers.",
+    flow_p_c1t:"How It Works",
+    flow_p_c2l1:"Monitors payment statuses in Easy Storage daily.",
+    flow_p_c2l2:"If payment fails: calls customer, manually retries the pull.",
+    flow_p_c2l3:"Creates QB invoices for: parking deposits, late fees, lockout fees, FI fee (Easy Storage fee deducted from payout).",
+    flow_p_c2l4:"Includes parking amounts in the daily billing list to Milica.",
+    flow_p_c2t:"Tina's Role",
+    flow_p_c3l1:"Parking revenue is booked to a separate revenue line.",
+    flow_p_c3l2:"FI fee (Easy Storage system charge) is deducted automatically and booked separately in QB.",
+    flow_p_c3l3:"No integration needed with the new lease management software.",
+    flow_p_c3l4:"Easy Storage remains the permanent system of record for parking.",
+    flow_p_c3t:"Key Accounting Notes",
+    flow_p_desc:"Parking spaces — via Easy Storage, out of scope for the new software.",
+    flow_p_intro:"AAA Lease rents yard parking through Easy Storage — a separate platform from lease/rent operations.",
+    flow_r_desc:"Short- and long-term rental of trailers & trucks — from inquiry and setup through weekly billing and check-in.",
+    flow_r_s01n:"Inquiry & Lead",
+    flow_r_s01w1:"Customer contacts Radu directly (word of mouth / ads)",
+    flow_r_s01w2:"Creates HubSpot deal, soft-holds unit in spreadsheet",
+    flow_r_s01w3:"Agreement on unit type, rate (weekly or monthly), pickup timing",
+    flow_r_s01who_cr:"Customer → Radu",
+    flow_r_s02n:"Setup & Documentation",
+    flow_r_s02w1:"Sends COI requirements and insurance info to client",
+    flow_r_s02w2:"Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable",
+    flow_r_s02w3:"Prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs)",
+    flow_r_s02who_client:"Client",
+    flow_r_s03n:"Unit Checkout",
+    flow_r_s03w1:"Checkout inspection — measures tires, brakes, photographs condition",
+    flow_r_s03w2:"Sends inspection report + DOT copy + registration copy to client; if reefer/truck — also 24hr breakdown maintenance info",
+    flow_r_s03w3:"Updates Google Sheets — removes from Available Trailers, updates customer name, logs in Checkout tab",
+    flow_r_s04n:"Weekly Billing (every Monday)",
+    flow_r_s04w1:"Logs mileage for each truck at start of day",
+    flow_r_s04w2:"Send billing spreadsheet (250+ rows weekly / 500–600 rows monthly)",
+    flow_r_s04w3:"Reviews billing list, calculates prorated amounts for pickups/returns, adds mileage charges (base rate + $0.12/mile for trucks; trailers fixed rate)",
+    flow_r_s04w4:"Replies to billing email when done — accounting cross-checks",
+    flow_r_s04w5:"Tina creates invoices in QB; Milica pulls ACH payments",
+    flow_r_s05n:"Unit Return",
+    flow_r_s05w1:"Returns Mon–Fri business hours (2 weeks notice in agreement, not enforced)",
+    flow_r_s05w2:"Check-in inspection — measures tires, brakes, photographs condition",
+    flow_r_s05w3:"Automatically sends check-in report to billing team — signals billing stop",
+    flow_r_s05w4:"Submits usage charges (tire/brake wear) within 48 hours",
+    flow_r_s05w5:"Damage charges billed within 7 days — emails billing with unit number, customer, amounts",
+    flow_r_s05who_cust:"Customer",
+    flow_r_s05who_fm:"FleetMate",
+    flow_r_s06n:"Collections",
+    flow_r_s06w1:"Daily bank monitoring — rejected payments, calls, recovery notices",
+    flow_r_s06w2:"Same recovery procedure as Lease stream",
+    flow_r_s06who_np:"If non-payment persists",
+    flow_tab_cash:"💰 Cash Sales",
+    flow_tab_lease:"📋 Lease",
+    flow_tab_parking:"🅿️ Parking",
+    flow_tab_rental:"🚛 Rental",
+    pm_c1:"① Deal & Approval",
+    pm_c1aa:"Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).",
+    pm_c1cc:"Expresses interest in purchasing unit.",
+    pm_c2aa:"Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.",
+    pm_c2cc:"If financing needed — works with Roman on bank approval. Waits for deal confirmation.",
+    pm_c3:"② Documentation & Payment",
+    pm_c3aa:"Brankica prepares BOS + ST556. Tina creates sale revenue invoice in QB.",
+    pm_c3cc:"Signs BOS + ST556. Provides Power of Attorney. Arranges payment (cash or financing).",
+    pm_c4:"③ Title Transfer",
+    pm_c4aa:"Roman notifies Emily when payment confirmed. Emily sends title transfer docs to SOS. Aleksandra closes unit in QB & Fixed Assets.",
+    pm_c4cc:"IL/IN: submits docs to Secretary of State directly. Other states: registers title independently using mailed copy.",
+    pm_c5:"④ Commission (internal)",
+    pm_c5aa:"End of month: pulls BOS list + P&L. Calculates commission per salesman (net profit %). Submits for approval.",
+    pm_c5cc:"— no customer action —",
+    pm_hdr_aaa:"🏢 AAA LEASE",
+    pm_hdr_cust:"👤 CUSTOMER",
+    pm_l1:"① Inquiry & Approval",
+    pm_l10:"⑤ Issues (optional)",
+    pm_l10aa:"Receives claim. Tracks insurance (adjuster, settlement). Billing does NOT stop until insurance check arrives.",
+    pm_l10cc:"Reports accident. Submits claim form and adjuster info from their insurance.",
+    pm_l11aa:"Recovery notice → GPS disable → Teo picks up unit ($2,500 fee) → case to attorney. \"Lawyer\" status = billing stops.",
+    pm_l11cc:"Late on payments. Receives recovery notice (7–14 days). GPS starter disabled if no response.",
+    pm_l12:"⑥ End of Contract",
+    pm_l12aa_buy:"Brankica prepares BOS + ST556. Roman coordinates title with Emily. Emily → Secretary of State. Aleksandra closes unit in QB & Fixed Assets.",
+    pm_l12aa_ret:"Check-in inspection + damage charges. Status → Returned/Paid Off. Tina: credit memo if overpaid. Unit → Available.",
+    pm_l12cc_buy:"Buyout: pays remaining amount. Receives BOS + ST556. Registers title in own name (IL/IN — SOS; others — title copy).",
+    pm_l12cc_ret:"Return: brings unit back. Signs check-in inspection. Receives final billing for damage/overage.",
+    pm_l1aa:"Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.",
+    pm_l1cc:"Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.",
+    pm_l2aa:"Final approval or rejection. Defines contract terms.",
+    pm_l2cc:"Waits for decision. If rejected — end. If approved — continues with documentation.",
+    pm_l3:"② Contract & Documentation",
+    pm_l3aa:"Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.",
+    pm_l3cc:"Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).",
+    pm_l4aa:"Checks GPS in FleetLocate/Routemate. When all OK — issues release form.",
+    pm_l4cc:"— waits for GPS confirmation and release form —",
+    pm_l5:"③ Unit Pickup",
+    pm_l5aa:"Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.",
+    pm_l5cc:"Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.",
+    pm_l6:"④ Active Contract",
+    pm_l6aa:"Sends lease invoices via QB Memorized list (weekly / 1st & 15th).",
+    pm_l6cc:"Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).",
+    pm_l7aa:"Hanna: tolls, repairs, final charges. Brankica: mileage overage monthly (130k/yr free).",
+    pm_l7cc:"Receives additional invoices: tolls, repairs, mileage overage.",
+    pm_l8aa:"QuickBooks payables: vendor bills, 3-way alignment with Hanna on repair invoices when needed.",
+    pm_l8cc:"Vendor repair/parts bills are paid or booked by AAA; costs tie back to client billing where applicable.",
+    pm_l9aa:"Daily: reviews payments and rejections. Calls clients for rejected pulls. Closes invoices: rent→tolls→lease (Alex's rule).",
+    pm_l9cc:"Payment is auto-pulled from bank (ACH). If rejected — receives call from accounting.",
+    pm_r1:"① Inquiry & Lead",
+    pm_r1aa:"Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.",
+    pm_r1cc:"Contacts Radu directly (word of mouth or ads).",
+    pm_r2:"② Setup & Documentation",
+    pm_r2aa:"Radu sends COI requirements. Andjela T./Valentina prepare rental agreement via DocuSign (Radu checks → client signs → Alex signs).",
+    pm_r2cc:"Sends COI, rental application, last 3 months bank statements, ACH form, down payment if applicable.",
+    pm_r3:"③ Unit Checkout",
+    pm_r3aa:"Checkout inspection — measures tires/brakes, photographs condition. Sends inspection report + DOT/registration copy + 24hr breakdown info (if reefer/truck). Updates Google Sheets.",
+    pm_r3cc:"Picks up unit. Signs checkout inspection. Receives registration copy and inspection report.",
+    pm_r4:"④ Weekly Billing (every Monday)",
+    pm_r4aa:"Israel logs mileage. Radu reviews billing sheet (250+ rows), calculates prorated amounts + mileage charges ($0.12/mile trucks; trailers fixed). Tina creates QB invoices; Milica pulls ACH.",
+    pm_r4cc:"Uses unit. Receives weekly billing. Pays via ACH pull.",
+    pm_r5:"⑤ Unit Return",
+    pm_r5aa:"Check-in inspection. FleetMate auto-sends report → billing stop signal. Israel submits usage charges within 48h. Damage billed within 7 days.",
+    pm_r5cc:"Returns unit Mon–Fri. Signs check-in inspection. Receives final charges (usage, damage).",
+    pm_r6:"⑥ Collections (if needed)",
+    pm_r6aa:"Daily bank monitoring — rejected payments, calls, recovery notices. Same recovery procedure as Lease if non-payment persists.",
+    pm_r6cc:"Receives recovery notice if payment rejected. GPS starter disabled if no response.",
+    pm_tab_cash:"Cash Sales",
+    pm_tab_lease:"Lease",
+    pm_tab_rental:"Rental",
   }
 };
 
