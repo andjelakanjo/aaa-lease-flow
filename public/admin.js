@@ -560,8 +560,11 @@ function openStaffAppEmbed(appTab = 'map') {
   if (!main || !box || !iframe) return;
   main.style.display = 'none';
   box.classList.add('open');
-  const q = appTab && appTab !== 'map' ? '?tab=' + encodeURIComponent(appTab) : '';
-  iframe.src = '/app' + q;
+  const url = new URL('/app', window.location.origin);
+  if (appTab && appTab !== 'map') url.searchParams.set('tab', appTab);
+  // Hide the app's own navbar only inside the staff embed, and only for the focused tabs.
+  if (appTab === 'reqs' || appTab === 'impl') url.searchParams.set('embed', 'staff');
+  iframe.src = url.pathname + url.search;
   const state =
     appTab === 'reqs' ? 'app-reqs' : appTab === 'impl' ? 'app-impl' : 'app-onboarding';
   setHubState(state);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
+const log = require('../lib/logger');
 
 function requireAdminRole(req, res, next) {
   if (!['super_admin', 'admin'].includes(req.user?.role)) {
@@ -52,7 +53,7 @@ router.delete('/:id', async (req, res) => {
   if (profile.user_id) {
     const { error: deleteAuthError } = await supabase.admin.auth.admin.deleteUser(profile.user_id);
     if (deleteAuthError) {
-      console.error('Failed to delete auth user:', deleteAuthError.message);
+      log.warn({ err: deleteAuthError }, 'Failed to delete auth user after profile delete');
       // Profile is already deleted; log but don't fail the request
     }
   }

@@ -342,6 +342,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .impl-inp{width:100%;max-width:100%;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-size:.8rem;box-sizing:border-box;}
 .impl-note{font-size:.78rem;color:var(--text-muted);margin-top:10px;line-height:1.5;}
 .impl-msg{color:#f7a79a;font-size:.82rem;margin-bottom:10px;}
+.impl-info{color:var(--text-muted);font-size:.82rem;margin-bottom:10px;}
 .onb-mod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
 .onb-mod input{width:18px;height:18px;cursor:pointer;flex-shrink:0;}
 .impl-report-block{margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
@@ -908,6 +909,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     </table>
   </div>
   <div id="impl-panel-diary" class="impl-panel">
+    <p id="impl-diary-msg" class="impl-info" style="display:none;margin-bottom:12px;"></p>
     <div class="impl-card">
       <h3 style="font-size:1rem;margin-bottom:10px;" data-t="impl_meetings">Sastanci</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:10px;">
@@ -1141,6 +1143,9 @@ const T = {
     impl_delete:"Obriši",
     impl_no_vendors:"Nema vendora. Dodaj prvog.",
     impl_err:"Greška pri učitavanju.",
+    impl_loading:"Učitavanje…",
+    impl_err_schema:"Baza još nije spremna: u Supabase projektu pokreni migraciju supabase/migrations/20260414120000_implementation_onboarding.sql (SQL Editor ili supabase db push).",
+    impl_err_network:"Mrežna greška. Proveri vezu i pokušaj ponovo.",
     onb_title:"Moj onboarding",
     onb_sub:"Označi module koje si pregledao ili završio.",
     onb_progress:"Napredak",
@@ -1505,6 +1510,9 @@ const T = {
     impl_delete:"Delete",
     impl_no_vendors:"No vendors yet. Add one.",
     impl_err:"Could not load data.",
+    impl_loading:"Loading…",
+    impl_err_schema:"Database is not ready: run migration supabase/migrations/20260414120000_implementation_onboarding.sql on your Supabase project (SQL Editor or supabase db push).",
+    impl_err_network:"Network error. Check your connection and try again.",
     onb_title:"My onboarding",
     onb_sub:"Check off modules you have reviewed or completed.",
     onb_progress:"Progress",
@@ -2040,8 +2048,6 @@ const PEOPLE = {
   }
 };
 
-console.log("Data loaded");
-
 const GLOSSARY = [
   // LEASE TERMS
   {id:"buyout",cat:"lease",
@@ -2217,7 +2223,6 @@ const GLOSSARY = [
    example:{sr:"Kamion, dogovorena vrednost $180,000. Posle 6 meseci: $180,000 × 106% = $190,800 − $12,960 = $177,840 stipulation vrednost (Loss Stipulation Schedule).",en:"Truck agreed value $180,000. After 6 months: $180,000 × 106% = $190,800 − $12,960 = $177,840 stipulation value (Loss Stipulation Schedule)."}
   },
 ];
-console.log("Glossary loaded:", GLOSSARY.length, "terms");
 
 // ===================== STATE =====================
 let LANG = 'sr';
@@ -2255,6 +2260,23 @@ function setLang(lang) {
 }
 
 function t(key) { return T[LANG][key] || T['en'][key] || key; }
+
+/** Map PostgREST / network errors to bilingual user copy (detail stays in console via implApi). */
+function mapImplApiErrorMessage(raw) {
+  const rawStr = String(raw ?? '').trim();
+  const s = rawStr.toLowerCase();
+  if (!rawStr) return t('impl_err');
+  if (
+    s.includes('could not find') ||
+    s.includes('schema cache') ||
+    s.includes('does not exist') ||
+    (s.includes('relation') && s.includes('public.'))
+  )
+    return t('impl_err_schema');
+  if (rawStr === 'Failed to fetch' || s.includes('networkerror') || s.includes('load failed'))
+    return t('impl_err_network');
+  return rawStr;
+}
 
 function applyTranslations() {
   document.querySelectorAll('[data-t]').forEach(el => {
@@ -2309,6 +2331,26 @@ function switchView(v) {
       if (PEOPLE[pid]) el.textContent = PEOPLE[pid].role[LANG];
     });
   }
+  syncMainNavChrome();
+}
+
+function shouldHideMainNavForStaffEmbed() {
+  const preview = isPreviewMode();
+  if (preview) return false;
+  let embed = '';
+  let tab = '';
+  try {
+    const sp = new URLSearchParams(window.location.search);
+    embed = (sp.get('embed') || '').trim();
+    tab = (sp.get('tab') || '').trim();
+  } catch (_) {}
+  return embed === 'staff' && (tab === 'reqs' || tab === 'impl');
+}
+
+function syncMainNavChrome() {
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+  nav.style.display = shouldHideMainNavForStaffEmbed() ? 'none' : '';
 }
 
 function applyInitialAppTabFromUrl() {
@@ -2343,7 +2385,11 @@ async function implApi(path, opts = {}) {
   const text = await r.text();
   let json = {};
   try { json = text ? JSON.parse(text) : {}; } catch (_) { /* ignore */ }
-  if (!r.ok) throw new Error(json.error || text || r.statusText);
+  if (!r.ok) {
+    const serverMsg = json.error || text || r.statusText;
+    console.error('[implApi]', opts.method || 'GET', path, r.status, serverMsg);
+    throw new Error(mapImplApiErrorMessage(serverMsg));
+  }
   return json;
 }
 
@@ -2402,9 +2448,13 @@ async function refreshImplVendors() {
   const role = getAppRole();
   const thCo = document.getElementById('impl-th-company');
   if (thCo) thCo.style.display = role === 'super_admin' ? '' : 'none';
-  if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
+  if (msg) {
+    msg.className = 'impl-info';
+    msg.style.display = 'block';
+    msg.textContent = t('impl_loading');
+  }
   if (!tbody) return;
-  tbody.innerHTML = '';
+  tbody.innerHTML = `<tr><td colspan="5" class="impl-note">${escapeHtml(t('impl_loading'))}</td></tr>`;
   try {
     let path = '/vendors';
     if (role === 'super_admin') {
@@ -2415,6 +2465,10 @@ async function refreshImplVendors() {
     fillMeetVendorSelect();
     if (!implVendors.length) {
       tbody.innerHTML = `<tr><td colspan="5" class="impl-note">${escapeHtml(t('impl_no_vendors'))}</td></tr>`;
+      if (msg) {
+        msg.style.display = 'none';
+        msg.textContent = '';
+      }
       return;
     }
     implVendors.forEach((v) => {
@@ -2437,12 +2491,18 @@ async function refreshImplVendors() {
         </td>`;
       tbody.appendChild(tr);
     });
+    if (msg) {
+      msg.style.display = 'none';
+      msg.textContent = '';
+    }
   } catch (e) {
     console.error(e);
     if (msg) {
+      msg.className = 'impl-msg';
       msg.style.display = 'block';
-      msg.textContent = t('impl_err') + ' ' + (e.message || '');
+      msg.textContent = e.message || t('impl_err');
     }
+    if (tbody) tbody.innerHTML = '';
   }
 }
 
@@ -2452,6 +2512,15 @@ async function refreshImplDiary() {
   const meetList = document.getElementById('impl-meet-list');
   const taskList = document.getElementById('impl-task-list');
   const journalList = document.getElementById('impl-journal-list');
+  const diaryMsg = document.getElementById('impl-diary-msg');
+  if (diaryMsg) {
+    diaryMsg.className = 'impl-info';
+    diaryMsg.style.display = 'block';
+    diaryMsg.textContent = t('impl_loading');
+  }
+  if (meetList) meetList.innerHTML = `<p class="impl-note">${escapeHtml(t('impl_loading'))}</p>`;
+  if (taskList) taskList.innerHTML = '';
+  if (journalList) journalList.innerHTML = '';
   try {
     const [meetings, tasks, journal] = await Promise.all([
       implApi('/meetings'),
@@ -2503,8 +2572,20 @@ async function refreshImplDiary() {
             .join('')
         : `<p class="impl-note">${LANG === 'sr' ? 'Nema unosa.' : 'No journal entries yet.'}</p>`;
     }
+    if (diaryMsg) {
+      diaryMsg.style.display = 'none';
+      diaryMsg.textContent = '';
+    }
   } catch (e) {
     console.error(e);
+    if (diaryMsg) {
+      diaryMsg.className = 'impl-msg';
+      diaryMsg.style.display = 'block';
+      diaryMsg.textContent = e.message || t('impl_err');
+    }
+    if (meetList) meetList.innerHTML = '';
+    if (taskList) taskList.innerHTML = '';
+    if (journalList) journalList.innerHTML = '';
   }
 }
 
@@ -2513,7 +2594,7 @@ async function refreshImplReport() {
   const toolbar = document.getElementById('impl-report-select-wrap');
   const role = getAppRole();
   if (!body) return;
-  body.innerHTML = '';
+  body.innerHTML = `<p class="impl-note">${escapeHtml(t('impl_loading'))}</p>`;
   if (toolbar) {
     if (role === 'super_admin') {
       toolbar.classList.add('visible');
@@ -2543,7 +2624,7 @@ async function refreshImplReport() {
       .join('');
   } catch (e) {
     console.error(e);
-    body.innerHTML = `<p class="impl-msg">${escapeHtml(e.message || '')}</p>`;
+    body.innerHTML = `<p class="impl-msg">${escapeHtml(e.message || t('impl_err'))}</p>`;
   }
 }
 
@@ -2567,7 +2648,7 @@ async function refreshOnboardingEmployee() {
     err.textContent = '';
   }
   if (!list) return;
-  list.innerHTML = '';
+  list.innerHTML = `<p class="impl-note">${escapeHtml(t('impl_loading'))}</p>`;
   try {
     const data = await implApi('/onboarding/my-progress');
     if (line) line.textContent = `${t('onb_progress')}: ${data.completed} / ${data.total}`;
@@ -2592,6 +2673,7 @@ async function refreshOnboardingEmployee() {
       err.style.display = 'block';
       err.textContent = e.message || t('impl_err');
     }
+    if (list) list.innerHTML = '';
   }
 }
 
@@ -3421,6 +3503,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   applyInitialAppTabFromUrl();
+  syncMainNavChrome();
 });
 
 function downloadContactsCSV() {

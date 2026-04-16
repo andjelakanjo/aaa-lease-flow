@@ -8,11 +8,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm install          # install dependencies
 npm run dev          # start with nodemon (auto-reload)
 npm start            # production start
+npm test             # API smoke tests (node:test + supertest)
 
 docker compose up --build   # run with Docker
 ```
 
-No test runner is configured. No build step — the frontend is plain HTML/CSS/JS.
+No build step — the frontend is plain HTML/CSS/JS.
+
+## Supabase migrations (implementation / onboarding tables)
+
+Before **Implementacija** and related `/api/implementation` features work against a Supabase project, apply the SQL migration once on that project:
+
+- File: [`supabase/migrations/20260414120000_implementation_onboarding.sql`](supabase/migrations/20260414120000_implementation_onboarding.sql)
+
+Use the Supabase dashboard **SQL Editor** (paste and run), or `supabase db push` / your migration pipeline if you use the Supabase CLI linked to the project. If tables are missing, PostgREST returns errors like `Could not find the table 'public.vendors' in the schema cache`.
 
 ## Architecture
 
@@ -72,6 +81,7 @@ Everything is inline in a single HTML file (~1700 lines):
 | `SUPABASE_ANON_KEY` | Supabase anon/public key |
 | `PORT` | Server port (default 3000) |
 | `NODE_ENV` | `development` or `production` (affects cookie `secure` flag) |
+| `LOG_LEVEL` | Optional. Pino log level (e.g. `debug`, `info`, `silent`). Defaults to `silent` in `NODE_ENV=test`, otherwise `info` in production and `debug` in development. |
 
 ## Deployment
 

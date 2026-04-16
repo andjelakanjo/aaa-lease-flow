@@ -10,6 +10,7 @@
   --bg:#0a0e1a; --surface:rgba(255,255,255,0.05); --surface2:rgba(255,255,255,0.04); --surface3:rgba(255,255,255,0.08);
   --surface-solid:#0f1629;
   --border:rgba(255,255,255,0.10); --accent:#4f8ef7; --text:#e8eaf0; --text-muted:#8890a4;
+  --gold:#f7c84f; --mint:#4ff7a8;
   --error:#f74f4f; --success:#52b788; --warn:#f4a261;
   --shadow:0 12px 40px rgba(0,0,0,0.6);
   --glass-blur:blur(20px);
@@ -48,6 +49,15 @@ header{
   background:rgba(79,142,247,.18);border-color:rgba(79,142,247,.45);color:#fff;
   box-shadow:0 0 14px rgba(79,142,247,.22);
 }
+
+/* Hub tab variants to match app navbar emphasis */
+.hub-tab-reqs{border-color:rgba(247,200,79,0.30);color:var(--gold);}
+.hub-tab-reqs:hover{background:rgba(247,200,79,0.12);border-color:rgba(247,200,79,0.50);box-shadow:0 0 12px rgba(247,200,79,0.25);}
+.hub-tab-reqs.hub-tab-active{background:rgba(247,200,79,0.18);border-color:rgba(247,200,79,0.60);color:var(--gold);box-shadow:0 0 16px rgba(247,200,79,0.35);}
+
+.hub-tab-impl{border-color:rgba(79,247,168,0.40);color:#d8fff1;}
+.hub-tab-impl:hover{background:rgba(79,247,168,0.12);border-color:rgba(79,247,168,0.55);color:#fff;box-shadow:0 0 12px rgba(79,247,168,0.20);}
+.hub-tab-impl.hub-tab-active{background:rgba(79,247,168,0.20);border-color:rgba(79,247,168,0.65);color:#fff;box-shadow:0 0 14px rgba(79,247,168,0.25);}
 .header-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .header-user{font-size:.85rem;color:var(--text-muted);}
 #user-name{color:var(--text);font-weight:500;}
@@ -298,10 +308,10 @@ select option{background:#0f1629;}
   <div class="header-left">
     <div class="header-logo">AAA <span>Lease</span> Admin</div>
     <nav class="header-hub" aria-label="Admin areas">
-      <button type="button" class="hub-tab hub-tab-active" data-action="hub-dashboard" data-hub-state="dashboard" title="Korisnici, pristupni kodovi, kompanije">Dashboard</button>
-      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="reqs" data-hub-state="app-reqs" title="Zahtevi za lizing softver">Software Reqs</button>
-      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="impl" data-hub-state="app-impl" title="Implementacija — deljeni status + privatni dnevnik">Implementacija</button>
-      <button type="button" class="hub-tab" data-action="hub-app" data-app-tab="map" data-hub-state="app-onboarding" title="Cela onboarding aplikacija">Onboarding</button>
+      <button type="button" class="hub-tab hub-tab-dash hub-tab-active" data-action="hub-dashboard" data-hub-state="dashboard" title="Korisnici, pristupni kodovi, kompanije">Dashboard</button>
+      <button type="button" class="hub-tab hub-tab-reqs" data-action="hub-app" data-app-tab="reqs" data-hub-state="app-reqs" title="Zahtevi za lizing softver">⚡ Software Reqs</button>
+      <button type="button" class="hub-tab hub-tab-impl" data-action="hub-app" data-app-tab="impl" data-hub-state="app-impl" title="Implementacija — deljeni status + privatni dnevnik">Implementacija</button>
+      <button type="button" class="hub-tab hub-tab-onboarding" data-action="hub-app" data-app-tab="map" data-hub-state="app-onboarding" title="Cela onboarding aplikacija">Onboarding</button>
     </nav>
   </div>
   <div class="header-right">

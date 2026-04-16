@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const supabase = require('../config/supabase');
 const { getAuthRedirectOrigin } = require('../lib/authRedirectOrigin');
+const log = require('../lib/logger');
 
 // ── Role guards ───────────────────────────────────────────────────────────────
 
@@ -268,7 +269,7 @@ router.post('/api/users/:id/password', requireSuperAdmin, async (req, res) => {
 
   const { error: updateError } = await supabase.admin.auth.admin.updateUserById(profile.user_id, attrs);
   if (updateError) {
-    console.error('[admin/set-password] updateUserById failed:', updateError.message);
+    log.error({ err: updateError }, '[admin/set-password] updateUserById failed');
     return res.status(500).json({ error: updateError.message || 'Failed to set password.' });
   }
 

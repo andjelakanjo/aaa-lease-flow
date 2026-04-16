@@ -3,6 +3,9 @@ const express = require('express');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const { randomUUID } = require('crypto');
+const logger = require('./lib/logger');
+const pinoHttp = require('pino-http');
 
 const { apiLimiter, authLimiter } = require('./middleware/rateLimiter');
 const requireAuth = require('./middleware/requireAuth');
@@ -43,6 +46,16 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  pinoHttp({
+    logger,
+    genReqId(req, res) {
+      const id = req.headers['x-request-id'] || randomUUID();
+      res.setHeader('X-Request-Id', id);
+      return id;
+    }
+  })
+);
 
 // ── Public routes ─────────────────────────────────────────────────────────────
 
@@ -80,8 +93,10 @@ app.use((req, res) => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`AAA Lease running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    logger.info({ port: PORT }, 'AAA Lease server listening');
+  });
+}
 
 module.exports = app;

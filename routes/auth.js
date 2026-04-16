@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 const { getAuthRedirectOrigin } = require('../lib/authRedirectOrigin');
+const log = require('../lib/logger');
 
 // POST /auth/login — email + password
 router.post('/login', async (req, res) => {
@@ -102,7 +103,7 @@ router.post('/recovery-apply', async (req, res) => {
   });
 
   if (error || !data?.user) {
-    console.error('[auth/recovery-apply] verifyOtp:', error?.message);
+    log.error({ err: error }, '[auth/recovery-apply] verifyOtp');
     return res.status(401).json({
       error: 'Invalid or expired code. Ask your admin to generate a new “Reset link” from the dashboard.'
     });
@@ -113,7 +114,7 @@ router.post('/recovery-apply', async (req, res) => {
     email_confirm: true
   });
   if (updateError) {
-    console.error('[auth/recovery-apply] updateUserById failed:', updateError.message);
+    log.error({ err: updateError }, '[auth/recovery-apply] updateUserById failed');
     return res.status(500).json({ error: 'Failed to set password. Please try again.' });
   }
 
@@ -133,7 +134,7 @@ router.post('/forgot-password', async (req, res) => {
   });
 
   if (error) {
-    console.error('[auth/forgot-password] resetPasswordForEmail failed:', error.message);
+    log.error({ err: error }, '[auth/forgot-password] resetPasswordForEmail failed');
     // Still respond OK to avoid leaking existence / configuration details
   }
 
@@ -163,7 +164,7 @@ router.post('/confirm', async (req, res) => {
     email_confirm: true
   });
   if (updateError) {
-    console.error('[auth/confirm] updateUserById failed:', updateError.message);
+    log.error({ err: updateError }, '[auth/confirm] updateUserById failed');
     return res.status(500).json({ error: 'Failed to set password. Please try again.' });
   }
 

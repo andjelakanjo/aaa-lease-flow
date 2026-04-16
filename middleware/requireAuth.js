@@ -1,4 +1,5 @@
 const supabase = require('../config/supabase');
+const log = require('../lib/logger');
 
 module.exports = async function requireAuth(req, res, next) {
   // Prevent browsers from caching protected responses
@@ -22,7 +23,10 @@ module.exports = async function requireAuth(req, res, next) {
         .single();
 
       if (profileError) {
-        console.error('[requireAuth] profile lookup failed:', profileError.message, '| user_id:', user.id);
+        log.warn(
+          { err: profileError, userId: user.id },
+          '[requireAuth] profile lookup failed'
+        );
       }
 
       // Deny revoked accounts

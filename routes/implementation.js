@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
+const log = require('../lib/logger');
 
 function staffOnly(req, res, next) {
   if (!['admin', 'super_admin'].includes(req.user?.role)) {
@@ -21,7 +22,7 @@ router.get('/companies', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to list companies.' });
     res.json(data || []);
   } catch (e) {
-    console.error('[implementation/companies]', e);
+    log.error({ err: e }, '[implementation/companies]');
     res.status(500).json({ error: 'Failed to list companies.' });
   }
 });
@@ -73,7 +74,7 @@ router.get('/vendors', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to list vendors.' });
     res.json(data || []);
   } catch (e) {
-    console.error('[implementation/vendors GET]', e);
+    log.error({ err: e }, '[implementation/vendors GET]');
     res.status(500).json({ error: 'Failed to list vendors.' });
   }
 });
@@ -100,7 +101,7 @@ router.post('/vendors', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to create vendor.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/vendors POST]', e);
+    log.error({ err: e }, '[implementation/vendors POST]');
     res.status(500).json({ error: 'Failed to create vendor.' });
   }
 });
@@ -124,7 +125,7 @@ router.patch('/vendors/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to update vendor.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/vendors PATCH]', e);
+    log.error({ err: e }, '[implementation/vendors PATCH]');
     res.status(500).json({ error: 'Failed to update vendor.' });
   }
 });
@@ -138,7 +139,7 @@ router.delete('/vendors/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to delete vendor.' });
     res.json({ ok: true });
   } catch (e) {
-    console.error('[implementation/vendors DELETE]', e);
+    log.error({ err: e }, '[implementation/vendors DELETE]');
     res.status(500).json({ error: 'Failed to delete vendor.' });
   }
 });
@@ -158,7 +159,7 @@ router.get('/meetings', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to list meetings.' });
     res.json(data || []);
   } catch (e) {
-    console.error('[implementation/meetings GET]', e);
+    log.error({ err: e }, '[implementation/meetings GET]');
     res.status(500).json({ error: 'Failed to list meetings.' });
   }
 });
@@ -184,7 +185,7 @@ router.post('/meetings', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to create meeting.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/meetings POST]', e);
+    log.error({ err: e }, '[implementation/meetings POST]');
     res.status(500).json({ error: 'Failed to create meeting.' });
   }
 });
@@ -215,7 +216,7 @@ router.patch('/meetings/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to update meeting.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/meetings PATCH]', e);
+    log.error({ err: e }, '[implementation/meetings PATCH]');
     res.status(500).json({ error: 'Failed to update meeting.' });
   }
 });
@@ -229,7 +230,7 @@ router.delete('/meetings/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to delete meeting.' });
     res.json({ ok: true });
   } catch (e) {
-    console.error('[implementation/meetings DELETE]', e);
+    log.error({ err: e }, '[implementation/meetings DELETE]');
     res.status(500).json({ error: 'Failed to delete meeting.' });
   }
 });
@@ -246,7 +247,7 @@ router.get('/tasks', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to list tasks.' });
     res.json(data || []);
   } catch (e) {
-    console.error('[implementation/tasks GET]', e);
+    log.error({ err: e }, '[implementation/tasks GET]');
     res.status(500).json({ error: 'Failed to list tasks.' });
   }
 });
@@ -273,7 +274,7 @@ router.post('/tasks', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to create task.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/tasks POST]', e);
+    log.error({ err: e }, '[implementation/tasks POST]');
     res.status(500).json({ error: 'Failed to create task.' });
   }
 });
@@ -301,7 +302,7 @@ router.patch('/tasks/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to update task.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/tasks PATCH]', e);
+    log.error({ err: e }, '[implementation/tasks PATCH]');
     res.status(500).json({ error: 'Failed to update task.' });
   }
 });
@@ -315,7 +316,7 @@ router.delete('/tasks/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to delete task.' });
     res.json({ ok: true });
   } catch (e) {
-    console.error('[implementation/tasks DELETE]', e);
+    log.error({ err: e }, '[implementation/tasks DELETE]');
     res.status(500).json({ error: 'Failed to delete task.' });
   }
 });
@@ -336,7 +337,7 @@ router.get('/journal', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to list journal.' });
     res.json(data || []);
   } catch (e) {
-    console.error('[implementation/journal GET]', e);
+    log.error({ err: e }, '[implementation/journal GET]');
     res.status(500).json({ error: 'Failed to list journal.' });
   }
 });
@@ -355,7 +356,7 @@ router.post('/journal', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to save journal entry.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/journal POST]', e);
+    log.error({ err: e }, '[implementation/journal POST]');
     res.status(500).json({ error: 'Failed to save journal entry.' });
   }
 });
@@ -372,7 +373,7 @@ router.patch('/journal/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to update entry.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/journal PATCH]', e);
+    log.error({ err: e }, '[implementation/journal PATCH]');
     res.status(500).json({ error: 'Failed to update entry.' });
   }
 });
@@ -390,7 +391,7 @@ router.delete('/journal/:id', staffOnly, async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to delete entry.' });
     res.json({ ok: true });
   } catch (e) {
-    console.error('[implementation/journal DELETE]', e);
+    log.error({ err: e }, '[implementation/journal DELETE]');
     res.status(500).json({ error: 'Failed to delete entry.' });
   }
 });
@@ -421,7 +422,7 @@ router.get('/onboarding/modules', async (req, res) => {
     const modules = await listModulesForProfile(req.user.profileId, req.user.companyId);
     res.json(modules);
   } catch (e) {
-    console.error('[implementation/onboarding/modules]', e);
+    log.error({ err: e }, '[implementation/onboarding/modules]');
     res.status(500).json({ error: e.message || 'Failed to load modules.' });
   }
 });
@@ -433,7 +434,7 @@ router.get('/onboarding/my-progress', async (req, res) => {
     const done = modules.filter((m) => m.completed_at).length;
     res.json({ modules, completed: done, total: modules.length });
   } catch (e) {
-    console.error('[implementation/onboarding/my-progress]', e);
+    log.error({ err: e }, '[implementation/onboarding/my-progress]');
     res.status(500).json({ error: e.message || 'Failed to load progress.' });
   }
 });
@@ -461,7 +462,7 @@ router.post('/onboarding/complete', async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to save progress.' });
     res.json(data);
   } catch (e) {
-    console.error('[implementation/onboarding/complete]', e);
+    log.error({ err: e }, '[implementation/onboarding/complete]');
     res.status(500).json({ error: 'Failed to save progress.' });
   }
 });
@@ -479,7 +480,7 @@ router.delete('/onboarding/complete/:moduleKey', async (req, res) => {
     if (error) return res.status(500).json({ error: error.message || 'Failed to clear progress.' });
     res.json({ ok: true });
   } catch (e) {
-    console.error('[implementation/onboarding/complete DELETE]', e);
+    log.error({ err: e }, '[implementation/onboarding/complete DELETE]');
     res.status(500).json({ error: 'Failed to clear progress.' });
   }
 });
@@ -518,7 +519,7 @@ router.get('/onboarding/report', staffOnly, async (req, res) => {
     }
     res.json(results);
   } catch (e) {
-    console.error('[implementation/onboarding/report]', e);
+    log.error({ err: e }, '[implementation/onboarding/report]');
     res.status(500).json({ error: e.message || 'Failed to build report.' });
   }
 });
