@@ -18,6 +18,25 @@
   --glow-sales:0 0 24px rgba(180,79,247,0.3);
   --glow-mgmt:0 0 24px rgba(79,247,168,0.3);
 }
+html[data-theme="light"]{
+  /* Align with standalone PYA calculator (light) */
+  --calc-primary:#1a1a2e;
+  --calc-accent:#e8a020;
+  --calc-accent2:#f5c842;
+  --bg:#f8f9fc;
+  --surface:rgba(255,255,255,0.94);
+  --surface2:#f3f4f6;
+  --border:#e5e7eb;
+  --text:#1f2937;
+  --text-muted:#6b7280;
+  --shadow:0 1px 4px rgba(0,0,0,0.05),0 10px 28px rgba(17,24,39,0.06);
+  --glow-accent:none; --glow-ops:none; --glow-sales:none; --glow-mgmt:none;
+  --acc:#2563eb;
+  --ops:#ea580c;
+  --sales:#7c3aed;
+  --mgmt:#059669;
+  --gold:#d97706;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   background:var(--bg);
@@ -26,12 +45,23 @@ body{
   background-attachment:fixed;
   color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;
 }
+html[data-theme="light"] body{
+  background-image:radial-gradient(ellipse 80% 50% at 18% 8%,rgba(37,99,235,0.06) 0%,transparent 55%),
+    radial-gradient(ellipse 55% 40% at 88% 92%,rgba(234,179,8,0.05) 0%,transparent 46%);
+}
 header{
   display:flex;align-items:center;justify-content:space-between;padding:14px 28px;
   border-bottom:1px solid rgba(255,255,255,0.08);
   background:rgba(10,14,26,0.78);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
   position:sticky;top:0;z-index:100;gap:12px;flex-wrap:wrap;
 }
+html[data-theme="light"] header{
+  border-bottom:1px solid rgba(0,0,0,0.12);
+  background:var(--calc-primary);
+  color:#fff;
+}
+html[data-theme="light"] header h1{color:#fff;}
+html[data-theme="light"] header h1 span{color:var(--calc-accent2);text-shadow:none;}
 header h1{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:.02em;white-space:nowrap;}
 header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .header-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
@@ -48,11 +78,32 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
   background:rgba(255,255,255,0.04);color:var(--text-muted);cursor:pointer;
   font-family:'DM Sans',sans-serif;font-size:0.8rem;transition:all 0.2s ease;white-space:nowrap;
 }
+html[data-theme="light"] .nav-tab{
+  border-color:rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.06);
+  color:#cbd5e1;
+  box-shadow:none;
+}
 .nav-tab:hover{background:rgba(79,142,247,0.12);border-color:rgba(79,142,247,0.35);color:var(--text);box-shadow:0 0 12px rgba(79,142,247,0.2);}
+html[data-theme="light"] .nav-tab:hover{
+  color:#fff;
+  border-color:rgba(232,160,32,0.45);
+  background:rgba(255,255,255,0.10);
+  box-shadow:none;
+}
 .nav-tab.active{background:rgba(79,142,247,0.18);border-color:rgba(79,142,247,0.5);color:#fff;box-shadow:0 0 16px rgba(79,142,247,0.35);}
+html[data-theme="light"] .nav-tab.active{
+  background:rgba(232,160,32,0.22);
+  border-color:var(--calc-accent);
+  color:#fff;
+  box-shadow:0 0 0 1px rgba(232,160,32,0.35);
+}
 .nav-tab.gold{border-color:rgba(247,200,79,0.3);color:var(--gold);}
 .nav-tab.gold:hover{background:rgba(247,200,79,0.12);border-color:rgba(247,200,79,0.5);box-shadow:0 0 12px rgba(247,200,79,0.25);}
+html[data-theme="light"] .nav-tab.gold{color:#fde68a;border-color:rgba(253,224,71,0.35);}
+html[data-theme="light"] .nav-tab.gold:hover{background:rgba(253,224,71,0.12);color:#fff;}
 .nav-tab.gold.active{background:rgba(247,200,79,0.18);border-color:rgba(247,200,79,0.6);color:var(--gold);box-shadow:0 0 16px rgba(247,200,79,0.35);}
+html[data-theme="light"] .nav-tab.gold.active{background:rgba(232,160,32,0.28);color:#fff;border-color:var(--calc-accent2);}
 .nav-tab-impl-staff{
   border-color:rgba(79,247,168,.42)!important;
   color:#b8f5d0!important;
@@ -63,6 +114,113 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .lang-toggle{display:flex;border:1px solid rgba(255,255,255,0.10);border-radius:20px;overflow:hidden;}
 .lang-btn{padding:6px 14px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;transition:all 0.2s ease;}
 .lang-btn.active{background:rgba(79,142,247,0.22);color:var(--accent);}
+.nav-tabs .lang-toggle{margin-left:auto;}
+.nav-tabs .lang-btn{padding:6px 12px;}
+html[data-theme="light"] .lang-toggle{border-color:rgba(255,255,255,0.22);background:rgba(255,255,255,0.08);}
+html[data-theme="light"] .lang-btn{color:#cbd5e1;}
+html[data-theme="light"] .lang-btn.active{background:#f8fafc;color:var(--calc-primary);font-weight:700;}
+.theme-toggle{
+  padding:6px 10px;border-radius:12px;border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.04);color:var(--text-muted);
+  cursor:pointer;font-size:.8rem;transition:all .2s ease;white-space:nowrap;
+}
+html[data-theme="light"] .theme-toggle{
+  border-color:rgba(255,255,255,0.22);
+  background:rgba(255,255,255,0.08);
+  color:#e5e7eb;
+}
+.theme-toggle:hover{border-color:rgba(79,142,247,0.35);color:var(--text);background:rgba(79,142,247,0.08);}
+html[data-theme="light"] .theme-toggle:hover{border-color:rgba(232,160,32,0.55);color:#fff;background:rgba(255,255,255,0.12);}
+html[data-theme="light"] .header-admin-dash{
+  border-color:rgba(253,224,71,0.45);
+  background:rgba(255,255,255,0.08);
+  color:#fde68a;
+}
+html[data-theme="light"] .logout-btn{
+  border-color:rgba(255,255,255,0.22);
+  background:rgba(255,255,255,0.06);
+  color:#e5e7eb;
+}
+
+/* Light theme readability fixes (flow + detail panel) */
+html[data-theme="light"] .person-card{background:rgba(255,255,255,0.92);border-color:rgba(0,0,0,0.10);}
+html[data-theme="light"] .card-location{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08);}
+html[data-theme="light"] .doc-tag{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.08);}
+
+html[data-theme="light"] .flow-stage-header{background:rgba(255,255,255,0.92);border-color:rgba(0,0,0,0.10);}
+html[data-theme="light"] .flow-steps{border-color:rgba(0,0,0,0.10);background:rgba(255,255,255,0.85);}
+html[data-theme="light"] .flow-step{border-bottom-color:rgba(0,0,0,0.06);}
+html[data-theme="light"] .flow-step:hover{background:rgba(79,142,247,0.06);}
+
+html[data-theme="light"] .detail-panel{background:rgba(255,255,255,0.94);border-left-color:rgba(0,0,0,0.10);}
+html[data-theme="light"] .panel-header{background:rgba(255,255,255,0.92);border-bottom-color:rgba(0,0,0,0.08);}
+html[data-theme="light"] .panel-close{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.10);color:var(--text);}
+html[data-theme="light"] .panel-close:hover{background:rgba(0,0,0,0.06);border-color:rgba(0,0,0,0.16);}
+html[data-theme="light"] .doc-chip{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.10);}
+html[data-theme="light"] .tool-chip{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.10);}
+html[data-theme="light"] .connects-chip{background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.10);}
+
+/* Light — global surfaces (stream tabs, maps, buttons) */
+html[data-theme="light"] .panel-overlay{background:rgba(15,23,42,0.35);}
+html[data-theme="light"] .detail-panel{color:var(--text);box-shadow:-8px 0 32px rgba(17,24,39,0.08);}
+html[data-theme="light"] .panel-name{color:var(--text);}
+html[data-theme="light"] .panel-role{color:var(--text-muted);}
+html[data-theme="light"] #panel-body{color:var(--text);}
+html[data-theme="light"] .process-item span:last-child{color:var(--text);}
+html[data-theme="light"] .process-num{color:var(--acc);}
+html[data-theme="light"] .panel-section-title{color:var(--text-muted);}
+
+html[data-theme="light"] .stream-tab{
+  background:rgba(255,255,255,0.92);
+  border-color:var(--border);
+  color:var(--text-muted);
+  box-shadow:0 1px 2px rgba(0,0,0,0.04);
+}
+html[data-theme="light"] .stream-tab:hover{background:#fff;color:var(--text);border-color:#cbd5e1;}
+html[data-theme="light"] .stream-tab.tab-lease.active{background:rgba(37,99,235,0.10);border-color:#2563eb;color:#1d4ed8;box-shadow:none;}
+html[data-theme="light"] .stream-tab.tab-rental.active{background:rgba(234,88,12,0.10);border-color:#ea580c;color:#c2410c;box-shadow:none;}
+html[data-theme="light"] .stream-tab.tab-cash.active{background:rgba(5,150,105,0.10);border-color:#059669;color:#047857;box-shadow:none;}
+html[data-theme="light"] .stream-tab.tab-parking.active{background:rgba(243,244,246,0.95);border-color:#9ca3af;color:var(--text);box-shadow:none;}
+html[data-theme="light"] .stream-banner{border-color:var(--border);background:rgba(255,255,255,0.85);}
+html[data-theme="light"] .stream-placeholder{border-color:#d1d5db;background:rgba(255,255,255,0.75);}
+
+html[data-theme="light"] .procmap-header.customer{background:rgba(139,92,246,0.10);border:1px solid #e9d5ff;color:#6b21a8;}
+html[data-theme="light"] .procmap-header.aaa{background:rgba(37,99,235,0.10);border:1px solid #bfdbfe;color:#1e40af;}
+html[data-theme="light"] .procmap-stage-label{background:#f3f4f6;color:var(--text-muted);border-bottom-color:var(--border);}
+html[data-theme="light"] .procmap-cell{color:var(--text);}
+html[data-theme="light"] .procmap-cell.customer-cell{background:#faf5ff;}
+html[data-theme="light"] .procmap-cell.aaa-cell{background:#eff6ff;}
+html[data-theme="light"] .procmap-mid-cell{background:#fff;color:var(--text-muted);border-right-color:var(--border);}
+html[data-theme="light"] .procmap-board{background:#fff;}
+
+html[data-theme="light"] .parking-card{background:rgba(255,255,255,0.95);border-color:var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+html[data-theme="light"] .parking-badge{background:#f3f4f6;border-color:var(--border);}
+
+html[data-theme="light"] .btn-primary{
+  background:linear-gradient(180deg,#3b82f6,#2563eb);
+  color:#fff;
+  border-color:#1d4ed8;
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+html[data-theme="light"] .btn-primary:hover{box-shadow:0 4px 12px rgba(37,99,235,0.25);}
+html[data-theme="light"] .btn-secondary{
+  background:rgba(255,255,255,0.95);
+  color:var(--text);
+  border-color:var(--border);
+  box-shadow:0 1px 2px rgba(0,0,0,0.04);
+}
+html[data-theme="light"] .btn-secondary:hover{background:#fff;border-color:#cbd5e1;}
+
+html[data-theme="light"] .person-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+html[data-theme="light"] .filter-btn,
+html[data-theme="light"] .docs-search input,
+html[data-theme="light"] .gloss-search{background:#fff;border-color:var(--border);color:var(--text);}
+html[data-theme="light"] .doc-card{background:rgba(255,255,255,0.95);border-color:var(--border);}
+html[data-theme="light"] .contacts-card{background:rgba(255,255,255,0.95);border-color:var(--border);}
+html[data-theme="light"] .contacts-table tr:hover{background:rgba(243,244,246,0.9);}
+html[data-theme="light"] .quiz-intro,
+html[data-theme="light"] .score-card{background:rgba(255,255,255,0.95);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+
 .legend{display:flex;gap:10px;align-items:center;flex-wrap:wrap;opacity:0.7;}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:0.7rem;color:var(--text-muted);}
 .legend-dot{width:7px;height:7px;border-radius:50%;}
@@ -189,6 +347,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .procmap-mid-cell{display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--text-muted);padding:8px;border-right:1px solid var(--border);}
 .procmap-cell-who{font-family:'DM Mono',monospace;font-size:.65rem;margin-bottom:3px;cursor:pointer;}
 .procmap-cell-who:hover{text-decoration:underline;}
+.procmap-board{border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;background:transparent;}
 /* DOCS */
 .docs-search{display:flex;gap:10px;margin-bottom:22px;align-items:center;flex-wrap:wrap;}
 .docs-search input{flex:1;min-width:180px;padding:9px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);border-radius:20px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:all 0.2s ease;}
@@ -223,28 +382,38 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .reqs-hero{background:linear-gradient(135deg,rgba(247,200,79,.10),rgba(247,145,79,.06));backdrop-filter:blur(12px);border:1px solid rgba(247,200,79,.25);border-radius:16px;padding:24px 28px;margin-bottom:28px;}
 .reqs-hero h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:5px;}
 .reqs-hero p{color:var(--text-muted);font-size:.86rem;line-height:1.6;max-width:680px;}
+.reqs-hero, .req-card{backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);}
+html[data-theme="light"] .reqs-hero{background:linear-gradient(135deg,rgba(247,200,79,.16),rgba(247,145,79,.10));border-color:rgba(247,200,79,.35);}
 .reqs-stats{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;}
 .reqs-stat-num{font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--gold);}
 .reqs-stat-label{font-size:.7rem;color:var(--text-muted);font-family:'DM Mono',monospace;text-transform:uppercase;}
 .reqs-filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;align-items:center;}
 .reqs-search{flex:1;min-width:180px;padding:8px 13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);border-radius:20px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;transition:all 0.2s ease;}
+html[data-theme="light"] .reqs-search{background:rgba(255,255,255,0.9);border-color:rgba(0,0,0,0.10);}
 .reqs-search:focus{border-color:rgba(247,200,79,.5);box-shadow:0 0 10px rgba(247,200,79,.15);}
 .reqs-filter-btn{padding:7px 14px;border-radius:20px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);color:var(--text-muted);cursor:pointer;font-size:.78rem;font-family:'DM Sans',sans-serif;transition:all 0.2s ease;}
+html[data-theme="light"] .reqs-filter-btn{background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.10);}
 .reqs-filter-btn.active,.reqs-filter-btn:hover{border-color:rgba(247,200,79,.5);color:var(--gold);background:rgba(247,200,79,.08);box-shadow:0 0 10px rgba(247,200,79,.15);}
 .reqs-module{margin-bottom:32px;}
 .reqs-module-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);}
+html[data-theme="light"] .reqs-module-header{border-bottom-color:rgba(0,0,0,0.10);}
 .reqs-module-icon{font-size:1.3rem;}
 .reqs-module-name{font-family:'DM Serif Display',serif;font-size:1.1rem;}
 .reqs-module-count{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:10px;}
+html[data-theme="light"] .reqs-module-count{background:rgba(0,0,0,0.04);}
 .req-card{background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:16px 18px;margin-bottom:9px;display:grid;grid-template-columns:1fr auto;gap:10px;cursor:pointer;transition:all 0.2s ease;}
+html[data-theme="light"] .req-card{background:rgba(255,255,255,0.95);border-color:rgba(0,0,0,0.10);}
 .req-card:hover{border-color:rgba(247,200,79,.35);box-shadow:0 0 16px rgba(247,200,79,.1);background:rgba(255,255,255,0.08);}
+.req-card:hover{box-shadow:0 12px 30px rgba(17,24,39,0.08);}
 .req-card.expanded{border-color:rgba(247,200,79,.45);background:rgba(247,200,79,.04);}
 .req-title{font-size:.9rem;font-weight:600;margin-bottom:3px;}
 .req-short{font-size:.8rem;color:var(--text-muted);line-height:1.4;}
 .req-badges{display:flex;gap:5px;flex-wrap:wrap;align-items:flex-start;}
 .badge-must{font-family:'DM Mono',monospace;font-size:.63rem;padding:3px 8px;border-radius:10px;border:1px solid rgba(247,200,79,.5);color:var(--gold);background:rgba(247,200,79,.1);white-space:nowrap;}
 .badge-nice{font-family:'DM Mono',monospace;font-size:.63rem;padding:3px 8px;border-radius:10px;border:1px solid rgba(255,255,255,0.10);color:var(--text-muted);background:rgba(255,255,255,0.04);white-space:nowrap;}
+html[data-theme="light"] .badge-nice{border-color:rgba(0,0,0,0.10);background:rgba(0,0,0,0.03);}
 .req-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);grid-column:1/-1;}
+html[data-theme="light"] .req-detail{border-top-color:rgba(0,0,0,0.08);}
 .req-detail.open{display:block;}
 .req-detail-desc{font-size:.83rem;line-height:1.6;color:var(--text-muted);margin-bottom:10px;}
 .req-pain{background:rgba(247,79,79,.07);border:1px solid rgba(247,79,79,.2);border-radius:8px;padding:9px 13px;font-size:.8rem;line-height:1.5;display:flex;gap:7px;}
@@ -336,20 +505,344 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
 .impl-subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
 .impl-panel{display:none;}
 .impl-panel.active{display:block;}
-.impl-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 18px;margin-bottom:16px;}
+.impl-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;box-shadow:0 6px 24px rgba(0,0,0,0.18);}
+html[data-theme="light"] .impl-card{box-shadow:0 10px 30px rgba(17,24,39,0.08);}
 .impl-table{width:100%;border-collapse:collapse;font-size:.82rem;}
-.impl-table th,.impl-table td{padding:8px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top;}
-.impl-inp{width:100%;max-width:100%;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-size:.8rem;box-sizing:border-box;}
+.impl-table th,.impl-table td{padding:10px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top;}
+.impl-table th{color:var(--text-muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;}
+.impl-inp{width:100%;max-width:100%;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,0.12);border:1px solid var(--border);color:var(--text);font-size:.82rem;box-sizing:border-box;}
+html[data-theme="light"] .impl-inp{background:rgba(255,255,255,0.9);}
+.impl-v-notes{min-height:56px;resize:vertical;line-height:1.35;}
+.impl-v-actions{display:flex;gap:8px;align-items:center;white-space:nowrap;flex-wrap:wrap;}
+.impl-v-actions .btn-secondary{padding:6px 10px;}
+@media (max-width: 980px){
+  .impl-table th,.impl-table td{padding:10px 6px;}
+  .impl-table td:last-child{min-width:170px;}
+}
 .impl-note{font-size:.78rem;color:var(--text-muted);margin-top:10px;line-height:1.5;}
 .impl-msg{color:#f7a79a;font-size:.82rem;margin-bottom:10px;}
 .impl-info{color:var(--text-muted);font-size:.82rem;margin-bottom:10px;}
-.onb-mod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.onb-mod{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
 .onb-mod input{width:18px;height:18px;cursor:pointer;flex-shrink:0;}
-.impl-report-block{margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.impl-report-title{font-weight:600;margin-bottom:6px;}
-.impl-report-meta{font-size:.78rem;color:var(--text-muted);}
+.impl-report-block{margin-bottom:14px;padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface2);}
+.impl-report-title{font-weight:650;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+.impl-report-meta{font-size:.78rem;color:var(--text-muted);line-height:1.35;}
+.impl-report-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.impl-report-links a{color:var(--accent);text-decoration:none;font-family:'DM Mono',monospace;font-size:.78rem;}
+.impl-report-links a:hover{text-decoration:underline;}
+.impl-report-actions{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
 .impl-report-toolbar{display:none;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
 .impl-report-toolbar.visible{display:flex;}
+
+/* ── PYA Proposal (calculator + legal) ─────────────────────────────────── */
+#pya-view.view{padding-top:18px;}
+.pya-hero{
+  display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  padding:20px 22px;margin-bottom:18px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(79,142,247,0.12),rgba(79,247,168,0.08));
+  border:1px solid rgba(255,255,255,0.12);
+}
+.pya-hero-title{font-family:'DM Serif Display',serif;font-size:1.2rem;font-weight:600;margin:0 0 6px;}
+.pya-hero-sub{font-size:.82rem;color:var(--text-muted);margin:0;max-width:640px;line-height:1.45;}
+.pya-hero-badge{
+  font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  padding:8px 14px;border-radius:999px;background:rgba(247,200,79,0.15);color:var(--gold);
+  border:1px solid rgba(247,200,79,0.35);white-space:nowrap;align-self:center;
+}
+.pya-panel{display:none;}
+.pya-panel.active{display:block;}
+.pya-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+@media(max-width:900px){.pya-summary-grid{grid-template-columns:repeat(2,1fr);}}
+.pya-tile{
+  text-align:center;padding:18px 14px;border-radius:12px;border:1px solid var(--border);
+  background:rgba(255,255,255,0.04);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+.pya-tile-label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px;}
+.pya-tile-value{font-size:1.45rem;font-weight:800;line-height:1.1;font-family:'DM Mono',monospace;}
+.pya-tile-sub{font-size:.68rem;color:var(--text-muted);margin-top:6px;}
+.pya-tile-onetime .pya-tile-value{color:var(--text);}
+.pya-tile-monthly .pya-tile-value{color:var(--acc);}
+.pya-tile-annual .pya-tile-value{color:var(--sales);}
+.pya-tile-yr1 .pya-tile-value{color:var(--gold);}
+.pya-alert{
+  display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;font-size:.82rem;line-height:1.55;margin-bottom:20px;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.pya-alert-warn{background:rgba(247,200,79,0.08);border-color:rgba(247,200,79,0.25);color:var(--text);}
+.pya-alert-info{background:rgba(79,142,247,0.1);border-color:rgba(79,142,247,0.28);}
+.pya-alert-green{background:rgba(79,247,168,0.08);border-color:rgba(79,247,168,0.28);}
+.pya-alert-red{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.35);}
+.pya-alert-icon{flex-shrink:0;font-size:1.1rem;line-height:1.2;}
+.pya-section-title{
+  font-size:1.05rem;font-weight:700;margin:28px 0 14px;color:var(--text);
+  font-family:'DM Serif Display',serif;
+}
+.pya-card{
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:22px;
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+}
+.pya-card-title{
+  font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.pya-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.pya-dot-blue{background:var(--acc);}
+.pya-dot-warn{background:var(--ops);}
+.pya-dot-green{background:var(--mgmt);}
+.pya-dot-red{background:#f87171;}
+.pya-dot-dark{background:#94a3b8;}
+.pya-calc-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07);
+  flex-wrap:wrap;
+}
+.pya-calc-row:last-child{border-bottom:none;}
+.pya-calc-row-stack{flex-direction:column;align-items:stretch;}
+.pya-calc-row-inner{display:flex;align-items:center;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px;}
+.pya-calc-label{flex:1;min-width:200px;}
+.pya-calc-label strong{display:block;font-size:.88rem;font-weight:600;margin-bottom:4px;}
+.pya-calc-label span{font-size:.78rem;color:var(--text-muted);line-height:1.4;}
+.pya-calc-price{text-align:right;min-width:90px;}
+.pya-calc-price .amount{font-size:.95rem;font-weight:700;font-family:'DM Mono',monospace;}
+.pya-calc-price .unit{font-size:.68rem;color:var(--text-muted);}
+.pya-calc-price .subtotal{font-size:.78rem;color:var(--acc);font-weight:600;font-family:'DM Mono',monospace;}
+.pya-number-input{
+  display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.2);
+}
+.pya-number-input button{
+  background:none;border:none;color:var(--gold);font-size:1.1rem;font-weight:700;cursor:pointer;padding:0 4px;line-height:1;
+}
+.pya-number-input input{
+  width:40px;text-align:center;border:none;background:transparent;color:var(--text);
+  font-size:.9rem;font-weight:700;font-family:'DM Mono',monospace;outline:none;
+}
+.pya-toggle{position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0;}
+.pya-toggle input{opacity:0;width:0;height:0;}
+.pya-toggle-slider{
+  position:absolute;inset:0;background:#475569;border-radius:999px;cursor:pointer;transition:.25s;
+}
+.pya-toggle-slider:before{
+  content:'';position:absolute;width:20px;height:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s;
+}
+.pya-toggle input:checked + .pya-toggle-slider{background:var(--mgmt);}
+.pya-toggle input:checked + .pya-toggle-slider:before{transform:translateX(18px);}
+.pya-tag{font-size:.62rem;font-weight:600;padding:2px 7px;border-radius:6px;margin-left:4px;vertical-align:middle;}
+.pya-tag-blue{background:rgba(79,142,247,0.2);color:var(--acc);}
+.pya-tag-orange{background:rgba(247,145,79,0.2);color:var(--ops);}
+.pya-tag-red{background:rgba(248,113,113,0.2);color:#fca5a5;}
+.pya-tag-green{background:rgba(79,247,168,0.2);color:var(--mgmt);}
+.pya-portal-options{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+.pya-portal-opt{
+  flex:1;min-width:200px;padding:14px 16px;border-radius:12px;border:2px solid rgba(255,255,255,0.1);
+  cursor:pointer;transition:all .2s;background:rgba(0,0,0,0.15);
+}
+.pya-portal-opt:hover{border-color:rgba(247,200,79,0.45);}
+.pya-portal-opt.pya-portal-selected{border-color:rgba(247,200,79,0.65);background:rgba(247,200,79,0.08);}
+.pya-portal-opt input{margin-right:8px;accent-color:var(--gold);}
+.pya-portal-opt .opt-title{font-weight:700;font-size:.85rem;display:block;}
+.pya-portal-opt .opt-price{font-size:.8rem;color:var(--acc);font-weight:600;margin-top:6px;}
+.pya-portal-opt .opt-note{font-size:.7rem;color:var(--text-muted);margin-top:6px;line-height:1.4;}
+.pya-subtotal-bar{
+  margin-top:18px;padding:16px 20px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.22);
+}
+.pya-subtotal-lbl{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.pya-subtotal-val{font-size:1.35rem;font-weight:800;font-family:'DM Mono',monospace;}
+.pya-sub-blue{color:var(--acc);}
+.pya-sub-purple{color:var(--sales);}
+.pya-subtotal-right{text-align:right;}
+.pya-inp{
+  display:block;width:100%;max-width:160px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;
+  padding:8px 12px;font-size:.85rem;font-weight:600;text-align:right;background:rgba(0,0,0,0.2);color:var(--text);
+  font-family:'DM Mono',monospace;
+}
+.pya-inp:focus{border-color:rgba(247,200,79,0.5);outline:none;}
+.pya-inp-mt{margin-top:8px;}
+.pya-unknown-totals{
+  margin-top:18px;padding:16px 20px;border-radius:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  background:rgba(247,200,79,0.08);border:1px solid rgba(247,200,79,0.22);
+}
+.pya-unknown-val{font-size:1.15rem;font-weight:800;color:var(--ops);font-family:'DM Mono',monospace;}
+.pya-total-bar{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  padding:22px 24px;border-radius:14px;margin:24px 0;
+  background:linear-gradient(135deg,rgba(15,23,42,0.95),rgba(30,41,59,0.9));
+  border:1px solid rgba(255,255,255,0.12);
+}
+.pya-total-item{text-align:center;min-width:100px;}
+.pya-total-lbl{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.pya-total-val{font-size:1.15rem;font-weight:800;font-family:'DM Mono',monospace;}
+.pya-total-accent{color:var(--gold);}
+.pya-total-warn{color:#fbbf24;}
+.pya-total-xl{font-size:1.45rem!important;}
+.pya-total-divider{width:1px;height:44px;background:rgba(255,255,255,0.12);}
+@media(max-width:768px){.pya-total-divider{display:none;}.pya-total-bar{justify-content:center;}}
+.pya-table-wrap{overflow-x:auto;}
+.pya-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.pya-table th{
+  text-align:left;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--text-muted);padding:10px 12px;background:rgba(0,0,0,0.25);border-bottom:1px solid var(--border);
+}
+.pya-table td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.07);vertical-align:top;}
+.pya-table tr:last-child td{border-bottom:none;}
+.pya-table .pya-total-row td{font-weight:700;background:rgba(79,142,247,0.12);font-size:.9rem;}
+.pya-highlight-row td{background:rgba(247,200,79,0.06);}
+.pya-hours{
+  display:inline-block;font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:999px;
+  background:rgba(79,142,247,0.2);color:var(--acc);
+}
+.pya-muted{color:var(--text-muted);}
+.pya-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+@media(max-width:768px){.pya-grid-2{grid-template-columns:1fr;}}
+.pya-compare-card{
+  border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:18px;background:rgba(255,255,255,0.03);
+}
+.pya-compare-card.pya-compare-winner{border-color:rgba(79,247,168,0.45);background:rgba(79,247,168,0.06);}
+.pya-c-title{font-weight:700;font-size:.9rem;margin-bottom:12px;}
+.pya-c-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:.8rem;}
+.pya-c-row:last-child{border-bottom:none;}
+.pya-c-key{color:var(--text-muted);}
+.pya-c-val{font-weight:600;text-align:right;}
+.pya-c-blue{color:var(--acc);}
+.pya-c-green{color:var(--mgmt);}
+.pya-c-warn{color:var(--ops);}
+.pya-c-red{color:#f87171;}
+.pya-mt{margin-top:14px;}
+.pya-mt-sm{margin-top:10px;}
+.pya-bullets{font-size:.84rem;line-height:1.85;color:var(--text);}
+.pya-phase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;}
+.pya-phase{
+  background:rgba(255,255,255,0.04);border-radius:10px;padding:12px;text-align:center;border-left:3px solid var(--gold);
+}
+.pya-phase-dark{background:rgba(15,23,42,0.9)!important;border-left-color:var(--gold);}
+.pya-phase-lbl{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px;}
+.pya-phase-name{font-weight:700;font-size:.8rem;}
+.pya-phase-dur{font-size:.74rem;color:var(--text-muted);margin-top:4px;}
+.pya-terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:768px){.pya-terms-grid{grid-template-columns:1fr;}}
+.pya-term{
+  background:rgba(0,0,0,0.2);border-radius:10px;padding:12px 14px;font-size:.8rem;line-height:1.45;
+}
+.pya-term strong{display:block;font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:6px;}
+.pya-q-list{list-style:none;}
+.pya-q-list li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07);align-items:flex-start;font-size:.84rem;}
+.pya-q-list li:last-child{border-bottom:none;}
+.pya-q-num{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(79,142,247,0.25);color:var(--acc);
+  font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;
+}
+.pya-footer{text-align:center;font-size:.72rem;color:var(--text-muted);padding:20px 12px;border-top:1px solid var(--border);margin-top:28px;}
+
+/* PYA legal checklist */
+.pya-legal-sec{margin-bottom:14px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:rgba(255,255,255,0.03);}
+.pya-legal-sec-hdr{
+  width:100%;text-align:left;display:flex;align-items:center;gap:10px;padding:14px 16px;
+  background:rgba(0,0,0,0.2);border:none;color:var(--text);font-size:.9rem;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.pya-legal-sec-hdr:hover{background:rgba(255,255,255,0.06);}
+.pya-legal-chev{font-size:.7rem;color:var(--text-muted);width:1.2rem;}
+.pya-legal-sec-body{padding:12px 16px 16px;}
+.pya-legal-item{
+  display:grid;grid-template-columns:auto 1fr;gap:12px 14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.pya-legal-item:last-child{border-bottom:none;}
+.pya-legal-item input[type=checkbox]{width:18px;height:18px;margin-top:4px;accent-color:var(--mgmt);cursor:pointer;}
+.pya-legal-item-title{font-weight:700;font-size:.86rem;}
+.pya-legal-item-detail{font-size:.78rem;color:var(--text-muted);line-height:1.45;grid-column:2;}
+.pya-legal-notes{grid-column:2;font-size:.78rem;}
+.pya-legal-note{margin-top:8px;padding:10px 12px;border-radius:10px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.08);}
+.pya-legal-note-meta{font-size:.65rem;color:var(--text-muted);margin-top:6px;}
+.pya-note-ta{
+  width:100%;min-height:64px;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);
+  background:rgba(0,0,0,0.25);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.82rem;resize:vertical;
+}
+.pya-note-save{margin-top:8px;padding:8px 16px;border-radius:10px;border:1px solid rgba(79,247,168,0.4);
+  background:rgba(79,247,168,0.15);color:var(--mgmt);font-weight:600;cursor:pointer;font-size:.78rem;
+}
+.pya-note-save:hover{background:rgba(79,247,168,0.25);}
+.pya-note-save:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ── Light theme: PYA (calculator vibe) ───────────────────────────────── */
+html[data-theme="light"] .pya-hero{
+  background:linear-gradient(135deg,rgba(37,99,235,0.08),rgba(234,179,8,0.06));
+  border-color:var(--border);
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+html[data-theme="light"] .pya-hero-title{color:var(--calc-primary);}
+html[data-theme="light"] .pya-hero-badge{
+  background:rgba(254,243,199,0.95);
+  color:#92400e;
+  border-color:#fcd34d;
+}
+html[data-theme="light"] #pya-subnav{
+  background:#fff;
+  border-bottom:2px solid var(--border);
+  border-radius:0;
+  padding:0 4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+html[data-theme="light"] #pya-subnav .stream-tab{
+  border-radius:0;
+  border:none;
+  border-bottom:3px solid transparent;
+  background:transparent;
+  box-shadow:none;
+  margin-bottom:-2px;
+}
+html[data-theme="light"] #pya-subnav .stream-tab.active{
+  color:var(--calc-primary);
+  border-bottom-color:var(--calc-accent);
+  background:transparent;
+  box-shadow:none;
+}
+html[data-theme="light"] .pya-tile{
+  background:#fff;
+  border-color:var(--border);
+  box-shadow:0 1px 4px rgba(0,0,0,0.04);
+  backdrop-filter:none;
+}
+html[data-theme="light"] .pya-tile-onetime .pya-tile-value{color:var(--calc-primary);}
+html[data-theme="light"] .pya-card{background:#fff;border-color:var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.04);backdrop-filter:none;}
+html[data-theme="light"] .pya-section-title{color:var(--calc-primary);}
+html[data-theme="light"] .pya-calc-row{border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-number-input{background:var(--bg);border-color:var(--border);}
+html[data-theme="light"] .pya-number-input button{color:var(--calc-accent);}
+html[data-theme="light"] .pya-portal-opt{background:#fff;border-color:var(--border);}
+html[data-theme="light"] .pya-portal-opt.pya-portal-selected{border-color:var(--calc-accent);background:#fffbeb;}
+html[data-theme="light"] .pya-inp{background:var(--bg);border-color:var(--border);color:var(--text);}
+html[data-theme="light"] .pya-table th{background:var(--bg);border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-table td{border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-table .pya-total-row td{background:#eff6ff;}
+html[data-theme="light"] .pya-highlight-row td{background:#fffbeb;}
+html[data-theme="light"] .pya-compare-card{background:#fff;border-color:var(--border);}
+html[data-theme="light"] .pya-compare-card.pya-compare-winner{border-color:#22c55e;background:#f0fdf4;}
+html[data-theme="light"] .pya-c-row{border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-term{background:var(--bg);border:1px solid var(--border);}
+html[data-theme="light"] .pya-q-list li{border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-phase{background:#fff;border:1px solid var(--border);border-left-width:3px;}
+html[data-theme="light"] .pya-phase-dark{background:#f8fafc!important;border-color:var(--border)!important;color:var(--text);}
+html[data-theme="light"] .pya-alert{border-color:var(--border);}
+html[data-theme="light"] .pya-alert-warn{background:#fffbeb;border-color:#fcd34d;color:#92400e;}
+html[data-theme="light"] .pya-alert-info{background:#eff6ff;border-color:#93c5fd;color:#1e40af;}
+html[data-theme="light"] .pya-alert-green{background:#f0fdf4;border-color:#86efac;color:#166534;}
+html[data-theme="light"] .pya-alert-red{background:#fef2f2;border-color:#fca5a5;color:#991b1b;}
+html[data-theme="light"] .pya-legal-sec{background:#fff;border-color:var(--border);}
+html[data-theme="light"] .pya-legal-sec-hdr{background:#f9fafb;border-bottom:1px solid var(--border);color:var(--text);}
+html[data-theme="light"] .pya-legal-sec-hdr:hover{background:#f3f4f6;}
+html[data-theme="light"] .pya-legal-item{border-bottom-color:var(--border);}
+html[data-theme="light"] .pya-legal-note{background:var(--bg);border-color:var(--border);}
+html[data-theme="light"] .pya-note-ta{background:#fff;border-color:var(--border);}
+html[data-theme="light"] .pya-tag-red{background:#fee2e2;color:#991b1b;}
+html[data-theme="light"] .pya-total-bar{
+  background:var(--calc-primary);
+  border-color:rgba(255,255,255,0.12);
+  box-shadow:0 4px 16px rgba(26,26,46,0.2);
+}
+html[data-theme="light"] .pya-total-lbl{color:#9ca3af;}
+html[data-theme="light"] .pya-total-val{color:#fff;}
+html[data-theme="light"] .pya-total-accent{color:var(--calc-accent2);}
+html[data-theme="light"] .pya-total-divider{background:rgba(255,255,255,0.18);}
 </style>
 </head>
 <body>
@@ -362,10 +855,12 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <button class="nav-tab" type="button" data-action="switch-view" data-view="docs"><span data-t="nav_docs">Key Documents</span></button>
     <button class="nav-tab gold" type="button" id="nav-tab-reqs" data-action="switch-view" data-view="reqs"><span data-t="nav_reqs">⚡ Software Reqs</span></button>
     <button class="nav-tab nav-tab-impl-staff" type="button" id="nav-tab-impl" style="display:none" data-action="switch-view" data-view="impl"><span data-t="nav_impl">Implementacija</span></button>
+    <button class="nav-tab nav-tab-impl-staff" type="button" id="nav-tab-pya" style="display:none" data-action="switch-view" data-view="pya"><span data-t="nav_pya">PYA Proposal</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="glossary"><span data-t="nav_glossary">📖 Glossary</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="quiz"><span data-t="nav_quiz">Quiz</span></button>
     <button class="nav-tab" type="button" id="nav-tab-onboarding" style="display:none" data-action="switch-view" data-view="onboarding"><span data-t="nav_onboarding">Moj onboarding</span></button>
     <button class="nav-tab" type="button" data-action="switch-view" data-view="contacts"><span data-t="nav_contacts">👤 Contacts</span></button>
+    <button class="theme-toggle" type="button" id="btn-theme" data-action="toggle-theme" title="Toggle light/dark">☾</button>
   </nav>
   <div class="header-right">
     <a href="/admin" id="link-admin-dashboard" class="header-admin-dash" style="display:none" data-t="header_admin_dash">← Admin dashboard</a>
@@ -725,7 +1220,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
         <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
-      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
+      <div class="procmap-board">
         <div class="procmap-stage-label" data-t="pm_l1">① Inquiry &amp; Approval</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l1cc">Contacts AAA Lease. Submits application, company docs, driver's license, DOT number.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0">Brankica</div><span data-t="pm_l1aa">Checks credit score, bank balance, FMCSA status, True Funding link. Sends to Alex.</span></div></div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l2cc">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex</div><span data-t="pm_l2aa">Final approval or rejection. Defines contract terms.</span></div></div>
@@ -757,7 +1252,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
         <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
-      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
+      <div class="procmap-board">
         <div class="procmap-stage-label" data-t="pm_r1">① Inquiry &amp; Lead</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_r1cc">Contacts Radu directly (word of mouth or ads).</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="radu" role="button" tabindex="0">Radu</div><span data-t="pm_r1aa">Creates HubSpot deal, soft-holds unit in spreadsheet. Agrees on unit type, rate, and pickup timing.</span></div></div>
         <div class="procmap-stage-label" data-t="pm_r2">② Setup &amp; Documentation</div>
@@ -782,7 +1277,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
         <div style="background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);"></div>
         <div class="procmap-header aaa"><span data-t="pm_hdr_aaa">🏢 AAA LEASE</span></div>
       </div>
-      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;">
+      <div class="procmap-board">
         <div class="procmap-stage-label" data-t="pm_c1">① Deal &amp; Approval</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c1cc">Expresses interest in purchasing unit.</div><div class="procmap-mid-cell">→</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex / Roman / Scott / Ilija</div><span data-t="pm_c1aa">Identify unit, create HubSpot deal. Alex approves sale price. Brankica verifies unit status (loan, lease, GPS).</span></div></div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_c2cc">If financing needed — works with Roman on bank approval. Waits for deal confirmation.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--sales);" data-action="open-panel" data-person-id="roman" role="button" tabindex="0">Roman</div><span data-t="pm_c2aa">Coordinates bank financing (True Funding or external bank). Confirms funds and notifies team.</span></div></div>
@@ -886,6 +1381,7 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
     <button class="stream-tab tab-lease active" type="button" data-action="switch-impl-tab" data-impl-tab="vendors" data-t="impl_tab_vendors">Vendori</button>
     <button class="stream-tab tab-rental" type="button" data-action="switch-impl-tab" data-impl-tab="diary" data-t="impl_tab_diary">Moj dnevnik</button>
     <button class="stream-tab tab-cash" type="button" data-action="switch-impl-tab" data-impl-tab="report" data-t="impl_tab_report">Onboarding izveštaj</button>
+    <button class="stream-tab tab-cash" type="button" data-action="switch-view" data-view="pya" data-t="impl_tab_offers">Ponude</button>
   </div>
   <div id="impl-panel-vendors" class="impl-panel active">
     <div style="margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
@@ -949,6 +1445,464 @@ header h1 span{color:var(--accent);text-shadow:0 0 16px rgba(79,142,247,0.4);}
       <button class="btn-primary" type="button" data-action="impl-load-report" data-t="impl_refresh">Osveži</button>
     </div>
     <div id="impl-report-body"></div>
+  </div>
+</div>
+
+<!-- PYA PROPOSAL (admin / super_admin) — inserted into app.html -->
+<div id="pya-view" class="view">
+  <div class="pya-hero">
+    <div class="pya-hero-left">
+      <h2 class="pya-hero-title"><span data-t="pya_hdr_title">📋 AAA Lease LLC — Analiza Proposala</span></h2>
+      <p class="pya-hero-sub" data-t="pya_hdr_sub">Microsoft Business Central + Soft4Leasing | PYA Solutions Inc.</p>
+    </div>
+    <div class="pya-hero-badge" data-t="pya_hdr_badge">PYA / Soft4Leasing</div>
+  </div>
+
+  <div class="stream-tabs impl-subnav" id="pya-subnav">
+    <button class="stream-tab tab-lease active" type="button" data-action="switch-pya-tab" data-pya-tab="calc" data-t="pya_tab_calc">Kalkulator</button>
+    <button class="stream-tab tab-cash" type="button" data-action="switch-pya-tab" data-pya-tab="legal" data-t="pya_tab_legal">Pravne stavke &amp; Beleške</button>
+  </div>
+
+  <div id="pya-panel-calc" class="pya-panel active">
+    <div class="pya-summary-grid">
+      <div class="pya-tile pya-tile-onetime">
+        <div class="pya-tile-label" data-t="pya_tile_onetime_lbl">Jednokratno (impl.)</div>
+        <div class="pya-tile-value" id="tile-onetime">$134,200</div>
+        <div class="pya-tile-sub" data-t="pya_tile_onetime_sub">Professional Services</div>
+      </div>
+      <div class="pya-tile pya-tile-monthly">
+        <div class="pya-tile-label" data-t="pya_tile_monthly_lbl">Mesečno (procena)</div>
+        <div class="pya-tile-value" id="tile-monthly">—</div>
+        <div class="pya-tile-sub" data-t="pya_tile_monthly_sub">Subscription + moduli</div>
+      </div>
+      <div class="pya-tile pya-tile-annual">
+        <div class="pya-tile-label" data-t="pya_tile_annual_lbl">Godišnje (procena)</div>
+        <div class="pya-tile-value" id="tile-annual">—</div>
+        <div class="pya-tile-sub" data-t="pya_tile_annual_sub">Subscription × 12</div>
+      </div>
+      <div class="pya-tile pya-tile-yr1">
+        <div class="pya-tile-label" data-t="pya_tile_yr1_lbl">Ukupno Yr1 (procena)</div>
+        <div class="pya-tile-value" id="tile-year1">—</div>
+        <div class="pya-tile-sub" data-t="pya_tile_yr1_sub">Impl. + godišnje + nepoznate</div>
+      </div>
+    </div>
+
+    <div class="pya-alert pya-alert-warn">
+      <span class="pya-alert-icon">⚠️</span>
+      <div data-t="pya_alert_estimates">Sve cene u proposalu su procene (estimates), ne fiksne cene. Broj korisnika nije specificiran — koristite kalkulator ispod da prilagodite. Cene su u USD.</div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_calc_title">🧮 Interaktivni Kalkulator — Mesečni i Godišnji Troškovi</span></h3>
+
+    <div class="pya-card">
+      <div class="pya-card-title"><span class="pya-dot pya-dot-blue"></span><span data-t="pya_subscriptions_title">PRETPLATE (SUBSCRIPTION) — prilagodi prema broju korisnika</span></div>
+
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_full_user">Full User</span> <span class="pya-tag pya-tag-blue" data-t="pya_tag_bc">BC/Soft4Leasing</span></strong>
+          <span data-t="pya_full_user_desc">Pun pristup svim funkcijama — rad sa ugovorima, fakturama, izveštajima</span>
+        </div>
+        <div class="pya-number-input">
+          <button type="button" data-action="pya-step" data-pya-field="fullUsers" data-pya-delta="-1">−</button>
+          <input type="number" id="fullUsers" value="3" min="0" data-action="pya-input-recalc">
+          <button type="button" data-action="pya-step" data-pya-field="fullUsers" data-pya-delta="1">+</button>
+        </div>
+        <div class="pya-calc-price">
+          <div class="amount">$521</div>
+          <div class="unit" data-t="pya_per_user_mo">/ user / mesec</div>
+          <div class="subtotal" id="fullSub">= $1,563/mes</div>
+        </div>
+      </div>
+
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_lite_user">Lite User</span> <span class="pya-tag pya-tag-blue" data-t="pya_tag_bc">BC/Soft4Leasing</span></strong>
+          <span data-t="pya_lite_user_desc">Ograničen pristup — npr. pregled, odobravanje, read-only funkcije</span>
+        </div>
+        <div class="pya-number-input">
+          <button type="button" data-action="pya-step" data-pya-field="liteUsers" data-pya-delta="-1">−</button>
+          <input type="number" id="liteUsers" value="2" min="0" data-action="pya-input-recalc">
+          <button type="button" data-action="pya-step" data-pya-field="liteUsers" data-pya-delta="1">+</button>
+        </div>
+        <div class="pya-calc-price">
+          <div class="amount">$296</div>
+          <div class="unit" data-t="pya_per_user_mo">/ user / mesec</div>
+          <div class="subtotal" id="liteSub">= $592/mes</div>
+        </div>
+      </div>
+
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_toll_guard">Toll Guard Integration</span> <span class="pya-tag pya-tag-orange" data-t="pya_tag_optional">Opciono</span></strong>
+          <span data-t="pya_toll_guard_desc">PYA standard API — integracija sa Toll Guard sistemom</span>
+        </div>
+        <label class="pya-toggle">
+          <input type="checkbox" id="tollGuard" checked data-action="pya-input-recalc">
+          <span class="pya-toggle-slider"></span>
+        </label>
+        <div class="pya-calc-price">
+          <div class="amount">$250</div>
+          <div class="unit" data-t="pya_per_month">/ mesec</div>
+          <div class="subtotal" id="tollSub">= $250/mes</div>
+        </div>
+      </div>
+
+      <div class="pya-calc-row pya-calc-row-stack">
+        <div class="pya-calc-row-inner">
+          <div class="pya-calc-label">
+            <strong><span data-t="pya_customer_portal">Customer Portal</span> <span class="pya-tag pya-tag-orange" data-t="pya_tag_optional">Opciono</span></strong>
+            <span data-t="pya_customer_portal_desc">Self-service portal za leasing klijente — 2 opcije (vidi detalje ispod)</span>
+          </div>
+          <div class="pya-calc-price" id="portalPriceDisplay">
+            <div class="amount" id="portalMonthly">$250</div>
+            <div class="unit">/ mesec</div>
+            <div class="subtotal" id="portalSub">= $250/mes</div>
+          </div>
+        </div>
+        <div class="pya-portal-options">
+          <label class="pya-portal-opt pya-portal-selected" id="opt-fleet56" data-action="pya-portal" data-portal="fleet56">
+            <input type="radio" name="portal" value="fleet56" checked>
+            <div class="opt-title" data-t="pya_portal_fleet56_title">Fleet56 (via BC strana)</div>
+            <div class="opt-price" data-t="pya_portal_fleet56_price">$250/mesec = $3,000/god</div>
+            <div class="opt-note" data-t="pya_portal_fleet56_note">Već uključeno u proposal. Jednokratna impl. je već u $134,200.</div>
+          </label>
+          <label class="pya-portal-opt" id="opt-soft4" data-action="pya-portal" data-portal="soft4">
+            <input type="radio" name="portal" value="soft4">
+            <div class="opt-title" data-t="pya_portal_soft4_title">Soft4Leasing Portal (alternativa)</div>
+            <div class="opt-price" data-t="pya_portal_soft4_price">$5,000/god = ~$417/mes + $14k–$22k impl.</div>
+            <div class="opt-note" data-t="pya_portal_soft4_note">Unlimited klijenata/asseta. Ako odabereš ovo, $250/mes Fleet56 OTPADA.</div>
+          </label>
+          <label class="pya-portal-opt" id="opt-none" data-action="pya-portal" data-portal="none">
+            <input type="radio" name="portal" value="none">
+            <div class="opt-title" data-t="pya_portal_none_title">Bez portala</div>
+            <div class="opt-price" data-t="pya_portal_none_price">$0/mesec</div>
+            <div class="opt-note" data-t="pya_portal_none_note">Odloži odluku za kasnije implementaciju.</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="pya-subtotal-bar">
+        <div>
+          <div class="pya-subtotal-lbl" data-t="pya_monthly_subtotal_lbl">Ukupno mesečno (subscription)</div>
+          <div class="pya-subtotal-val pya-sub-blue" id="monthlyTotal">—</div>
+        </div>
+        <div class="pya-subtotal-right">
+          <div class="pya-subtotal-lbl" data-t="pya_annual_subtotal_lbl">Ukupno godišnje (subscription)</div>
+          <div class="pya-subtotal-val pya-sub-purple" id="annualTotal">—</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_unknown_title">📝 Nepoznate Cene — Unesi kada saznaš</span></h3>
+    <div class="pya-alert pya-alert-info">
+      <span class="pya-alert-icon">ℹ️</span>
+      <div data-t="pya_alert_unknown">Ove stavke nisu uključene u proposal i cene još nisu poznate. Unesi iznose kada saznaš — kalkulator će automatski ažurirati ukupne troškove.</div>
+    </div>
+
+    <div class="pya-card">
+      <div class="pya-card-title"><span class="pya-dot pya-dot-warn"></span><span data-t="pya_unknown_section_title">INTEGRACIJE KOJE NISU U CENI</span></div>
+
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_crm">CRM Integracija</span> <span class="pya-tag pya-tag-red" data-t="pya_tag_not_in_proposal">Nije u proposalu</span></strong>
+          <span data-t="pya_crm_desc">npr. HubSpot, Salesforce — nije specificiran vendor u proposalu</span>
+        </div>
+        <div>
+          <input type="text" class="pya-inp" id="crm-onetime" data-action="pya-input-recalc" data-placeholder-t="pya_ph_onetime">
+          <input type="text" class="pya-inp pya-inp-mt" id="crm-monthly" data-action="pya-input-recalc" data-placeholder-t="pya_ph_monthly">
+        </div>
+      </div>
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_fleetio">Fleetio Integracija</span> <span class="pya-tag pya-tag-red" data-t="pya_tag_not_in_proposal">Nije u proposalu</span></strong>
+          <span data-t="pya_fleetio_desc">Fleet management software — posebno se naplaćuje</span>
+        </div>
+        <div>
+          <input type="text" class="pya-inp" id="fleet-onetime" data-action="pya-input-recalc" data-placeholder-t="pya_ph_onetime">
+          <input type="text" class="pya-inp pya-inp-mt" id="fleet-monthly" data-action="pya-input-recalc" data-placeholder-t="pya_ph_monthly">
+        </div>
+      </div>
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_support">Post Go-Live Support</span> <span class="pya-tag pya-tag-orange" data-t="pya_tag_unspecified">Nespecificovano</span></strong>
+          <span data-t="pya_support_desc">Support plan nakon implementacije — nije pomenut u proposalu</span>
+        </div>
+        <div>
+          <input type="text" class="pya-inp" id="support-onetime" data-action="pya-input-recalc" data-placeholder-t="pya_ph_onetime">
+          <input type="text" class="pya-inp pya-inp-mt" id="support-monthly" data-action="pya-input-recalc" data-placeholder-t="pya_ph_monthly">
+        </div>
+      </div>
+      <div class="pya-calc-row">
+        <div class="pya-calc-label">
+          <strong><span data-t="pya_other">Ostalo (tvoj unos)</span> <span class="pya-tag pya-tag-blue" data-t="pya_tag_custom">Custom</span></strong>
+          <span data-t="pya_other_desc">Bilo koji drugi trošak koji otkriješ tokom pregovaranja</span>
+        </div>
+        <div>
+          <input type="text" class="pya-inp" id="other-onetime" data-action="pya-input-recalc" data-placeholder-t="pya_ph_onetime">
+          <input type="text" class="pya-inp pya-inp-mt" id="other-monthly" data-action="pya-input-recalc" data-placeholder-t="pya_ph_monthly">
+        </div>
+      </div>
+
+      <div class="pya-unknown-totals">
+        <div>
+          <div class="pya-subtotal-lbl" data-t="pya_unknown_onetime_lbl">Ukupno nepoznate — jednokratno</div>
+          <div class="pya-unknown-val" id="unknownOnetime">$0</div>
+        </div>
+        <div class="pya-subtotal-right">
+          <div class="pya-subtotal-lbl" data-t="pya_unknown_monthly_lbl">Ukupno nepoznate — mesečno</div>
+          <div class="pya-unknown-val" id="unknownMonthly">$0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pya-total-bar">
+      <div class="pya-total-item">
+        <div class="pya-total-lbl" data-t="pya_bar_impl">Implementacija</div>
+        <div class="pya-total-val" id="bar-impl">$134,200</div>
+      </div>
+      <div class="pya-total-divider"></div>
+      <div class="pya-total-item">
+        <div class="pya-total-lbl" data-t="pya_bar_sub_mo">Subscription (mesečno)</div>
+        <div class="pya-total-val pya-total-accent" id="bar-monthly">—</div>
+      </div>
+      <div class="pya-total-divider"></div>
+      <div class="pya-total-item">
+        <div class="pya-total-lbl" data-t="pya_bar_sub_yr">Subscription (godišnje)</div>
+        <div class="pya-total-val pya-total-accent" id="bar-annual">—</div>
+      </div>
+      <div class="pya-total-divider"></div>
+      <div class="pya-total-item">
+        <div class="pya-total-lbl" data-t="pya_bar_unknown_yr">Nepoznate troškovi (god.)</div>
+        <div class="pya-total-val pya-total-warn" id="bar-unknown">$0</div>
+      </div>
+      <div class="pya-total-divider"></div>
+      <div class="pya-total-item">
+        <div class="pya-total-lbl" data-t="pya_bar_yr1">🏆 UKUPNO GODINA 1</div>
+        <div class="pya-total-val pya-total-accent pya-total-xl" id="bar-year1">—</div>
+      </div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_ps_title">🔧 Jednokratni Troškovi — Professional Services ($134,200)</span></h3>
+    <div class="pya-alert pya-alert-warn">
+      <span class="pya-alert-icon">💡</span>
+      <div data-t="pya_alert_discount">Uslov za 10% popust: Moraš platiti usluge unapred (prepaid) u ratama od minimum $10,000. Prva rata od $10,000 + porez plaća se pri potpisivanju.</div>
+    </div>
+    <div class="pya-card pya-table-wrap">
+      <table class="pya-table">
+        <thead>
+          <tr>
+            <th data-t="pya_tbl_item">Stavka</th>
+            <th data-t="pya_tbl_desc">Opis</th>
+            <th data-t="pya_tbl_hours">Sati</th>
+            <th data-t="pya_tbl_price">Cena</th>
+            <th data-t="pya_tbl_pct">% od ukupnog</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong data-t="pya_ps_row1_name">GAP Analysis / FRD</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row1_desc">Functional Requirements Document — mapiranje potreba AAA Lease</td>
+            <td><span class="pya-hours">50h</span></td>
+            <td><strong>$11,000</strong></td>
+            <td><span class="pya-muted">8.2%</span></td>
+          </tr>
+          <tr>
+            <td><strong data-t="pya_ps_row2_name">Custom Programming</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row2_desc">8 dokumenata (Quote, Lease, Rental), 2 amort. rasporeda, kalkulacije, mileage billing...</td>
+            <td><span class="pya-hours">250h</span></td>
+            <td><strong>$55,000</strong></td>
+            <td><span class="pya-muted">41.0%</span></td>
+          </tr>
+          <tr class="pya-highlight-row">
+            <td><strong data-t="pya_ps_row3_name">Data Conversion ⚠️</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row3_desc">Vođenje tima kroz ekstrakciju + import u BC. NE uključuje eksport iz vašeg sistema!</td>
+            <td><span class="pya-hours">50h</span></td>
+            <td><strong>$11,000</strong></td>
+            <td><span class="pya-muted">8.2%</span></td>
+          </tr>
+          <tr>
+            <td><strong data-t="pya_ps_row4_name">System Setup &amp; Config</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row4_desc">Postavljanje i konfiguracija BC i Soft4Leasing instance za AAA Lease</td>
+            <td><span class="pya-hours">40h</span></td>
+            <td><strong>$8,800</strong></td>
+            <td><span class="pya-muted">6.6%</span></td>
+          </tr>
+          <tr>
+            <td><strong data-t="pya_ps_row5_name">Testing / Training / UAT</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row5_desc">Testiranje sistema, obuka zaposlenih, User Acceptance Testing</td>
+            <td><span class="pya-hours">120h</span></td>
+            <td><strong>$26,400</strong></td>
+            <td><span class="pya-muted">19.7%</span></td>
+          </tr>
+          <tr>
+            <td><strong data-t="pya_ps_row6_name">Project Management</strong></td>
+            <td class="pya-muted" data-t="pya_ps_row6_desc">~20% ukupnih troškova — koordinacija, praćenje rokova, komunikacija</td>
+            <td><span class="pya-hours">100h</span></td>
+            <td><strong>$22,000</strong></td>
+            <td><span class="pya-muted">16.4%</span></td>
+          </tr>
+          <tr class="pya-total-row">
+            <td colspan="2"><strong data-t="pya_ps_total_label">UKUPNO PROFESSIONAL SERVICES (sa 10% popustom)</strong></td>
+            <td><span class="pya-hours">610h</span></td>
+            <td><strong>$134,200</strong></td>
+            <td><strong>100%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_portal_cmp_title">🖥️ Customer Portal — Poređenje Opcija</span></h3>
+    <div class="pya-alert pya-alert-green">
+      <span class="pya-alert-icon">📧</span>
+      <div data-t="pya_alert_portal_email">Michael iz PYA je u mejlu objasnio: proposal uključuje Fleet56 portal po $250/mes, ali kao alternativu nudi i Soft4Leasing portal ($5,000/god, unlimited klijenata).</div>
+    </div>
+    <div class="pya-grid-2">
+      <div class="pya-compare-card" id="fleet56-card">
+        <div class="pya-c-title" data-t="pya_cmp_fleet_title">🚗 Fleet56 (Fleet Manager Portal)</div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_monthly">Mesečno</span><span class="pya-c-val pya-c-blue">$250/mes</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_yearly">Godišnje</span><span class="pya-c-val">$3,000/god</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_impl_onetime">Jednokratna impl.</span><span class="pya-c-val" data-t="pya_cmp_fleet_impl">Uključena u $134,200</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_clients">Klijenti/asseti</span><span class="pya-c-val" data-t="pya_cmp_unspecified">Nije specificovano</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_integration">Integracija</span><span class="pya-c-val" data-t="pya_cmp_via_bc">Via BC (PYA standard API)</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_status">Status</span><span class="pya-c-val"><span class="pya-tag pya-tag-green" data-t="pya_cmp_in_proposal">U proposalu</span></span></div>
+      </div>
+      <div class="pya-compare-card" id="soft4-card">
+        <div class="pya-c-title" data-t="pya_cmp_soft4_title">⭐ Soft4Leasing Portal (PDF opcija)</div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_yearly_flat">Godišnje (flat fee)</span><span class="pya-c-val pya-c-green">$5,000/god</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_month_equiv">Mesečno ekvivalent</span><span class="pya-c-val">~$417/mes</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_impl_onetime">Jednokratna impl.</span><span class="pya-c-val pya-c-warn">$14,000–$22,000</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_clients">Klijenti/asseti</span><span class="pya-c-val pya-c-green" data-t="pya_cmp_unlimited">Unlimited! ✓</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_custom">Customizacija</span><span class="pya-c-val" data-t="pya_cmp_custom_hours">64–100h (obavezna)</span></div>
+        <div class="pya-c-row"><span class="pya-c-key" data-t="pya_cmp_status">Status</span><span class="pya-c-val"><span class="pya-tag pya-tag-orange" data-t="pya_cmp_alt">Alternativa (mejl)</span></span></div>
+      </div>
+    </div>
+
+    <div class="pya-card pya-table-wrap">
+      <div class="pya-card-title"><span class="pya-dot pya-dot-green"></span><span data-t="pya_3yr_title">FINANSIJSKA USPOREDBA (3 GODINE)</span></div>
+      <table class="pya-table">
+        <thead>
+          <tr>
+            <th data-t="pya_3yr_opt">Opcija</th>
+            <th data-t="pya_3yr_impl">Impl. (jednokratno)</th>
+            <th data-t="pya_3yr_y1">Yr 1</th><th data-t="pya_3yr_y2">Yr 2</th><th data-t="pya_3yr_y3">Yr 3</th>
+            <th data-t="pya_3yr_total">Ukupno 3 god.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong data-t="pya_3yr_fleet_row">Fleet56</strong> ($250/mes)</td>
+            <td data-t="pya_3yr_included">Uključeno</td>
+            <td>$3,000</td><td>$3,000</td><td>$3,000</td>
+            <td><strong>$9,000</strong></td>
+          </tr>
+          <tr class="pya-highlight-row">
+            <td><strong data-t="pya_3yr_soft4_row">Soft4Leasing Portal</strong></td>
+            <td class="pya-c-warn">$14,000–$22,000</td>
+            <td>$5,000</td><td>$5,000</td><td>$5,000</td>
+            <td><strong class="pya-c-warn">$29,000–$37,000</strong></td>
+          </tr>
+          <tr>
+            <td><strong data-t="pya_3yr_diff">Razlika</strong></td>
+            <td class="pya-c-red" data-t="pya_3yr_diff_impl">+$14k–$22k extra</td>
+            <td class="pya-c-green" data-t="pya_3yr_diff_y1">-$2,000 ušteda/god</td>
+            <td class="pya-c-green" data-t="pya_3yr_diff_y2">-$2,000</td>
+            <td class="pya-c-green" data-t="pya_3yr_diff_y3">-$2,000</td>
+            <td><em class="pya-muted" data-t="pya_3yr_note">Soft4 skuplje u 3 god.</em></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pya-alert pya-alert-info pya-mt">
+        <span class="pya-alert-icon">💡</span>
+        <div data-t="pya_3yr_insight">Soft4Leasing portal je skuplja opcija na 3 godine zbog visoke jednokratne impl. Prednost: unlimited klijenata i asseta.</div>
+      </div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_migrate_title">📦 Migracija Podataka — Sve što znamo</span></h3>
+    <div class="pya-alert pya-alert-red">
+      <span class="pya-alert-icon">🚨</span>
+      <div data-t="pya_alert_migrate_critical">KRITIČNO: Data conversion does NOT include exporting data from YOUR system — vi morate izvući podatke; PYA vodi import u BC.</div>
+    </div>
+    <div class="pya-grid-2">
+      <div class="pya-card">
+        <div class="pya-card-title"><span class="pya-dot pya-dot-green"></span><span data-t="pya_mig_included_title">ŠTA JE UKLJUČENO ($11,000 / 50h)</span></div>
+        <div class="pya-bullets">
+          <div data-t="pya_mig_i1">• Korišćenje PYA template-a za ekstrakciju</div>
+          <div data-t="pya_mig_i2">• Vođenje eksternog resursa kroz ekstrakciju</div>
+          <div data-t="pya_mig_i3">• Import podataka u Business Central</div>
+          <div data-t="pya_mig_i4">• Validacija uvezenih podataka</div>
+        </div>
+      </div>
+      <div class="pya-card">
+        <div class="pya-card-title"><span class="pya-dot pya-dot-red"></span><span data-t="pya_mig_not_title">ŠTA NIJE UKLJUČENO</span></div>
+        <div class="pya-bullets">
+          <div data-t="pya_mig_n1">• Eksport podataka iz trenutnog sistema</div>
+          <div data-t="pya_mig_n2">• Čišćenje i normalizacija podataka</div>
+          <div data-t="pya_mig_n3">• Ako 50h nije dovoljno — extra sati se naplaćuju</div>
+          <div data-t="pya_mig_n4">• Timeline nije specificiran</div>
+        </div>
+      </div>
+    </div>
+    <div class="pya-card">
+      <div class="pya-card-title"><span class="pya-dot pya-dot-warn"></span><span data-t="pya_mig_timeline_title">PREDLOŽENI TIMELINE — Nije specificiran!</span></div>
+      <div class="pya-alert pya-alert-warn">
+        <span class="pya-alert-icon">⏰</span>
+        <div data-t="pya_mig_timeline_body">Konkretan timeline implementacije nije naveden u proposalu — plan se definiše zajedno nakon potpisivanja.</div>
+      </div>
+      <p class="pya-muted pya-mt-sm" data-t="pya_mig_typical">Tipična implementacija (industrijski standard):</p>
+      <div class="pya-phase-grid">
+        <div class="pya-phase"><div class="pya-phase-lbl" data-t="pya_phase_1_lbl">Faza 1</div><div class="pya-phase-name" data-t="pya_phase_1_name">GAP Analysis</div><div class="pya-phase-dur" data-t="pya_phase_1_dur">2–4 nedelje</div></div>
+        <div class="pya-phase"><div class="pya-phase-lbl" data-t="pya_phase_2_lbl">Faza 2</div><div class="pya-phase-name" data-t="pya_phase_2_name">Setup &amp; Config</div><div class="pya-phase-dur" data-t="pya_phase_2_dur">4–6 nedelja</div></div>
+        <div class="pya-phase"><div class="pya-phase-lbl" data-t="pya_phase_3_lbl">Faza 3</div><div class="pya-phase-name" data-t="pya_phase_3_name">Customizacija</div><div class="pya-phase-dur" data-t="pya_phase_3_dur">6–10 nedelja</div></div>
+        <div class="pya-phase"><div class="pya-phase-lbl" data-t="pya_phase_4_lbl">Faza 4</div><div class="pya-phase-name" data-t="pya_phase_4_name">Data Migration</div><div class="pya-phase-dur" data-t="pya_phase_4_dur">2–4 nedelje</div></div>
+        <div class="pya-phase"><div class="pya-phase-lbl" data-t="pya_phase_5_lbl">Faza 5</div><div class="pya-phase-name" data-t="pya_phase_5_name">Testing &amp; UAT</div><div class="pya-phase-dur" data-t="pya_phase_5_dur">4–6 nedelja</div></div>
+        <div class="pya-phase pya-phase-dark"><div class="pya-phase-lbl" data-t="pya_phase_gl_lbl">Go-Live</div><div class="pya-phase-name" data-t="pya_phase_gl_name">~5–6 meseci</div><div class="pya-phase-dur" data-t="pya_phase_estimate">procena</div></div>
+      </div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_terms_title">📜 Ključni Uslovi Saradnje</span></h3>
+    <div class="pya-grid-2">
+      <div class="pya-card">
+        <div class="pya-card-title"><span class="pya-dot pya-dot-dark"></span><span data-t="pya_terms_pay_title">PLAĆANJE I PRIHVATANJE</span></div>
+        <div class="pya-terms-grid">
+          <div class="pya-term"><strong data-t="pya_term_accept">Prihvatanje</strong><span data-t="pya_term_accept_v">Potpisuješ 2 kopije → šalješ PYA → kontra-potpis → 1 kopija tebi</span></div>
+          <div class="pya-term"><strong data-t="pya_term_first">Prva uplata</strong><span data-t="pya_term_first_v">$10,000 + porez pri potpisivanju</span></div>
+          <div class="pya-term"><strong data-t="pya_term_sub_start">Subscription start</strong><span data-t="pya_term_sub_start_v">Teče od postavljanja instance</span></div>
+          <div class="pya-term"><strong data-t="pya_term_prepaid">Prepaid plaćanje</strong><span data-t="pya_term_prepaid_v">Min. $10,000 rate za 10% popust</span></div>
+        </div>
+      </div>
+      <div class="pya-card">
+        <div class="pya-card-title"><span class="pya-dot pya-dot-red"></span><span data-t="pya_terms_risk_title">RIZICI I OGRANIČENJA</span></div>
+        <div class="pya-terms-grid">
+          <div class="pya-term"><strong data-t="pya_term_warranty">Garancija</strong><span data-t="pya_term_warranty_v">90 dana od isporuke</span></div>
+          <div class="pya-term"><strong data-t="pya_term_cancel">Otkazivanje</strong><span data-t="pya_term_cancel_v">30 dana pisanog otkaza; nepotrošeni sati se vraćaju</span></div>
+          <div class="pya-term"><strong data-t="pya_term_law">Mjerodavno pravo</strong><span data-t="pya_term_law_v">Zakoni provincije Québec, Kanada</span></div>
+          <div class="pya-term"><strong data-t="pya_term_liability">Odgovornost</strong><span data-t="pya_term_liability_v">Ograničena na iznos plaćen — bez gubitka profita</span></div>
+          <div class="pya-term"><strong data-t="pya_term_nohire">No-hire</strong><span data-t="pya_term_nohire_v">12 meseci nakon završetka</span></div>
+          <div class="pya-term"><strong data-t="pya_term_expiry">Rok ponude</strong><span data-t="pya_term_expiry_v">Nije naveden eksplicitno</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="pya-section-title"><span data-t="pya_sec_questions_title">🚨 Pitanja za PYA — Sačuvano</span></h3>
+    <div class="pya-card">
+      <ul class="pya-q-list">
+        <li><span class="pya-q-num">1</span><div data-t="pya_q1">Koliko korisnika su projektovali u ceni? Koji mix Full vs Lite?</div></li>
+        <li><span class="pya-q-num">2</span><div data-t="pya_q2">Koliko košta integracija Fleetio i CRM posebno?</div></li>
+        <li><span class="pya-q-num">3</span><div data-t="pya_q3">Koji je konkretan timeline implementacije i go-live?</div></li>
+        <li><span class="pya-q-num">4</span><div data-t="pya_q4">Šta ako 50h za data conversion nije dovoljno?</div></li>
+        <li><span class="pya-q-num">5</span><div data-t="pya_q5">Do kada važi ova cena i popust?</div></li>
+        <li><span class="pya-q-num">6</span><div data-t="pya_q6">Soft4Leasing portal vs Fleet56 — preporuka za naš obim?</div></li>
+        <li><span class="pya-q-num">7</span><div data-t="pya_q7">Post go-live support plan, SLA, cena?</div></li>
+        <li><span class="pya-q-num">8</span><div data-t="pya_q8">Ko radi eksport iz našeg sistema i po kojoj ceni?</div></li>
+      </ul>
+    </div>
+
+    <div class="pya-footer" data-t="pya_footer">Analiza za AAA Lease LLC | Proposal: PYA Solutions Inc. | Svi iznosi su procene.</div>
+  </div>
+
+  <div id="pya-panel-legal" class="pya-panel">
+    <p id="pya-legal-msg" class="impl-msg" style="display:none;margin-bottom:12px;"></p>
+    <div id="pya-legal-root"></div>
   </div>
 </div>
 
@@ -1107,6 +2061,7 @@ const T = {
     quiz_again:"Pokušaj ponovo", quiz_back:"Nazad na Mapu",
     nav_contacts:"👤 Kontakti",
     nav_impl:"Implementacija",
+    nav_pya:"PYA ponuda",
     nav_onboarding:"Moj onboarding",
     header_admin_dash:"← Admin (korisnici i kompanije)",
     impl_title:"Implementacija",
@@ -1114,6 +2069,7 @@ const T = {
     impl_tab_vendors:"Vendori",
     impl_tab_diary:"Moj dnevnik",
     impl_tab_report:"Onboarding izveštaj",
+    impl_tab_offers:"Ponude",
     impl_filter_company:"Kompanija",
     impl_refresh:"Osveži",
     impl_add_vendor:"+ Vendor",
@@ -1431,6 +2387,197 @@ const T = {
     pm_tab_cash:"Cash prodaja",
     pm_tab_lease:"Lease",
     pm_tab_rental:"Rental",
+    pya_hdr_title:"📋 AAA Lease LLC — Analiza proposala",
+    pya_hdr_sub:"Microsoft Business Central + Soft4Leasing | PYA Solutions Inc.",
+    pya_hdr_badge:"PYA / Soft4Leasing",
+    pya_tab_calc:"Kalkulator",
+    pya_tab_legal:"Pravne stavke i beleške",
+    pya_tile_onetime_lbl:"Jednokratno (impl.)",
+    pya_tile_onetime_sub:"Professional Services",
+    pya_tile_monthly_lbl:"Mesečno (procena)",
+    pya_tile_monthly_sub:"Subscription + moduli",
+    pya_tile_annual_lbl:"Godišnje (procena)",
+    pya_tile_annual_sub:"Subscription × 12",
+    pya_tile_yr1_lbl:"Ukupno god. 1 (procena)",
+    pya_tile_yr1_sub:"Impl. + godišnje + nepoznate",
+    pya_alert_estimates:"Sve cene u proposalu su procene (estimates), ne fiksne. Broj korisnika nije specificiran — prilagodite kalkulatorom ispod. Cene su u USD. PYA ima 10% popust uračunat pod uslovom prepaid usluga u ratama od min. $10,000.",
+    pya_sec_calc_title:"🧮 Interaktivni kalkulator — mesečni i godišnji troškovi",
+    pya_subscriptions_title:"PRETPLATE (SUBSCRIPTION) — prilagodi broju korisnika",
+    pya_full_user:"Full User",
+    pya_tag_bc:"BC/Soft4Leasing",
+    pya_full_user_desc:"Pun pristup — ugovori, fakture, izveštaji",
+    pya_per_user_mo:"/ korisnik / mesec",
+    pya_lite_user:"Lite User",
+    pya_lite_user_desc:"Ograničen pristup — pregled, odobravanje, read-only",
+    pya_toll_guard:"Toll Guard integracija",
+    pya_tag_optional:"Opciono",
+    pya_toll_guard_desc:"PYA standard API — integracija sa Toll Guard",
+    pya_per_month:"/ mesec",
+    pya_customer_portal:"Customer Portal",
+    pya_customer_portal_desc:"Self-service portal za leasing klijente — dve opcije (detalji ispod)",
+    pya_portal_fleet56_title:"Fleet56 (preko BC)",
+    pya_portal_fleet56_price:"$250/mes = $3,000/god",
+    pya_portal_fleet56_note:"Uključeno u proposal. Jednokratna impl. u $134,200.",
+    pya_portal_soft4_title:"Soft4Leasing Portal (alternativa)",
+    pya_portal_soft4_price:"$5,000/god ≈ $417/mes + $14k–$22k impl.",
+    pya_portal_soft4_note:"Neograničeno klijenata/asseta. $250/mes Fleet56 otpada.",
+    pya_portal_none_title:"Bez portala",
+    pya_portal_none_price:"$0/mes",
+    pya_portal_none_note:"Odluka kasnije.",
+    pya_monthly_subtotal_lbl:"Ukupno mesečno (subscription)",
+    pya_annual_subtotal_lbl:"Ukupno godišnje (subscription)",
+    pya_sec_unknown_title:"📝 Nepoznate cene — unesi kad saznaš",
+    pya_alert_unknown:"Nisu uključene u proposal; unesi iznose kad saznaš — kalkulator ažurira totale.",
+    pya_unknown_section_title:"INTEGRACIJE KOJE NISU U CENI",
+    pya_crm:"CRM integracija",
+    pya_tag_not_in_proposal:"Nije u proposalu",
+    pya_crm_desc:"npr. HubSpot, Salesforce — vendor nije specificiran",
+    pya_ph_onetime:"$0 jednokratno",
+    pya_ph_monthly:"$0 / mesec",
+    pya_fleetio:"Fleetio integracija",
+    pya_fleetio_desc:"Fleet management — posebna naplata",
+    pya_support:"Post go-live support",
+    pya_tag_unspecified:"Nespecificirano",
+    pya_support_desc:"Support posle implementacije — nije u proposalu",
+    pya_other:"Ostalo (tvoj unos)",
+    pya_tag_custom:"Prilagođeno",
+    pya_other_desc:"Drugi trošak tokom pregovora",
+    pya_unknown_onetime_lbl:"Ukupno nepoznate — jednokratno",
+    pya_unknown_monthly_lbl:"Ukupno nepoznate — mesečno",
+    pya_bar_impl:"Implementacija",
+    pya_bar_sub_mo:"Subscription (mesečno)",
+    pya_bar_sub_yr:"Subscription (godišnje)",
+    pya_bar_unknown_yr:"Nepoznate (god.)",
+    pya_bar_yr1:"🏆 UKUPNO GODINA 1",
+    pya_sec_ps_title:"🔧 Jednokratni troškovi — Professional Services ($134,200)",
+    pya_alert_discount:"Uslov za 10% popust: prepaid usluga u ratama od minimum $10,000. Prva rata $10,000 + porez pri potpisivanju. Bez prepaid-a važe standardne cene.",
+    pya_tbl_item:"Stavka",
+    pya_tbl_desc:"Opis",
+    pya_tbl_hours:"Sati",
+    pya_tbl_price:"Cena",
+    pya_tbl_pct:"% od ukupnog",
+    pya_ps_row1_name:"GAP Analysis / FRD",
+    pya_ps_row1_desc:"Functional Requirements Document — mapiranje potreba AAA Lease",
+    pya_ps_row2_name:"Custom Programming",
+    pya_ps_row2_desc:"8 dokumenata (Quote, Lease, Rental), amortizacije, kalkulacije, mileage billing…",
+    pya_ps_row3_name:"Data Conversion ⚠️",
+    pya_ps_row3_desc:"Vođenje kroz ekstrakciju + import u BC. NE uključuje eksport iz vašeg sistema!",
+    pya_ps_row4_name:"System Setup & Config",
+    pya_ps_row4_desc:"Postavljanje BC i Soft4Leasing instance",
+    pya_ps_row5_name:"Testing / Training / UAT",
+    pya_ps_row5_desc:"Testiranje, obuka, UAT",
+    pya_ps_row6_name:"Project Management",
+    pya_ps_row6_desc:"~20% ukupno — koordinacija i rokovi",
+    pya_ps_total_label:"UKUPNO PROFESSIONAL SERVICES (sa 10% popustom)",
+    pya_sec_portal_cmp_title:"🖥️ Customer Portal — poređenje",
+    pya_alert_portal_email:"Michael (PYA): proposal uključuje Fleet56 $250/mes; alternativa Soft4 portal $5,000/god (unlimited klijenata). PDF koji ste priložili = Soft4 opcija.",
+    pya_cmp_fleet_title:"🚗 Fleet56",
+    pya_cmp_monthly:"Mesečno",
+    pya_cmp_yearly:"Godišnje",
+    pya_cmp_impl_onetime:"Jednokratna impl.",
+    pya_cmp_fleet_impl:"Uključena u $134,200",
+    pya_cmp_clients:"Klijenti/asseti",
+    pya_cmp_unspecified:"Nije specificirano",
+    pya_cmp_integration:"Integracija",
+    pya_cmp_via_bc:"Preko BC (PYA standard API)",
+    pya_cmp_status:"Status",
+    pya_cmp_in_proposal:"U proposalu",
+    pya_cmp_soft4_title:"⭐ Soft4Leasing Portal (PDF opcija)",
+    pya_cmp_yearly_flat:"Godišnje (flat)",
+    pya_cmp_month_equiv:"Mesečni ekvivalent",
+    pya_cmp_unlimited:"Neograničeno ✓",
+    pya_cmp_custom:"Customizacija",
+    pya_cmp_custom_hours:"64–100h (obavezno)",
+    pya_cmp_alt:"Alternativa (mejl)",
+    pya_3yr_title:"FINANSIJSKA USPOREDBA (3 GODINE)",
+    pya_3yr_opt:"Opcija",
+    pya_3yr_impl:"Impl. (jednokratno)",
+    pya_3yr_y1:"God. 1",
+    pya_3yr_y2:"God. 2",
+    pya_3yr_y3:"God. 3",
+    pya_3yr_total:"Ukupno 3 god.",
+    pya_3yr_fleet_row:"Fleet56",
+    pya_3yr_included:"Uključeno",
+    pya_3yr_soft4_row:"Soft4Leasing Portal",
+    pya_3yr_diff:"Razlika",
+    pya_3yr_diff_impl:"+$14k–$22k dodatno",
+    pya_3yr_diff_y1:"-$2,000 ušteda/god",
+    pya_3yr_diff_y2:"-$2,000",
+    pya_3yr_diff_y3:"-$2,000",
+    pya_3yr_note:"Soft4 skuplji u 3 god.",
+    pya_3yr_insight:"Soft4 portal skuplji na 3 godine zbog impl. Prednost: neograničeno klijenata/asseta. Pitajte PYA za obim pre odluke.",
+    pya_sec_migrate_title:"📦 Migracija podataka",
+    pya_alert_migrate_critical:"KRITIČNO: konverzija podataka NE uključuje eksport iz vašeg sistema — vi izvlačite; PYA vodi import u BC.",
+    pya_mig_included_title:"ŠTA JE UKLJUČENO ($11,000 / 50h)",
+    pya_mig_i1:"• PYA template za ekstrakciju",
+    pya_mig_i2:"• Vođenje eksternog resursa kroz ekstrakciju",
+    pya_mig_i3:"• Import u Business Central",
+    pya_mig_i4:"• Validacija uvezenih podataka",
+    pya_mig_not_title:"ŠTA NIJE UKLJUČENO",
+    pya_mig_n1:"• Eksport iz trenutnog sistema",
+    pya_mig_n2:"• Čišćenje/normalizacija",
+    pya_mig_n3:"• Ako 50h nije dovoljno — dodatni sati",
+    pya_mig_n4:"• Timeline nije specificiran",
+    pya_mig_timeline_title:"PREDLOŽENI TIMELINE — nije u proposalu!",
+    pya_mig_timeline_body:"Konkretan plan nakon potpisivanja (Sekcija 16).",
+    pya_mig_typical:"Tipična implementacija (industrija):",
+    pya_phase_1_lbl:"Faza 1",
+    pya_phase_1_name:"GAP Analysis",
+    pya_phase_1_dur:"2–4 nedelje",
+    pya_phase_2_lbl:"Faza 2",
+    pya_phase_2_name:"Setup & Config",
+    pya_phase_2_dur:"4–6 nedelja",
+    pya_phase_3_lbl:"Faza 3",
+    pya_phase_3_name:"Customizacija",
+    pya_phase_3_dur:"6–10 nedelja",
+    pya_phase_4_lbl:"Faza 4",
+    pya_phase_4_name:"Data Migration",
+    pya_phase_4_dur:"2–4 nedelje",
+    pya_phase_5_lbl:"Faza 5",
+    pya_phase_5_name:"Testing & UAT",
+    pya_phase_5_dur:"4–6 nedelja",
+    pya_phase_gl_lbl:"Go-Live",
+    pya_phase_gl_name:"~5–6 meseci",
+    pya_phase_estimate:"procena",
+    pya_sec_terms_title:"📜 Ključni uslovi",
+    pya_terms_pay_title:"PLAĆANJE I PRIHVATANJE",
+    pya_term_accept:"Prihvatanje",
+    pya_term_accept_v:"2 kopije → PYA kontra-potpis → 1 kopija vama",
+    pya_term_first:"Prva uplata",
+    pya_term_first_v:"$10,000 + porez pri potpisu",
+    pya_term_sub_start:"Početak subscriptiona",
+    pya_term_sub_start_v:"Od postavljanja instance",
+    pya_term_prepaid:"Prepaid",
+    pya_term_prepaid_v:"Min. $10,000 rata za 10% popust",
+    pya_terms_risk_title:"RIZICI I OGRANIČENJA",
+    pya_term_warranty:"Garancija",
+    pya_term_warranty_v:"90 dana od isporuke",
+    pya_term_cancel:"Otkazivanje",
+    pya_term_cancel_v:"30 dana pisanog otkaza",
+    pya_term_law:"Mjerodavno pravo",
+    pya_term_law_v:"Provincija Québec, Kanada",
+    pya_term_liability:"Odgovornost",
+    pya_term_liability_v:"Ograničena na plaćeni iznos",
+    pya_term_nohire:"No-hire",
+    pya_term_nohire_v:"12 meseci posle završetka",
+    pya_term_expiry:"Rok ponude",
+    pya_term_expiry_v:"Nije eksplicitno naveden",
+    pya_sec_questions_title:"🚨 Pitanja za PYA",
+    pya_q1:"Koliko korisnika u ceni? Mix Full vs Lite? Cena za naš broj?",
+    pya_q2:"Cena Fleetio i CRM posebno? Flat ili po satima?",
+    pya_q3:"Konkretan timeline i go-live?",
+    pya_q4:"Šta ako 50h konverzije nije dovoljno?",
+    pya_q5:"Do kada važe cena i popust?",
+    pya_q6:"Soft4 vs Fleet56 — preporuka za naš obim?",
+    pya_q7:"Post go-live support, SLA, cena?",
+    pya_q8:"Ko radi eksport iz našeg sistema i po kojoj ceni?",
+    pya_footer:"Analiza za AAA Lease LLC | PYA Solutions Inc. | Sve procene.",
+    pya_suffix_mo:"/mes",
+    pya_legal_loading:"Učitavanje…",
+    pya_legal_empty:"Nema sekcija u checklisti.",
+    pya_legal_save:"Sačuvaj",
+    pya_legal_add_note_ph:"Dodaj belešku…",
+    pya_notes_empty:"Još nema beleški.",
   },
   en: {
     nav_map:"Team Map", nav_flow:"Process Flow", nav_procmap:"Process Map",
@@ -1474,6 +2621,7 @@ const T = {
     quiz_again:"Try Again", quiz_back:"Back to Map",
     nav_contacts:"👤 Contacts",
     nav_impl:"Implementation",
+    nav_pya:"PYA Proposal",
     nav_onboarding:"My onboarding",
     header_admin_dash:"← Admin (users & companies)",
     impl_title:"Implementation",
@@ -1481,6 +2629,7 @@ const T = {
     impl_tab_vendors:"Vendors",
     impl_tab_diary:"My diary",
     impl_tab_report:"Onboarding report",
+    impl_tab_offers:"Offers",
     impl_filter_company:"Company",
     impl_refresh:"Refresh",
     impl_add_vendor:"+ Vendor",
@@ -1798,6 +2947,197 @@ const T = {
     pm_tab_cash:"Cash Sales",
     pm_tab_lease:"Lease",
     pm_tab_rental:"Rental",
+    pya_hdr_title:"📋 AAA Lease LLC — Proposal analysis",
+    pya_hdr_sub:"Microsoft Business Central + Soft4Leasing | PYA Solutions Inc.",
+    pya_hdr_badge:"PYA / Soft4Leasing",
+    pya_tab_calc:"Calculator",
+    pya_tab_legal:"Legal checklist & notes",
+    pya_tile_onetime_lbl:"One-time (impl.)",
+    pya_tile_onetime_sub:"Professional Services",
+    pya_tile_monthly_lbl:"Monthly (estimate)",
+    pya_tile_monthly_sub:"Subscription + modules",
+    pya_tile_annual_lbl:"Annual (estimate)",
+    pya_tile_annual_sub:"Subscription × 12",
+    pya_tile_yr1_lbl:"Year 1 total (estimate)",
+    pya_tile_yr1_sub:"Impl. + annual + unknowns",
+    pya_alert_estimates:"All figures are estimates, not fixed. User counts are not specified — adjust below. USD. PYA’s 10% discount applies if professional services are prepaid in installments of at least $10,000.",
+    pya_sec_calc_title:"🧮 Interactive calculator — monthly & annual cost",
+    pya_subscriptions_title:"SUBSCRIPTIONS — adjust user counts",
+    pya_full_user:"Full User",
+    pya_tag_bc:"BC/Soft4Leasing",
+    pya_full_user_desc:"Full access — contracts, invoices, reporting",
+    pya_per_user_mo:"/ user / month",
+    pya_lite_user:"Lite User",
+    pya_lite_user_desc:"Limited access — review, approvals, read-only",
+    pya_toll_guard:"Toll Guard integration",
+    pya_tag_optional:"Optional",
+    pya_toll_guard_desc:"PYA standard API — Toll Guard integration",
+    pya_per_month:"/ month",
+    pya_customer_portal:"Customer Portal",
+    pya_customer_portal_desc:"Self-service for leasing clients — two options (see below)",
+    pya_portal_fleet56_title:"Fleet56 (via BC)",
+    pya_portal_fleet56_price:"$250/mo = $3,000/yr",
+    pya_portal_fleet56_note:"Included in proposal. One-time portal work is in $134,200.",
+    pya_portal_soft4_title:"Soft4Leasing Portal (alternative)",
+    pya_portal_soft4_price:"$5,000/yr ≈ $417/mo + $14k–$22k impl.",
+    pya_portal_soft4_note:"Unlimited clients/assets. Selecting this drops the $250/mo Fleet56 line.",
+    pya_portal_none_title:"No portal",
+    pya_portal_none_price:"$0/mo",
+    pya_portal_none_note:"Decide later.",
+    pya_monthly_subtotal_lbl:"Subscription total (monthly)",
+    pya_annual_subtotal_lbl:"Subscription total (annual)",
+    pya_sec_unknown_title:"📝 Unknown costs — add when known",
+    pya_alert_unknown:"Not included in the proposal; enter amounts when known — the calculator updates totals.",
+    pya_unknown_section_title:"INTEGRATIONS NOT IN THE PRICE",
+    pya_crm:"CRM integration",
+    pya_tag_not_in_proposal:"Not in proposal",
+    pya_crm_desc:"e.g. HubSpot, Salesforce — vendor not specified",
+    pya_ph_onetime:"$0 one-time",
+    pya_ph_monthly:"$0 / month",
+    pya_fleetio:"Fleetio integration",
+    pya_fleetio_desc:"Fleet management — billed separately",
+    pya_support:"Post go-live support",
+    pya_tag_unspecified:"Unspecified",
+    pya_support_desc:"After go-live support — not mentioned in proposal",
+    pya_other:"Other (your input)",
+    pya_tag_custom:"Custom",
+    pya_other_desc:"Any other cost discovered in negotiation",
+    pya_unknown_onetime_lbl:"Unknowns — one-time total",
+    pya_unknown_monthly_lbl:"Unknowns — monthly total",
+    pya_bar_impl:"Implementation",
+    pya_bar_sub_mo:"Subscription (monthly)",
+    pya_bar_sub_yr:"Subscription (annual)",
+    pya_bar_unknown_yr:"Unknowns (annualized)",
+    pya_bar_yr1:"🏆 YEAR 1 TOTAL",
+    pya_sec_ps_title:"🔧 One-time costs — Professional Services ($134,200)",
+    pya_alert_discount:"10% discount condition: prepaid professional services in installments of at least $10,000. First $10,000 + tax at signing. Without prepaid terms, standard list pricing applies.",
+    pya_tbl_item:"Item",
+    pya_tbl_desc:"Description",
+    pya_tbl_hours:"Hours",
+    pya_tbl_price:"Price",
+    pya_tbl_pct:"% of total",
+    pya_ps_row1_name:"GAP Analysis / FRD",
+    pya_ps_row1_desc:"Functional Requirements Document — mapping AAA Lease needs",
+    pya_ps_row2_name:"Custom Programming",
+    pya_ps_row2_desc:"8 documents (Quote, Lease, Rental), amort. schedules, calcs, mileage billing…",
+    pya_ps_row3_name:"Data Conversion ⚠️",
+    pya_ps_row3_desc:"Guided extraction + import to BC. Does NOT include export from your system!",
+    pya_ps_row4_name:"System Setup & Config",
+    pya_ps_row4_desc:"BC and Soft4Leasing instance setup",
+    pya_ps_row5_name:"Testing / Training / UAT",
+    pya_ps_row5_desc:"Testing, training, user acceptance testing",
+    pya_ps_row6_name:"Project Management",
+    pya_ps_row6_desc:"~20% of total — coordination and schedule",
+    pya_ps_total_label:"TOTAL PROFESSIONAL SERVICES (with 10% discount)",
+    pya_sec_portal_cmp_title:"🖥️ Customer Portal — comparison",
+    pya_alert_portal_email:"Michael (PYA): proposal includes Fleet56 at $250/mo; alternative Soft4 portal at $5,000/yr (unlimited clients). The PDF you attached is the Soft4 portal option.",
+    pya_cmp_fleet_title:"🚗 Fleet56",
+    pya_cmp_monthly:"Monthly",
+    pya_cmp_yearly:"Annual",
+    pya_cmp_impl_onetime:"One-time impl.",
+    pya_cmp_fleet_impl:"Included in $134,200",
+    pya_cmp_clients:"Clients / assets",
+    pya_cmp_unspecified:"Not specified",
+    pya_cmp_integration:"Integration",
+    pya_cmp_via_bc:"Via BC (PYA standard API)",
+    pya_cmp_status:"Status",
+    pya_cmp_in_proposal:"In proposal",
+    pya_cmp_soft4_title:"⭐ Soft4Leasing Portal (PDF option)",
+    pya_cmp_yearly_flat:"Annual (flat fee)",
+    pya_cmp_month_equiv:"Monthly equivalent",
+    pya_cmp_unlimited:"Unlimited ✓",
+    pya_cmp_custom:"Customization",
+    pya_cmp_custom_hours:"64–100h (required)",
+    pya_cmp_alt:"Alternative (email)",
+    pya_3yr_title:"FINANCIAL COMPARISON (3 YEARS)",
+    pya_3yr_opt:"Option",
+    pya_3yr_impl:"Impl. (one-time)",
+    pya_3yr_y1:"Yr 1",
+    pya_3yr_y2:"Yr 2",
+    pya_3yr_y3:"Yr 3",
+    pya_3yr_total:"3-yr total",
+    pya_3yr_fleet_row:"Fleet56",
+    pya_3yr_included:"Included",
+    pya_3yr_soft4_row:"Soft4Leasing Portal",
+    pya_3yr_diff:"Difference",
+    pya_3yr_diff_impl:"+$14k–$22k extra",
+    pya_3yr_diff_y1:"-$2,000 savings/yr",
+    pya_3yr_diff_y2:"-$2,000",
+    pya_3yr_diff_y3:"-$2,000",
+    pya_3yr_note:"Soft4 costs more over 3 yrs",
+    pya_3yr_insight:"Soft4 portal is more expensive over 3 years due to implementation. Advantage: unlimited clients/assets. Ask PYA to size your portal before deciding.",
+    pya_sec_migrate_title:"📦 Data migration",
+    pya_alert_migrate_critical:"CRITICAL: data conversion does NOT include exporting data from your system — you extract; PYA leads import into BC.",
+    pya_mig_included_title:"WHAT IS INCLUDED ($11,000 / 50h)",
+    pya_mig_i1:"• PYA extraction template",
+    pya_mig_i2:"• Guiding your external resource through extraction",
+    pya_mig_i3:"• Import into Business Central",
+    pya_mig_i4:"• Validating imported data",
+    pya_mig_not_title:"WHAT IS NOT INCLUDED",
+    pya_mig_n1:"• Export from your current system",
+    pya_mig_n2:"• Cleansing / normalization",
+    pya_mig_n3:"• If 50h is not enough — additional billable hours",
+    pya_mig_n4:"• Timeline not specified",
+    pya_mig_timeline_title:"SUGGESTED TIMELINE — not in proposal!",
+    pya_mig_timeline_body:"Concrete schedule after signing (Section 16 language).",
+    pya_mig_typical:"Typical implementation (industry benchmark):",
+    pya_phase_1_lbl:"Phase 1",
+    pya_phase_1_name:"GAP Analysis",
+    pya_phase_1_dur:"2–4 weeks",
+    pya_phase_2_lbl:"Phase 2",
+    pya_phase_2_name:"Setup & Config",
+    pya_phase_2_dur:"4–6 weeks",
+    pya_phase_3_lbl:"Phase 3",
+    pya_phase_3_name:"Customization",
+    pya_phase_3_dur:"6–10 weeks",
+    pya_phase_4_lbl:"Phase 4",
+    pya_phase_4_name:"Data Migration",
+    pya_phase_4_dur:"2–4 weeks",
+    pya_phase_5_lbl:"Phase 5",
+    pya_phase_5_name:"Testing & UAT",
+    pya_phase_5_dur:"4–6 weeks",
+    pya_phase_gl_lbl:"Go-Live",
+    pya_phase_gl_name:"~5–6 months",
+    pya_phase_estimate:"estimate",
+    pya_sec_terms_title:"📜 Key terms",
+    pya_terms_pay_title:"PAYMENT & ACCEPTANCE",
+    pya_term_accept:"Acceptance",
+    pya_term_accept_v:"Two copies → PYA countersigns → one copy returned",
+    pya_term_first:"First payment",
+    pya_term_first_v:"$10,000 + tax at signing",
+    pya_term_sub_start:"Subscription start",
+    pya_term_sub_start_v:"When the instance is provisioned",
+    pya_term_prepaid:"Prepaid installments",
+    pya_term_prepaid_v:"Min. $10,000 installment for 10% discount",
+    pya_terms_risk_title:"RISKS & LIMITATIONS",
+    pya_term_warranty:"Warranty",
+    pya_term_warranty_v:"90 days from software delivery",
+    pya_term_cancel:"Cancellation",
+    pya_term_cancel_v:"30 days written notice; unused hours refunded",
+    pya_term_law:"Governing law",
+    pya_term_law_v:"Province of Québec, Canada",
+    pya_term_liability:"Liability",
+    pya_term_liability_v:"Capped at amounts paid — no lost profits",
+    pya_term_nohire:"Non-solicitation",
+    pya_term_nohire_v:"12 months after completion",
+    pya_term_expiry:"Offer validity",
+    pya_term_expiry_v:"Not explicitly stated",
+    pya_sec_questions_title:"🚨 Questions for PYA",
+    pya_q1:"How many users were assumed? Full vs Lite mix? Price for our counts?",
+    pya_q2:"Separate pricing for Fleetio and CRM? Flat monthly or time & materials?",
+    pya_q3:"Concrete timeline and go-live date?",
+    pya_q4:"What if 50h for conversion is not enough?",
+    pya_q5:"How long are pricing and discount valid?",
+    pya_q6:"Soft4 vs Fleet56 — recommendation for our scale?",
+    pya_q7:"Post go-live support plan, SLA, pricing?",
+    pya_q8:"Who exports from our current system and at what cost?",
+    pya_footer:"Prepared for AAA Lease LLC | PYA Solutions Inc. | All figures are estimates.",
+    pya_suffix_mo:"/mo",
+    pya_legal_loading:"Loading…",
+    pya_legal_empty:"No checklist sections yet.",
+    pya_legal_save:"Save",
+    pya_legal_add_note_ph:"Add a note…",
+    pya_notes_empty:"No notes yet.",
   }
 };
 
@@ -2250,6 +3590,9 @@ function setLang(lang) {
     else if (id === 'glossary-view') renderGlossary();
     else if (id === 'impl-view') {
       initImplCompanies().then(() => refreshImplHub());
+    } else if (id === 'pya-view') {
+      pyaRecalc();
+      if (document.getElementById('pya-panel-legal')?.classList.contains('active') && pyaProposalCache) renderPyaLegalUI();
     } else if (id === 'onboarding-view') refreshOnboardingEmployee();
   }
   // Update person role labels on cards
@@ -2312,6 +3655,7 @@ function switchView(v) {
   const effectiveRole = preview ? 'employee' : role;
   if (v === 'reqs' && effectiveRole === 'employee') return;
   if (v === 'impl' && (preview || (role !== 'admin' && role !== 'super_admin'))) return;
+  if (v === 'pya' && (preview || (role !== 'admin' && role !== 'super_admin'))) return;
   if (v === 'onboarding' && effectiveRole !== 'employee') return;
   const viewEl = document.getElementById(v + '-view');
   if (!viewEl) return;
@@ -2324,6 +3668,10 @@ function switchView(v) {
   if (v === 'reqs') renderReqs();
   if (v === 'glossary') renderGlossary();
   if (v === 'impl') refreshImplHub();
+  if (v === 'pya') {
+    pyaRecalc();
+    if (document.getElementById('pya-panel-legal')?.classList.contains('active')) refreshPyaLegalData();
+  }
   if (v === 'onboarding') refreshOnboardingEmployee();
   if (v === 'map') {
     document.querySelectorAll('[data-person-role]').forEach(el => {
@@ -2344,13 +3692,17 @@ function shouldHideMainNavForStaffEmbed() {
     embed = (sp.get('embed') || '').trim();
     tab = (sp.get('tab') || '').trim();
   } catch (_) {}
-  return embed === 'staff' && (tab === 'reqs' || tab === 'impl');
+  return embed === 'staff' && (tab === 'reqs' || tab === 'impl' || tab === 'pya');
 }
 
 function syncMainNavChrome() {
   const nav = document.getElementById('main-nav');
   if (!nav) return;
-  nav.style.display = shouldHideMainNavForStaffEmbed() ? 'none' : '';
+  const hide = shouldHideMainNavForStaffEmbed();
+  nav.style.display = hide ? 'none' : '';
+  // In staff embeds, hide the standalone app title ("AAA Lease") so it doesn't appear as an empty bar.
+  const h1 = document.querySelector('header > h1');
+  if (h1) h1.style.display = hide ? 'none' : '';
 }
 
 function applyInitialAppTabFromUrl() {
@@ -2358,7 +3710,7 @@ function applyInitialAppTabFromUrl() {
   try {
     tab = (new URLSearchParams(window.location.search).get('tab') || '').trim();
   } catch (_) {}
-  const allowed = new Set(['map', 'flow', 'procmap', 'docs', 'reqs', 'impl', 'glossary', 'quiz', 'onboarding', 'contacts']);
+  const allowed = new Set(['map', 'flow', 'procmap', 'docs', 'reqs', 'impl', 'pya', 'glossary', 'quiz', 'onboarding', 'contacts']);
   if (!tab || tab === 'map' || !allowed.has(tab)) return;
   switchView(tab);
 }
@@ -2373,6 +3725,322 @@ function escapeHtml(s) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// ===================== PYA PROPOSAL (calculator + legal) =====================
+let pyaPortalChoice = 'fleet56';
+const pyaSectionOpenState = {};
+let pyaProposalCache = null;
+
+function pyaFmt(n) {
+  if (isNaN(n) || n === 0) return '$0';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+function pyaParseField(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  const val = String(el.value).replace(/[$,\s]/g, '');
+  const n = parseFloat(val);
+  return isNaN(n) ? 0 : n;
+}
+
+function pyaRecalc() {
+  const fullEl = document.getElementById('fullUsers');
+  if (!fullEl) return;
+  const fullUsers = parseInt(fullEl.value, 10) || 0;
+  const liteUsers = parseInt(document.getElementById('liteUsers')?.value, 10) || 0;
+  const tollGuard = document.getElementById('tollGuard')?.checked;
+
+  const fullCost = fullUsers * 521;
+  const liteCost = liteUsers * 296;
+  const tollCost = tollGuard ? 250 : 0;
+
+  let portalMonthly = 0;
+  if (pyaPortalChoice === 'fleet56') portalMonthly = 250;
+  else if (pyaPortalChoice === 'soft4') portalMonthly = 417;
+  else portalMonthly = 0;
+
+  const crmOT = pyaParseField('crm-onetime');
+  const crmM = pyaParseField('crm-monthly');
+  const fleetOT = pyaParseField('fleet-onetime');
+  const fleetM = pyaParseField('fleet-monthly');
+  const suppOT = pyaParseField('support-onetime');
+  const suppM = pyaParseField('support-monthly');
+  const otherOT = pyaParseField('other-onetime');
+  const otherM = pyaParseField('other-monthly');
+
+  const unknownOT = crmOT + fleetOT + suppOT + otherOT;
+  const portalOT = pyaPortalChoice === 'soft4' ? 18000 : 0;
+  const unknownM = crmM + fleetM + suppM + otherM;
+
+  const monthly = fullCost + liteCost + tollCost + portalMonthly + unknownM;
+
+  let actualAnnual = monthly * 12;
+  if (pyaPortalChoice === 'soft4') {
+    actualAnnual = (fullCost + liteCost + tollCost + unknownM) * 12 + 5000;
+  }
+
+  const year1 = 134200 + actualAnnual + unknownOT + portalOT;
+
+  const moSuf = t('pya_suffix_mo');
+  const fullSub = document.getElementById('fullSub');
+  if (fullSub) fullSub.textContent = '= ' + pyaFmt(fullCost) + moSuf;
+  const liteSub = document.getElementById('liteSub');
+  if (liteSub) liteSub.textContent = '= ' + pyaFmt(liteCost) + moSuf;
+  const tollSub = document.getElementById('tollSub');
+  if (tollSub) tollSub.textContent = tollGuard ? '= $250' + moSuf : '= $0';
+
+  const portalMonthlyEl = document.getElementById('portalMonthly');
+  if (portalMonthlyEl) portalMonthlyEl.textContent = pyaFmt(portalMonthly);
+  const portalUnit = document.querySelector('#portalPriceDisplay .unit');
+  if (portalUnit) portalUnit.textContent = t('pya_per_month');
+  const portalSub = document.getElementById('portalSub');
+  if (portalSub) portalSub.textContent = '= ' + pyaFmt(portalMonthly) + moSuf;
+
+  function setText(id, txt) {
+    const n = document.getElementById(id);
+    if (n) n.textContent = txt;
+  }
+
+  setText('monthlyTotal', pyaFmt(monthly));
+  setText('annualTotal', pyaFmt(actualAnnual));
+  setText('unknownOnetime', pyaFmt(unknownOT + portalOT));
+  setText('unknownMonthly', pyaFmt(unknownM));
+  setText('tile-monthly', pyaFmt(monthly));
+  setText('tile-annual', pyaFmt(actualAnnual));
+  setText('tile-year1', pyaFmt(year1));
+  setText('bar-monthly', pyaFmt(monthly));
+  setText('bar-annual', pyaFmt(actualAnnual));
+  setText('bar-unknown', pyaFmt(unknownOT + portalOT + unknownM * 12));
+  setText('bar-year1', pyaFmt(year1));
+}
+
+function pyaStep(fieldId, delta) {
+  const el = document.getElementById(fieldId);
+  if (!el) return;
+  const current = parseInt(el.value, 10) || 0;
+  el.value = Math.max(0, current + delta);
+  pyaRecalc();
+}
+
+function pyaSetPortalChoice(choice) {
+  pyaPortalChoice = choice;
+  document.querySelectorAll('#pya-view input[name="portal"]').forEach((inp) => {
+    inp.checked = inp.value === choice;
+  });
+  document.getElementById('opt-fleet56')?.classList.toggle('pya-portal-selected', choice === 'fleet56');
+  document.getElementById('opt-soft4')?.classList.toggle('pya-portal-selected', choice === 'soft4');
+  document.getElementById('opt-none')?.classList.toggle('pya-portal-selected', choice === 'none');
+  pyaRecalc();
+}
+
+function switchPyaTab(tab, btn) {
+  document.querySelectorAll('#pya-subnav .stream-tab').forEach((b) => b.classList.remove('active'));
+  (btn || document.querySelector(`#pya-subnav [data-pya-tab="${tab}"]`))?.classList.add('active');
+  document.getElementById('pya-panel-calc')?.classList.toggle('active', tab === 'calc');
+  document.getElementById('pya-panel-legal')?.classList.toggle('active', tab === 'legal');
+  if (tab === 'legal') refreshPyaLegalData();
+  if (tab === 'calc') pyaRecalc();
+}
+
+function pyaFormatNoteTime(iso) {
+  try {
+    const d = new Date(iso);
+    const loc = LANG === 'sr' ? 'sr-RS' : 'en-US';
+    return d.toLocaleString(loc, { dateStyle: 'medium', timeStyle: 'short' });
+  } catch (_) {
+    return iso || '';
+  }
+}
+
+async function refreshPyaLegalData() {
+  const msg = document.getElementById('pya-legal-msg');
+  const root = document.getElementById('pya-legal-root');
+  if (!root) return;
+  if (msg) msg.style.display = 'none';
+  root.innerHTML = '<p class="pya-muted">' + escapeHtml(t('pya_legal_loading')) + '</p>';
+  try {
+    const r = await fetch('/api/proposal/data', { credentials: 'same-origin', headers: { Accept: 'application/json' } });
+    const text = await r.text();
+    let json = {};
+    try {
+      json = text ? JSON.parse(text) : {};
+    } catch (_) {}
+    if (!r.ok) throw new Error(json.error || text || r.statusText);
+    pyaProposalCache = json;
+    renderPyaLegalUI();
+  } catch (e) {
+    if (msg) {
+      msg.textContent = e.message || String(e);
+      msg.style.display = '';
+    }
+    root.innerHTML = '';
+  }
+}
+
+function renderPyaLegalUI() {
+  const root = document.getElementById('pya-legal-root');
+  if (!root || !pyaProposalCache) return;
+  const { sections, items, notes } = pyaProposalCache;
+  const secTitleKey = LANG === 'sr' ? 'title_sr' : 'title_en';
+  const itemTitleKey = LANG === 'sr' ? 'title_sr' : 'title_en';
+  const detailKey = LANG === 'sr' ? 'detail_sr' : 'detail_en';
+
+  const notesByItem = {};
+  for (const n of notes || []) {
+    if (!notesByItem[n.item_id]) notesByItem[n.item_id] = [];
+    notesByItem[n.item_id].push(n);
+  }
+  const itemsBySection = {};
+  for (const it of items || []) {
+    if (!itemsBySection[it.section_id]) itemsBySection[it.section_id] = [];
+    itemsBySection[it.section_id].push(it);
+  }
+
+  if (!sections || !sections.length) {
+    root.innerHTML = '<p class="pya-muted">' + escapeHtml(t('pya_legal_empty')) + '</p>';
+    return;
+  }
+
+  const sortedSecs = [...sections].sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0));
+
+  root.innerHTML = sortedSecs
+    .map((sec) => {
+      const sid = sec.id;
+      if (pyaSectionOpenState[sid] === undefined) pyaSectionOpenState[sid] = true;
+      const open = pyaSectionOpenState[sid];
+      const secItems = (itemsBySection[sid] || []).sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0));
+      const itemsHtml = secItems
+        .map((it) => {
+          const nidList = notesByItem[it.id] || [];
+          const notesHtml =
+            nidList.length === 0
+              ? '<div class="pya-muted" style="margin-top:8px;">' + escapeHtml(t('pya_notes_empty')) + '</div>'
+              : nidList
+                  .map(
+                    (n) =>
+                      '<div class="pya-legal-note">' +
+                      escapeHtml(n.content || '') +
+                      '<div class="pya-legal-note-meta">' +
+                      escapeHtml(n.author || '') +
+                      ' · ' +
+                      escapeHtml(pyaFormatNoteTime(n.created_at)) +
+                      '</div></div>'
+                  )
+                  .join('');
+          return (
+            '<div class="pya-legal-item" data-pya-item-id="' +
+            escapeHtml(it.id) +
+            '">' +
+            '<input type="checkbox" data-action="pya-check-toggle" data-item-id="' +
+            escapeHtml(it.id) +
+            '"' +
+            (it.is_checked ? ' checked' : '') +
+            '>' +
+            '<div>' +
+            '<div class="pya-legal-item-title">' +
+            escapeHtml(it[itemTitleKey] || it.title_en || '') +
+            '</div>' +
+            '<div class="pya-legal-item-detail">' +
+            escapeHtml(it[detailKey] || '') +
+            '</div>' +
+            '<div class="pya-legal-notes">' +
+            notesHtml +
+            '<textarea class="pya-note-ta" data-item-id="' +
+            escapeHtml(it.id) +
+            '" placeholder="' +
+            escapeHtml(t('pya_legal_add_note_ph')) +
+            '"></textarea>' +
+            '<button type="button" class="pya-note-save" data-action="pya-save-note" data-item-id="' +
+            escapeHtml(it.id) +
+            '">' +
+            escapeHtml(t('pya_legal_save')) +
+            '</button>' +
+            '</div></div></div>'
+          );
+        })
+        .join('');
+      return (
+        '<div class="pya-legal-sec" data-pya-section-id="' +
+        escapeHtml(sid) +
+        '">' +
+        '<button type="button" class="pya-legal-sec-hdr" data-action="pya-sec-toggle" data-section-id="' +
+        escapeHtml(sid) +
+        '">' +
+        '<span class="pya-legal-chev">' +
+        (open ? '▼' : '▶') +
+        '</span>' +
+        '<span>' +
+        escapeHtml(sec[secTitleKey] || sec.title_en || '') +
+        '</span>' +
+        '</button>' +
+        '<div class="pya-legal-sec-body" style="display:' +
+        (open ? 'block' : 'none') +
+        '">' +
+        itemsHtml +
+        '</div></div>'
+      );
+    })
+    .join('');
+}
+
+async function pyaToggleCheck(input) {
+  const id = input.getAttribute('data-item-id');
+  if (!id) return;
+  const next = input.checked;
+  const prev = !next;
+  try {
+    const r = await fetch('/api/proposal/checklist/' + encodeURIComponent(id), {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ is_checked: next })
+    });
+    const text = await r.text();
+    let json = {};
+    try {
+      json = text ? JSON.parse(text) : {};
+    } catch (_) {}
+    if (!r.ok) throw new Error(json.error || text || r.statusText);
+    if (pyaProposalCache && pyaProposalCache.items) {
+      const it = pyaProposalCache.items.find((x) => x.id === id);
+      if (it) it.is_checked = next;
+    }
+  } catch (e) {
+    input.checked = prev;
+    alert(e.message || String(e));
+  }
+}
+
+async function pyaSaveNote(btn) {
+  const itemId = btn.getAttribute('data-item-id');
+  if (!itemId) return;
+  const ta = document.querySelector('#pya-view textarea.pya-note-ta[data-item-id="' + itemId + '"]');
+  const content = ta?.value?.trim();
+  if (!content) return;
+  btn.disabled = true;
+  try {
+    const r = await fetch('/api/proposal/notes', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ item_id: itemId, content })
+    });
+    const text = await r.text();
+    let json = {};
+    try {
+      json = text ? JSON.parse(text) : {};
+    } catch (_) {}
+    if (!r.ok) throw new Error(json.error || text || r.statusText);
+    if (ta) ta.value = '';
+    if (pyaProposalCache && pyaProposalCache.notes) pyaProposalCache.notes.push(json);
+    renderPyaLegalUI();
+  } catch (e) {
+    alert(e.message || String(e));
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 async function implApi(path, opts = {}) {
@@ -2483,11 +4151,13 @@ async function refreshImplVendors() {
       tr.innerHTML = `
         <td><input class="impl-inp impl-v-name" type="text" value="${escapeHtml(v.name)}" data-vendor-id="${v.id}"></td>
         <td><input class="impl-inp impl-v-status" type="text" value="${escapeHtml(v.status)}" data-vendor-id="${v.id}"></td>
-        <td><input class="impl-inp impl-v-notes" type="text" value="${escapeHtml(v.notes || '')}" data-vendor-id="${v.id}"></td>
+        <td><textarea class="impl-inp impl-v-notes" rows="2" data-vendor-id="${v.id}">${escapeHtml(v.notes || '')}</textarea></td>
         ${companyCell}
-        <td style="white-space:nowrap;">
-          <button type="button" class="btn-secondary" data-action="impl-save-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_save'))}</button>
-          <button type="button" class="btn-secondary" data-action="impl-delete-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_delete'))}</button>
+        <td>
+          <div class="impl-v-actions">
+            <button type="button" class="btn-secondary" data-action="impl-save-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_save'))}</button>
+            <button type="button" class="btn-secondary" data-action="impl-delete-vendor" data-vendor-id="${v.id}">${escapeHtml(t('impl_delete'))}</button>
+          </div>
         </td>`;
       tbody.appendChild(tr);
     });
@@ -2533,11 +4203,15 @@ async function refreshImplDiary() {
             .map((m) => {
               const vn = implVendors.find((x) => x.id === m.vendor_id);
               const when = m.scheduled_at ? new Date(m.scheduled_at).toLocaleString() : '—';
-              return `<div class="impl-report-block" style="border:none;padding:8px 0;">
+              return `<div class="impl-report-block">
                 <div class="impl-report-title">${escapeHtml(m.title)} <span class="impl-report-meta">· ${escapeHtml(vn?.name || '')} · ${escapeHtml(when)}</span></div>
-                ${m.meet_url ? `<div class="impl-report-meta"><a href="${escapeHtml(m.meet_url)}" target="_blank" rel="noopener">Meet</a></div>` : ''}
-                ${m.recording_url ? `<div class="impl-report-meta"><a href="${escapeHtml(m.recording_url)}" target="_blank" rel="noopener">Recording</a></div>` : ''}
-                <button type="button" class="btn-secondary" data-action="impl-delete-meeting" data-meeting-id="${m.id}">${escapeHtml(t('impl_delete'))}</button>
+                ${(m.meet_url || m.recording_url) ? `<div class="impl-report-links">
+                  ${m.meet_url ? `<a href="${escapeHtml(m.meet_url)}" target="_blank" rel="noopener">Meet</a>` : ''}
+                  ${m.recording_url ? `<a href="${escapeHtml(m.recording_url)}" target="_blank" rel="noopener">Recording</a>` : ''}
+                </div>` : ''}
+                <div class="impl-report-actions">
+                  <button type="button" class="btn-secondary" data-action="impl-delete-meeting" data-meeting-id="${m.id}">${escapeHtml(t('impl_delete'))}</button>
+                </div>
               </div>`;
             })
             .join('')
@@ -2548,7 +4222,7 @@ async function refreshImplDiary() {
         ? tasks
             .map(
               (x) =>
-                `<div class="onb-mod" style="border:none;">
+                `<div class="onb-mod">
               <input type="checkbox" data-action="impl-toggle-task" data-task-id="${x.id}" ${x.done ? 'checked' : ''}/>
               <span>${escapeHtml(x.title)}${x.task_type === 'document' ? ' 📄' : ''}</span>
               <span class="impl-report-meta" style="margin-left:auto;">${x.due_at ? escapeHtml(x.due_at.slice(0, 10)) : ''}</span>
@@ -2563,10 +4237,12 @@ async function refreshImplDiary() {
         ? journal
             .map(
               (j) =>
-                `<div class="impl-report-block" style="border:none;">
+                `<div class="impl-report-block">
               <div class="impl-report-meta">${escapeHtml(j.entry_date)}</div>
-              <div style="font-size:.86rem;margin:6px 0;">${escapeHtml(j.body)}</div>
-              <button type="button" class="btn-secondary" data-action="impl-delete-journal" data-journal-id="${j.id}">${escapeHtml(t('impl_delete'))}</button>
+              <div style="font-size:.86rem;margin:8px 0;white-space:pre-wrap;">${escapeHtml(j.body)}</div>
+              <div class="impl-report-actions">
+                <button type="button" class="btn-secondary" data-action="impl-delete-journal" data-journal-id="${j.id}">${escapeHtml(t('impl_delete'))}</button>
+              </div>
             </div>`
             )
             .join('')
@@ -3166,8 +4842,43 @@ function restartQuiz() {
   document.getElementById('btn-by-process').textContent=t('quiz_by_proc');
 }
 
+// ===================== THEME (light/dark) =====================
+function getTheme() {
+  try {
+    const fromDom = document.documentElement.getAttribute('data-app-theme');
+    return fromDom === 'light' ? 'light' : 'dark';
+  } catch (_) {
+    return 'dark';
+  }
+}
+async function saveThemePref(theme) {
+  const profileId = document.documentElement.getAttribute('data-app-profile-id') || '';
+  const isPreview = document.documentElement.getAttribute('data-app-preview') === '1';
+  if (!profileId || isPreview) return;
+  try {
+    await fetch('/api/preferences/theme', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ theme })
+    });
+  } catch (_) {}
+}
+function applyTheme(theme, { persist = false } = {}) {
+  const t = theme === 'light' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.setAttribute('data-app-theme', t);
+  const btn = document.getElementById('btn-theme');
+  if (btn) btn.textContent = t === 'light' ? '☀' : '☾';
+  if (persist) void saveThemePref(t);
+}
+window.applyTheme = applyTheme;
+function toggleTheme() {
+  applyTheme(getTheme() === 'light' ? 'dark' : 'light', { persist: true });
+}
+
 // ===================== INIT =====================
 window.addEventListener('DOMContentLoaded', () => {
+  applyTheme(getTheme());
   applyTranslations();
   // Set initial role labels on cards
   document.querySelectorAll('[data-person-role]').forEach(el => {
@@ -3248,6 +4959,37 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     if (action === 'download-contacts-csv') {
       downloadContactsCSV();
+      return;
+    }
+    if (action === 'toggle-theme') {
+      toggleTheme();
+      return;
+    }
+    if (action === 'switch-pya-tab') {
+      const tab = el.getAttribute('data-pya-tab');
+      if (tab) switchPyaTab(tab, el);
+      return;
+    }
+    if (action === 'pya-step') {
+      const field = el.getAttribute('data-pya-field');
+      const d = parseInt(el.getAttribute('data-pya-delta'), 10);
+      if (field && !Number.isNaN(d)) pyaStep(field, d);
+      return;
+    }
+    if (action === 'pya-portal') {
+      const ch = el.getAttribute('data-portal');
+      if (ch) pyaSetPortalChoice(ch);
+      return;
+    }
+    if (action === 'pya-sec-toggle') {
+      const sid = el.getAttribute('data-section-id');
+      if (!sid) return;
+      pyaSectionOpenState[sid] = !pyaSectionOpenState[sid];
+      renderPyaLegalUI();
+      return;
+    }
+    if (action === 'pya-save-note') {
+      pyaSaveNote(el);
       return;
     }
     if (action === 'switch-impl-tab') {
@@ -3445,6 +5187,24 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  document.addEventListener('change', (e) => {
+    const targ = e.target;
+    if (targ?.getAttribute?.('data-action') === 'pya-check-toggle') {
+      pyaToggleCheck(targ);
+      return;
+    }
+    if (targ?.getAttribute?.('data-action') === 'pya-input-recalc') {
+      pyaRecalc();
+      return;
+    }
+    if (targ?.matches?.('#pya-view input[name="portal"]')) {
+      pyaSetPortalChoice(targ.value);
+    }
+  });
+  document.addEventListener('input', (e) => {
+    if (e.target?.getAttribute?.('data-action') === 'pya-input-recalc') pyaRecalc();
+  });
+
   const docsSearchInput = document.getElementById('docs-search-input');
   docsSearchInput?.addEventListener('input', () => {
     filterDocs();
@@ -3546,6 +5306,7 @@ async function logout() {
   const role = getAppRole();
   const preview = isPreviewMode();
   const effectiveRole = preview ? 'employee' : role;
+  const isStaff = !preview && (role === 'admin' || role === 'super_admin');
 
   const reqsTab = document.getElementById('nav-tab-reqs');
   if (reqsTab) {
@@ -3559,17 +5320,33 @@ async function logout() {
     else implTab.style.display = 'none';
   }
 
+  const pyaTab = document.getElementById('nav-tab-pya');
+  if (pyaTab) {
+    if (!preview && (role === 'admin' || role === 'super_admin')) pyaTab.style.display = 'inline-flex';
+    else pyaTab.style.display = 'none';
+  }
+
+  // Admin/super_admin use the admin dashboard chrome; hide app header-right for them.
+  // Employees keep header-right (logout + SR/EN).
+  const headerRight = document.querySelector('header .header-right');
+  if (headerRight) headerRight.style.display = isStaff ? 'none' : '';
+
+  // Put SR/EN into the main navbar for admins/super_admin (right side).
+  const langToggle = document.querySelector('.lang-toggle');
+  const mainNav = document.getElementById('main-nav');
+  if (isStaff && langToggle && mainNav) mainNav.appendChild(langToggle);
+
+  // Hide the admin-dashboard backlink inside the app (admins already have it in the dashboard).
+  const adminDash = document.getElementById('link-admin-dashboard');
+  if (adminDash) adminDash.style.display = 'none';
+
   const onbTab = document.getElementById('nav-tab-onboarding');
   if (onbTab) {
     if (!preview && effectiveRole === 'employee') onbTab.style.display = 'inline-flex';
     else onbTab.style.display = 'none';
   }
 
-  const adminDash = document.getElementById('link-admin-dashboard');
-  if (adminDash && (role === 'admin' || role === 'super_admin') && !preview) {
-    adminDash.style.display = '';
-    adminDash.setAttribute('target', '_top');
-  }
+  // (adminDash link intentionally hidden; see above)
 })();
 </script>
 </body>

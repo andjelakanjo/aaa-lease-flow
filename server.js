@@ -14,6 +14,8 @@ const appRoutes = require('./routes/app');
 const adminRoutes = require('./routes/admin');
 const usersRoutes = require('./routes/users');
 const implementationRoutes = require('./routes/implementation');
+const proposalRoutes = require('./routes/proposal');
+const preferencesRoutes = require('./routes/preferences');
 
 const app = express();
 
@@ -82,7 +84,9 @@ app.use(apiLimiter);
 app.use(requireAuth);
 app.use('/admin', adminRoutes);
 app.use('/admin/api/users', usersRoutes);
+app.use('/api/preferences', preferencesRoutes);
 app.use('/api/implementation', implementationRoutes);
+app.use('/api/proposal', proposalRoutes);
 app.use('/', appRoutes);
 
 // 404 fallback

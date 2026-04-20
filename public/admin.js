@@ -6,6 +6,57 @@ let userToDeleteId = null;
 /** Profile id for super_admin “Set password” modal */
 let selectedAuthUserId = null;
 
+// ── Theme (per user account via /api/preferences) ─────────────────────────────
+async function fetchTheme() {
+  try {
+    const res = await fetch('/api/preferences/theme', { headers: { Accept: 'application/json' } });
+    if (!res.ok) return 'dark';
+    const data = await res.json();
+    return data?.theme === 'light' ? 'light' : 'dark';
+  } catch (_) {
+    return 'dark';
+  }
+}
+
+function applyTheme(theme) {
+  const t = theme === 'light' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  const btn = document.getElementById('admin-btn-theme');
+  if (btn) btn.textContent = t === 'light' ? '☀' : '☾';
+  // propagate to iframes if loaded
+  applyThemeToIframe(document.getElementById('staff-app-iframe'), t);
+  applyThemeToIframe(document.getElementById('preview-iframe'), t);
+}
+
+async function saveTheme(theme) {
+  try {
+    await fetch('/api/preferences/theme', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ theme })
+    });
+  } catch (_) {}
+}
+
+function applyThemeToIframe(iframe, theme) {
+  try {
+    if (!iframe?.contentWindow) return;
+    const w = iframe.contentWindow;
+    if (typeof w.applyTheme === 'function') {
+      w.applyTheme(theme);
+      return;
+    }
+    w.document?.documentElement?.setAttribute?.('data-theme', theme);
+  } catch (_) {}
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const next = cur === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  void saveTheme(next);
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
   try {
@@ -541,6 +592,45 @@ function setHubState(state) {
   });
 }
 
+// ── Language (applies to embedded /app iframe) ────────────────────────────────
+const ADMIN_LANG_KEY = 'aaa_admin_lang';
+
+function getAdminLang() {
+  try {
+    const v = (localStorage.getItem(ADMIN_LANG_KEY) || '').trim();
+    return v === 'en' ? 'en' : 'sr';
+  } catch (_) {
+    return 'sr';
+  }
+}
+
+function setAdminLang(lang) {
+  const next = lang === 'en' ? 'en' : 'sr';
+  try {
+    localStorage.setItem(ADMIN_LANG_KEY, next);
+  } catch (_) {}
+  document.getElementById('admin-btn-sr')?.classList.toggle('active', next === 'sr');
+  document.getElementById('admin-btn-en')?.classList.toggle('active', next === 'en');
+  applyLangToIframe(document.getElementById('staff-app-iframe'), next);
+  applyLangToIframe(document.getElementById('preview-iframe'), next);
+}
+
+function applyLangToIframe(iframe, lang) {
+  try {
+    if (!iframe?.contentWindow) return;
+    const w = iframe.contentWindow;
+    if (typeof w.setLang === 'function') {
+      w.setLang(lang);
+      return;
+    }
+    // Fallback: click buttons if present
+    const d = iframe.contentWindow.document;
+    d?.getElementById(lang === 'en' ? 'btn-en' : 'btn-sr')?.click?.();
+  } catch (_) {
+    // ignore (iframe not ready)
+  }
+}
+
 function closeStaffAppEmbed() {
   const main = document.querySelector('main');
   const box = document.getElementById('staff-app-container');
@@ -563,10 +653,19 @@ function openStaffAppEmbed(appTab = 'map') {
   const url = new URL('/app', window.location.origin);
   if (appTab && appTab !== 'map') url.searchParams.set('tab', appTab);
   // Hide the app's own navbar only inside the staff embed, and only for the focused tabs.
-  if (appTab === 'reqs' || appTab === 'impl') url.searchParams.set('embed', 'staff');
+  if (appTab === 'reqs' || appTab === 'impl' || appTab === 'pya') url.searchParams.set('embed', 'staff');
   iframe.src = url.pathname + url.search;
+  const preferredLang = getAdminLang();
+  iframe.addEventListener(
+    'load',
+    () => {
+      applyLangToIframe(iframe, preferredLang);
+      applyThemeToIframe(iframe, document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    },
+    { once: true }
+  );
   const state =
-    appTab === 'reqs' ? 'app-reqs' : appTab === 'impl' ? 'app-impl' : 'app-onboarding';
+    appTab === 'reqs' ? 'app-reqs' : appTab === 'impl' ? 'app-impl' : 'dashboard';
   setHubState(state);
   window.scrollTo(0, 0);
 }
@@ -579,6 +678,14 @@ function previewApp(companyName, bannerSub) {
   const iframe = document.getElementById('preview-iframe');
   iframe.src = '';
   iframe.src = '/app?preview=true';
+  const preferredLang = getAdminLang();
+  iframe.addEventListener(
+    'load',
+    () => {
+      applyLangToIframe(iframe, preferredLang);
+    },
+    { once: true }
+  );
   const container = document.getElementById('preview-container');
   container.classList.add('open');
   container.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -647,6 +754,15 @@ function setupEventHandlers() {
       openStaffAppEmbed(tab === 'reqs' || tab === 'impl' || tab === 'map' ? tab : 'map');
       return;
     }
+    if (action === 'set-admin-lang') {
+      const lang = el.getAttribute('data-lang') || 'sr';
+      setAdminLang(lang);
+      return;
+    }
+    if (action === 'toggle-theme') {
+      toggleTheme();
+      return;
+    }
 
     if (action === 'preview-app-from-users') return void previewAppFromUsers();
     if (action === 'close-preview') return void closePreview();
@@ -713,5 +829,8 @@ function setupEventHandlers() {
 window.addEventListener('DOMContentLoaded', () => {
   setupEventHandlers();
   init();
+  // Initialize admin language toggle + apply to any loaded iframe
+  setAdminLang(getAdminLang());
+  fetchTheme().then(applyTheme);
 });
 

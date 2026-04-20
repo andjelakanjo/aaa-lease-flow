@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
+const supabase = require('../config/supabase');
 
 function loadAppHtml() {
   const appPath = path.join(__dirname, '..', 'public', 'app.html');
@@ -49,15 +50,42 @@ router.get('/app', (req, res) => {
     profileId: isPreview ? null : req.user?.profileId ?? null,
     companyId: isPreview ? null : req.user?.companyId ?? null
   };
-  // Session context on <html> — Helmet CSP allows this; inline <script> in <head> would be blocked by script-src 'self'.
-  const injected = htmlWithoutInlineScript.replace(
-    '<html lang="en">',
-    `<html lang="en" data-app-role="${escAttr(role)}" data-app-preview="${isPreview ? '1' : '0'}" data-app-email="${escAttr(
-      appUser.email || ''
-    )}" data-app-profile-id="${escAttr(appUser.profileId || '')}" data-app-company-id="${escAttr(appUser.companyId || '')}">`
-  );
-  res.set('Content-Type', 'text/html');
-  res.send(injected);
+
+  const themePromise = (async () => {
+    if (isPreview || !appUser.profileId) return 'dark';
+    const { data } = await supabase.admin
+      .from('ui_preferences')
+      .select('theme')
+      .eq('profile_id', appUser.profileId)
+      .maybeSingle();
+    return data?.theme === 'light' ? 'light' : 'dark';
+  })();
+
+  themePromise
+    .then((theme) => {
+      const injected = htmlWithoutInlineScript.replace(
+        '<html lang="en">',
+        `<html lang="en" data-app-role="${escAttr(role)}" data-app-preview="${isPreview ? '1' : '0'}" data-app-email="${escAttr(
+          appUser.email || ''
+        )}" data-app-profile-id="${escAttr(appUser.profileId || '')}" data-app-company-id="${escAttr(
+          appUser.companyId || ''
+        )}" data-app-theme="${escAttr(theme)}">`
+      );
+      res.set('Content-Type', 'text/html');
+      res.send(injected);
+    })
+    .catch(() => {
+      const injected = htmlWithoutInlineScript.replace(
+        '<html lang="en">',
+        `<html lang="en" data-app-role="${escAttr(role)}" data-app-preview="${isPreview ? '1' : '0'}" data-app-email="${escAttr(
+          appUser.email || ''
+        )}" data-app-profile-id="${escAttr(appUser.profileId || '')}" data-app-company-id="${escAttr(
+          appUser.companyId || ''
+        )}" data-app-theme="dark">`
+      );
+      res.set('Content-Type', 'text/html');
+      res.send(injected);
+    });
 });
 
 // GET /app-inline.js — serves the original inline JS from public/app.html
