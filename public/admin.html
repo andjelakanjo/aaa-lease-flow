@@ -51,12 +51,25 @@ header{
   gap:16px;
 }
 html[data-theme="light"] header{
-  background:rgba(246,247,251,0.88);
+  background:#ffffff;
   border-bottom-color:rgba(0,0,0,0.06);
 }
 
 html[data-theme="light"] .hub-tab:not(.hub-tab-active){
   color:#374151;
+}
+html[data-theme="light"] .hub-tab-active{
+  color:#1e3a8a;
+}
+html[data-theme="light"] .hub-tab-reqs,
+html[data-theme="light"] .hub-tab-reqs:hover,
+html[data-theme="light"] .hub-tab-reqs.hub-tab-active{
+  color:#92400e;
+}
+html[data-theme="light"] .hub-tab-impl,
+html[data-theme="light"] .hub-tab-impl:hover,
+html[data-theme="light"] .hub-tab-impl.hub-tab-active{
+  color:#065f46;
 }
 .header-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap;min-width:0;flex:1;}
 .header-logo{font-family:'DM Serif Display',serif;font-size:1.2rem;}
@@ -129,6 +142,18 @@ main{max-width:1100px;margin:0 auto;padding:32px 24px;}
 }
 .tab-btn.active{background:rgba(79,142,247,.18);border-color:rgba(79,142,247,.4);color:#fff;box-shadow:0 0 14px rgba(79,142,247,.25);}
 html[data-theme="light"] .tab-btn.active{background-color:#1e3a5f;color:#ffffff;border:none;}
+html[data-theme="light"] .btn-primary{
+  background:#1e3a5f;color:#ffffff;border-color:#1e3a5f;
+}
+html[data-theme="light"] .btn-primary:hover{
+  background:#162b47;border-color:#162b47;box-shadow:0 4px 12px rgba(30,58,95,0.25);
+}
+html[data-theme="light"] .btn-secondary{
+  background:#ffffff;color:#111827;border-color:rgba(0,0,0,0.12);
+}
+html[data-theme="light"] .btn-secondary:hover{
+  background:#f3f4f6;border-color:rgba(0,0,0,0.20);
+}
 
 /* ── Panel ── */
 .panel{display:none;}
@@ -335,9 +360,9 @@ select option{background:#0f1629;}
   <div class="header-left">
     <div class="header-logo">AAA <span>Lease</span> Admin</div>
     <nav class="header-hub" aria-label="Admin areas">
-      <button type="button" class="hub-tab hub-tab-dash hub-tab-active" data-action="hub-dashboard" data-hub-state="dashboard" title="Korisnici, pristupni kodovi, kompanije">Dashboard</button>
-      <button type="button" class="hub-tab hub-tab-reqs" data-action="hub-app" data-app-tab="reqs" data-hub-state="app-reqs" title="Zahtevi za lizing softver">⚡ Software Reqs</button>
-      <button type="button" class="hub-tab hub-tab-impl" data-action="hub-app" data-app-tab="impl" data-hub-state="app-impl" title="Implementacija — deljeni status + privatni dnevnik">Implementacija</button>
+      <button type="button" class="hub-tab hub-tab-dash hub-tab-active" data-action="hub-dashboard" data-hub-state="dashboard" data-t="hub.dashboard" data-t-title="hub.dashboard.tt" title="Korisnici, pristupni kodovi, kompanije">Dashboard</button>
+      <button type="button" class="hub-tab hub-tab-reqs" data-action="hub-app" data-app-tab="reqs" data-hub-state="app-reqs" data-t="hub.reqs" data-t-title="hub.reqs.tt" title="Zahtevi za lizing softver">⚡ Software Reqs</button>
+      <button type="button" class="hub-tab hub-tab-impl" data-action="hub-app" data-app-tab="impl" data-hub-state="app-impl" data-t="hub.impl" data-t-title="hub.impl.tt" title="Implementacija — deljeni status + privatni dnevnik">Implementacija</button>
     </nav>
   </div>
   <div class="header-right">
@@ -369,26 +394,26 @@ select option{background:#0f1629;}
     <div class="hub-card" id="admin-onboarding-hub-card">
       <div class="hub-card-inner">
         <div>
-          <h3>Onboarding aplikacija — tim i implementacija lizing softvera</h3>
-          <p>
+          <h3 data-t="card.title">Onboarding aplikacija — tim i implementacija lizing softvera</h3>
+          <p data-t="card.body">
             Ovo je <strong>onboarding hub</strong> za AAA Lease: mapa tima, procesi, dokumenti, zahtevi prema softveru, glosar, kviz i merljiv napredak — nezavisno od trenutnog projekta implementacije.
             Za rad na implementaciji postoje posebni delovi (deljeni status + <strong>privatni dnevnik</strong>).
             U <strong>gornjoj traci</strong> su prečice <strong>Software Reqs</strong>, <strong>Implementacija</strong> i ceo <strong>Onboarding</strong>; ispod isto u jednom kliku. Na <strong>Dashboard</strong> — zelena traka ili dugme Dashboard gore.
           </p>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;align-self:center;">
-          <button type="button" class="btn-primary" data-action="hub-app" data-app-tab="map">Ceo onboarding</button>
-          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="reqs">Software Reqs</button>
-          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="impl">Implementacija</button>
+          <button type="button" class="btn-primary" data-action="hub-app" data-app-tab="map" data-t="card.btn.full">Ceo onboarding</button>
+          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="reqs" data-t="card.btn.reqs">Software Reqs</button>
+          <button type="button" class="btn-secondary" data-action="hub-app" data-app-tab="impl" data-t="card.btn.impl">Implementacija</button>
         </div>
       </div>
     </div>
     <div class="panel-header">
-      <h2 id="users-heading">Users</h2>
+      <h2 id="users-heading" data-t="users.heading">Users</h2>
       <div class="panel-actions">
-        <button class="btn-preview" type="button" data-action="preview-app-from-users">👁 Preview App</button>
-        <button class="btn-secondary" type="button" id="btn-create-admin" data-action="open-modal" data-modal="modal-admin" style="display:none">+ Create Admin</button>
-        <button class="btn-primary" type="button" data-action="open-modal" data-modal="modal-employee">+ Create Employee</button>
+        <button class="btn-preview" type="button" data-action="preview-app-from-users" data-t="users.btn.preview">👁 Preview App</button>
+        <button class="btn-secondary" type="button" id="btn-create-admin" data-action="open-modal" data-modal="modal-admin" data-t="users.btn.admin" style="display:none">+ Create Admin</button>
+        <button class="btn-primary" type="button" data-action="open-modal" data-modal="modal-employee" data-t="users.btn.emp">+ Create Employee</button>
       </div>
     </div>
     <div class="table-wrap">
@@ -442,9 +467,9 @@ select option{background:#0f1629;}
       👁 <strong>PREVIEW MODE</strong>
       — <span class="preview-co" id="preview-co-name">AAA Lease</span>
       <span class="preview-sep">|</span>
-      <span id="preview-banner-sub">Gledaš kako zaposleni vide aplikaciju</span>
+      <span id="preview-banner-sub" data-t="preview.sub">Gledaš kako zaposleni vide aplikaciju</span>
     </span>
-    <button class="btn-close-preview" type="button" data-action="close-preview">✕ Zatvori preview</button>
+    <button class="btn-close-preview" type="button" data-action="close-preview" data-t="preview.close">✕ Zatvori preview</button>
   </div>
   <iframe class="preview-iframe" id="preview-iframe" src="" title="App Preview" sandbox="allow-scripts allow-same-origin"></iframe>
 </div>

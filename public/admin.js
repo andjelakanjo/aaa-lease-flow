@@ -604,6 +604,39 @@ function getAdminLang() {
   }
 }
 
+const ADMIN_T = {
+  'hub.dashboard':   { sr:'Dashboard', en:'Dashboard' },
+  'hub.reqs':        { sr:'⚡ Software Reqs', en:'⚡ Software Reqs' },
+  'hub.impl':        { sr:'Implementacija', en:'Implementation' },
+  'hub.dashboard.tt':{ sr:'Korisnici, pristupni kodovi, kompanije', en:'Users, access codes, companies' },
+  'hub.reqs.tt':     { sr:'Zahtevi za lizing softver', en:'Leasing software requirements' },
+  'hub.impl.tt':     { sr:'Implementacija — deljeni status + privatni dnevnik', en:'Implementation — shared status + private journal' },
+  'card.title':      { sr:'Onboarding aplikacija — tim i implementacija lizing softvera', en:'Onboarding app — team and leasing software implementation' },
+  'card.btn.full':   { sr:'Ceo onboarding', en:'Full onboarding' },
+  'card.btn.reqs':   { sr:'Software Reqs', en:'Software Reqs' },
+  'card.btn.impl':   { sr:'Implementacija', en:'Implementation' },
+  'preview.sub':     { sr:'Gledaš kako zaposleni vide aplikaciju', en:'This is how employees see the app' },
+  'preview.close':   { sr:'✕ Zatvori preview', en:'✕ Close preview' },
+  'card.body': {
+    sr: 'Ovo je <strong>onboarding hub</strong> za AAA Lease: mapa tima, procesi, dokumenti, zahtevi prema softveru, glosar, kviz i merljiv napredak — nezavisno od trenutnog projekta implementacije. Za rad na implementaciji postoje posebni delovi (deljeni status + <strong>privatni dnevnik</strong>). U <strong>gornjoj traci</strong> su precice <strong>Software Reqs</strong>, <strong>Implementacija</strong> i ceo <strong>Onboarding</strong>; ispod isto u jednom kliku. Na <strong>Dashboard</strong> — zelena traka ili dugme Dashboard gore.',
+    en: 'This is the <strong>onboarding hub</strong> for AAA Lease: team map, processes, documents, software requirements, glossary, quiz and measurable progress — independent of the current implementation project. For implementation work there are separate areas (shared status + <strong>private journal</strong>). In the <strong>top bar</strong> you have shortcuts for <strong>Software Reqs</strong>, <strong>Implementation</strong> and the full <strong>Onboarding</strong>; below the same in one click. On <strong>Dashboard</strong> — green bar or the Dashboard button up top.'
+  },
+  'users.heading':    { sr:'Korisnici', en:'Users' },
+  'users.btn.preview':{ sr:'👁 Pregled aplikacije', en:'👁 Preview App' },
+  'users.btn.admin':  { sr:'+ Kreiraj admina', en:'+ Create Admin' },
+  'users.btn.emp':    { sr:'+ Kreiraj zaposlenog', en:'+ Create Employee' },
+};
+
+function applyAdminTranslations(lang) {
+  const L = lang === 'en' ? 'en' : 'sr';
+  document.querySelectorAll('[data-t]').forEach((el) => {
+    const e = ADMIN_T[el.getAttribute('data-t')]; if (e) el.innerHTML = e[L] || e.en;
+  });
+  document.querySelectorAll('[data-t-title]').forEach((el) => {
+    const e = ADMIN_T[el.getAttribute('data-t-title')]; if (e) el.setAttribute('title', e[L] || e.en);
+  });
+}
+
 function setAdminLang(lang) {
   const next = lang === 'en' ? 'en' : 'sr';
   try {
@@ -611,6 +644,7 @@ function setAdminLang(lang) {
   } catch (_) {}
   document.getElementById('admin-btn-sr')?.classList.toggle('active', next === 'sr');
   document.getElementById('admin-btn-en')?.classList.toggle('active', next === 'en');
+  applyAdminTranslations(next);
   applyLangToIframe(document.getElementById('staff-app-iframe'), next);
   applyLangToIframe(document.getElementById('preview-iframe'), next);
 }
