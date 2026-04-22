@@ -3295,6 +3295,10 @@ const PEOPLE = {
     docs:{sr:["Confirmed Payments lista (tabovi po tipu billing-a)","Dnevna billing lista","Parking tabela po iznosima (mesečno)"],en:["Confirmed Payments list (tabs per billing type)","Daily billing list","Parking table by amounts (monthly)"]},
     tools:["QuickBooks (Memorized Transaction List)","Google Sheets","Easy Storage"],
     connects:["hanna","milica","radu","andjela_t","milica_r","nadia"],
+    connectsExtra:[
+      "Sanja Veljović (AAA Freight — parking)",
+      "Goran (Yard manager, La Grange parking, Chicago)"
+    ],
     pains:{sr:["Svaki invoice mora biti otvoren i poslat posebno — nema batch send","Miljaža se ručno računa za svaki kamion svake nedelje","Pravilo zatvaranja invoicea (rent → tolovi → lease) je kompleksno","Odbijene uplate stižu 2-3 dana kasno — mora ići nazad i ispravljati","~300-350 parking invoicea se šalje ručno mesečno"],en:["Every invoice must be opened and sent individually — no batch send","Mileage must be manually calculated for each truck every week","Invoice closing rule (rent → tolls → lease) is complex","Rejected payments arrive 2-3 days late — must go back and reverse","~300-350 parking invoices sent manually each month"]}
   },
   hanna: {
@@ -4427,7 +4431,10 @@ function openPanel(id) {
     html += `<div class="panel-section"><div class="panel-section-title">${t('panel_pains')}</div><ul class="pain-list">${pains.map(pain=>`<li class="pain-item">${pain}</li>`).join('')}</ul></div>`;
   }
   if (p.connects.length > 0) {
-    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_connects')}</div><div class="connects-to">${p.connects.map(c=>`<span class="connects-chip" data-action="open-panel" data-person-id="${c}" role="button" tabindex="0">${PEOPLE[c]?.name||c}</span>`).join('')}</div></div>`;
+    const extras = p.connectsExtra || [];
+    const known = p.connects.map(c=>`<span class="connects-chip" data-action="open-panel" data-person-id="${c}" role="button" tabindex="0">${PEOPLE[c]?.name||c}</span>`).join('');
+    const extraChips = extras.map(label=>`<span class="connects-chip" role="note">${label}</span>`).join('');
+    html += `<div class="panel-section"><div class="panel-section-title">${t('panel_connects')}</div><div class="connects-to">${known}${extraChips}</div></div>`;
   }
   document.getElementById('panel-body').innerHTML = html;
   document.getElementById('panel-overlay').classList.add('open');
