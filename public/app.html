@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+Changelog (2026-04-22) — Feedback Updates v1
+- Tina Srdić: added parking collaborations (Sanja Veljović, Goran/La Grange) + parking agreements/contracts + collections responsibility.
+- Hanna Banks (Maja): updated Registrations card text + TODO (Milica R vs Mili D); moved deposit invoice responsibility to Anđela T.; updated invoice closing details; added missing monthly/weekly activities (billing schedules, AR report, deposit analysis, legal docs, weekly sales report).
+- Anđela Trifunović: added late fee process + monthly active units report; moved Release form from Lease step 03 to step 04 (no duplication).
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -975,13 +981,13 @@ html[data-theme="light"] .pya-total-divider{background:rgba(255,255,255,0.18);}
         <div class="flow-stage-header"><div class="flow-stage-num">03</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s03n">GPS &amp; Release</div></div>
         <div class="flow-steps">
           <div class="flow-step" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Valentina / Brankica</div><div class="flow-step-what" data-t="flow_l_s03w1">Verify GPS active in FleetLocate or Routemate</div></div>
-          <div class="flow-step"><div class="flow-step-who" style="color:var(--text-muted)" data-t="flow_l_s03who_when">When all docs confirmed</div><div class="flow-step-what" data-t="flow_l_s03w2">Issue release form to Radu / salesman</div></div>
         </div>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-stage">
         <div class="flow-stage-header"><div class="flow-stage-num">04</div><div class="flow-stage-name" style="color:var(--ops)" data-t="flow_l_s04n">Unit Pickup</div></div>
         <div class="flow-steps">
+          <div class="flow-step" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Andjela / Valentina</div><div class="flow-step-what" data-t="flow_l_s04w0">Release form (when all docs confirmed)</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w1">Checkout inspection, photographs unit condition</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w2">Sends report to client + DOT registration copy + 24hr maintenance info</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--ops)">Fabrizio</div><div class="flow-step-what" data-t="flow_l_s04w3">Updates spreadsheets — removes from available, adds to checkout tab</div></div>
@@ -1002,7 +1008,9 @@ html[data-theme="light"] .pya-total-divider{background:rgba(255,255,255,0.18);}
         <div class="flow-stage-header"><div class="flow-stage-num">06</div><div class="flow-stage-name" style="color:var(--acc)" data-t="flow_l_s06n">Collections &amp; AR</div></div>
         <div class="flow-steps">
           <div class="flow-step" data-action="open-panel" data-person-id="milica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Milica D.</div><div class="flow-step-what" data-t="flow_l_s06w1">Daily monitoring — rejected payments, calls, ACH pulls from JPM bank</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="tina" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Tina</div><div class="flow-step-what" data-t="flow_l_s06w1b">Collections support (parking + coordination)</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" data-t="flow_l_s06w2">Invoice closing: rent first → tolls/repairs → lease (Alex's rule)</div></div>
+          <div class="flow-step" data-action="open-panel" data-person-id="hanna" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Hanna</div><div class="flow-step-what" data-t="flow_l_s06w2b">Books all bank payments through QuickBooks (QB)</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="milica_r" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--mgmt)">Milica Rajković</div><div class="flow-step-what" data-t="flow_l_s06w3">Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)</div></div>
           <div class="flow-step" data-action="open-panel" data-person-id="brankica" role="button" tabindex="0"><div class="flow-step-who" style="color:var(--acc)">Brankica</div><div class="flow-step-what" data-t="flow_l_s06w4">Monthly credit bureau CSV export to Hutchins</div></div>
         </div>
@@ -1188,6 +1196,10 @@ html[data-theme="light"] .pya-total-divider{background:rgba(255,255,255,0.18);}
           <li data-t="flow_p_c2l2">If payment fails: calls customer, manually processes retry</li>
           <li data-t="flow_p_c2l3">Creates QB invoices for: parking deposits, late fees, lockout fees, FI fee (Easy Storage processing fee deducted from payout)</li>
           <li data-t="flow_p_c2l4">Includes parking amounts in the daily billing list to Milica.</li>
+          <li data-t="flow_p_c2l5">Coordinates with Sanja Veljović (AAA Freight) on parking-related topics.</li>
+          <li data-t="flow_p_c2l6">Coordinates with Goran (yard manager) — La Grange parking, Chicago.</li>
+          <li data-t="flow_p_c2l7">Prepares parking agreements/contracts (where applicable).</li>
+          <li data-t="flow_p_c2l8">Handles parking collections and follow-ups (declined pulls, confirmations, retries).</li>
         </ul>
       </div>
       <div class="parking-card" style="grid-column:1/-1;">
@@ -1226,8 +1238,9 @@ html[data-theme="light"] .pya-total-divider{background:rgba(255,255,255,0.18);}
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l2cc">Waits for decision. If rejected — end. If approved — continues with documentation.</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--mgmt);" data-action="open-panel" data-person-id="alex" role="button" tabindex="0">Alex</div><span data-t="pm_l2aa">Final approval or rejection. Defines contract terms.</span></div></div>
         <div class="procmap-stage-label" data-t="pm_l3">② Contract &amp; Documentation</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l3cc">Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0">Andjela T. / Valentina</div><span data-t="pm_l3aa">Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.</span></div></div>
-        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;" data-t="pm_l4cc">— waits for GPS confirmation and release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0">Valentina / Brankica</div><span data-t="pm_l4aa">Checks GPS in FleetLocate/Routemate. When all OK — issues release form.</span></div></div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;" data-t="pm_l4cc">— waits for GPS confirmation —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="valentina" role="button" tabindex="0">Valentina / Brankica</div><span data-t="pm_l4aa">Checks GPS in FleetLocate/Routemate.</span></div></div>
         <div class="procmap-stage-label" data-t="pm_l5">③ Unit Pickup</div>
+        <div class="procmap-stage-row"><div class="procmap-cell customer-cell" style="color:var(--text-muted);font-style:italic;" data-t="pm_l5cc_rf">— waits for release form —</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="andjela_t" role="button" tabindex="0">Andjela / Valentina</div><span data-t="pm_l5aa_rf">Issues release form (when all docs confirmed).</span></div></div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l5cc">Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.</div><div class="procmap-mid-cell">↔</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--ops);" data-action="open-panel" data-person-id="fabrizio" role="button" tabindex="0">Fabrizio</div><span data-t="pm_l5aa">Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.</span></div></div>
         <div class="procmap-stage-label" data-t="pm_l6">④ Active Contract</div>
         <div class="procmap-stage-row"><div class="procmap-cell customer-cell" data-t="pm_l6cc">Uses unit. Receives invoices (weekly or monthly). Pays via ACH bank pull (JPM template).</div><div class="procmap-mid-cell">←</div><div class="procmap-cell aaa-cell"><div class="procmap-cell-who" style="color:var(--acc);" data-action="open-panel" data-person-id="tina" role="button" tabindex="0">Tina</div><span data-t="pm_l6aa">Sends lease invoices via QB Memorized list (weekly / 1st &amp; 15th).</span></div></div>
@@ -2231,11 +2244,12 @@ const T = {
     flow_l_s02w3:"Ako je unit pod kreditom — potreban promissory note",
     flow_l_s02w4:"Ako je klijent na True Funding listi — potreban cross-collateral ugovor",
     flow_l_s02who_check:"Provera",
-    flow_l_s03n:"GPS i otpust jedinice",
+    flow_l_s03n:"GPS provera",
     flow_l_s03w1:"Provera aktivnog GPS u FleetLocate ili Routemate",
     flow_l_s03w2:"Izdavanje release forme Raduu / salesmanu",
     flow_l_s03who_when:"Kada su svi dokumenti potvrđeni",
     flow_l_s04n:"Preuzimanje jedinice",
+    flow_l_s04w0:"Release forma (izdavanje release forme — kada su svi dokumenti potvrđeni)",
     flow_l_s04w1:"Checkout inspekcija; fotografisanje stanja jedinice",
     flow_l_s04w2:"Šalje izveštaj klijentu + DOT kopiju registracije + info o održavanju 24h",
     flow_l_s04w3:"Ažurira tabele — skida sa dostupnih, dodaje u checkout tab",
@@ -2246,7 +2260,9 @@ const T = {
     flow_l_s05w4:"Tolovi, popravke, final charges naplaćeni odvojeno",
     flow_l_s06n:"Naplata i potraživanja (AR)",
     flow_l_s06w1:"Dnevni monitoring — odbijene uplate, pozivi, ACH povlačenja iz JPM banke",
-    flow_l_s06w2:"Zatvaranje faktura: prvo rent → tolovi/popravke → lease (Alexovo pravilo)",
+    flow_l_s06w1b:"Collection podrška (parking + koordinacija)",
+    flow_l_s06w2:"Zatvaranje faktura (Aleksova pravila): rent → tolovi/registracije/final → lease",
+    flow_l_s06w2b:"Knjiženje svih payment-a iz banke kroz QuickBooks (QB)",
     flow_l_s06w3:"Mesečni AR pregled (~10. u mesecu), late fee (10% na otvoreni saldo 30+ dana)",
     flow_l_s06w4:"Mesečni credit bureau CSV export u Hutchins",
     flow_l_s07n:"Kraj lease-a / buyout",
@@ -2273,6 +2289,10 @@ const T = {
     flow_p_c2l2:"Ako uplata padne: zove klijenta, ručno ponavlja povlačenje.",
     flow_p_c2l3:"Pravi QB fakture za: depozite parkinga, late fee, lockout fee, FI fee (naknada Easy Storage koja se odbija od isplate).",
     flow_p_c2l4:"Uključuje parking iznose u dnevnoj billing listi za Milicu.",
+    flow_p_c2l5:"Saradnja sa Sanjom Veljović (AAA Freight) — vezano za parking.",
+    flow_p_c2l6:"Saradnja sa Goranom — yard manager La Grange parking, Chicago.",
+    flow_p_c2l7:"Radi ugovore za parking (parking agreements/contracts).",
+    flow_p_c2l8:"Radi collection za parking (odbijene uplate, potvrde, ponovna povlačenja).",
     flow_p_c2t:"Uloga Tine",
     flow_p_c3l1:"Prihod od parkinga ide na poseban prihodni konto.",
     flow_p_c3l2:"FI fee (naknada sistema Easy Storage) se automatski odbija i posebno knjiži u QB.",
@@ -2352,9 +2372,11 @@ const T = {
     pm_l3:"② Ugovor i dokumentacija",
     pm_l3aa:"Priprema ugovor (DocuSign). Proverava COI i uplatu. Kreira down payment invoice u QB.",
     pm_l3cc:"Potpisuje ugovor u DocuSign. Plaća down payment. Šalje COI.",
-    pm_l4aa:"Proverava GPS. Kada je sve OK — izdaje release formu.",
-    pm_l4cc:"— čeka GPS potvrdu i release formu —",
+    pm_l4aa:"Proverava aktivni GPS u FleetLocate ili Routemate.",
+    pm_l4cc:"— čeka GPS potvrdu —",
     pm_l5:"③ Preuzimanje jedinice",
+    pm_l5aa_rf:"Izdavanje release forme — kada su svi dokumenti potvrđeni.",
+    pm_l5cc_rf:"— čeka release formu —",
     pm_l5aa:"Checkout inspekcija, fotografije, izveštaj klijentu. DOT kopija + 24h održavanje.",
     pm_l5cc:"Dolazi po unit. Potpisuje checkout. Dobija kopiju registracije i ugovor.",
     pm_l6:"④ Aktivni ugovor",
@@ -2791,11 +2813,12 @@ const T = {
     flow_l_s02w3:"If unit on loan — promissory note required",
     flow_l_s02w4:"If client on True Funding list — cross-collateral agreement required",
     flow_l_s02who_check:"Check",
-    flow_l_s03n:"GPS & Release",
+    flow_l_s03n:"GPS Check",
     flow_l_s03w1:"Verify GPS active in FleetLocate or Routemate",
     flow_l_s03w2:"Issue release form to Radu / salesman",
     flow_l_s03who_when:"When all docs confirmed",
     flow_l_s04n:"Unit Pickup",
+    flow_l_s04w0:"Release form (issue release form — when all docs are confirmed)",
     flow_l_s04w1:"Checkout inspection, photographs unit condition",
     flow_l_s04w2:"Sends report to client + DOT registration copy + 24hr maintenance info",
     flow_l_s04w3:"Updates spreadsheets — removes from available, adds to checkout tab",
@@ -2806,7 +2829,9 @@ const T = {
     flow_l_s05w4:"Tolls, repairs, final charges billed separately",
     flow_l_s06n:"Collections & AR",
     flow_l_s06w1:"Daily monitoring — rejected payments, calls, ACH pulls from JPM bank",
-    flow_l_s06w2:"Invoice closing: rent first → tolls/repairs → lease (Alex's rule)",
+    flow_l_s06w1b:"Collections support (parking + coordination)",
+    flow_l_s06w2:"Invoice closing (Alex's rules): rent → tolls/registrations/final → lease",
+    flow_l_s06w2b:"Books all bank payments through QuickBooks (QB)",
     flow_l_s06w3:"Monthly AR review (~10th of month), late fee calc (10% on open balance 30+ days)",
     flow_l_s06w4:"Monthly credit bureau CSV export to Hutchins",
     flow_l_s07n:"Lease End / Buyout",
@@ -2833,6 +2858,10 @@ const T = {
     flow_p_c2l2:"If payment fails: calls customer, manually retries the pull.",
     flow_p_c2l3:"Creates QB invoices for: parking deposits, late fees, lockout fees, FI fee (Easy Storage fee deducted from payout).",
     flow_p_c2l4:"Includes parking amounts in the daily billing list to Milica.",
+    flow_p_c2l5:"Coordinates with Sanja Veljović (AAA Freight) on parking-related topics.",
+    flow_p_c2l6:"Coordinates with Goran (yard manager) — La Grange parking, Chicago.",
+    flow_p_c2l7:"Prepares parking agreements/contracts (where applicable).",
+    flow_p_c2l8:"Handles parking collections and follow-ups (declined pulls, confirmations, retries).",
     flow_p_c2t:"Tina's Role",
     flow_p_c3l1:"Parking revenue is booked to a separate revenue line.",
     flow_p_c3l2:"FI fee (Easy Storage system charge) is deducted automatically and booked separately in QB.",
@@ -2912,9 +2941,11 @@ const T = {
     pm_l3:"② Contract & Documentation",
     pm_l3aa:"Prepares contract (DocuSign: salesman→client→Alex→accounting). Verifies COI and down payment. Creates down payment invoice in QB.",
     pm_l3cc:"Signs contract via DocuSign. Pays down payment. Sends COI (Certificate of Insurance).",
-    pm_l4aa:"Checks GPS in FleetLocate/Routemate. When all OK — issues release form.",
-    pm_l4cc:"— waits for GPS confirmation and release form —",
+    pm_l4aa:"Checks GPS in FleetLocate/Routemate.",
+    pm_l4cc:"— waits for GPS confirmation —",
     pm_l5:"③ Unit Pickup",
+    pm_l5aa_rf:"Issues release form (when all docs confirmed).",
+    pm_l5cc_rf:"— waits for release form —",
     pm_l5aa:"Checkout inspection, photographs unit condition, sends report to client. Sends DOT registration copy + 24hr maintenance info.",
     pm_l5cc:"Comes to pick up unit. Signs checkout inspection. Receives registration copy and contract.",
     pm_l6:"④ Active Contract",
@@ -3232,8 +3263,8 @@ const PEOPLE = {
       en:"Central hub for contracts, documentation, and the Active Units master record between sales, clients, and billing/accounting. Not on payables/AP: vendor payments, Huntington, and billable/toll flows are owned by Nadia and Aleksandra (Mina/Jovana on part of incoming tolls). Communicates with: salespeople, clients, Alex, Milica Doson (bank/down payment), Valentina, Brankica, Radu (rental paperwork), Aleksandra (lists/insurance), Emily in the title/registration chain."
     },
     processes:{
-      sr:["Prati HubSpot za nove dealove od salemana","Proverava informacije deala: osiguranje, vrednost vozila, status down payment-a","Priprema ugovor (rental ili lease) i šalje via DocuSign: salesman → klijent → Alex → accounting","Kači potpisan ugovor + inspekcione izveštaje na Google Drive po klijentu","Kreira down payment invoice u QuickBooks-u, šalje Milici za banku","Vodi Active Units listu — master record (nikad ne briši, samo dodaj)","Ažurira statuse unita: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void itd.","Kada Paid Off: deaktivira unit u HubSpot-u, QuickBooks-u i svim listama","Vodi cross-collateral i loan dokumentaciju po ugovoru","Koordiniše process registracija: proverava vlasništvo nad titleom","Nedeljno prati osiguranje — šalje listu missing COI Milici i Aleksandri"],
-      en:["Monitors HubSpot for new deals from salespeople","Verifies deal info: insurance, vehicle value, down payment status","Prepares contract (rental or lease) and sends via DocuSign: salesman → client → Alex → accounting","Files signed contract + inspection reports on Google Drive per client","Creates down payment invoice in QuickBooks, sends to Milica for bank","Maintains Active Units List — master record (never delete, only add)","Updates unit statuses: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void, etc.","When Paid Off: deactivates unit in HubSpot, QuickBooks, and all lists","Manages cross-collateral and loan documentation per contract","Coordinates registration process: checks title ownership","Weekly insurance tracking — sends list of missing COIs to Milica and Aleksandra"]
+      sr:["Prati HubSpot za nove dealove od salemana","Proverava informacije deala: osiguranje, vrednost vozila, status down payment-a","Priprema ugovor (rental ili lease) i šalje via DocuSign: salesman → klijent → Alex → accounting","Kači potpisan ugovor + inspekcione izveštaje na Google Drive po klijentu","Kreira down payment invoice u QuickBooks-u, šalje Milici za banku","Depoziti: kreira deposit invoice (nakon ugovora)","Vodi Active Units listu — master record (nikad ne briši, samo dodaj)","Ažurira statuse unita: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void itd.","Kada Paid Off: deaktivira unit u HubSpot-u, QuickBooks-u i svim listama","Vodi cross-collateral i loan dokumentaciju po ugovoru","Koordiniše process registracija: proverava vlasništvo nad titleom","Late fee process: calculation lista na osnovu AR Report-a; billing i statements za late fee","Mesečni izveštaj o unitima: šalje listu svih aktivnih unita sa statusima i statistikom (kraj meseca)","Nedeljno prati osiguranje — šalje listu missing COI Milici i Aleksandri"],
+      en:["Monitors HubSpot for new deals from salespeople","Verifies deal info: insurance, vehicle value, down payment status","Prepares contract (rental or lease) and sends via DocuSign: salesman → client → Alex → accounting","Files signed contract + inspection reports on Google Drive per client","Creates down payment invoice in QuickBooks, sends to Milica for bank","Deposits: creates deposit invoice (after contract)","Maintains Active Units List — master record (never delete, only add)","Updates unit statuses: Active, Active Claim, Lawyer, Paid Off, Recovery, TOO, Void, etc.","When Paid Off: deactivates unit in HubSpot, QuickBooks, and all lists","Manages cross-collateral and loan documentation per contract","Coordinates registration process: checks title ownership","Late fee process: calculation list based on AR Report; billing and statements for late fee","Monthly unit report: sends list of all active units with statuses and stats (end of month)","Weekly insurance tracking — sends list of missing COIs to Milica and Aleksandra"]
     },
     docs:{sr:["Active Units Lista","Google Drive folderi po klijentu","Insurance Tracker (nedeljno)","Cross-Collateral lista","Loan lista","Registrations lista"],en:["Active Units List","Google Drive folders per client","Insurance Tracker (weekly)","Cross-Collateral list","Loan list","Registrations list"]},
     tools:["HubSpot","DocuSign","QuickBooks","Google Sheets","Google Drive"],
@@ -3271,8 +3302,9 @@ const PEOPLE = {
     dept:"acc", location:"Kragujevac", email:"hanna.b@aaalease.net",
     summary:{sr:"Hana pokriva sve billing van redovnih lease/rent: tolovi, popravke, final charges, registracije, depoziti. Radi i mesečnu bank reconciliation i vodi dnevnu billing listu za Milicu.",en:"Hana handles all billing beyond regular lease/rent: tolls, repairs, final charges, registrations, deposits. Also does monthly bank reconciliation and manages the daily billing list for Milica."},
     processes:{
-      sr:["Tolovi: prima invoice od vendora → pronalazi koji klijent je imao unit → kreira QBs invoice → šalje klijentu → dodaje na dnevnu billing listu","Popravke/Final Charges: prima email → kreira invoice u QBs → prilaže originalni shop invoice → šalje klijentu","Registracije: prima listu → izračunava prorated iznos → kreira invoice → šalje Milici","Depoziti: prima ugovor od Andjele T. → kreira deposit invoice → šalje Milici","Zatvaranje invoicea (Aleksova pravila): rent → tolovi/registracije/final → lease","Odbijeni paymenti: ručno pronalazi i briše u QBs kada banka vrati","Mesečna bank reconciliation: unosi početni/krajnji saldo → proverava sve uplate → mora doći na nulu → zaključava mesec"],
-      en:["Tolls: receives invoice from vendor → finds which client had the unit → creates QBs invoice → sends to client → adds to daily billing list","Repairs/Final Charges: receives email → creates invoice in QBs → attaches original shop invoice → sends to client","Registrations: receives list → calculates prorated amount → creates invoice → sends to Milica","Deposits: receives contract from Andjela T. → creates deposit invoice → sends to Milica","Invoice closing (Alex's rules): rent → tolls/registrations/final → lease","Rejected payments: manually finds and deletes in QBs when bank returns","Monthly bank reconciliation: enters beginning/ending balance → checks all payments → must reach zero → locks the month"]
+      // TODO: Proveriti sa Anđelom da li se misli na Milicu R ili Mili D — Maja nije sigurna.
+      sr:["Tolovi: prima invoice od vendora → pronalazi koji klijent je imao unit → kreira QBs invoice → šalje klijentu → dodaje na dnevnu billing listu","Popravke/Final Charges: prima email → kreira invoice u QBs → prilaže originalni shop invoice → šalje klijentu","Registracije: prima listu → izračunava prorated iznos → kreira invoice → ubacuje na dnevnu billing listu kada se povuče iz banke","Zatvaranje invoicea (Aleksova pravila): rent → tolovi/registracije/final → lease","Knjiženje svih payment-a iz banke kroz QuickBooks (QB)","Odbijeni paymenti: ručno pronalazi i briše u QBs kada banka vrati","Mesečna bank reconciliation: unosi početni/krajnji saldo → proverava sve uplate → mora doći na nulu → zaključava mesec","Billing liste (lease/rent) — raspored: Rent weekly (svaki ponedeljak), Rent monthly (1. u mesecu), Lease weekly (svaki petak), Lease monthly (1. i 15. u mesecu)","AR Report iz QuickBooks (mesečno): popunjavanje AR + provera unosa; pregled sa Mili D, Alexom i Mili R","Analiza deposita (mesečno): izvlačenje reporta iz QB → analiza deposita → obračun amortizacije → unos u QB","Pravna dokumentacija: priprema/slanje za advokate → praćenje statusa tužbi → komunikacija sa advokatima","Weekly Sales Report: tabela (sold/lease/rent uniti po salesmanu) — šalje se svakog ponedeljka"],
+      en:["Tolls: receives invoice from vendor → finds which client had the unit → creates QBs invoice → sends to client → adds to daily billing list","Repairs/Final Charges: receives email → creates invoice in QBs → attaches original shop invoice → sends to client","Registrations: receives list → calculates prorated amount → creates invoice → adds to daily billing list when pulled from bank","Invoice closing (Alex's rules): rent → tolls/registrations/final → lease","Books all bank payments through QuickBooks (QB)","Rejected payments: manually finds and deletes in QBs when bank returns","Monthly bank reconciliation: enters beginning/ending balance → checks all payments → must reach zero → locks the month","Billing lists (lease/rent) — schedule: Rent weekly (every Monday), Rent monthly (1st of month), Lease weekly (every Friday), Lease monthly (1st and 15th of month)","AR Report from QuickBooks (monthly): fill in AR + validate entries; review with Mili D, Alex, and Mili R","Deposit analysis (monthly): pull QB report → analyze deposits → calculate amortization → enter in QB","Legal documentation: prepare/send materials for attorneys → track lawsuit status → communicate with attorneys","Weekly Sales Report: table (sold/lease/rent units per salesman) — sent every Monday"]
     },
     docs:{sr:["Active lista (za pronalaženje klijenta po unitu i datumu)","Bank confirm lista (po danu)","Toll lista (po godini)","Repair lista","Final charge lista","Dnevna billing lista"],en:["Active list (for finding client per unit per date)","Bank confirm list (by day)","Toll list (by year)","Repair list","Final charge list","Daily billing list"]},
     tools:["QuickBooks","Google Sheets","Email"],
